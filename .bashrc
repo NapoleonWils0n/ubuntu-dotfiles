@@ -134,12 +134,6 @@ PS1='[\u@\h \W$(__git_ps1 " (%s)")]\nYes Master ? '
 # cdpath
 CDPATH=".:~"
 
-userresources=$HOME/.Xdefaults
-
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
