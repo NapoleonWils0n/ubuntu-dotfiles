@@ -45,3 +45,8 @@ xkbcomp -I$HOME/.xkb $HOME/.xkb/keymap/keymap.xkb $DISPLAY >& /dev/null
 # start i3
 #exec i3
 
+# gnome keyring
+if [[ "$XDG_CURRENT_DESKTOP" == "i3" ]]; then
+    eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+    export GPG_AGENT_INFO SSH_AUTH_SOCK
+fi
