@@ -1,0 +1,4 @@
+auto-reload yes
+browser "/usr/bin/w3m %u"
+macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro f set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
