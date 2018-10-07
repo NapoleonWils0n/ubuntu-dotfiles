@@ -18,11 +18,17 @@ https://feeds2.feedburner.com/Command-line-fu commadline
 https://news.google.com/news/rss/search/section/q/unix google
 https://news.google.com/news/rss/search/section/q/linux google
 
-# youtube channel rss
-#https://www.youtube.com/feeds/videos.xml?channel_id=UCriRR_CzOny-akXyk1R-oDQ
-
-# youtube playlist rss
+# freebsd now
 https://www.youtube.com/feeds/videos.xml?playlist_id=PLUW3LUwQvegyqk2Iqi-YD7Do-AyD4W0s1 youtube freebsd
+
+# A Closer Look - Late Night with Seth Meyers
+https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa youtube
+
+# stephen colbert
+https://www.youtube.com/feeds/videos.xml?channel_id=UCMtFAi84ehTSYSE9XoHefig youtube
+
+# reddit soccer streams
+https://www.reddit.com/r/soccerstreams.rss reddit
 
 # torrent rss
 #http://rarbg.to/rssdd.php?categories=14;48;17;44;45;47;50;51;52;42;46
