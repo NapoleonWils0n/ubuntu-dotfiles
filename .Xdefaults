@@ -82,8 +82,8 @@
 *pointerColorForeground: #93a1a1
 
 !! black dark/light
-*color0: #073642
-*color8: #002b36
+!!*color0: #073642
+!!*color8: #002b36
 
 !! red dark/light
 *color1: #dc322f
