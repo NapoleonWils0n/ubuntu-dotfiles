@@ -21,4 +21,4 @@ color article             green   black
 
 # highlights
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color40 color0 
-highlight article "https?://[^ ]+" color250 color0 protect
+highlight article "https?://[^ ]+" color34 color0 protect
