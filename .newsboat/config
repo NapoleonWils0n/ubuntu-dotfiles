@@ -1,7 +1,8 @@
-# auto load feeds
+# general settings
 auto-reload yes
+max-items 50 
 
-# browser
+# externel browser
 browser "/usr/local/bin/w3m %u"
 macro m set browser "/usr/local/bin/mpv %u"; open-in-browser ; set browser "/usr/local/bin/w3m %u"
 macro f set browser "/usr/local/bin/firefox %u"; open-in-browser ; set browser "/usr/local/bin/w3m %u"
@@ -14,7 +15,7 @@ player "xdg-open"
 color background          green   black
 color listnormal          green   black
 color listfocus           black   green   bold
-color listnormal_unread   green   black
+color listnormal_unread   green   black   bold
 color listfocus_unread    black   green   bold
 color info                black   green   bold
 color article             green   black
