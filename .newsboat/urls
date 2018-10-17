@@ -28,8 +28,11 @@ https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4
 https://www.youtube.com/feeds/videos.xml?channel_id=UCMtFAi84ehTSYSE9XoHefig youtube
 
 # newcastle
-https://www.themag.co.uk/feed/ football
-https://www.chroniclelive.co.uk/all-about/newcastle-united-fc?service=rss football
+https://www.themag.co.uk/feed/ newcastle
+https://www.chroniclelive.co.uk/all-about/newcastle-united-fc?service=rss newcastle
+
+# everything black and white podast
+https://rss.acast.com/thechronicle newcastle
 
 # reddit soccer streams
 https://www.reddit.com/r/soccerstreams.rss reddit football
