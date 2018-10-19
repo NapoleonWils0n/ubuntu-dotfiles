@@ -8,7 +8,7 @@ macro m set browser "/usr/local/bin/mpv %u"; open-in-browser ; set browser "/usr
 macro f set browser "/usr/local/bin/firefox %u"; open-in-browser ; set browser "/usr/local/bin/w3m %u"
 
 # podboat
-download-path "~/downloads/%n"
+download-path "~/Downloads/%n"
 player "xdg-open"
 
 # colours
