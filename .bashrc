@@ -144,8 +144,15 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# set vim as editor
-export EDITOR=vim
+# set emacsclient as editor
+export ALTERNATE_EDITOR=""
+export EDITOR="/usr/bin/emacsclient -t"
+export VISUAL="/usr/bin/emacsclient -c -a emacs"
+
+# emacsclient function
+function e {
+/usr/bin/emacsclient -t "$@"
+}
 
 # ssh-add
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
