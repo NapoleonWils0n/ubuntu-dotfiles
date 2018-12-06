@@ -100,13 +100,14 @@
 
 ; org capture templates
 (setq org-capture-templates
-    '(("t" "Todo" entry
-      (file+headline "~/org/todo.org" "Tasks")
+    '(("t" "todo" entry
+      (file+headline "~/org/todo.org" "tasks")
       (file "~/org/templates/tpl-todo.txt")
       :empty-lines-before 1)
-      ("w" "Web site" entry (file+olp "~/org/web.org" "Web")
+      ("w" "web site" entry
+      (file+olp "~/org/web.org" "web")
       (file "~/org/templates/tpl-web.txt")
-      :empty-lines-before 1)))
+       :empty-lines-before 1)))
 
 ; refile
 (setq org-refile-targets '((nil :maxlevel . 2)
@@ -137,6 +138,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(display-time-mail-string "")
+ '(org-capture-templates
+   (quote
+    (("t" "todo" entry
+      (file+headline "~/org/todo.org" "tasks")
+      (file "~/org/templates/tpl-todo.txt")
+      :empty-lines-before 1)
+     ("w" "web site" entry
+      (file+olp "~/org/web.org" "web")
+      (file "~/org/templates/tpl-web.txt")
+      :empty-lines-before 1))))
  '(package-selected-packages
    (quote
     (xclip ranger json-mode graphviz-dot-mode elpy powerline ox-pandoc markdown-mode magit git-auto-commit-mode evil-surround evil-leader emmet-mode))))
