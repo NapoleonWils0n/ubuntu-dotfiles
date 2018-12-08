@@ -197,7 +197,7 @@ mode "$mode_system" {
 bindsym $mod+Shift+BackSpace mode "$mode_system"
 
 # emacs window
-for_window [instance="emacs-capture"] floating enable
+# for_window [instance="emacs-capture"] floating enable
 
 # network manager
 exec --no-startup-id nm-applet
