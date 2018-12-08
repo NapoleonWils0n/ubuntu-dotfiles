@@ -2,7 +2,7 @@
 name = Daniel J Wilcox
 email = danieljwilcox@gmail.com
 [core]
-	editor ="/usr/bin/emacsclient -t"
+	editor ="/usr/bin/emacsclient"
 [color]
 ui = true
 [merge]

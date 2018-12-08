@@ -146,12 +146,12 @@ fi
 
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
-export EDITOR="/usr/bin/emacsclient -t"
+export EDITOR="/usr/bin/emacsclient"
 export VISUAL="/usr/bin/emacsclient -c -a emacs"
 
 # emacsclient function
 function e {
-/usr/bin/emacsclient -t "$@"
+/usr/bin/emacsclient "$@"
 }
 
 # ssh-add
