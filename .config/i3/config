@@ -204,3 +204,6 @@ exec --no-startup-id nm-applet
 
 # background colour
 #exec --no-startup-id xsetroot -solid "#101010"
+
+# wallpaper
+exec --no-startup-id ~/.fehbg
