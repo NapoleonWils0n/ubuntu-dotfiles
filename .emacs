@@ -128,7 +128,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-link ((t (:inherit link :underline nil)))))
 
 ; mode line
 ; remove mail from mode line
@@ -145,7 +145,7 @@
       (file "~/org/templates/tpl-todo.txt")
       :empty-lines-before 1)
      ("w" "web site" entry
-      (file+olp "~/org/web.org" "web")
+      (file+olp "~/org/web.org" "sites")
       (file "~/org/templates/tpl-web.txt")
       :empty-lines-before 1))))
  '(package-selected-packages
