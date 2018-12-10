@@ -42,8 +42,11 @@ fi
 # remap ctrl to alt, alt to super, super to ctrl
 xkbcomp -I$HOME/.xkb $HOME/.xkb/keymap/keymap.xkb $DISPLAY >& /dev/null
 
+# ssh systemd
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # gnome keyring
-if [[ "$XDG_CURRENT_DESKTOP" == "i3" ]]; then
-    eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
-    export GPG_AGENT_INFO SSH_AUTH_SOCK
-fi
+#if [[ "$XDG_CURRENT_DESKTOP" == "i3" ]]; then
+#    eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+#    export GPG_AGENT_INFO SSH_AUTH_SOCK
+#fi
