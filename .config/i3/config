@@ -202,5 +202,9 @@ bindsym $mod+Shift+BackSpace mode "$mode_system"
 # network manager
 exec --no-startup-id nm-applet
 
+# wallpaper
+exec --no-startup-id ~/.fehbg
+
 # background colour
 #exec --no-startup-id xsetroot -solid "#101010"
+
