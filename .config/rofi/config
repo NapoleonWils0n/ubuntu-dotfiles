@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 rofi.theme: /usr/share/rofi/themes/solarized_alternate.rasi
+=======
+rofi.theme: /usr/local/share/rofi/themes/solarized_alternate.rasi
+>>>>>>> 70d9532e8465fca0073aef7e1221f62ec8427e57
