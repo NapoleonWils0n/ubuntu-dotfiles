@@ -43,7 +43,8 @@ bindsym $mod+Shift+q kill
 
 # rofi (app launcher)
 # bindsym $mod+d exec rofi -show drun
-bindsym $mod+d exec "rofi -combi-modi window,drun -show combi"
+#bindsym $mod+d exec "rofi -combi-modi window,drun -show combi"
+bindsym ctrl+space exec "rofi -combi-modi window,drun -show combi"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
