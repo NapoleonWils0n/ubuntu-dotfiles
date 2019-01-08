@@ -153,6 +153,7 @@ new_window none
 # finds out, if available)
 bar {
         status_command i3status
+        font pango:DejaVu Sans Mono, Awesome 8
         tray_output primary
 		  colors{
 		  background #1c1c1c 
