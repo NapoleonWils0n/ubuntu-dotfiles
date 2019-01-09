@@ -112,7 +112,8 @@ visible-bitrate = yes
 ## color code. The special color, none, represents the terminals default color.
 
 ## Enable/disable colors.
-enable-colors = yes
+#enable-colors = yes
+enable-colors = no
 
 ## Set the background color.
 color background = none
