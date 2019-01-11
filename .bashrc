@@ -129,7 +129,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto verbose git"
 
 # prompt
-PS1='[\u@\h \W$(__git_ps1 " (%s)")]\n Yes Master ? '
+PS1='[\u@\h \W$(__git_ps1 " (%s)")]\nYes Master ? '
 
 # cdpath
 CDPATH=".:~"
