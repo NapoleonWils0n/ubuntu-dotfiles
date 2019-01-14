@@ -1,6 +1,3 @@
-# Set up the prompt
-PS1=$'[%n@%M %~]\nYes Master ? '
-
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
@@ -30,6 +27,20 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# git prompt
+if [ -f "$HOME/.git-prompt.sh" ]; then
+	source "$HOME/.git-prompt.sh"
+fi
+
+# prompt
+setopt prompt_subst
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWUNTRACKEDFILES=true
+GIT_PS1_SHOWUPSTREAM="auto verbose name git"
+
+PROMPT=$'[%n@%M %~]\nYes Master ? '
+RPROMPT=$'$(__git_ps1 "%s")'
 
 # ssh-add
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

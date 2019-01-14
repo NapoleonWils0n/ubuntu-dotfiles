@@ -118,10 +118,14 @@ fi
 
 
 # git prompt
-if [ -f /usr/share/git/completion/git-prompt.sh ]; then
-	. /usr/share/git/completion/git-prompt.sh
+if [ -f "$HOME/.git-prompt.sh" ]; then
+	source "$HOME/.git-prompt.sh"
 fi
 
+# git prompt
+#if [ -f /usr/share/git/completion/git-prompt.sh ]; then
+#	. /usr/share/git/completion/git-prompt.sh
+#fi
 
 # Shell prompt
 GIT_PS1_SHOWDIRTYSTATE=true
