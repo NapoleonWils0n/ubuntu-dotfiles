@@ -156,7 +156,7 @@ bar {
         font pango:DejaVu Sans Mono, Awesome 8
         tray_output primary
 		  colors{
-		  background #1c1c1c 
+		  background #1b2631 
 		  statusline #e4e4e4
 		  }
 }

@@ -72,9 +72,17 @@
 
 
 !! background
-*background:    #101010
-*foreground:    #56B30B
+!*background:    #101010
+!*foreground:    #56B30B
 
+!!*fading: 40
+!*fadeColor: #002b36
+!*cursorColor: #93a1a1
+!*pointerColorBackground: #586e75
+!*pointerColorForeground: #93a1a1
+
+*background: #002b36
+*foreground: #657b83
 !!*fading: 40
 *fadeColor: #002b36
 *cursorColor: #93a1a1
@@ -82,8 +90,8 @@
 *pointerColorForeground: #93a1a1
 
 !! black dark/light
-!!*color0: #073642
-!!*color8: #002b36
+*color0: #073642
+*color8: #002b36
 
 !! red dark/light
 *color1: #dc322f

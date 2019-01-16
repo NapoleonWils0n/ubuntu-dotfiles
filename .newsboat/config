@@ -12,15 +12,29 @@ macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/b
 download-path "~/Downloads/%n"
 player "xdg-open"
 
-# colours
-color background          green   black
-color listnormal          green   black
-color listfocus           black   green   bold
-color listnormal_unread   green   black   bold
-color listfocus_unread    black   green   bold
-color info                black   green   bold
-color article             green   black
+# solarized
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default
+color listfocus          black     cyan
+color listfocus_unread   black     cyan
+color info               default   black
+color article            default   default
 
 # highlights
-highlight article "^(Feed|Title|Link|Date|Author):.*$" color40 color0 
-highlight article "https?://[^ ]+" color34 color0 protect
+highlight article "^(Title):.*$" blue default
+highlight article "https?://[^ ]+" red default
+highlight article "\\[image\\ [0-9]+\\]" green default
+
+# colours
+#color background          green   black
+#color listnormal          green   black
+#color listfocus           black   green   bold
+#color listnormal_unread   green   black   bold
+#color listfocus_unread    black   green   bold
+#color info                black   green   bold
+#color article             green   black
+
+# highlights
+#highlight article "^(Feed|Title|Link|Date|Author):.*$" color40 color0 
+#highlight article "https?://[^ ]+" color34 color0 protect

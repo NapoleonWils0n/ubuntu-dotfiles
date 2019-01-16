@@ -40,7 +40,7 @@ GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto verbose name git"
 
 PROMPT=$'[%n@%M %~]\nYes Master ? '
-RPROMPT=$'$(__git_ps1 "%s")'
+RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 
 # ssh-add
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -55,8 +55,8 @@ zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
 eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+#zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*' menu select=long
@@ -64,8 +64,14 @@ zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+#zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+#zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# kill - red, green, blue
+zstyle ':completion:*:*:kill:*' list-colors '=(#b) #([0-9]#)*( *[a-z])*=22=31=34'
+
+# list optiones colour, white + cyan
+zstyle ':completion:*:options' list-colors '=(#b) #(-[a-zA-Z0-9,]#)*(-- *)=36=37'
 
 # rehash commands
 zstyle ':completion:*' rehash true
@@ -98,3 +104,8 @@ fi
 
 # highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=cyan,underline
+ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
+ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
