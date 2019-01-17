@@ -45,6 +45,9 @@ RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 # ssh-add
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
+# qt5
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
