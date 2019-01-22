@@ -2,15 +2,33 @@ set from = "danieljwilcox@gmail.com"
 set realname = "Daniel J Wilcox"
 
 # mutt colours
+#color normal default default
+#color hdrdefault black green
+#color quoted default default
+#color signature default default
+#color attachment default default
+#color message default default
+#color error default default
+#color indicator black green
+#color status black green
+#color tree default default
+#color normal default default
+#color markers default default
+#color search default default
+#color tilde default default
+#color index default default ~F
+#color index default default "~N|~O"
+
+# mutt colours
 color normal default default
-color hdrdefault black green
+color hdrdefault black cyan
 color quoted default default
 color signature default default
 color attachment default default
 color message default default
 color error default default
-color indicator black green
-color status black green
+color indicator black cyan
+color status black cyan
 color tree default default
 color normal default default
 color markers default default
@@ -18,6 +36,7 @@ color search default default
 color tilde default default
 color index default default ~F
 color index default default "~N|~O"
+
 
 set imap_user = "danieljwilcox@gmail.com"
 set smtp_url = "smtp://danieljwilcox@smtp.gmail.com:587/"
