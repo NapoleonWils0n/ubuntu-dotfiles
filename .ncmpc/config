@@ -4,7 +4,9 @@
 
 ############## Connection ###################
 ## Connect to mpd running on a specified host
-host = "localhost"
+#host = "localhost"
+host = "127.0.0.1"
+#host = "/home/djwilcox/.mpd/socket"
 
 ## Connect to mpd on the specified port.
 port = 6600
