@@ -6,6 +6,8 @@ max-items 50
 browser "/usr/bin/w3m %u"
 macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+# mpc add url to mpd queue
+macro . set browser "/usr/bin/mpc add %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 #macro l set browser "/usr/bin/chromium-browser %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 # podboat
