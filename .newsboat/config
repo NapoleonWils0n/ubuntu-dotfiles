@@ -40,3 +40,5 @@ highlight article "\\[image\\ [0-9]+\\]" green default
 # highlights
 #highlight article "^(Feed|Title|Link|Date|Author):.*$" color40 color0 
 #highlight article "https?://[^ ]+" color34 color0 protect
+
+#notify-program "/usr/bin/notify-send"
