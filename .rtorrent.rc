@@ -32,7 +32,7 @@ session = /home/djwilcox/.session
 
 # Watch a directory for new torrents, and stop those that have been
 # deleted.
-schedule = watch_directory,5,5,load_start=/home/djwilcox/downloads/*.torrent
+schedule = watch_directory,5,5,load_start=/home/djwilcox/Downloads/*.torrent
 schedule = untied_directory,5,5,stop_untied=
 
 # Close torrents when diskspace is low.
