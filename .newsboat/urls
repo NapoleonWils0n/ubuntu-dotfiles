@@ -1,26 +1,21 @@
-# text
-#=====
-
 # News
 https://www.howtogeek.com/feed/ text
 http://feeds.arstechnica.com/arstechnica/index text
 http://www.makeuseof.com/rss text
-http://feeds.feedburner.com/Torrentfreak text
 https://www.omgubuntu.co.uk/feed text
 https://itsfoss.com/feed/ text
+http://feeds.feedburner.com/Torrentfreak text
 
 # freebsd
 https://forums.freebsd.org/forums/-/index.rss text
 https://forums.freebsd.org/forums/howtos-and-faqs-moderated.39/index.rss text
 https://vermaden.wordpress.com/feed/ "~vermaden" text
-https://null-byte.wonderhowto.com/rss.xml text
-https://feeds2.feedburner.com/Command-line-fu text
 
-# reddit soccer streams
-https://www.reddit.com/r/soccerstreams_pl.rss text
+# A Closer Look
+https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" video
 
-# Video
-#======
+# footy links
+https://www.footybite.com/feed/ "~Footybrite" text
 
 # The Magpie Channel
 https://www.youtube.com/feeds/videos.xml?channel_id=UCc_MoWuQlqnGJ2w0bTAmmEw video
@@ -28,17 +23,5 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCc_MoWuQlqnGJ2w0bTAmmEw vid
 # Newcastle Fans TV
 https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg video
 
-# A Closer Look - Late Night with Seth Meyers
-https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa video
-
-# freebsd now
-https://www.youtube.com/feeds/videos.xml?playlist_id=PLUW3LUwQvegyqk2Iqi-YD7Do-AyD4W0s1 video
-
-# Audio podcasts
-#===============
-
-# newcastle
+# newcastle podcast
 https://rss.acast.com/thechronicle "~Everything Black and White" audio
-
-# torrent rss
-#http://rarbg.to/rssdd.php?categories=14;48;17;44;45;47;50;51;52;42;46
