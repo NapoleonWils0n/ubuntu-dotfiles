@@ -11,12 +11,12 @@ general {
         interval = 5
 }
 
-#order += "volume master"
 #order += "disk /"
 #order += "disk /home"
 order += "ethernet _first_"
 order += "wireless _first_"
 order += "path_exists VPN"
+order += "volume master"
 order += "battery 0"
 order += "tztime local"
 
