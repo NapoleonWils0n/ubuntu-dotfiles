@@ -11,14 +11,13 @@ general {
         interval = 5
 }
 
-order += "volume master"
-order += "disk /"
-order += "disk /home"
-order += "path_exists VPN"
-order += "wireless _first_"
+#order += "volume master"
+#order += "disk /"
+#order += "disk /home"
 order += "ethernet _first_"
+order += "wireless _first_"
+order += "path_exists VPN"
 order += "battery 0"
-order += "load"
 order += "tztime local"
 
 wireless _first_ {
@@ -52,7 +51,7 @@ path_exists VPN {
 }
 
 tztime local {
-        format = " %d/%m/%Y %H:%M:%S"
+        format = "%H:%M:%S"
 }
 
 load {
