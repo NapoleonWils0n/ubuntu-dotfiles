@@ -1,3 +1,6 @@
+# ssh zsh fix
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
