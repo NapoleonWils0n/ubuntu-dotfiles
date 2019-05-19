@@ -78,9 +78,9 @@ urimethodmap ~/.w3m/urimethodmap, /usr/local/etc/w3m/urimethodmap
 editor /usr/local/bin/emacsclient
 mailto_options 1
 mailer 
-extbrowser mpv %s &
-extbrowser2 youtube-dl %s &
-extbrowser3 
+extbrowser /usr/bin/cvlc --quiet %s 2>/dev/null &
+extbrowser2 /usr/bin/mpv %s &
+extbrowser3 /usr/bin/youtube-dl %s &
 extbrowser4 
 extbrowser5 
 extbrowser6 
