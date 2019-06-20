@@ -5,8 +5,8 @@ max-items 50
 # externel browser
 browser "/usr/bin/w3m %u"
 macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-#macro l set browser "/usr/bin/chromium-browser %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro l set browser "/usr/bin/chromium-browser %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+#macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 # cvlc send stand error to /dev/null and run in background
 macro . set browser "/usr/bin/cvlc --quiet %u 2>/dev/null &"; open-in-browser ; set browser "/usr/bin/w3m %u"
