@@ -83,6 +83,9 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
+; dont show images full size
+(setq org-image-actual-width nil)
+
 ;; prevent demoting heading also shifting text inside sections
 (setq org-adapt-indentation nil)
 
