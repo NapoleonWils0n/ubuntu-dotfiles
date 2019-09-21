@@ -1,6 +1,6 @@
 ; melpa rackages
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 (elpy-enable)
@@ -76,6 +76,7 @@
 
 ; org mode
 (require 'org)
+(require 'org-tempo)
 (require 'org-protocol)
 (require 'org-capture)
 (require 'org-protocol-capture-html)
