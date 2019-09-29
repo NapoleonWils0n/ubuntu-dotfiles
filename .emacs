@@ -214,7 +214,6 @@
 (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
 
 ; ranger
-;(ranger-override-dired-mode t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -222,7 +221,9 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
+    (dired-ranger ranger git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
+
+(ranger-override-dired-mode t)
 
 ;(setq org-latex-listings 'minted)
 (setq org-latex-listings 'minted
@@ -242,3 +243,6 @@
 
 (setq org-latex-minted-options
     '(("frame" "lines") ("linenos=true")) )
+
+; always follow symlinks
+(setq vc-follow-symlinks t)
