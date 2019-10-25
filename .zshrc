@@ -1,3 +1,6 @@
+# export term for zsh double char bug
+export TERM=rxvt
+
 # ssh zsh fix
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
