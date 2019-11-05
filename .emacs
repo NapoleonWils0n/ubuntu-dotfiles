@@ -221,7 +221,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (dired-ranger ranger git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
+    (flycheck dired-ranger ranger git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
 
 (ranger-override-dired-mode t)
 
@@ -246,3 +246,6 @@
 
 ; always follow symlinks
 (setq vc-follow-symlinks t)
+
+; flycheck syntax linting
+(add-hook 'sh-mode-hook 'flycheck-mode)
