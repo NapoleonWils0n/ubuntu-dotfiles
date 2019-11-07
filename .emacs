@@ -221,9 +221,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (flycheck dired-ranger ranger git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
-
-(ranger-override-dired-mode t)
+    (flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
 
 ;(setq org-latex-listings 'minted)
 (setq org-latex-listings 'minted
