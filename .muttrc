@@ -39,7 +39,7 @@ color index default default "~N|~O"
 
 
 set imap_user = "danieljwilcox@gmail.com"
-set smtp_url = "smtp://danieljwilcox@smtp.gmail.com:587/"
+set smtp_url = "smtps://danieljwilcox@smtp.gmail.com:465/"
 source "gpg -d ~/.mutt/mutt-passwords.gpg |"
 
 set folder = "imaps://imap.gmail.com:993"
