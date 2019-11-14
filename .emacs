@@ -252,7 +252,7 @@
 (setq org-src-preserve-indentation t)
 
 ; dired ls
-(setq dired-use-ls-dired nil)
+;(setq dired-use-ls-dired nil)
 
 ; dired directory listing options for ls
 (setq dired-listing-switches "-ahl")
