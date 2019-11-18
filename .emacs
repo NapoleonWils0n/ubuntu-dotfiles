@@ -333,3 +333,14 @@
 ; mpv keymaps
 (define-key elfeed-search-mode-map (kbd "x") 'elfeed-search-mpv)
 (define-key elfeed-show-mode-map (kbd "x") 'elfeed-show-mpv)
+
+; elfeed search filter 
+(setq-default elfeed-search-filter "@1-week-ago +unread")
+
+; mark all as read
+(defun elfeed-mark-all-as-read ()
+      (interactive)
+      (mark-whole-buffer)
+      (elfeed-search-untag-all-unread))
+      
+(define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
