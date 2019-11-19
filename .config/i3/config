@@ -213,4 +213,7 @@ exec --no-startup-id ~/.fehbg
 #exec --no-startup-id xsetroot -solid "#101010"
 
 # mpv floating enable and resize
-for_window [class="mpv"] floating enable resize set 640 480
+for_window [class="mpv"] floating enable resize set 640 480, move absolute position center
+
+# move floating window to center
+bindsym $mod+n move absolute position center
