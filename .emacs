@@ -344,3 +344,7 @@
       (elfeed-search-untag-all-unread))
       
 (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
+
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
