@@ -221,7 +221,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (elfeed elfeed-goodies elfeed-org flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
+    (ob-async elfeed elfeed-goodies elfeed-org flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
 
 ;(setq org-latex-listings 'minted)
 (setq org-latex-listings 'minted
@@ -345,6 +345,10 @@
       
 (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
 
+; org babel supress do you want to execute code message
 (setq org-confirm-babel-evaluate nil
       org-src-fontify-natively t
       org-src-tab-acts-natively t)
+
+; ob-async
+(require 'ob-async)
