@@ -352,3 +352,17 @@
 
 ; ob-async
 (require 'ob-async)
+
+; org open files
+(setq org-file-apps
+     (quote
+     ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.mkv\\'" . "mpv %s")
+     ("\\.mp4\\'" . "mpv %s")
+     ("\\.mov\\'" . "mpv %s")
+     ("\\.png\\'" . "sxiv %s")
+     ("\\.jpg\\'" . "sxiv %s")
+     ("\\.jpeg\\'" . "sxiv %s")
+     ("\\.pdf\\'" . default))))
