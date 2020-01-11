@@ -88,7 +88,3 @@ hi FoldColumn cterm=bold ctermfg=DarkBlue ctermbg=none
 " SpellBad
 highlight clear SpellBad
 highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-
-
-
-

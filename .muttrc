@@ -155,5 +155,3 @@ set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
 # daniel j wilcox pgp
 set pgp_use_gpg_agent="yes"
 set my_pgp_id="3B2C8BA1"
-
-
