@@ -392,14 +392,14 @@ URxvt*iso14755: False
 
 #+NAME: Xdefaults-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle "~/.Xdefaults"
-<<Xresources>>
+<<Xdefaults>>
 #+END_SRC
 
 + current dir
 
 #+NAME: Xdefaults-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".Xdefaults"
-<<Xresources>>
+<<Xdefaults>>
 #+END_SRC
 
 ** gtk-3.0
