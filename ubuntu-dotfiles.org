@@ -1969,7 +1969,7 @@ rofi.theme: /usr/share/rofi/themes/solarized_alternate.rasi
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ob-async elfeed elfeed-goodies elfeed-org flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
+    (ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
 
 ;(setq org-latex-listings 'minted)
 (setq org-latex-listings 'minted
@@ -2007,91 +2007,6 @@ rofi.theme: /usr/share/rofi/themes/solarized_alternate.rasi
 
 ; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-
-; elfeed
-(require 'elfeed)
-(require 'elfeed-org)
-(elfeed-org)
-(setq rmh-elfeed-org-files (list "~/git/org/feeds.org"))
-(global-set-key (kbd "C-x w") 'elfeed)
-
-
-; Mark all YouTube entries
-(add-hook 'elfeed-new-entry-hook
-          (elfeed-make-tagger :feed-url "youtube\\.com"
-                              :add '(video youtube)))
-
-; elfeed goodies
-(require 'elfeed-goodies)
-(elfeed-goodies/setup)
-
-; elfeed evil
-(add-to-list 'evil-motion-state-modes 'elfeed-search-mode)
-(add-to-list 'evil-motion-state-modes 'elfeed-show-mode)
-
-; l show entry
-(define-key elfeed-search-mode-map (kbd "l") 'elfeed-search-show-entry)
-
-; elfeed face for tags
-(defface youtube-elfeed-entry
-  '((t :foreground "#268bd2"))
-  "Marks an youtube Elfeed entry.")
-
-(push '(youtube youtube-elfeed-entry)
-      elfeed-search-face-alist)
-
-(defface freebsd-elfeed-entry
-  '((t :foreground "#b58900"))
-  "Marks an freensd Elfeed entry.")
-
-(push '(freebsd freebsd-elfeed-entry)
-      elfeed-search-face-alist)
-
-(defface nufc-elfeed-entry
-  '((t :foreground "#2aa198"))
-  "Marks an nufc Elfeed entry.")
-
-(push '(nufc nufc-elfeed-entry)
-      elfeed-search-face-alist)
-
-; mpv elfeed
-(setq mpv-path "/usr/bin/mpv")
-
-; play video when viewing the entry
-(defun elfeed-show-mpv ()
-  "Playing video with mpv"
-  (interactive)
-    (let ((link (elfeed-entry-link elfeed-show-entry)))
-      (when link
-        (message "Opening video: %s" link)
-        (async-shell-command (format "%s '%s'"
-                                      mpv-path
-                                      (elfeed-entry-link elfeed-show-entry))))))
-
-; play the selected video
-(defun elfeed-search-mpv ()
-  (interactive)
-  (let ((entry (elfeed-search-selected :single)))
-   (when entry
-     (message "Opening video")
-     (async-shell-command (format "%s '%s'"
-                                   mpv-path
-                                   (elfeed-entry-link entry))))))
-
-; mpv keymaps
-(define-key elfeed-search-mode-map (kbd "x") 'elfeed-search-mpv)
-(define-key elfeed-show-mode-map (kbd "x") 'elfeed-show-mpv)
-
-; elfeed search filter 
-(setq-default elfeed-search-filter "@1-week-ago +unread")
-
-; mark all as read
-(defun elfeed-mark-all-as-read ()
-      (interactive)
-      (mark-whole-buffer)
-      (elfeed-search-untag-all-unread))
-      
-(define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
 
 ; org babel supress do you want to execute code message
 (setq org-confirm-babel-evaluate nil
