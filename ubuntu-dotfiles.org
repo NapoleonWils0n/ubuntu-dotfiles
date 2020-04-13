@@ -3361,27 +3361,27 @@ download-path "~/Downloads/%n"
 player "xdg-open"
 
 # solarized
-color background         default   default
-color listnormal         default   default
-color listnormal_unread  default   default
-color listfocus          black     cyan
-color listfocus_unread   black     cyan
-color info               default   black
-color article            default   default
+#color background         default   default
+#color listnormal         default   default
+#color listnormal_unread  default   default
+#color listfocus          black     cyan
+#color listfocus_unread   black     cyan
+#color info               default   black
+#color article            default   default
 
 # highlights
-highlight article "^(Title):.*$" blue default
-highlight article "https?://[^ ]+" red default
-highlight article "\\[image\\ [0-9]+\\]" green default
+#highlight article "^(Title):.*$" blue default
+#highlight article "https?://[^ ]+" red default
+#highlight article "\\[image\\ [0-9]+\\]" green default
 
 # colours
-#color background          green   black
-#color listnormal          green   black
-#color listfocus           black   green   bold
-#color listnormal_unread   green   black   bold
-#color listfocus_unread    black   green   bold
-#color info                black   green   bold
-#color article             green   black
+color background          blue    black
+color listnormal          blue    black
+color listfocus           black   blue    bold
+color listnormal_unread   blue    black   bold
+color listfocus_unread    black   blue    bold
+color info                black   blue    bold
+color article             blue    black
 
 # highlights
 #highlight article "^(Feed|Title|Link|Date|Author):.*$" color40 color0 
