@@ -9,10 +9,10 @@ macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w
 macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 # cvlc send stand error to /dev/null and run in background
-macro . set browser "/usr/bin/cvlc --quiet %u 2>/dev/null &"; open-in-browser ; set browser "/usr/bin/w3m %u"
+#macro . set browser "/usr/bin/cvlc --quiet %u 2>/dev/null &"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
-# mpc add url to mpd queue
-#macro . set browser "/usr/bin/mpc add %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+# mpc get enclosure url with youtube-dl and play
+macro . set browser "/usr/bin/mpc add $(youtube-dl -g %u) && /usr/bin/mpc play"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 # unbind keys
 unbind-key ENTER
@@ -30,32 +30,16 @@ bind-key h quit
 # podboat
 download-path "~/Downloads/%n"
 player "xdg-open"
-
-# solarized
-color background         default   default
-color listnormal         default   default
-color listnormal_unread  default   default
-color listfocus          black     cyan
-color listfocus_unread   black     cyan
-color info               default   black
-color article            default   default
-
-# highlights
-highlight article "^(Title):.*$" blue default
-highlight article "https?://[^ ]+" red default
-highlight article "\\[image\\ [0-9]+\\]" green default
-
+       
 # colours
-#color background          green   black
-#color listnormal          green   black
-#color listfocus           black   green   bold
-#color listnormal_unread   green   black   bold
-#color listfocus_unread    black   green   bold
-#color info                black   green   bold
-#color article             green   black
+color background          default    default
+color listnormal          default    default
+color listfocus           default   color4    bold
+color listnormal_unread   color4    color8   bold
+color listfocus_unread    color8   color4    bold
+color info                color8   color4    bold
+color article             default default
 
 # highlights
-#highlight article "^(Feed|Title|Link|Date|Author):.*$" color40 color0 
-#highlight article "https?://[^ ]+" color34 color0 protect
-
-#notify-program "/usr/bin/notify-send"
+highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
+highlight article "https?://[^ ]+" color4 color8 protect
