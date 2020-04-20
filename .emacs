@@ -35,6 +35,15 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (load "org-protocol-capture-html")
 
+;; dont backup files opened by sudo
+(setq backup-enable-predicate
+      (lambda (name)
+        (and (normal-backup-enable-predicate name)
+             (not
+              (let ((method (file-remote-p name 'method)))
+                (when (stringp method)
+                  (member method '("su" "sudo"))))))))
+
 ; hide start up screen
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-message t) 
