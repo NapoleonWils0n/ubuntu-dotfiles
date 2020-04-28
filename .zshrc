@@ -1,6 +1,3 @@
-# set the TERM to xterm-256color for st terminal
-TERM=xterm-256color
-
 # ssh zsh fix
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
