@@ -32,13 +32,13 @@ download-path "~/Downloads/%n"
 player "xdg-open"
        
 # colours
-color background          default    default
-color listnormal          default    default
-color listfocus           default   color4    bold
-color listnormal_unread   color4    color8   bold
-color listfocus_unread    color8   color4    bold
-color info                color8   color4    bold
-color article             default default
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default
+color listfocus          black     blue
+color listfocus_unread   black     blue
+color info               black   blue
+color article            default   default
 
 # highlights
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
