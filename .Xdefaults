@@ -50,6 +50,9 @@ Xft.hintstyle:  hintfull
 !! powerline fonts
 URxvt*font:           xft:Inconsolata:size=14,xft:PowerlineSymbols
 
+!! emacs font
+emacs.font: Inconsolata:size=18:weight=bold:antialias=true:hinting=true:hintstyle=hintfull
+
 ! Set scrollbar style to rxvt, plain, next or xterm. plain is the authors favourite.
 ! URxvt*scrollstyle: mode
 URxvt*scrollstyle: plain
