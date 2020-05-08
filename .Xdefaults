@@ -47,8 +47,8 @@ Xft.hintstyle:  hintfull
 *color7: #eee8d5
 *color15: #fdf6e3
 
-!! powerline fonts
-URxvt*font:           xft:Inconsolata:size=14,xft:PowerlineSymbols
+!! fonts
+URxvt*font:           xft:Inconsolata:size=14,xft:DejaVu Sans Mono:size=11
 
 !! emacs font
 emacs.font: Inconsolata:size=18:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
