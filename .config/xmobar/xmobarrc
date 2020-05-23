@@ -1,0 +1,25 @@
+Config { font = "Inconsolata:size=14:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false"
+       , additionalFonts = []
+       , borderColor = "#292929"
+       , border = TopB
+       , bgColor = "#292929"
+       , fgColor = "#FDF6E3"
+       , alpha = 255
+       , position = Top
+       , textOffset = -1
+       , iconOffset = -1
+       , lowerOnStart = True
+       , pickBroadest = False
+       , persistent = False
+       , hideOnStart = False
+       , iconRoot = "."
+       , allDesktops = True
+       , overrideRedirect = True
+       , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+		    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader% }\
+                    \{ <fc=#cccccc>%date%</fc>"
+       }
