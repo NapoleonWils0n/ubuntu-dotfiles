@@ -29,7 +29,7 @@ bind-key h quit
 
 # podboat
 download-path "~/Downloads/%n"
-player "xdg-open"
+player "mpv"
        
 # colours
 color background         default   default

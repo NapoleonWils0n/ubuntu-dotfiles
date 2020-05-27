@@ -6,6 +6,10 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintfull
 
+! emacs
+Emacs*toolBar: 0
+Emacs.verticalScrollBars: off
+
 ! color
 *background: #002b36
 *foreground: #839496

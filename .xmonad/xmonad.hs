@@ -23,6 +23,7 @@ import System.IO (hPutStrLn) -- for xmobar
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
+import XMonad.Util.NamedScratchpad
 
 -- hooks
 import XMonad.Hooks.DynamicLog
@@ -35,9 +36,11 @@ import XMonad.Hooks.Place (placeHook, withGaps, smart)
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
 
 -- layout 
+import XMonad.Layout.Renamed (renamed, Rename(Replace))
+import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spacing (spacing) 
-import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.Spacing
+import XMonad.Layout.GridVariants
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.BinarySpacePartition
 
@@ -68,19 +71,28 @@ myStartupHook = do
       spawnOnce "feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.wallpaper/linux.png'"
 
 ------------------------------------------------------------------------
+-- Event hook
+------------------------------------------------------------------------
+
+myEventHook = hintsEventHook
+
+------------------------------------------------------------------------
 -- layout
 ------------------------------------------------------------------------
 -- using toggleStruts with monocle
-myLayout = avoidStruts ( full ||| tiled ||| grid ||| emptyBSP)
+myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
   where
      -- default tiling algorithm partitions the screen into two panes
-     tiled = spacing 12 $ ResizableTall 1 (3/100) (1/2) []    
+     tiled = renamed [Replace "tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ ResizableTall 1 (3/100) (1/2) [])
 
      -- grid
-     grid = spacing 12 $ Grid (16/10) 
+     grid = renamed [Replace "grid"] $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
 
      -- full
-     full = smartBorders (Full)
+     full = renamed [Replace "full"] $ smartBorders (Full)
+
+     -- bsp
+     bsp = renamed [Replace "bsp"] $ emptyBSP
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -113,7 +125,8 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore 
+    ] <+> namedScratchpadManageHook scratchpads
     
 
 ------------------------------------------------------------------------
@@ -129,14 +142,32 @@ myKeys =
      , ("M-a", sendMessage MirrorExpand)
      , ("M-z", sendMessage MirrorShrink)
      , ("M-s", sendMessage ToggleStruts)
-     , ("M-f", sendMessage $ JumpToLayout "Full")
-     , ("M-t", sendMessage $ JumpToLayout "Spacing ResizableTall")
-     , ("M-g", sendMessage $ JumpToLayout "Spacing Grid")
-     , ("M-b", sendMessage $ JumpToLayout "BSP")
+     , ("M-f", sendMessage $ JumpToLayout "full")
+     , ("M-t", sendMessage $ JumpToLayout "tall")
+     , ("M-g", sendMessage $ JumpToLayout "grid")
+     , ("M-b", sendMessage $ JumpToLayout "bsp")
      , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten flaoting window to tiled
+     , ("M-C-<Return>", namedScratchpadAction scratchpads "terminal")
+     , ("M-C-<Space>", namedScratchpadAction scratchpads "emacs-scratch")
     ]
 
+------------------------------------------------------------------------
+-- scratchpads
+------------------------------------------------------------------------
+
+scratchpads :: [NamedScratchpad]
+scratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
+              , NS "emacs-scratch" spawnEmacsScratch findEmacsScratch manageEmacsScratch
+                ]
+    where
+    spawnTerm  = myTerminal ++  " -name scratchpad"
+    findTerm   = resource =? "scratchpad"
+    manageTerm = nonFloating
+    findEmacsScratch = title =? "emacs-scratch"
+    spawnEmacsScratch = "emacsclient -a='' -nc -F='(quote (name . \"emacs-scratch\"))'"
+    manageEmacsScratch = nonFloating
+    
 ------------------------------------------------------------------------
 -- main
 ------------------------------------------------------------------------
@@ -147,6 +178,7 @@ main = do
         { manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
+        , handleEventHook    = myEventHook <+>  handleEventHook desktopConfig
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , terminal           = myTerminal

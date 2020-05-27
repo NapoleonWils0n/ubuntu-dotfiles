@@ -49,9 +49,9 @@
 (setq inhibit-startup-message t) 
 (setq initial-scratch-message nil)
 ; hide toolbar
-(tool-bar-mode -1)
+;(tool-bar-mode -1)
 ; hide scrollbar
-(scroll-bar-mode -1)
+;(scroll-bar-mode -1)
 
 ; visual line mode
 (add-hook 'text-mode-hook 'visual-line-mode)
