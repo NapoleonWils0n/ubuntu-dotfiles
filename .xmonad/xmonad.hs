@@ -10,11 +10,16 @@
 import XMonad hiding ( (|||) ) -- jump to layout
 import XMonad.Layout.LayoutCombinators (JumpToLayout(..), (|||)) -- jump to layout
 import XMonad.Config.Desktop
-import Data.Monoid
-import Data.Ratio ((%)) -- for video
 import System.Exit
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
+
+-- data
+import Data.Char (isSpace)
+import Data.List
+import Data.Monoid
+import Data.Maybe (isJust)
+import Data.Ratio ((%)) -- for video
+import qualified Data.Map as M
 
 -- system
 import System.IO (hPutStrLn) -- for xmobar
@@ -45,21 +50,46 @@ import XMonad.Layout.ResizableTile
 import XMonad.Layout.BinarySpacePartition
 
 ------------------------------------------------------------------------
--- config
+-- variables
 ------------------------------------------------------------------------
 
-myModMask       = mod4Mask  -- Sets modkey to super/windows key
-myTerminal      = "urxvtc"   -- Sets default terminal
-myBorderWidth   = 2         -- Sets border width for windows
+myModMask :: KeyMask
+myModMask = mod4Mask -- Sets modkey to super/windows key
+
+myTerminal :: [Char]
+myTerminal = "urxvtc" -- Sets default terminal
+
+myBorderWidth :: Dimension
+myBorderWidth = 2 -- Sets border width for windows
+
+myNormalBorderColor :: [Char]
 myNormalBorderColor = "#839496"
+
+myFocusedBorderColor :: [Char]
 myFocusedBorderColor = "#268BD2"
-myppCurrent = "#268BD2"
-myppVisible = "#268BD2"
-myppHidden = "#B58900"
+
+myppCurrent :: [Char]
+myppCurrent = "#cb4b16"
+
+myppVisible :: [Char]
+myppVisible = "#cb4b16"
+
+myppHidden :: [Char]
+myppHidden = "#268bd2"
+
+myppHiddenNoWindows :: [Char]
 myppHiddenNoWindows = "#93A1A1"
+
+myppTitle :: [Char]
 myppTitle = "#FDF6E3"
+
+myppUrgent :: [Char]
 myppUrgent = "#DC322F"
+
+myWorkspaces :: [String]
 myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
+
+windowCount :: X (Maybe String)
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
@@ -67,8 +97,9 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "urxvtd &"
-      spawnOnce "feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.wallpaper/linux.png'"
+      spawnOnce "urxvtd &" -- start urxvt terminal daemon
+      spawnOnce "feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.wallpaper/freebsd.png'"
+      spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
 
 ------------------------------------------------------------------------
 -- Event hook
@@ -83,16 +114,16 @@ myEventHook = hintsEventHook
 myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
   where
      -- default tiling algorithm partitions the screen into two panes
-     tiled = renamed [Replace "tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ ResizableTall 1 (3/100) (1/2) [])
+     tiled = renamed [Replace "Tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ ResizableTall 1 (3/100) (1/2) [])
 
      -- grid
-     grid = renamed [Replace "grid"] $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
+     grid = renamed [Replace "Grid"] $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
 
      -- full
-     full = renamed [Replace "full"] $ smartBorders (Full)
+     full = renamed [Replace "Full"] $ smartBorders (Full)
 
      -- bsp
-     bsp = renamed [Replace "bsp"] $ emptyBSP
+     bsp = renamed [Replace "BSP"] $ emptyBSP
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -119,8 +150,9 @@ myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
+
+myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
---    [ className =? "mpv"            --> doRectFloat (W.RationalRect 0.25 0.25 0.3 0.3)
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
@@ -128,10 +160,11 @@ myManageHook = composeAll
     , resource  =? "kdesktop"       --> doIgnore 
     ] <+> namedScratchpadManageHook scratchpads
     
-
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 ------------------------------------------------------------------------
+
+myKeys :: [([Char], X ())]
 myKeys =
     [("M-" ++ m ++ k, windows $ f i)
         | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
@@ -142,11 +175,11 @@ myKeys =
      , ("M-a", sendMessage MirrorExpand)
      , ("M-z", sendMessage MirrorShrink)
      , ("M-s", sendMessage ToggleStruts)
-     , ("M-f", sendMessage $ JumpToLayout "full")
-     , ("M-t", sendMessage $ JumpToLayout "tall")
-     , ("M-g", sendMessage $ JumpToLayout "grid")
-     , ("M-b", sendMessage $ JumpToLayout "bsp")
-     , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
+     , ("M-f", sendMessage $ JumpToLayout "Full")
+     , ("M-t", sendMessage $ JumpToLayout "Tall")
+     , ("M-g", sendMessage $ JumpToLayout "Grid")
+     , ("M-b", sendMessage $ JumpToLayout "BSP")
+     , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'xft:Inconsolata:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false:style=bold' -nb '#292929' -nf '#eee8d5' -sb '#fdf6e3' -sf '#292929'") -- dmenu
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten flaoting window to tiled
      , ("M-C-<Return>", namedScratchpadAction scratchpads "terminal")
      , ("M-C-<Space>", namedScratchpadAction scratchpads "emacs-scratch")
@@ -161,8 +194,8 @@ scratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
               , NS "emacs-scratch" spawnEmacsScratch findEmacsScratch manageEmacsScratch
                 ]
     where
-    spawnTerm  = myTerminal ++  " -name scratchpad"
-    findTerm   = resource =? "scratchpad"
+    spawnTerm = myTerminal ++  " -name scratchpad"
+    findTerm = resource =? "scratchpad"
     manageTerm = nonFloating
     findEmacsScratch = title =? "emacs-scratch"
     spawnEmacsScratch = "emacsclient -a='' -nc --frame-parameters='(quote (name . \"emacs-scratch\"))'"
@@ -172,8 +205,9 @@ scratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 -- main
 ------------------------------------------------------------------------
 
+main :: IO ()
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
+    xmproc <- spawnPipe "/usr/local/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
     xmonad $ ewmh desktopConfig
         { manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
@@ -197,59 +231,4 @@ main = do
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
                         }
-                    } `additionalKeysP`         myKeys
-
-------------------------------------------------------------------------
--- help
-------------------------------------------------------------------------
-
--- | Finally, a copy of the default bindings in simple textual tabular format.
-help :: String
-help = unlines ["The default modifier key is 'alt'. Default keybindings:",
-    "",
-    "-- launching and killing programs",
-    "mod-Shift-Enter  Launch xterminal",
-    "mod-p            Launch dmenu",
-    "mod-Shift-p      Launch gmrun",
-    "mod-Shift-c      Close/kill the focused window",
-    "mod-Space        Rotate through the available layout algorithms",
-    "mod-Shift-Space  Reset the layouts on the current workSpace to default",
-    "mod-n            Resize/refresh viewed windows to the correct size",
-    "",
-    "-- move focus up or down the window stack",
-    "mod-Tab        Move focus to the next window",
-    "mod-Shift-Tab  Move focus to the previous window",
-    "mod-j          Move focus to the next window",
-    "mod-k          Move focus to the previous window",
-    "mod-m          Move focus to the master window",
-    "",
-    "-- modifying the window order",
-    "mod-Return   Swap the focused window and the master window",
-    "mod-Shift-j  Swap the focused window with the next window",
-    "mod-Shift-k  Swap the focused window with the previous window",
-    "",
-    "-- resizing the master/slave ratio",
-    "mod-h  Shrink the master area",
-    "mod-l  Expand the master area",
-    "",
-    "-- floating layer support",
-    "mod-t  Push window back into tiling; unfloat and re-tile it",
-    "",
-    "-- increase or decrease number of windows in the master area",
-    "mod-comma  (mod-,)   Increment the number of windows in the master area",
-    "mod-period (mod-.)   Deincrement the number of windows in the master area",
-    "",
-    "-- quit, or restart",
-    "mod-Shift-q  Quit xmonad",
-    "mod-q        Restart xmonad",
-    "mod-[1..9]   Switch to workSpace N",
-    "",
-    "-- Workspaces & screens",
-    "mod-Shift-[1..9]   Move client to workspace N",
-    "mod-{w,e,r}        Switch to physical/Xinerama screens 1, 2, or 3",
-    "mod-Shift-{w,e,r}  Move client to screen 1, 2, or 3",
-    "",
-    "-- Mouse bindings: default actions bound to mouse events",
-    "mod-button1  Set the window to floating mode and move by dragging",
-    "mod-button2  Raise the window to the top of the stack",
-    "mod-button3  Set the window to floating mode and resize by dragging"]
+          } `additionalKeysP`         myKeys
