@@ -161,7 +161,7 @@ fi
 
 # set window title to program name
 case $TERM in
-  (*xterm* | rxvt)
+  (*xterm* | rxvt | rxvt-unicode-256color)
 
     # Write some info to terminal title.
     # This is seen when the shell prompts for input.

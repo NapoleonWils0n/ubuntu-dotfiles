@@ -207,7 +207,7 @@ scratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 
 main :: IO ()
 main = do
-    xmproc <- spawnPipe "/usr/local/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
+    xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
     xmonad $ ewmh desktopConfig
         { manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
