@@ -29,6 +29,7 @@ import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)  
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.WorkspaceCompare
 
 -- hooks
 import XMonad.Hooks.DynamicLog
@@ -39,6 +40,8 @@ import XMonad.Hooks.Place (placeHook, withGaps, smart)
 
 -- actions
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
+import XMonad.Actions.WindowBringer -- dmenu window switcher
+import XMonad.Actions.UpdatePointer
 
 -- layout 
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
@@ -53,43 +56,19 @@ import XMonad.Layout.BinarySpacePartition
 -- variables
 ------------------------------------------------------------------------
 
-myModMask :: KeyMask
+
 myModMask = mod4Mask -- Sets modkey to super/windows key
-
-myTerminal :: [Char]
 myTerminal = "urxvtc" -- Sets default terminal
-
-myBorderWidth :: Dimension
 myBorderWidth = 2 -- Sets border width for windows
-
-myNormalBorderColor :: [Char]
 myNormalBorderColor = "#839496"
-
-myFocusedBorderColor :: [Char]
 myFocusedBorderColor = "#268BD2"
-
-myppCurrent :: [Char]
 myppCurrent = "#cb4b16"
-
-myppVisible :: [Char]
 myppVisible = "#cb4b16"
-
-myppHidden :: [Char]
 myppHidden = "#268bd2"
-
-myppHiddenNoWindows :: [Char]
 myppHiddenNoWindows = "#93A1A1"
-
-myppTitle :: [Char]
 myppTitle = "#FDF6E3"
-
-myppUrgent :: [Char]
 myppUrgent = "#DC322F"
-
-myWorkspaces :: [String]
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
-
-windowCount :: X (Maybe String)
+myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
@@ -110,17 +89,16 @@ myEventHook = hintsEventHook
 ------------------------------------------------------------------------
 -- layout
 ------------------------------------------------------------------------
--- using toggleStruts with monocle
+
 myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
   where
-     -- default tiling algorithm partitions the screen into two panes
      tiled = renamed [Replace "Tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ ResizableTall 1 (3/100) (1/2) [])
 
      -- grid
      grid = renamed [Replace "Grid"] $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
 
      -- full
-     full = renamed [Replace "Full"] $ smartBorders (Full)
+     full = renamed [Replace "Full"] $ noBorders (Full)
 
      -- bsp
      bsp = renamed [Replace "BSP"] $ emptyBSP
@@ -138,33 +116,18 @@ myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
 -- Window rules:
 ------------------------------------------------------------------------
 
--- Execute arbitrary actions and WindowSet manipulations when managing
--- a new window. You can use this to, for example, always float a
--- particular program, or have a client always appear on a particular
--- workspace.
---
--- To find the property name associated with a program, use
--- > xprop | grep WM_CLASS
--- and click on the client you're interested in.
---
--- To match on the WM_NAME, you can use 'title' in the same way that
--- 'className' and 'resource' are used below.
---
-
-myManageHook :: Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore 
-    ] <+> namedScratchpadManageHook scratchpads
+    ] <+> namedScratchpadManageHook myScratchpads
     
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 ------------------------------------------------------------------------
 
-myKeys :: [([Char], X ())]
 myKeys =
     [("M-" ++ m ++ k, windows $ f i)
         | (i, k) <- zip (myWorkspaces) (map show [1 :: Int ..])
@@ -179,21 +142,29 @@ myKeys =
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
-     , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'xft:Inconsolata:size=9:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false:style=bold' -nb '#292929' -nf '#eee8d5' -sb '#fdf6e3' -sf '#292929'") -- dmenu
-     , ("S-M-t", withFocused $ windows . W.sink) -- flatten flaoting window to tiled
-     , ("M-C-<Return>", namedScratchpadAction scratchpads "terminal")
-     , ("M-C-<Space>", namedScratchpadAction scratchpads "emacs-scratch")
+     , ("M-p", spawn "dmenu_run -p 'Yes Master ?'") -- dmenu
+     , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
+     , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
+     , ("M-C-<Space>", namedScratchpadAction myScratchpads "emacs-scratch")
+     , ("M-o", gotoMenu) -- gotoMenu dmenu
+     , ("M-i", bringMenu) -- bringMenu dmenu
     ]
+
+    -- Make sure to put any where clause after your last list of key bindings*
+    where notSP = (return $ ("NSP" /=) . W.tag) :: X (WindowSpace -> Bool)
+          getSortByIndexNoSP =
+                  fmap (.namedScratchpadFilterOutWorkspace) getSortByIndex
+
 
 ------------------------------------------------------------------------
 -- scratchpads
 ------------------------------------------------------------------------
 
-scratchpads :: [NamedScratchpad]
-scratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
+myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
               , NS "emacs-scratch" spawnEmacsScratch findEmacsScratch manageEmacsScratch
-                ]
+                ] 
     where
+    role = stringProperty "WM_WINDOW_ROLE"
     spawnTerm = myTerminal ++  " -name scratchpad"
     findTerm = resource =? "scratchpad"
     manageTerm = nonFloating
@@ -205,7 +176,6 @@ scratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 -- main
 ------------------------------------------------------------------------
 
-main :: IO ()
 main = do
     xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
     xmonad $ ewmh desktopConfig
@@ -230,5 +200,6 @@ main = do
                         , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
                         , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
-          } `additionalKeysP`         myKeys
+                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
+          }
+          `additionalKeysP` myKeys
