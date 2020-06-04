@@ -36,10 +36,11 @@ fi
 xkbcomp -I$HOME/.xkb $HOME/.xkb/keymap/keymap.xkb $DISPLAY
 
 # feh set wallpaper
-feh --no-fehbg --bg-center --image-bg '#002b36' '/home/djwilcox/.wallpaper/linux.png' 
+#feh --no-fehbg --bg-center --image-bg '#002b36' '/home/djwilcox/.wallpaper/linux.png' 
 
 # start ssh-agent and window mamager
 #exec ssh-agent /usr/local/bin/i3
 # start slstatus bar
-/usr/local/bin/slstatus &
-exec ssh-agent /usr/local/bin/dwm
+#/usr/local/bin/slstatus &
+#exec ssh-agent /usr/local/bin/dwm
+exec ssh-agent /usr/bin/xmonad
