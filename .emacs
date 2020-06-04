@@ -5,8 +5,8 @@
 (package-initialize)
 (elpy-enable)
 
-; server start
-(server-start)
+; server start - starting emacs with systemd
+;(server-start)
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
 ; ido mode
