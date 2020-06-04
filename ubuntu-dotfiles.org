@@ -495,6 +495,9 @@ Xft.hintstyle:  hintfull
 Emacs*toolBar: 0
 Emacs.verticalScrollBars: off
 
+!! internal border
+URxvt.internalBorder: 4
+
 ! color
 ,*background: #002b36
 ,*foreground: #839496
