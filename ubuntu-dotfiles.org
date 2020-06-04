@@ -198,12 +198,6 @@ myKeys =
      , ("M-i", bringMenu) -- bringMenu dmenu
     ]
 
-    -- Make sure to put any where clause after your last list of key bindings*
-    where notSP = (return $ ("NSP" /=) . W.tag) :: X (WindowSpace -> Bool)
-          getSortByIndexNoSP =
-                  fmap (.namedScratchpadFilterOutWorkspace) getSortByIndex
-
-
 ------------------------------------------------------------------------
 -- scratchpads
 ------------------------------------------------------------------------
