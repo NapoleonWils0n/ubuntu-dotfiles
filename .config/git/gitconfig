@@ -2,10 +2,6 @@
 name = Daniel J Wilcox
 email = danieljwilcox@gmail.com
 [core]
-	editor ="/usr/bin/emacsclient -a emacs"
+	editor = emacs
 [color]
 ui = true
-[merge]
-	tool = meld
-[diff]
-	external = /home/djwilcox/bin/git-diff
