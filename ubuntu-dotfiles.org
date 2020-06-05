@@ -5953,14 +5953,14 @@ set-window-option -g automatic-rename off
 + home dir
 
 #+NAME: tmux-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.tmux.conf"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
 <<tmux>>
 #+END_SRC
 
 + current dir
 
 #+NAME: tmux-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".tmux.conf"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
 <<tmux>>
 #+END_SRC
 
