@@ -93,7 +93,7 @@ myStartupHook = do
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "feh --no-fehbg --bg-center '/home/djwilcox/.wallpaper/linux.png'"
       spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
-      -- spawnOnce "emacs &" -- emacs
+      spawnOnce "emacs &" -- emacs
 
 ------------------------------------------------------------------------
 -- Event hook
