@@ -2614,7 +2614,7 @@ xkb_symbols "alt_win_ctrl" {
 name = Daniel J Wilcox
 email = danieljwilcox@gmail.com
 [core]
-	editor ="/usr/bin/emacsclient"
+	editor ="/usr/bin/emacsclient -a emacs"
 [color]
 ui = true
 [merge]
