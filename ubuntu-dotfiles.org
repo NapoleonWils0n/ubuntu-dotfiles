@@ -4983,14 +4983,14 @@ set my_pgp_id="3B2C8BA1"
 + home dir
 
 #+NAME: muttrc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.muttrc"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mutt/muttrc"
 <<muttrc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: muttrc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".muttrc"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mutt/muttrc"
 <<muttrc>>
 #+END_SRC
 
