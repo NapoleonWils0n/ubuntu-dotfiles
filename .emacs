@@ -5,6 +5,11 @@
 (package-initialize)
 (elpy-enable)
 
+; company auto complete
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
+(add-hook 'after-init-hook 'global-company-mode)
+
 ; server start - starting emacs with systemd
 ;(server-start)
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
