@@ -1,7 +1,5 @@
 [user]
 name = Daniel J Wilcox
 email = danieljwilcox@gmail.com
-[core]
-	editor = emacs
 [color]
 ui = true
