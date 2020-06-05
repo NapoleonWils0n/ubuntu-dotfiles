@@ -1,11 +1,6 @@
--------------------------------------------------------------------------------
---                  __  ____  __                       _                     --
---                  \ \/ /  \/  | ___  _ __   __ _  __| |                    --
---                   \  /| |\/| |/ _ \| '_ \ / _` |/ _` |                    --
---                   /  \| |  | | (_) | | | | (_| | (_| |                    --
---                  /_/\_\_|  |_|\___/|_| |_|\__,_|\__,_|                    --
---                                                                           --
--------------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- import
+------------------------------------------------------------------------
 
 import XMonad hiding ( (|||) ) -- jump to layout
 import XMonad.Layout.LayoutCombinators (JumpToLayout(..), (|||)) -- jump to layout
@@ -35,7 +30,7 @@ import XMonad.Util.WorkspaceCompare
 -- hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks (avoidStruts, docksStartupHook, manageDocks, ToggleStruts(..))
-import XMonad.Hooks.EwmhDesktops -- for rofi
+import XMonad.Hooks.EwmhDesktops -- to show workspaces in application switchers
 import XMonad.Hooks.ManageHelpers (isFullscreen, isDialog,  doFullFloat, doCenterFloat, doRectFloat) 
 import XMonad.Hooks.Place (placeHook, withGaps, smart)
 import XMonad.Hooks.UrgencyHook
@@ -43,11 +38,10 @@ import XMonad.Hooks.UrgencyHook
 -- actions
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
 import XMonad.Actions.WindowBringer -- dmenu window switcher
-import XMonad.Actions.UpdatePointer
+import XMonad.Actions.UpdatePointer -- update mouse postion
 
 -- layout 
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
-import XMonad.Layout.LayoutHints
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.GridVariants
@@ -90,16 +84,10 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "feh --no-fehbg --bg-center '/home/djwilcox/.wallpaper/linux.png'"
       spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
+      spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
-
-------------------------------------------------------------------------
--- Event hook
-------------------------------------------------------------------------
-
-myEventHook = hintsEventHook
 
 ------------------------------------------------------------------------
 -- layout
@@ -108,16 +96,21 @@ myEventHook = hintsEventHook
 myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
   where
      -- tiled
-     tiled = renamed [Replace "Tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ smartBorders (ResizableTall 1 (3/100) (1/2) []))
+     tiled = renamed [Replace "Tall"] 
+           $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True 
+           $ smartBorders (ResizableTall 1 (3/100) (1/2) [])
 
      -- grid
-     grid = renamed [Replace "Grid"] $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
+     grid = renamed [Replace "Grid"] 
+          $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
 
      -- full
-     full = renamed [Replace "Full"] $ smartBorders (Full)
+     full = renamed [Replace "Full"] 
+          $ smartBorders (Full)
 
      -- bsp
-     bsp = renamed [Replace "BSP"] $ emptyBSP
+     bsp = renamed [Replace "BSP"] 
+         $ emptyBSP
 
      -- The default number of windows in the master pane
      nmaster = 1
@@ -192,7 +185,7 @@ main = do
         { manageHook = manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
-        , handleEventHook    = myEventHook <+>  handleEventHook desktopConfig
+        , handleEventHook    = handleEventHook desktopConfig
         , workspaces         = myWorkspaces
         , borderWidth        = myBorderWidth
         , terminal           = myTerminal
