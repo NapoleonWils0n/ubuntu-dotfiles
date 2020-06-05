@@ -108,7 +108,7 @@ myEventHook = hintsEventHook
 myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
   where
      -- tiled
-     tiled = renamed [Replace "Tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ ResizableTall 1 (3/100) (1/2) [])
+     tiled = renamed [Replace "Tall"] $ layoutHintsWithPlacement (1.0, 0.0) (spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ smartBorders (ResizableTall 1 (3/100) (1/2) []))
 
      -- grid
      grid = renamed [Replace "Grid"] $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
