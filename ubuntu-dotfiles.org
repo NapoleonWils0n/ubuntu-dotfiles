@@ -6082,14 +6082,14 @@ peer_exchange = yes
 + home dir
 
 #+NAME: rtorrent.rc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.rtorrent.rc"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/rtorrent/rtorrent.rc"
 <<rtorrent.rc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: rtorrent.rc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".rtorrent.rc"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/rtorrent/rtorrent.rc"
 <<rtorrent.rc>>
 #+END_SRC
 
