@@ -13,7 +13,7 @@ HISTFILE=~/.zsh_history
 
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
-export EDITOR="/usr/bin/emacsclient"
+export EDITOR="/usr/bin/emacsclient -a emacs"
 export VISUAL="/usr/bin/emacsclient -c -a emacs"
 
 # emacsclient function
@@ -175,3 +175,6 @@ case $TERM in
     }
   ;;
 esac
+
+# ssh
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
