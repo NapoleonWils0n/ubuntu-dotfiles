@@ -2628,14 +2628,14 @@ ui = true
 + home dir
 
 #+NAME: gitconfig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.gitconfig"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
 <<gitconfig>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gitconfig-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".gitconfig"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
 <<gitconfig>>
 #+END_SRC
 
