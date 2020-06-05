@@ -3485,7 +3485,7 @@ highlight article "https?://[^ ]+" color4 color8 protect
 *** urls
 
 #+NAME: newsboat-urls
-#+BEGIN_SRC conf :tangle ".newsboat/urls"
+#+BEGIN_SRC conf
 # News
 https://www.howtogeek.com/feed/ text
 http://feeds.arstechnica.com/arstechnica/index text
@@ -3529,14 +3529,14 @@ https://rss.acast.com/thechronicle "~Everything Black and White" audio
 + home dir
 
 #+NAME: newsboat-config-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.newsboat/config"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/config"
 <<newsboat-config>>
 #+END_SRC
 
 + current dir
 
 #+NAME: newsboat-config-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".newsboat/config"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/config"
 <<newsboat-config>>
 #+END_SRC
 
@@ -3545,14 +3545,14 @@ https://rss.acast.com/thechronicle "~Everything Black and White" audio
 + home dir
 
 #+NAME: newsboat-urls-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.newsboat/urls"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/urls"
 <<newsboat-urls>>
 #+END_SRC
 
 + current dir
 
 #+NAME: newsboat-urls-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".newsboat/urls"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls"
 <<newsboat-urls>>
 #+END_SRC
 
