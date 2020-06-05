@@ -3167,10 +3167,6 @@ email = danieljwilcox@gmail.com
 	editor ="/usr/bin/emacsclient -a emacs"
 [color]
 ui = true
-[merge]
-	tool = meld
-[diff]
-	external = /home/djwilcox/bin/git-diff
 #+END_SRC
 
 *** gitconfig tangle
