@@ -3,7 +3,7 @@ Description=Music Player Daemon
 After=network.target sound.target
 
 [Service]
-ExecStart=/usr/bin/mpd --no-daemon /home/djwilcox/.mpd.conf
+ExecStart=/usr/bin/mpd --no-daemon /home/djwilcox/.config/mpd/mpd.conf
 
 [Install]
 WantedBy=default.target

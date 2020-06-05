@@ -524,7 +524,7 @@ Description=Music Player Daemon
 After=network.target sound.target
 
 [Service]
-ExecStart=/usr/bin/mpd --no-daemon /home/djwilcox/.mpd.conf
+ExecStart=/usr/bin/mpd --no-daemon /home/djwilcox/.config/mpd/mpd.conf
 
 [Install]
 WantedBy=default.target
@@ -4376,7 +4376,7 @@ music_directory		"~/Music"
 # playlist files not created by the server but only if they are in the MPD
 # format. This setting defaults to playlist saving being disabled.
 #
-playlist_directory		"~/.mpd/playlists"
+playlist_directory		"~/.config/mpd/playlists"
 #
 # This setting sets the location of the MPD database. This file is used to
 # load the database at server start up and store the database while the 
@@ -4384,7 +4384,7 @@ playlist_directory		"~/.mpd/playlists"
 # MPD to accept files over ipc socket (using file:// protocol) or streaming
 # files over an accepted protocol.
 #
-db_file			"~/.mpd/mpd.db"
+db_file			"~/.config/mpd/mpd.db"
 # 
 # These settings are the locations for the daemon log files for the daemon.
 # These logs are great for troubleshooting, depending on your log_level
@@ -4393,26 +4393,26 @@ db_file			"~/.mpd/mpd.db"
 # The special value "syslog" makes MPD use the local syslog daemon. This
 # setting defaults to logging to syslog, otherwise logging is disabled.
 #
-log_file			"~/.mpd/mpd.log"
+log_file			"~/.config/mpd/mpd.log"
 #
 # This setting sets the location of the file which stores the process ID
 # for use of mpd --kill and some init scripts. This setting is disabled by
 # default and the pid file will not be stored.
 #
-pid_file			"~/.mpd/mpd.pid"
+pid_file			"~/.config/mpd/mpd.pid"
 #
 # This setting sets the location of the file which contains information about
 # most variables to get MPD back into the same general shape it was in before
 # it was brought down. This setting is disabled by default and the server 
 # state will be reset on server start up.
 #
-state_file			"~/.mpd/mpdstate"
+state_file			"~/.config/mpd/mpdstate"
 #
 # The location of the sticker database.  This is a database which
 # manages dynamic information attached to songs.
 #
 #sticker_file                   "/var/lib/mpd/sticker.sql"
-sticker_file			"~/.mpd/sticker.sql"
+sticker_file			"~/.config/mpd/sticker.sql"
 #
 ###############################################################################
 
@@ -4804,12 +4804,12 @@ id3v1_encoding			"UTF-8"
 *** mpd tangle
 
 #+NAME: mpd-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.mpd.conf"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/mpd.conf"
 <<mpd>>
 #+END_SRC
 
 #+NAME: mpd-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".mpd.conf"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/mpd.conf"
 <<mpd>>
 #+END_SRC
 
