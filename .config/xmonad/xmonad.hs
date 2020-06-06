@@ -84,7 +84,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "feh --no-fehbg --bg-center '/home/djwilcox/.wallpaper/linux.png'"
+      spawnOnce "feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.wallpaper/linux.png'"
       spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
@@ -98,15 +98,16 @@ myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
      -- tiled
      tiled = renamed [Replace "Tall"] 
            $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True 
-           $ smartBorders (ResizableTall 1 (3/100) (1/2) [])
+           $ noBorders (ResizableTall 1 (3/100) (1/2) [])
 
      -- grid
      grid = renamed [Replace "Grid"] 
-          $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
+          $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True 
+          $ Grid (16/10)
 
      -- full
      full = renamed [Replace "Full"] 
-          $ smartBorders (Full)
+          $ noBorders (Full)
 
      -- bsp
      bsp = renamed [Replace "BSP"] 

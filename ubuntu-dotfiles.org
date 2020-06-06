@@ -116,7 +116,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "feh --no-fehbg --bg-center '/home/djwilcox/.wallpaper/linux.png'"
+      spawnOnce "feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.wallpaper/linux.png'"
       spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
@@ -130,15 +130,16 @@ myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
      -- tiled
      tiled = renamed [Replace "Tall"] 
            $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True 
-           $ smartBorders (ResizableTall 1 (3/100) (1/2) [])
+           $ noBorders (ResizableTall 1 (3/100) (1/2) [])
 
      -- grid
      grid = renamed [Replace "Grid"] 
-          $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True $ Grid (16/10)
+          $ spacingRaw True (Border 10 0 10 0) True (Border 0 10 0 10) True 
+          $ Grid (16/10)
 
      -- full
      full = renamed [Replace "Full"] 
-          $ smartBorders (Full)
+          $ noBorders (Full)
 
      -- bsp
      bsp = renamed [Replace "BSP"] 
@@ -525,7 +526,6 @@ Restart=always
 WantedBy=default.target
 #+END_SRC
 
-*** mpd.service
 
 #+NAME: mpd.service
 #+BEGIN_SRC conf
@@ -572,22 +572,6 @@ WantedBy=default.target
 #+NAME: emacs.service-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/emacs.service"
 <<emacs.service>>
-#+END_SRC
-
-***** mpd.service
-
-+ home dir
-
-#+NAME: mpd.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/mpd.service"
-<<mpd.service>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpd.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/mpd.service"
-<<mpd.service>>
 #+END_SRC
 
 ** xkb
@@ -6095,30 +6079,6 @@ peer_exchange = yes
 #+NAME: rtorrent.rc-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/rtorrent/rtorrent.rc"
 <<rtorrent.rc>>
-#+END_SRC
-
-** fehbg
-
-#+NAME: fehbg
-#+BEGIN_SRC sh
-#!/bin/sh
-feh --bg-center '/home/djwilcox/.wallpaper/linux.png'
-#+END_SRC
-
-*** fehbg tangle
-
-+ home dir
-
-#+NAME: fehbg-home-dir
-#+BEGIN_SRC sh :noweb yes :tangle "~/.fehbg" :tangle-mode (identity #o755)
-<<fehbg>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: fehbg-current-dir
-#+BEGIN_SRC sh :noweb yes :tangle ".fehbg" :tangle-mode (identity #o755)
-<<fehbg>>
 #+END_SRC
 
 ** gtk-3.0
