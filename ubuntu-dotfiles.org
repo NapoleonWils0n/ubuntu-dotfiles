@@ -26,6 +26,8 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 ** xmonad
 
++ xmonad config 
+
 #+NAME: xmonad
 #+BEGIN_SRC conf
 ------------------------------------------------------------------------
@@ -239,6 +241,14 @@ main = do
           `additionalKeysP` myKeys
 #+END_SRC
 
++ Create XDG directories for xmonad
+
+#+NAME: xmonad-xdg
+#+begin_src sh
+mkdir -p ~/.local/share/xmonad
+mkdir -p ~/.config/xmonad/
+#+end_src
+
 *** xmonad tangle
 :PROPERTIES:
 :ORDERED:  t
@@ -247,14 +257,14 @@ main = do
 + home dir
   
 #+NAME: xmonad-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.xmonad/xmonad.hs"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xmonad/xmonad.hs"
 <<xmonad>>
 #+END_SRC
   
 + current dir
 
 #+NAME: xmonad-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".xmonad/xmonad.hs"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xmonad/xmonad.hs"
 <<xmonad>>
 #+END_SRC
 

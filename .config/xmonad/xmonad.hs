@@ -131,6 +131,7 @@ myManageHook = composeAll
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore 
+    , isFullscreen --> doFullFloat
     ] <+> namedScratchpadManageHook myScratchpads
     
 ------------------------------------------------------------------------
