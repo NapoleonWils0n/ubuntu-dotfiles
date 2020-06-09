@@ -79,7 +79,7 @@ editor /usr/local/bin/emacsclient
 mailto_options 1
 mailer 
 extbrowser /usr/bin/mpv %s &
-extbrowser2 /home/djwilcox/bin/pinch -i %s
+extbrowser2 /home/djwilcox/bin/pinch -i %s &
 extbrowser3 /usr/bin/youtube-dl %s &
 extbrowser4 
 extbrowser5 

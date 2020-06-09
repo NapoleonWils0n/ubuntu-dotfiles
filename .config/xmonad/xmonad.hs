@@ -84,10 +84,11 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "xsetroot -solid '#F08080'" -- set bg colour
+      spawnOnce "xsetroot -solid '#353535'" -- set bg colour
       spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
+      spawnOnce "dunst &" -- emacs
 
 ------------------------------------------------------------------------
 -- layout
@@ -155,8 +156,8 @@ myKeys =
      , ("M-b", sendMessage $ JumpToLayout "BSP")
      , ("M-p", spawn "dmenu_run -p 'Yes Master ?'") -- dmenu
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
-     , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
-     , ("M-C-<Space>", namedScratchpadAction myScratchpads "emacs-scratch")
+     , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
+     , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
      , ("M-o", gotoMenu) -- gotoMenu dmenu
      , ("M-i", bringMenu) -- bringMenu dmenu
     ]
