@@ -36,8 +36,10 @@ fi
 xkbcomp -I$HOME/.xkb $HOME/.xkb/keymap/keymap.xkb $DISPLAY
 
 # feh set wallpaper
-#feh --no-fehbg --bg-center --image-bg '#002b36' '/home/djwilcox/.wallpaper/linux.png' 
+feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/linux.png' 
+
+# set the cursor form xmonad
+xsetroot -cursor_name left_ptr
 
 # start window mamager and ssh-agent with systemd 
-# exec ssh-agent /usr/bin/xmonad
 exec /usr/bin/xmonad

@@ -84,8 +84,6 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "xsetroot -solid '#353535'" -- set bg colour
-      spawnOnce "xsetroot -cursor_name left_ptr" -- set cursor
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs

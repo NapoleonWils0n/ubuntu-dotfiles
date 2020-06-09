@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/linux.png'
