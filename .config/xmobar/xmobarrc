@@ -21,5 +21,5 @@ Config { font = "xft:Inconsolata:size=11:lcdfilter=lcddefault:hintstyle=hintnone
        , sepChar = "%"
        , alignSep = "}{"
        , template = "%StdinReader% }\
-                    \{ <fc=#cccccc>%date%</fc>"
+                    \{"
        }

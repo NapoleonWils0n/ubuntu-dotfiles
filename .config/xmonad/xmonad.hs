@@ -87,7 +87,10 @@ myStartupHook = do
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs
-
+      spawnOnce "nm-applet &"
+      -- spawnOnce "tint2 &"
+      -- spawnOnce "trayer --edge top --align right --widthtype request --padding 4 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292929 --height 20 &"
+      
 ------------------------------------------------------------------------
 -- layout
 ------------------------------------------------------------------------
@@ -181,8 +184,9 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 ------------------------------------------------------------------------
 
 main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
-    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ ewmh desktopConfig
+    -- xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
+    xmproc <- spawnPipe "/usr/bin/tint2 /home/djwilcox/.config/tint2/tint2rc"
+    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ ewmh desktopConfig  
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
