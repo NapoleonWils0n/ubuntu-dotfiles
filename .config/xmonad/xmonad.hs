@@ -16,9 +16,6 @@ import Data.Maybe (isJust)
 import Data.Ratio ((%)) -- for video
 import qualified Data.Map as M
 
--- system
-import System.IO (hPutStrLn) -- for xmobar
-
 -- util
 import XMonad.Util.Run (safeSpawn, unsafeSpawn, runInTerm, spawnPipe)
 import XMonad.Util.SpawnOnce
@@ -57,7 +54,6 @@ myBorderWidth = 2 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
 -- desktop notifications -- dunst package required
@@ -81,7 +77,8 @@ myStartupHook = do
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs
       spawnOnce "nm-applet &"
-      
+      spawnOnce "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc"
+
 ------------------------------------------------------------------------
 -- layout
 ------------------------------------------------------------------------
@@ -171,10 +168,8 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 ------------------------------------------------------------------------
 -- main
 ------------------------------------------------------------------------
-
 main = do
-    xmproc <- spawnPipe "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc"
-    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ ewmh desktopConfig  
+    xmonad $ withUrgencyHook LibNotifyUrgencyHook $ ewmh desktopConfig
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
         , layoutHook         = myLayout
@@ -185,10 +180,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc x
-                        , ppExtras = [windowCount]
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
-          }
-          `additionalKeysP` myKeys
+	, logHook            = updatePointer (0.25, 0.25) (0.25, 0.25)
+        }
+        `additionalKeysP` myKeys
