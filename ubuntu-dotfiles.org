@@ -187,7 +187,8 @@ myKeys =
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
-     , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'Inconsolata:bold:pixelsize=16'") -- dmenu
+    --  , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'Inconsolata:bold:pixelsize=16'") -- dmenu
+     , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
@@ -6785,6 +6786,36 @@ image/*; sxiv %s
 #+NAME: dunst-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/dunst/dunstrc"
 <<dunst>>
+#+END_SRC
+
+** rofi
+
+#+NAME: rofi
+#+BEGIN_SRC conf
+configuration {
+ modi: "window,drun,combi";
+ theme: "solarized";
+ font: "Inconsolata 14";
+ terminal: "urxvtc";
+ show-icons: true;
+ combi-modi: "window,drun";
+ }
+#+END_SRC
+
+*** rofi tangle
+
++ home dir
+
+#+NAME: rofi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/rofi/config.rasi"
+<<rofi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: rofi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/rofi/config.rasi"
+<<rofi>>
 #+END_SRC
 
 ** tmux
