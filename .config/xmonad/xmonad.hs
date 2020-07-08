@@ -180,6 +180,6 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-	, logHook            = updatePointer (0.25, 0.25) (0.25, 0.25)
+        , logHook            = updatePointer (0.25, 0.25) (0.25, 0.25)
         }
         `additionalKeysP` myKeys
