@@ -37,7 +37,6 @@ import XMonad.Hooks.UrgencyHook
 
 -- actions
 import XMonad.Actions.CopyWindow -- for dwm window style tagging
-import XMonad.Actions.WindowBringer -- dmenu window switcher
 import XMonad.Actions.UpdatePointer -- update mouse postion
 
 -- layout 
@@ -64,7 +63,7 @@ myppHiddenNoWindows = "#93A1A1"
 myppTitle = "#FDF6E3"
 myppUrgent = "#DC322F"
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+-- windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
 -- desktop notifications -- dunst package required
@@ -88,8 +87,7 @@ myStartupHook = do
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs
       spawnOnce "nm-applet &"
-      -- spawnOnce "tint2 &"
-      -- spawnOnce "trayer --edge top --align right --widthtype request --padding 4 --SetDockType true --SetPartialStrut true --expand true --monitor 0 --transparent true --alpha 0 --tint 0x292929 --height 20 &"
+      -- spawnOnce "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc &"
       
 ------------------------------------------------------------------------
 -- layout
@@ -159,8 +157,6 @@ myKeys =
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
-     , ("M-o", gotoMenu) -- gotoMenu dmenu
-     , ("M-i", bringMenu) -- bringMenu dmenu
     ]
 
 ------------------------------------------------------------------------
@@ -185,7 +181,7 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 
 main = do
     -- xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
-    xmproc <- spawnPipe "/usr/bin/tint2 /home/djwilcox/.config/tint2/tint2rc"
+    -- xmproc <- spawnPipe "/usr/bin/tint2 /home/djwilcox/.config/tint2/tint2rc"
     xmonad $ withUrgencyHook LibNotifyUrgencyHook $ ewmh desktopConfig  
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
@@ -197,17 +193,17 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = \x -> hPutStrLn xmproc x
-                        , ppCurrent = xmobarColor myppCurrent "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor myppVisible ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor myppHidden "" . wrap "+" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor  myppTitle "" . shorten 80     -- Title of active window in xmobar
-                        , ppSep =  "<fc=#586E75> | </fc>"                     -- Separators in xmobar
-                        , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
-                        , ppExtras  = [windowCount]                           -- # of windows current workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
-          }
+--        , logHook = dynamicLogWithPP xmobarPP
+--                        { ppOutput = \x -> hPutStrLn xmproc x
+--                        , ppCurrent = xmobarColor myppCurrent "" . wrap "[" "]" -- Current workspace in xmobar
+--                        , ppVisible = xmobarColor myppVisible ""                -- Visible but not current workspace
+--                        , ppHidden = xmobarColor myppHidden "" . wrap "+" ""   -- Hidden workspaces in xmobar
+--                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows ""        -- Hidden workspaces (no windows)
+--                        , ppTitle = xmobarColor  myppTitle "" . shorten 80     -- Title of active window in xmobar
+--                        , ppSep =  "<fc=#586E75> | </fc>"                     -- Separators in xmobar
+--                        , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
+--                        , ppExtras  = [windowCount]                           -- # of windows current workspace
+--                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+--                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
+          } >> updatePointer (0.25, 0.25) (0.25, 0.25)
           `additionalKeysP` myKeys
