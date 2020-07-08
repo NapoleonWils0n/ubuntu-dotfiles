@@ -56,14 +56,8 @@ myTerminal = "urxvtc" -- Sets default terminal
 myBorderWidth = 2 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
-myppCurrent = "#cb4b16"
-myppVisible = "#cb4b16"
-myppHidden = "#268bd2"
-myppHiddenNoWindows = "#93A1A1"
-myppTitle = "#FDF6E3"
-myppUrgent = "#DC322F"
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
--- windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
 -- desktop notifications -- dunst package required
@@ -87,7 +81,6 @@ myStartupHook = do
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs
       spawnOnce "nm-applet &"
-      -- spawnOnce "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc &"
       
 ------------------------------------------------------------------------
 -- layout
@@ -153,7 +146,7 @@ myKeys =
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
-     , ("M-p", spawn "dmenu_run -p 'Yes Master ?'") -- dmenu
+     , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'Inconsolata:bold:pixelsize=16'") -- dmenu
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
@@ -180,8 +173,7 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
 ------------------------------------------------------------------------
 
 main = do
-    -- xmproc <- spawnPipe "/usr/bin/xmobar -x 0 /home/djwilcox/.config/xmobar/xmobarrc"
-    -- xmproc <- spawnPipe "/usr/bin/tint2 /home/djwilcox/.config/tint2/tint2rc"
+    xmproc <- spawnPipe "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc"
     xmonad $ withUrgencyHook LibNotifyUrgencyHook $ ewmh desktopConfig  
         { manageHook = ( isFullscreen --> doFullFloat ) <+> manageDocks <+> myManageHook <+> manageHook desktopConfig
         , startupHook        = myStartupHook
@@ -193,17 +185,10 @@ main = do
         , modMask            = myModMask
         , normalBorderColor  = myNormalBorderColor
         , focusedBorderColor = myFocusedBorderColor
---        , logHook = dynamicLogWithPP xmobarPP
---                        { ppOutput = \x -> hPutStrLn xmproc x
---                        , ppCurrent = xmobarColor myppCurrent "" . wrap "[" "]" -- Current workspace in xmobar
---                        , ppVisible = xmobarColor myppVisible ""                -- Visible but not current workspace
---                        , ppHidden = xmobarColor myppHidden "" . wrap "+" ""   -- Hidden workspaces in xmobar
---                        , ppHiddenNoWindows = xmobarColor  myppHiddenNoWindows ""        -- Hidden workspaces (no windows)
---                        , ppTitle = xmobarColor  myppTitle "" . shorten 80     -- Title of active window in xmobar
---                        , ppSep =  "<fc=#586E75> | </fc>"                     -- Separators in xmobar
---                        , ppUrgent = xmobarColor  myppUrgent "" . wrap "!" "!"  -- Urgent workspace
---                        , ppExtras  = [windowCount]                           -- # of windows current workspace
---                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
---                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
-          } >> updatePointer (0.25, 0.25) (0.25, 0.25)
+        , logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = \x -> hPutStrLn xmproc x
+                        , ppExtras = [windowCount]
+                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                        } >> updatePointer (0.25, 0.25) (0.25, 0.25)
+          }
           `additionalKeysP` myKeys

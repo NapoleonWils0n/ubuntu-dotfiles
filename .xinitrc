@@ -36,7 +36,7 @@ fi
 xkbcomp -I$HOME/.xkb $HOME/.xkb/keymap/keymap.xkb $DISPLAY
 
 # feh set wallpaper
-feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/linux.png' 
+feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/wallpaper.jpg' 
 
 # set the cursor form xmonad
 xsetroot -cursor_name left_ptr
