@@ -86,3 +86,6 @@ URxvt.iso14755_52: false
 ! urgency bell
 URxvt*urgentOnBell: true
 URxvt*visualBell:   false
+
+! urxvt icon
+URxvt.iconFile: /home/djwilcox/.icons/Papirus-Dark/32x32/apps/urxvt.svg
