@@ -164,6 +164,7 @@ myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
+    , className =? "qjackctl"           --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore 
     , isFullscreen --> doFullFloat
