@@ -1448,6 +1448,9 @@ tooltip_font = sans 9
 
 #+NAME: Xdefaults
 #+BEGIN_SRC conf
+! set rxvt to rxvt
+URxvt*termName: rxvt
+
 ! font settings
 URxvt.letterSpace: -1
 Xft.dpi:        96
