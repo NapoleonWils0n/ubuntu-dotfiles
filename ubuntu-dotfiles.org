@@ -6273,6 +6273,51 @@ color alert = cyan,bold
 <<ncmpc>>
 #+END_SRC
 
+** barrier
+
+#+NAME: barrier
+#+BEGIN_SRC conf
+section: screens
+	# three hosts named:  moe, larry, and curly
+	castor:
+	macmini:
+end
+
+section: links
+	# larry is to the right of moe and curly is above moe
+	castor:
+		right = macmini
+
+	# moe is to the left of larry and curly is above larry.
+	# note that curly is above both moe and larry and moe
+	# and larry have a symmetric connection (they're in
+	# opposite directions of each other).
+	macmini:
+		left  = castor
+end
+
+section: options
+	keystroke(super+`) = switchInDirection(right)
+	keystroke(super+shift+`) = switchInDirection(left)
+end
+#+END_SRC
+
+*** barrier tangle
+
++ home dir
+  
+#+NAME: barrier-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/barrier/barrier.conf"
+<<barrier>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: barrier-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/barrier/barrier.conf"
+<<barrier>>
+#+END_SRC
+
 ** w3m
 
 *** bookmark.html
