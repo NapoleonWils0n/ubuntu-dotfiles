@@ -4286,6 +4286,40 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 <<zshrc>>
 #+END_SRC
 
+** pulseaudio
+
+#+NAME: pulseaudio
+#+BEGIN_SRC conf
+# include the default.pa pulseaudio config file
+.include /etc/pulse/default.pa
+
+# null sink
+.ifexists module-null-sink.so
+load-module module-null-sink sink_name=OBS
+.endif
+
+# virtual source
+.ifexists module-virtual-source.so
+load-module module-virtual-source source_name=VirtualMic master=OBS.monitor
+.endif
+#+END_SRC
+
+*** pulseaudio tangle
+
++ home dir
+
+#+NAME: pulseaudio-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/pulse/default.pa"
+<<pulseaudio>>
+#+END_SRC
+
++ current dir
+
+#+NAME: pulseaudio-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/pulse/default.pa"
+<<pulseaudio>>
+#+END_SRC
+
 ** gitconfig
 
 #+NAME: gitconfig
