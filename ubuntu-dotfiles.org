@@ -4295,12 +4295,12 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # null sink
 .ifexists module-null-sink.so
-load-module module-null-sink sink_name=OBS
+load-module module-null-sink sink_name=Source
 .endif
 
 # virtual source
 .ifexists module-virtual-source.so
-load-module module-virtual-source source_name=VirtualMic master=OBS.monitor
+load-module module-virtual-source source_name=VirtualMic master=Source.monitor
 .endif
 #+END_SRC
 
