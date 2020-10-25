@@ -4132,7 +4132,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto verbose name git"
 
-PROMPT=$'[%n@%M %~]\nYes Master ? '
+PROMPT=$'[%n@%M %~]'
 RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 
 # ssh-add
@@ -4268,6 +4268,30 @@ esac
 
 # ssh
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
+
+# Fix bugs when switching modes
+bindkey "^?" backward-delete-char
+bindkey "^u" backward-kill-line
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+bindkey "^k" kill-line
+
+newline=$'\n'
+yesmaster=' Yes Master ? '
+
+function zle-line-init zle-keymap-select {
+    VIM_NORMAL_PROMPT="[% -n]% "
+    VIM_INSERT_PROMPT="[% +i]% "
+    PS1="[%n@%M %~]${newline}${${KEYMAP/vicmd/$VIM_NORMAL_PROMPT}/(main|viins)/$VIM_INSERT_PROMPT}${yesmaster}"
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 #+END_SRC
 
 *** zshrc tangle
