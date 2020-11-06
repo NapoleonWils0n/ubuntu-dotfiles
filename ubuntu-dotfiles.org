@@ -34,7 +34,7 @@ mkdir -p ~/.config/xmonad/
 * ubuntu dotfiles
 :PROPERTIES:
 :VISIBILITY: children
-:END:
+:END!:
 
 ** xmonad
 
@@ -1444,9 +1444,9 @@ tooltip_font = sans 9
 <<tint2>>
 #+END_SRC
 
-** Xdefaults
+** Xresources
 
-#+NAME: Xdefaults
+#+NAME: Xresources
 #+BEGIN_SRC conf
 ! set rxvt to rxvt
 URxvt*termName: rxvt
@@ -1544,20 +1544,20 @@ URxvt*visualBell:   false
 URxvt.iconFile: /home/djwilcox/.icons/Papirus-Dark/32x32/apps/urxvt.svg
 #+END_SRC
 
-*** Xdefaults tangle
+*** Xresources tangle
 
 + home dir
 
-#+NAME: Xdefaults-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.Xdefaults"
-<<Xdefaults>>
+#+NAME: Xresources-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.Xresources"
+<<Xresources>>
 #+END_SRC
 
 + current dir
 
-#+NAME: Xdefaults-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".Xdefaults"
-<<Xdefaults>>
+#+NAME: Xresources-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".Xresources"
+<<Xresources>>
 #+END_SRC
 
 ** xinitrc
@@ -4227,10 +4227,10 @@ cdpath=($HOME)
 #========
 
 # hdmi display on
-alias hdmi-on='xrandr --output eDP-1 --auto --primary --output HDMI-1 --mode 1920x1080 --right-of eDP-1 && ~/.fehbg &>/dev/null'
+alias hdmi-on='xrandr --output eDP-1 --auto --primary --output DP-3 --mode 1920x1080 --right-of eDP-1 && ~/.fehbg &>/dev/null'
 
 # hdmi display off
-alias hdmi-off='xrandr --output eDP-1 --auto --primary --output HDMI-1 --off && ~/.fehbg &>/dev/null'
+alias hdmi-off='xrandr --output eDP-1 --auto --primary --output DP-3 --off && ~/.fehbg &>/dev/null'
 
 # highlighting
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
