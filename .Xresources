@@ -58,10 +58,10 @@ URxvt.internalBorder: 4
 *color15: #fdf6e3
 
 !! fonts
-URxvt*font:           xft:Inconsolata:size=14,xft:DejaVu Sans Mono:size=11
+URxvt*font: xft:Inconsolata:size=18,xft:DejaVu Sans Mono:size=11
 
 !! emacs font
-emacs.font: Inconsolata:size=18:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
+emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
 
 ! Set scrollbar style to rxvt, plain, next or xterm. plain is the authors favourite.
 ! URxvt*scrollstyle: mode
