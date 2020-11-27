@@ -13,7 +13,7 @@ macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/b
 #macro . set browser "/usr/bin/cvlc --quiet %u 2>/dev/null &"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 # mpc get enclosure url with youtube-dl and add to queue
-macro . set browser "/usr/bin/mpc add $(youtube-dl -g %u)"; open-in-browser ; set browser "/usr/bin/w3m %u"
+#macro . set browser "/usr/bin/mpc add $(youtube-dl -g %u)"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 # unbind keys
 unbind-key ENTER
