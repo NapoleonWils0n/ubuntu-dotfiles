@@ -202,3 +202,6 @@ function zle-line-init zle-keymap-select {
 
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+# qt5 dark mode
+export QT_QPA_PLATFORMTHEME=qt5ct
