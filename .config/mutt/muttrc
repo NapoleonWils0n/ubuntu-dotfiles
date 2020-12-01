@@ -40,7 +40,7 @@ color index default default "~N|~O"
 
 set imap_user = "danieljwilcox@gmail.com"
 set smtp_url = "smtps://danieljwilcox@smtp.gmail.com:465/"
-source "gpg -d ~/.mutt/mutt-passwords.gpg |"
+source "gpg -d ~/.config/mutt/mutt-passwords.gpg |"
 
 set folder = "imaps://imap.gmail.com:993"
 set spoolfile = "+Inbox"
@@ -48,10 +48,10 @@ set postponed = "+Drafts"
 #set trash = "imaps://imap.gmail.com/Trash"
 set record = "+Sent Mail"
 
-set header_cache = ~/.mutt/cache/headers
-set message_cachedir = ~/.mutt/cache/bodies
-set certificate_file = ~/.mutt/certificates
-set mailcap_path = ~/.mutt/mailcap       
+set header_cache = ~/.config/mutt/cache/headers
+set message_cachedir = ~/.config/mutt/cache/bodies
+set certificate_file = ~/.config/mutt/certificates
+set mailcap_path = ~/.config/mutt/mailcap       
 
 set sort=threads
 set sort_browser=reverse-date
