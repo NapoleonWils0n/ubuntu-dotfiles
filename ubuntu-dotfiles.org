@@ -4551,13 +4551,8 @@ http://feeds.feedburner.com/Torrentfreak text
 # footy links
 https://www.footybite.com/feed/ "~Footybrite" text
 
-# newcastle chronicle
-https://www.chroniclelive.co.uk/all-about/newcastle%20united%20fc?service=rss "~Chronicle live"
-
-# The Magpie Channel
-https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow video
-
 # youtube
+https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow video "The Magpie Channel" video
 https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "a closer look" video
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "distrotube" video
 https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w "Gaming Careers" video
