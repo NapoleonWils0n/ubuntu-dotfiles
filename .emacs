@@ -314,25 +314,3 @@
 
 ;; optional key bindings, easier than hs defaults
 (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
-
-;; open youtube links with mpv
-(defun mpv-play-url (url &rest args)
-  ""
-  (interactive)
-  (start-process "mpv" nil "mpv" url))
-
-(setq browse-url-browser-function
-  (quote
-    (("youtu\\.?be" . mpv-play-url)
-    ("." . eww-browse-url))))
-
-;; open youtube links with mpv
-(defun mpv-play-url (url &rest args)
-  ""
-  (interactive)
-  (start-process "mpv" nil "mpv" url))
-
-(setq browse-url-browser-function
-  (quote
-    (("youtu\\.?be" . mpv-play-url)
-    ("." . eww-browse-url))))
