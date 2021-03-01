@@ -314,3 +314,16 @@
 
 ;; optional key bindings, easier than hs defaults
 (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
+
+;; open youtube links with mpv
+(defun mpv-play-url (url &rest args)
+  ""
+  (interactive)
+  (start-process "mpv" nil "mpv" url))
+
+;; browse url open different browsers based on url
+(setq browse-url-browser-function
+  (quote
+    (("youtu\\.?be" . mpv-play-url)
+    ;; catch all
+    ("." . browse-url-default-browser))))
