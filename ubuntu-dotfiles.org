@@ -160,8 +160,6 @@ myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
 -- Window rules:
 ------------------------------------------------------------------------
  
-
-
 myManageHook = composeAll
     [ className =? "mpv"            --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
     , className =? "Gimp"           --> doFloat
