@@ -38,7 +38,8 @@ import XMonad.Actions.UpdatePointer -- update mouse postion
 
 -- layout 
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
-import XMonad.Layout.NoBorders
+-- import XMonad.Layout.NoBorders
+import qualified XMonad.Layout.NoBorders as BO
 import XMonad.Layout.Spacing
 import XMonad.Layout.GridVariants
 import XMonad.Layout.ResizableTile
@@ -83,11 +84,11 @@ myStartupHook = do
 -- layout
 ------------------------------------------------------------------------
 
-myLayout = avoidStruts (full ||| tiled ||| grid ||| bsp)
+myLayout = BO.lessBorders BO.Never $ avoidStruts (full ||| tiled ||| grid ||| bsp)
   where
      -- full
      full = renamed [Replace "Full"] 
-          $ noBorders (Full)
+           $ BO.noBorders (Full)
 
      -- tiled
      tiled = renamed [Replace "Tall"] 
