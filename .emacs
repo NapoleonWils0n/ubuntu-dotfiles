@@ -102,6 +102,10 @@
 (require 'evil)
 (evil-mode 1)
 
+; which key
+(require 'which-key)
+(which-key-mode)
+
 ; powerline-evil
 (require 'powerline)
 (powerline-default-theme)
