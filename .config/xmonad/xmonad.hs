@@ -148,8 +148,8 @@ myKeys =
     --  , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'Inconsolata:bold:pixelsize=16'") -- dmenu
      , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
-     , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
-     , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
+     , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
+     , ("M-C-<Space>", namedScratchpadAction myScratchpads "emacs-scratch")
     ]
 
 ------------------------------------------------------------------------
