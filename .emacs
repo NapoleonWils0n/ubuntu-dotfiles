@@ -293,7 +293,7 @@
 (custom-set-variables
  '(package-selected-packages
    (quote
-    (ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy))))
+    (ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key))))
 
 
 ; mpv functions --------------------------------------------------------------------------------------
