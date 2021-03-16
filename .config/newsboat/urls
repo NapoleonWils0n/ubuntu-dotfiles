@@ -6,9 +6,6 @@ https://www.omgubuntu.co.uk/feed text
 https://itsfoss.com/feed/ text
 http://feeds.feedburner.com/Torrentfreak text
 
-# footy links
-https://www.footybite.com/feed/ "~Footybrite" text
-
 # youtube
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow video "The Magpie Channel" video
 https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" video
@@ -18,7 +15,6 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg "St
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Eposvox" video
 https://www.youtube.com/feeds/videos.xml?channel_id=UCQGZ_5x1j7Q8rXvUXO608oA "~Joe's Cave" video
 https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ "Chris Titus Tech" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCRE3NFNtdjR96-H4QG4U1Fg "Hexdsl" video
 
 # newcastle podcast
 https://rss.acast.com/thechronicle "~Everything Black and White" audio
