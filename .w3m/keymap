@@ -1,1 +1,2 @@
 keymap ,-m EXTERN
+keymap  ,-.    COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"

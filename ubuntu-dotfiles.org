@@ -6180,6 +6180,7 @@ simple_preserve_space 0
 #+NAME: w3m-keymap
 #+BEGIN_SRC conf
 keymap ,-m EXTERN
+keymap  ,-.    COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"
 #+END_SRC
 
 *** mailcap
@@ -6209,7 +6210,6 @@ image/*; sxiv %s
 
 ***** config
 
-
 + home dir
 
 #+NAME: w3m-config-home-dir
@@ -6225,7 +6225,6 @@ image/*; sxiv %s
 #+END_SRC
 
 ***** keymap
-
 
 + home dir
 
