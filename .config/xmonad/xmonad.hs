@@ -50,7 +50,7 @@ import XMonad.Layout.BinarySpacePartition
 ------------------------------------------------------------------------
 
 myModMask = mod4Mask -- Sets modkey to super/windows key
-myTerminal = "urxvtc" -- Sets default terminal
+myTerminal = "st" -- Sets default terminal
 myBorderWidth = 2 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
@@ -74,7 +74,6 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
-      spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs
       spawnOnce "nm-applet &"
@@ -145,7 +144,6 @@ myKeys =
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
-    --  , ("M-p", spawn "dmenu_run -p 'Yes Master ?' -fn 'Inconsolata:bold:pixelsize=16'") -- dmenu
      , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "terminal")
@@ -161,7 +159,7 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ] 
     where
     role = stringProperty "WM_WINDOW_ROLE"
-    spawnTerm = myTerminal ++  " -name scratchpad"
+    spawnTerm = myTerminal ++  " -n scratchpad"
     findTerm = resource =? "scratchpad"
     manageTerm = nonFloating
     findEmacsScratch = title =? "emacs-scratch"

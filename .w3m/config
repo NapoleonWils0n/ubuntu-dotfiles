@@ -22,13 +22,13 @@ fold_textarea 0
 display_ins_del 1
 ignore_null_img_alt 1
 view_unseenobject 0
-display_image 0
+display_image 1
 pseudo_inlines 0
-auto_image 0
+auto_image 1
 max_load_image 4
-ext_image_viewer 1
+ext_image_viewer 0
 image_scale 100
-imgdisplay 
+imgdisplay w3mimgdisplay
 image_map_list 1
 fold_line 0
 show_lnum 0
@@ -58,6 +58,8 @@ vi_prec_num 0
 mark_all_pages 0
 wrap_search 0
 ignorecase_search 1
+use_migemo 1
+migemo_command cmigemo -q -d /usr/share/cmigemo/utf-8/migemo-dict
 use_mouse 1
 reverse_mouse 0
 relative_wheel_scroll 0
@@ -112,6 +114,7 @@ max_news 50
 use_proxy 1
 http_proxy 
 https_proxy 
+gopher_proxy 
 ftp_proxy 
 no_proxy 
 noproxy_netaddr 1
