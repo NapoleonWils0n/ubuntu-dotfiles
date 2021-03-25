@@ -5767,11 +5767,11 @@ set my_pgp_id="3B2C8BA1"
 ############## Connection ###################
 ## Connect to mpd running on a specified host
 #host = "localhost"
-host = "127.0.0.1"
-#host = "/home/djwilcox/.mpd/socket"
+#host = "127.0.0.1"
+host = "/home/djwilcox/.config/mpd/socket"
 
 ## Connect to mpd on the specified port.
-port = 6600
+#port = 6600
 
 ## Connect to mpd using the specified password.
 #password = "mpd"
