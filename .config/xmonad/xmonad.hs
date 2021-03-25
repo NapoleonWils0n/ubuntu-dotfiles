@@ -50,7 +50,7 @@ import XMonad.Layout.BinarySpacePartition
 ------------------------------------------------------------------------
 
 myModMask = mod4Mask -- Sets modkey to super/windows key
-myTerminal = "st" -- Sets default terminal
+myTerminal = "urxvtc" -- Sets default terminal
 myBorderWidth = 2 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
@@ -74,6 +74,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 ------------------------------------------------------------------------
 
 myStartupHook = do
+      spawnOnce "urxvtd &" -- start urxvt terminal daemon
       spawnOnce "emacs &" -- emacs
       spawnOnce "dunst &" -- emacs
       spawnOnce "nm-applet &"
@@ -159,7 +160,7 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ] 
     where
     role = stringProperty "WM_WINDOW_ROLE"
-    spawnTerm = myTerminal ++  " -n scratchpad"
+    spawnTerm = myTerminal ++  " -name scratchpad"
     findTerm = resource =? "scratchpad"
     manageTerm = nonFloating
     findEmacsScratch = title =? "emacs-scratch"
