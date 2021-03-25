@@ -6019,8 +6019,8 @@ end
 #+BEGIN_SRC conf
 tabstop 8
 indent_incr 4
-pixel_per_char 9
-pixel_per_line 19
+pixel_per_char 12
+pixel_per_line 26
 frame 0
 target_self 0
 open_tab_blank 0
@@ -6041,11 +6041,11 @@ fold_textarea 0
 display_ins_del 1
 ignore_null_img_alt 1
 view_unseenobject 0
-display_image 1
+display_image 0
 pseudo_inlines 0
 auto_image 1
 max_load_image 4
-ext_image_viewer 0
+ext_image_viewer 1
 image_scale 100
 imgdisplay w3mimgdisplay
 image_map_list 1
