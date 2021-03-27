@@ -6036,14 +6036,14 @@ dictcommand file:///$LIB/w3mdict.cgi
 multicol 0
 alt_entity 0
 graphic_char 0
-display_borders 0
+display_borders 1
 fold_textarea 0
 display_ins_del 1
 ignore_null_img_alt 1
 view_unseenobject 0
 display_image 0
 pseudo_inlines 0
-auto_image 1
+auto_image 0
 max_load_image 4
 ext_image_viewer 1
 image_scale 100
@@ -6181,7 +6181,9 @@ simple_preserve_space 0
 #+NAME: w3m-keymap
 #+BEGIN_SRC conf
 keymap ,-m EXTERN
-keymap  ,-.    COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"
+keymap  ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"
+keymap  ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
+keymap  ,-l COMMAND "SET_OPTION show_lnum=toggle ; RESHAPE"
 #+END_SRC
 
 *** mailcap

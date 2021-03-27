@@ -17,14 +17,14 @@ dictcommand file:///$LIB/w3mdict.cgi
 multicol 0
 alt_entity 0
 graphic_char 0
-display_borders 0
+display_borders 1
 fold_textarea 0
 display_ins_del 1
 ignore_null_img_alt 1
 view_unseenobject 0
 display_image 0
 pseudo_inlines 0
-auto_image 1
+auto_image 0
 max_load_image 4
 ext_image_viewer 1
 image_scale 100
