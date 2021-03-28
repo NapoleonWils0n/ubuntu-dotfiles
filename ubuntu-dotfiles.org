@@ -4571,10 +4571,15 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg "St
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Eposvox" video
 https://www.youtube.com/feeds/videos.xml?channel_id=UCQGZ_5x1j7Q8rXvUXO608oA "~Joe's Cave" video
 https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ "Chris Titus Tech" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA "gotbletu" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "Brodie Robertson" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCylGUf9BvQooEFjgdNudoQg "The Linux Cast" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfp-lNJy4QkIGnaEE6NtDSg "Learn Linux" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCjSEJkpGbcZhvo0lr-44X_w "TechHut" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "System Crafters" video
 
 # newcastle podcast
 https://rss.acast.com/thechronicle "~Everything Black and White" audio
-
 #+END_SRC
 
 **** newsboat tangle
