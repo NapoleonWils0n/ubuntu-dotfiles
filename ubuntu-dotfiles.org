@@ -6091,7 +6091,7 @@ preserve_timestamp 1
 keymap_file keymap
 document_root 
 personal_document_root 
-cgi_bin 
+cgi_bin
 index_file 
 mime_types ~/.mime.types, /usr/local/etc/mime.types
 mailcap ~/.w3m/mailcap, /usr/local/etc/w3m/mailcap
@@ -6176,6 +6176,30 @@ gb18030_as_ucs 0
 simple_preserve_space 0
 #+END_SRC
 
+*** cgi-bin
+
+#+NAME: cgi-bin
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# w3m and surfraw
+
+# select your elvi
+prefix=$(surfraw -elvi | grep -v 'LOCAL\|GLOBAL'| fzf -e --prompt='Search with: ' | awk '{print $1}')
+
+# exit script if no elvi is selected (e.g hit ESC)
+if [ "$prefix" = "" ]; then exit; fi
+
+# get user input using echo and fzf with the prompt set to the elvi name
+input=$(echo | fzf --print-query --prompt="${prefix}: ")
+
+# dont quote the input variable and copy the url to primary clipboard
+surfraw -p "$prefix" $input | xsel -p
+
+# clear screen
+printf "\033c"
+#+END_SRC
+
 *** keymap
 
 #+NAME: w3m-keymap
@@ -6184,6 +6208,7 @@ keymap ,-m EXTERN
 keymap  ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"
 keymap  ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
 keymap  ,-l COMMAND "SET_OPTION show_lnum=toggle ; RESHAPE"
+keymap  xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
 #+END_SRC
 
 *** mailcap
@@ -6225,6 +6250,22 @@ image/*; sxiv %s
 #+NAME: w3m-config-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/config"
 <<w3m-config>>
+#+END_SRC
+
+***** cgi-bin
+
++ home dir
+
+#+NAME: cgi-bin-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/fzf_surfraw.cgi"
+<<cgi-bin>>
+#+END_SRC
+
++ current dir
+
+#+NAME: cgi-bin-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi"
+<<cgi-bin>>
 #+END_SRC
 
 ***** keymap
