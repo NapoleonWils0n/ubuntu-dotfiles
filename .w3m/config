@@ -24,7 +24,7 @@ ignore_null_img_alt 1
 view_unseenobject 0
 display_image 0
 pseudo_inlines 0
-auto_image 0
+auto_image 1
 max_load_image 4
 ext_image_viewer 1
 image_scale 100
@@ -60,7 +60,7 @@ wrap_search 0
 ignorecase_search 1
 use_migemo 1
 migemo_command cmigemo -q -d /usr/share/cmigemo/utf-8/migemo-dict
-use_mouse 1
+use_mouse 0
 reverse_mouse 0
 relative_wheel_scroll 0
 relative_wheel_scroll_ratio 30
@@ -72,7 +72,7 @@ preserve_timestamp 1
 keymap_file keymap
 document_root 
 personal_document_root 
-cgi_bin
+cgi_bin 
 index_file 
 mime_types ~/.mime.types, /usr/local/etc/mime.types
 mailcap ~/.w3m/mailcap, /usr/local/etc/w3m/mailcap
