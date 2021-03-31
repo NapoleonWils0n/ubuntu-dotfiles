@@ -1,5 +1,6 @@
-keymap ,-m EXTERN
-keymap  ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"
-keymap  ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
-keymap  ,-l COMMAND "SET_OPTION show_lnum=toggle ; RESHAPE"
-keymap  xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
+keymap ,-m EXTERN_LINK
+keymap i COMMAND "SET_OPTION display_image=toggle ; RELOAD" 
+keymap ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null 1> /tmp/readability.html' ; LOAD /tmp/readability.html"
+keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
+keymap ,-l COMMAND "SET_OPTION show_lnum=toggle ; RESHAPE"
+keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
