@@ -2,7 +2,7 @@
     ### Display ###
     monitor = 0
     follow = mouse
-    geometry = "300x5-10+30"
+    geometry = "300x5-10+40"
     indicate_hidden = yes
     shrink = no
     transparency = 0
@@ -94,21 +94,21 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#b58900"
+    background = "#002b36"
     foreground = "#eee8d5"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#b58900"
+    background = "#002b36"
     foreground = "#eee8d5"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_critical]
-    background = "#b58900"
+    background = "#002b36"
     foreground = "#eee8d5"
     frame_color = "#ff0000"
     timeout = 0
