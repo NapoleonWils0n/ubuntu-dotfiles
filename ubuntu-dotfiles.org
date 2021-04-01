@@ -6045,7 +6045,7 @@ fold_textarea 0
 display_ins_del 1
 ignore_null_img_alt 1
 view_unseenobject 0
-display_image 0
+display_image 1
 pseudo_inlines 0
 auto_image 1
 max_load_image 4
@@ -6060,12 +6060,12 @@ label_topline 0
 nextpage_topline 0
 color 1
 basic_color terminal
-anchor_color blue
-image_color green
+anchor_color terminal
+image_color terminal
 form_color red
-mark_color cyan
+mark_color terminal
 bg_color terminal
-active_style 0
+active_style 1
 active_color cyan
 visited_anchor 0
 visited_color magenta
