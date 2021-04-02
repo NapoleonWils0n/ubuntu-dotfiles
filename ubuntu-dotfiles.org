@@ -1662,6 +1662,7 @@ Restart=always
 WantedBy=default.target
 #+END_SRC
 
+*** mpd.service
 
 #+NAME: mpd.service
 #+BEGIN_SRC conf
@@ -1677,6 +1678,22 @@ WantedBy=default.target
 #+END_SRC
 
 **** systemd tangle
+
+***** mpd.service
+
++ home dir
+
+#+NAME: mpd.service-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/mpd.service"
+<<mpd.service>>
+#+END_SRC
+
++ current dir
+
+#+NAME: mpd.service-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/mpd.service"
+<<mpd.service>>
+#+END_SRC
 
 ***** ssh-agent.service
 
