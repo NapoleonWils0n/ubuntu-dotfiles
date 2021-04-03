@@ -6047,9 +6047,9 @@ frame 0
 target_self 0
 open_tab_blank 0
 open_tab_dl_list 0
-display_link 1
-display_link_number 1
-decode_url 1
+display_link 0
+display_link_number 0
+decode_url 0
 display_lineinfo 0
 ext_dirlist 1
 dirlist_cmd file:///$LIB/dirlist.cgi
@@ -6249,7 +6249,7 @@ keymap i COMMAND "SET_OPTION display_image=toggle ; RELOAD"
 keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
 
 # toggle line numbers
-keymap ,-l COMMAND "SET_OPTION show_lnum=toggle ; RESHAPE"
+keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
 
 # surfraw prompt
 keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
