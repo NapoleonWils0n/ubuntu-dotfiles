@@ -5,7 +5,8 @@ max-items 50
 # externel browser
 browser "/usr/bin/w3m %u"
 macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro . set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro . set browser "/usr/bin/tsp /usr/bin/mpv --fs --screen=1 %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 #macro . set browser "/home/djwilcox/bin/yank -i %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
