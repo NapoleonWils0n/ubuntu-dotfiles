@@ -6147,7 +6147,7 @@ argv_is_url 1
 retry_http 1
 default_url 1
 follow_redirection 10
-meta_refresh 0
+meta_refresh 1
 dns_order 0
 nntpserver 
 nntpmode 
