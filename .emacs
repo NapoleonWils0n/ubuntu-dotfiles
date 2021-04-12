@@ -95,6 +95,11 @@
 ; dired directory listing options for ls
 (setq dired-listing-switches "-ahl")
 
+; dired hide long listing by default
+(defun my-dired-mode-setup ()
+  "show less information in dired buffers"
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'my-dired-mode-setup)
 
 ; require --------------------------------------------------------------------------------------
 
@@ -145,7 +150,6 @@
 (setq org-agenda-files '("~/git/org/"))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
-
 
 ; org mode --------------------------------------------------------------------------------------
 
@@ -287,13 +291,21 @@
 
 ; custom faces
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
 
 ; package-selected-packages
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key))))
+    (## w3m ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key))))
 
 
 ; mpv functions --------------------------------------------------------------------------------------
