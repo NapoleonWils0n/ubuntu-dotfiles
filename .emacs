@@ -101,6 +101,11 @@
   (dired-hide-details-mode 1))
 (add-hook 'dired-mode-hook 'my-dired-mode-setup)
 
+; Toggle Hidden Files in Emacs dired with C-x M-o
+(require 'dired-x)
+(setq dired-omit-files "^\\...+$")
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
 ; require --------------------------------------------------------------------------------------
 
 ; evil
