@@ -6395,15 +6395,15 @@ image/*; sxiv %s
 
 + home dir
 
-#+NAME: fzf-surfraw-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/fzf_surfraw.cgi"
+#+NAME: fzf-surfraw-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
 <<fzf-surfraw>>
 #+END_SRC
 
 + current dir
 
 #+NAME: fzf-surfraw-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
 <<fzf-surfraw>>
 #+END_SRC
 
@@ -6412,14 +6412,14 @@ image/*; sxiv %s
 + home dir
 
 #+NAME: mpv-cgi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/mpv.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/mpv.cgi" :tangle-mode (identity #o755)
 <<mpv-cgi>>
 #+END_SRC
 
 + current dir
 
 #+NAME: mpv-cgi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/mpv.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/mpv.cgi" :tangle-mode (identity #o755)
 <<mpv-cgi>>
 #+END_SRC
 
@@ -6428,14 +6428,14 @@ image/*; sxiv %s
 + home dir
 
 #+NAME: tsp-mpv-cgi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/tsp_mpv.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/tsp_mpv.cgi" :tangle-mode (identity #o755)
 <<tsp-mpv-cgi>>
 #+END_SRC
 
 + current dir
 
 #+NAME: tsp-mpv-cgi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/tsp_mpv.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/tsp_mpv.cgi" :tangle-mode (identity #o755)
 <<tsp-mpv-cgi>>
 #+END_SRC
 
@@ -6444,14 +6444,14 @@ image/*; sxiv %s
 + home dir
 
 #+NAME: pinch-cgi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/pinch.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/pinch.cgi" :tangle-mode (identity #o755)
 <<pinch-cgi>>
 #+END_SRC
 
 + current dir
 
 #+NAME: pinch-cgi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/pinch.cgi"
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/pinch.cgi" :tangle-mode (identity #o755)
 <<pinch-cgi>>
 #+END_SRC
 
