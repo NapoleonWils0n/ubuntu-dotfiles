@@ -2,13 +2,13 @@
 keymap  yy EXTERN_LINK '(echo -n %s | xsel -b)'
 
 # strip the google redirect from the url under the cursor and open with mpv
-keymap  mn EXTERN_LINK "(mpv --no-terminal $(echo -n %s | grep -oP '(?=https://www.youtube.com)[^&]*(?=&)' | sed 's/%3Fv%3D/?v=/') &)"
+keymap mn COMMAND "READ_SHELL ~/.w3m/cgi-bin/mpv.cgi; BACK"
 
 # strip the google redirect from the url under the cursor and add to a task-spooler queue to open fullscreen on the second display with mpv
-keymap  m, EXTERN_LINK "(tsp mpv --fs --screen=1 $(echo -n %s | grep -oP '(?=https://www.youtube.com)[^&]*(?=&)' | sed 's/%3Fv%3D/?v=/') &)"
+keymap m, COMMAND "READ_SHELL ~/.w3m/cgi-bin/tsp_mpv.cgi; BACK"
 
 # strip the google redirect from the url under the cursor and send the url to mpd
-keymap  mk EXTERN_LINK "(pinch -i $(echo -n %s | grep -oP '(?=https://www.youtube.com)[^&]*(?=&)' | sed 's/%3Fv%3D/?v=/') 1>/dev/null &)"
+keymap mk COMMAND "READ_SHELL ~/.w3m/cgi-bin/pinch.cgi; BACK"
 
 # readability mode
 keymap ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"

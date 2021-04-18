@@ -6217,8 +6217,9 @@ simple_preserve_space 0
 #+END_SRC
 
 *** cgi-bin
+**** fzf-surfraw
 
-#+NAME: cgi-bin
+#+NAME: fzf-surfraw
 #+BEGIN_SRC conf
 #!/bin/sh
 
@@ -6241,6 +6242,81 @@ surfraw -p "$prefix" $input | xsel -p
 
 #+END_SRC
 
+**** mpv-cgi
+
+#+NAME: mpv-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# play the url with mpv
+mpv --no-terminal "${url}"
+#+END_SRC
+
+**** tsp-mpv-cgi
+
+#+NAME: tsp-mpv-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# play the url with mpv
+tsp mpv --fs --screen=1 "${url}"
+#+END_SRC
+
+**** pinch-cgi
+
+#+NAME: pinch-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# extract the audio link form the url and play with mpd
+pinch -i "${url}"
+#+END_SRC
+
 *** keymap
 
 #+NAME: w3m-keymap
@@ -6249,13 +6325,13 @@ surfraw -p "$prefix" $input | xsel -p
 keymap  yy EXTERN_LINK '(echo -n %s | xsel -b)'
 
 # strip the google redirect from the url under the cursor and open with mpv
-keymap  mn EXTERN_LINK "(mpv --no-terminal $(echo -n %s | grep -oP '(?=https://www.youtube.com)[^&]*(?=&)' | sed 's/%3Fv%3D/?v=/') &)"
+keymap mn COMMAND "READ_SHELL ~/.w3m/cgi-bin/mpv.cgi; BACK"
 
 # strip the google redirect from the url under the cursor and add to a task-spooler queue to open fullscreen on the second display with mpv
-keymap  m, EXTERN_LINK "(tsp mpv --fs --screen=1 $(echo -n %s | grep -oP '(?=https://www.youtube.com)[^&]*(?=&)' | sed 's/%3Fv%3D/?v=/') &)"
+keymap m, COMMAND "READ_SHELL ~/.w3m/cgi-bin/tsp_mpv.cgi; BACK"
 
 # strip the google redirect from the url under the cursor and send the url to mpd
-keymap  mk EXTERN_LINK "(pinch -i $(echo -n %s | grep -oP '(?=https://www.youtube.com)[^&]*(?=&)' | sed 's/%3Fv%3D/?v=/') 1>/dev/null &)"
+keymap mk COMMAND "READ_SHELL ~/.w3m/cgi-bin/pinch.cgi; BACK"
 
 # readability mode
 keymap ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
@@ -6315,19 +6391,68 @@ image/*; sxiv %s
 #+END_SRC
 
 ***** cgi-bin
+****** fzf-surfraw
 
 + home dir
 
-#+NAME: cgi-bin-home-dir
+#+NAME: fzf-surfraw-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/fzf_surfraw.cgi"
-<<cgi-bin>>
+<<fzf-surfraw>>
 #+END_SRC
 
 + current dir
 
-#+NAME: cgi-bin-current-dir
+#+NAME: fzf-surfraw-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi"
-<<cgi-bin>>
+<<fzf-surfraw>>
+#+END_SRC
+
+****** mpv-cgi
+
++ home dir
+
+#+NAME: mpv-cgi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/mpv.cgi"
+<<mpv-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: mpv-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/mpv.cgi"
+<<mpv-cgi>>
+#+END_SRC
+
+****** tsp-mpv-cgi
+
++ home dir
+
+#+NAME: tsp-mpv-cgi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/tsp_mpv.cgi"
+<<tsp-mpv-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: tsp-mpv-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/tsp_mpv.cgi"
+<<tsp-mpv-cgi>>
+#+END_SRC
+
+****** pinch-cgi
+
++ home dir
+
+#+NAME: pinch-cgi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/pinch.cgi"
+<<pinch-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: pinch-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/pinch.cgi"
+<<pinch-cgi>>
 #+END_SRC
 
 ***** keymap
