@@ -6547,6 +6547,34 @@ escaped_args=`w3_url_of_arg $w3_args`
 w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
 #+END_SRC
 
+*** iplayer
+
+#+NAME: iplayer
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search Google Video
+# elvis: iplayer -- Search bbc iplayer (https://bbc.co.uk/iplayer)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search bbc iplayer (https://bbc.co.uk/iplayer)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://bbc.co.uk/iplayer"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://bbc.co.uk/iplayer/search?q=${escaped_args}"
+fi
+#+END_SRC
+
 *** video
 
 #+NAME: video
@@ -6590,6 +6618,22 @@ fi
 #+NAME: surfraw-ddg-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg"
 <<ddg>>
+#+END_SRC
+
+***** iplayer
+
++ home dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer"
+<<iplayer>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer"
+<<iplayer>>
 #+END_SRC
 
 ***** video
