@@ -4431,7 +4431,7 @@ external_menu_len=220
 #(YTFZF_PLAYER)
 #video_player="mpv --no-terminal"
 #video_player="tsp mpv --fs --screen=1"
-video_player="ytinput"
+video_player="sauron"
 
 #the player to use when choosing a video format with $YTFZF_PREF
 #(YTFZF_PLAYER_FORMAT)
