@@ -205,3 +205,6 @@ zle -N zle-keymap-select
 
 # qt5 dark mode
 export QT_QPA_PLATFORMTHEME=qt5ct
+
+# ytfzf function to remove stdout
+alias ytfzf='ytfzf "$@" 1>/dev/null'
