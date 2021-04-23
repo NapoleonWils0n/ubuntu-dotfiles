@@ -4491,7 +4491,7 @@ show_format=0
 #the side to show thumbnails
 #options are "left", "right", "top", "bottom"
 #same as --priview-side=
-preview_side="left"
+preview_side="right"
 
 #the amount of links to get from each subscription
 #same as --subs=
@@ -4624,14 +4624,14 @@ thumbnail_video_info_text () {
 + home dir
   
 #+NAME: ytfzf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ytfzf/config.sh"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ytfzf/conf.sh"
 <<ytfzf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: ytfzf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/ytfzf/config.sh"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/ytfzf/conf.sh"
 <<ytfzf>>
 #+END_SRC
 
