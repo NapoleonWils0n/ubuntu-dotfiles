@@ -6508,6 +6508,80 @@ surfraw -p "$prefix" $input | xsel -p
 
 #+END_SRC
 
+**** sauron-w3m
+
+#+NAME: sauron-w3m
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# sauron - w3m
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# mpd and taskspooler
+audio() {
+      tsp pinch -i "${url}" 1>/dev/null 
+}
+
+copy_link() {
+      echo -n "${url}" | xsel -b 1>/dev/null 
+}
+
+# youtube-dl and taskspooler
+download() {
+      tsp youtube-dl --ignore-config "${url}" 1>/dev/null 
+}
+
+# mpv fullscreen on second display and taskspooler
+fullscreen() {
+      tsp mpv --fs --screen=1 "${url}" 1>/dev/null 
+}
+
+# mpv and taskspooler
+video() {
+      tsp mpv --no-terminal "${url}" 1>/dev/null
+}
+
+# fzf prompt variables spaces to line up menu options
+audio_tsp='audio      - mpd play audio'
+copy_tsp='copy      - xsel copy url under the cusor to the clipboard'
+download_tsp='download   - youtube-dl download links'
+fullscreen_tsp='fullscreen - mpv play fullscreen on second display'
+video_tsp='video      - mpv play video on current display'
+
+# fzf prompt to specify function to run on links from ytfzf
+menu=$(printf "%s\n" \
+	      "${audio_tsp}" \
+	      "${copy_tsp}" \
+	      "${download_tsp}" \
+	      "${fullscreen_tsp}" \
+	      "${video_tsp}" \
+	      | fzf --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+
+# case statement to run function based on fzf prompt output
+case "${menu}" in
+   audio*) audio;;
+   copy*) copy_link;;
+   download*) download;;
+   fullscreen*) fullscreen;;
+   video*) video;;
+   ,*) exit;;
+esac
+#+END_SRC
+
 **** mpv-cgi
 
 #+NAME: mpv-cgi
@@ -6587,23 +6661,14 @@ pinch -i "${url}"
 
 #+NAME: w3m-keymap
 #+BEGIN_SRC conf
-# copy url under the cusor to the clipboard
-keymap  yy EXTERN_LINK '(echo -n %s | xsel -b)'
+# surfraw prompt
+keymap ws COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
 
-# strip the google redirect from the url under the cursor and open with mpv
-keymap mn COMMAND "READ_SHELL ~/.w3m/cgi-bin/mpv.cgi; BACK"
-
-# strip the google redirect from the url under the cursor and add to a task-spooler queue to open fullscreen on the second display with mpv
-keymap m, COMMAND "READ_SHELL ~/.w3m/cgi-bin/tsp_mpv.cgi; BACK"
-
-# strip the google redirect from the url under the cursor and send the url to mpd
-keymap mk COMMAND "READ_SHELL ~/.w3m/cgi-bin/pinch.cgi; BACK"
+# sauron-w3m prompt
+keymap ,-. COMMAND "READ_SHELL ~/.w3m/cgi-bin/sauron-w3m.cgi; BACK"
 
 # readability mode
-keymap ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
-
-# toggle images
-keymap i COMMAND "SET_OPTION display_image=toggle ; RELOAD" 
+keymap ,-/ COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
 
 # toggle borders
 keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
@@ -6611,8 +6676,6 @@ keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
 # toggle line numbers
 keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
 
-# surfraw prompt
-keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
 #+END_SRC
 
 *** mailcap
@@ -6671,6 +6734,22 @@ image/*; sxiv %s
 #+NAME: fzf-surfraw-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
 <<fzf-surfraw>>
+#+END_SRC
+
+****** sauron-w3m
+
++ home dir
+
+#+NAME: sauron-w3m-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
+<<sauron-w3m>>
+#+END_SRC
+
++ current dir
+
+#+NAME: sauron-w3m-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle .w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
+<<sauron-w3m>>
 #+END_SRC
 
 ****** mpv-cgi

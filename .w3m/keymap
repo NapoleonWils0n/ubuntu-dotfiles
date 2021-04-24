@@ -1,26 +1,14 @@
-# copy url under the cusor to the clipboard
-keymap  yy EXTERN_LINK '(echo -n %s | xsel -b)'
+# surfraw prompt
+keymap ws COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
 
-# strip the google redirect from the url under the cursor and open with mpv
-keymap mn COMMAND "READ_SHELL ~/.w3m/cgi-bin/mpv.cgi; BACK"
-
-# strip the google redirect from the url under the cursor and add to a task-spooler queue to open fullscreen on the second display with mpv
-keymap m, COMMAND "READ_SHELL ~/.w3m/cgi-bin/tsp_mpv.cgi; BACK"
-
-# strip the google redirect from the url under the cursor and send the url to mpd
-keymap mk COMMAND "READ_SHELL ~/.w3m/cgi-bin/pinch.cgi; BACK"
+# sauron-w3m prompt
+keymap ,-. COMMAND "READ_SHELL ~/.w3m/cgi-bin/sauron-w3m.cgi; BACK"
 
 # readability mode
-keymap ,-. COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
-
-# toggle images
-keymap i COMMAND "SET_OPTION display_image=toggle ; RELOAD" 
+keymap ,-/ COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
 
 # toggle borders
 keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
 
 # toggle line numbers
 keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
-
-# surfraw prompt
-keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
