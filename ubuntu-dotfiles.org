@@ -6556,7 +6556,7 @@ video() {
 
 # fzf prompt variables spaces to line up menu options
 audio_tsp='audio      - mpd play audio'
-copy_tsp='copy      - xsel copy url under the cusor to the clipboard'
+copy_tsp='copy       - xsel copy url under the cusor to the clipboard'
 download_tsp='download   - youtube-dl download links'
 fullscreen_tsp='fullscreen - mpv play fullscreen on second display'
 video_tsp='video      - mpv play video on current display'
