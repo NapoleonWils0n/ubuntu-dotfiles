@@ -6746,7 +6746,7 @@ image/*; sxiv %s
 + current dir
 
 #+NAME: sauron-w3m-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle .w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
 <<sauron-w3m>>
 #+END_SRC
 
