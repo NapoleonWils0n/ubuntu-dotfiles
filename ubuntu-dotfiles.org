@@ -6947,14 +6947,14 @@ fi
 + home dir
 
 #+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
 <<ddg>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
 <<ddg>>
 #+END_SRC
 
@@ -6963,14 +6963,14 @@ fi
 + home dir
 
 #+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
 <<iplayer>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
 <<iplayer>>
 #+END_SRC
 
@@ -6979,14 +6979,14 @@ fi
 + home dir
 
 #+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
 <<video>>
 #+END_SRC
 
 + current dir
 
 #+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
 <<video>>
 #+END_SRC
 
