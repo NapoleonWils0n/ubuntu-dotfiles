@@ -205,3 +205,6 @@ zle -N zle-keymap-select
 
 # qt5 dark mode
 export QT_QPA_PLATFORMTHEME=qt5ct
+
+# mpd host variable for mpc
+export MPD_HOST="/home/djwilcox/.config/mpd/socket"
