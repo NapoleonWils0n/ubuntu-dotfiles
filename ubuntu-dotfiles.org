@@ -4779,7 +4779,7 @@ osd-fractions
 #+NAME: youtube-dl
 #+BEGIN_SRC conf
 # external downloader aria2
---external-downloader aria2c --external-downloader-args "-c -x3"
+--external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
 #+END_SRC
 
 *** youtube-dl tangle
