@@ -28,7 +28,13 @@ copy_link() {
 
 # youtube-dl and taskspooler
 download() {
-      tsp youtube-dl --ignore-config "${url}" 1>/dev/null 
+      tsp -L "${url}" \
+      youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
+      --restrict-filenames \
+      --no-playlist \
+      --ignore-config \
+       -o "~/Downloads/%(title)s.%(ext)s" \
+      "${url}" 1>/dev/null
 }
 
 # mpv fullscreen on second display and taskspooler
