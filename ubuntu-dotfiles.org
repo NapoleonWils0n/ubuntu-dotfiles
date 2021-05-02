@@ -5163,7 +5163,7 @@ copy_link() {
 
 # youtube-dl and taskspooler
 download() {
-      tsp -L "${url}" \
+      tsp \
       youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
       --restrict-filenames \
       --no-playlist \
