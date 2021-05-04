@@ -1,6 +1,6 @@
 #!/bin/sh
 # DESC: Elvi to search Google Video
-# elvis: iplayer -- Search bbc iplayer (https://bbc.co.uk/iplayer)
+# elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
 . surfraw || exit 1
 
 w3_usage_hook () {

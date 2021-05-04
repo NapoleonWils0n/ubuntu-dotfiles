@@ -1,6 +1,6 @@
 #!/bin/sh
 # DESC: Elvi to search dailymotion
-# elvis: dailymotion -- Search dailymotion (https://dailymotion.com)
+# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
 . surfraw || exit 1
 
 w3_usage_hook () {

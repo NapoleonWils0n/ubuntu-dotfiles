@@ -1,5 +1,5 @@
 #!/bin/sh
-# elvis: ddg -- Securely search the web using duckduckgo (duckduckgo.com)
+# elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
 # coder@kyleisom.net 20110105
 # relevant: https://duckduckgo.com/params.html
 # similar to duckduckgo elvi, adds more options and defaults to SSL.

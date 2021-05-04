@@ -6796,7 +6796,7 @@ color alert = black,bold
 #+NAME: ddg
 #+BEGIN_SRC conf
 #!/bin/sh
-# elvis: ddg -- Securely search the web using duckduckgo (duckduckgo.com)
+# elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
 # coder@kyleisom.net 20110105
 # relevant: https://duckduckgo.com/params.html
 # similar to duckduckgo elvi, adds more options and defaults to SSL.
@@ -6856,7 +6856,7 @@ w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckdu
 #+BEGIN_SRC conf
 #!/bin/sh
 # DESC: Elvi to search Google Video
-# elvis: iplayer -- Search bbc iplayer (https://bbc.co.uk/iplayer)
+# elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
 . surfraw || exit 1
 
 w3_usage_hook () {
@@ -6884,7 +6884,7 @@ fi
 #+BEGIN_SRC conf
 #!/bin/sh
 # DESC: Elvi to search dailymotion
-# elvis: dailymotion -- Search dailymotion (https://dailymotion.com)
+# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
 . surfraw || exit 1
 
 w3_usage_hook () {
