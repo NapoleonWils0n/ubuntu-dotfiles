@@ -4139,9 +4139,6 @@ MimeType=x-scheme-handler/org-protocol;
 # ssh zsh fix
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=1000
@@ -4160,23 +4157,6 @@ fi
 # git prompt
 if [ -f "$HOME/.git-prompt.sh" ]; then
 	source "$HOME/.git-prompt.sh"
-fi
-
-# XDG_RUNTIME_DIR for mpv hardware accleration
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-    export XDG_RUNTIME_DIR=/tmp
-    if [ ! -d  "$XDG_RUNTIME_DIR" ]; then
-        mkdir "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-    fi
-fi
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
 # prompt
@@ -4212,6 +4192,32 @@ case $TERM in
     }
   ;;
 esac
+
+# XDG_RUNTIME_DIR for mpv hardware accleration
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+    export XDG_RUNTIME_DIR=/tmp
+    if [ ! -d  "$XDG_RUNTIME_DIR" ]; then
+        mkdir "$XDG_RUNTIME_DIR"
+        chmod 0700 "$XDG_RUNTIME_DIR"
+    fi
+fi
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
+# Fix bugs when switching modes
+bindkey -v # vi mode
+bindkey "^?" backward-delete-char
+bindkey "^u" backward-kill-line
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+bindkey "^k" kill-line
 
 # Use modern completion system
 autoload -Uz compinit
@@ -4280,16 +4286,6 @@ ZSH_HIGHLIGHT_STYLES[precommand]=fg=cyan,underline
 ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
-
-# vi mode
-bindkey -v
-
-# Fix bugs when switching modes
-bindkey "^?" backward-delete-char
-bindkey "^u" backward-kill-line
-bindkey "^a" beginning-of-line
-bindkey "^e" end-of-line
-bindkey "^k" kill-line
 
 # aliases
 
