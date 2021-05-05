@@ -3,11 +3,6 @@
 # ssh zsh fix
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
-# setopt
-setopt histignorealldups sharehistory
-setopt auto_cd
-cdpath=($HOME)
-
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
@@ -95,10 +90,13 @@ compinit
 #=======
 
 # Set/unset  shell options
-setopt   notify globdots correct pushdtohome cdablevars autolist
-setopt   correctall recexact longlistjobs
-setopt   autoresume histignoredups pushdsilent noclobber
-setopt   autopushd pushdminus extendedglob rcquotes mailwarning
+setopt notify globdots correct pushdtohome cdablevars autolist
+setopt correctall recexact longlistjobs
+setopt autoresume histignoredups pushdsilent noclobber
+setopt autopushd pushdminus extendedglob rcquotes mailwarning
+setopt histignorealldups sharehistory
+setopt auto_cd
+cdpath=($HOME)
 unsetopt bgnice autoparamslash
 
 # Completion Styles
