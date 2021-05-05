@@ -4144,36 +4144,36 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user bin if it exists
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# set PATH so it includes user local bin if it exists
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-# git prompt
+# git prompt script
 if [ -f "$HOME/.git-prompt.sh" ]; then
 	source "$HOME/.git-prompt.sh"
 fi
 
-# prompt
+# git prompt variables
 setopt prompt_subst
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto verbose name git"
 
-# right prompt
+# right prompt git status
 PROMPT=$'[%n@%M %~]'
 RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 
-# variables for prompt
+# variables for PS3 prompt
 newline=$'\n'
 yesmaster=' Yes Master ? '
 
-# prompt function
+# PS3 prompt function
 function zle-line-init zle-keymap-select {
     VIM_NORMAL_PROMPT="[% -n]% "
     VIM_INSERT_PROMPT="[% +i]% "
@@ -4181,10 +4181,11 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 
+# run PS3 prompt function
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# set window title to program name
+# set terminal window title to program name
 case $TERM in
   (*xterm* | rxvt | rxvt-unicode-256color | st-256color)
     function precmd {
