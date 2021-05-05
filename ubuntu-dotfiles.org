@@ -4165,12 +4165,15 @@ GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
 GIT_PS1_SHOWUPSTREAM="auto verbose name git"
 
+# right prompt
 PROMPT=$'[%n@%M %~]'
 RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 
+# variables for prompt
 newline=$'\n'
 yesmaster=' Yes Master ? '
 
+# prompt function
 function zle-line-init zle-keymap-select {
     VIM_NORMAL_PROMPT="[% -n]% "
     VIM_INSERT_PROMPT="[% +i]% "
@@ -4209,7 +4212,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
 
 # Fix bugs when switching modes
 bindkey -v # vi mode
