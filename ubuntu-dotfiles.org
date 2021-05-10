@@ -6782,6 +6782,34 @@ color alert = black,bold
 #+END_SRC
 
 ** surfraw
+*** btdig
+
+#+NAME: btdig
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search btdig
+# elvis: btdig		-- Search btdig (https://btdig.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search btdig (https://btdig.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://btdig.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://btdig.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
 *** ddg
 
 #+NAME: ddg
@@ -6954,6 +6982,22 @@ fi
 #+END_SRC
 
 **** surfraw tangle
+***** btdig
+
++ home dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
 ***** ddg
 
 + home dir
