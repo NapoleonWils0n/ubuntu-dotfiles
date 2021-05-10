@@ -6925,6 +6925,34 @@ else
 fi
 #+END_SRC
 
+*** vimeo
+
+#+NAME: vimeo
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search vimeo
+# elvis: vimeo		-- Search vimeo (https://vimeo.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search vimeo (https://vimeo.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://vimeo.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
 **** surfraw tangle
 ***** ddg
 
@@ -6988,6 +7016,22 @@ fi
 #+NAME: surfraw-video-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
 <<video>>
+#+END_SRC
+
+***** vimeo
+
++ home dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
 #+END_SRC
 
 ** rofi
