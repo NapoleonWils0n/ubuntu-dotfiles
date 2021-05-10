@@ -5032,7 +5032,7 @@ disable_secret_security_check 0
 ftppasswd 
 ftppass_hostnamegen 1
 pre_form_file ~/.w3m/pre_form
-siteconf_file ~/.w3m/siteconf
+siteconf_file /home/djwilcox/.w3m/siteconf
 user_agent Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.13
 no_referer 0
 accept_language en;q=1.0
@@ -5302,6 +5302,20 @@ keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
 image/*; sxiv %s
 #+END_SRC
 
+*** siteconf
+
+#+NAME: w3m-siteconf
+#+BEGIN_SRC conf
+# google set user agent to lynx
+url m@^https?://(.*\.)google\.com/@
+user_agent "Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.1"
+no_referer_from on
+
+# remove google redirect from search links
+url "http://www.google.com/url?" exact
+substitute_url "file:///usr/lib/w3m/cgi-bin/google-redirector.cgi?"
+#+END_SRC
+
 **** w3m tangle
 
 ***** bookmark.html
@@ -5447,6 +5461,22 @@ image/*; sxiv %s
 #+NAME: w3m-mailcap-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/mailcap"
 <<w3m-mailcap>>
+#+END_SRC
+
+***** siteconf
+
++ home dir
+
+#+NAME: w3m-siteconf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/siteconf"
+<<w3m-siteconf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-siteconf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/siteconf"
+<<w3m-siteconf>>
 #+END_SRC
 
 ** aria2c
