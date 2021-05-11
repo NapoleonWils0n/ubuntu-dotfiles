@@ -5312,7 +5312,7 @@ user_agent "Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.1"
 no_referer_from on
 
 # remove google redirect from search links
-url "https://www.google.com/url?" exact
+url "http://www.google.com/url?" exact
 substitute_url "file:///usr/lib/w3m/cgi-bin/google-redirector.cgi?"
 #+END_SRC
 
