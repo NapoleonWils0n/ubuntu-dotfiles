@@ -98,7 +98,7 @@ ftppass_hostnamegen 1
 pre_form_file ~/.w3m/pre_form
 siteconf_file /home/djwilcox/.w3m/siteconf
 user_agent Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.13
-no_referer 0
+no_referer 1
 accept_language en;q=1.0
 accept_encoding gzip, compress, bzip, bzip2, deflate
 accept_media text/html, text/*;q=0.5, image/*
