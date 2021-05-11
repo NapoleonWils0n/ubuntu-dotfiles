@@ -5047,7 +5047,7 @@ dns_order 0
 nntpserver 
 nntpmode 
 max_news 50
-use_proxy 1
+use_proxy 0
 http_proxy 
 https_proxy 
 gopher_proxy 
