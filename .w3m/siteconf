@@ -6,3 +6,11 @@ no_referer_from on
 # remove google redirect from search links
 url "http://www.google.com/url?" exact
 substitute_url "file:///usr/lib/w3m/cgi-bin/google-redirector.cgi?"
+
+# youtube open video links with mpv
+url "https://www.youtube.com/watch?" exact
+substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
+
+# bbc iplayer open video links with mpv
+url "https://www.bbc.co.uk/iplayer/episode"
+substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
