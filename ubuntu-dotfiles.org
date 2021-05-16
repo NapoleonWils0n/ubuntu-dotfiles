@@ -4326,7 +4326,7 @@ trd-remove() { transmission-remote -t"$1" --remove ;}		# leaves data alone
 trd-info() { transmission-remote -t"$1" --info ;}
 trd-speed() { while true;do clear; transmission-remote -t"$1" -i | grep Speed;sleep 1;done ;}
 trd-grep() { transmission-remote --list | grep -i "$1" ;}
-trd() { transmission-remote --list ;}
+trd-list() { transmission-remote --list ;}
 trd-show() { transmission-show "$1" ;}                          # show .torrent file information
 #+END_SRC
 
