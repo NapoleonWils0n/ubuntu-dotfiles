@@ -5274,6 +5274,26 @@ fi
 pinch -i "${url}"
 #+END_SRC
 
+**** magnet-cgi
+
+#+NAME: magnet-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#         https://www.youtube.com/user/gotbletu
+# DESC:   send magnet links to your torrent client (for W3M Web Browser)
+# DEMO:   https://youtu.be/T74FqHMHjN0
+# REQD:   1. touch ~/.w3m/urimethodmap
+#         2. echo "magnet: file:/cgi-bin/magnet.cgi?%s" >> ~/.w3m/urimethodmap
+#         3. chmod +x ~/.w3m/cgi-bin/magnet.cgi
+#         4. sed -i 's@cgi_bin.*@cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/libexec/w3m/cgi-bin@g' ~/.w3m/config
+#         5. sed -i 's@urimethodmap.*@urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap@g' ~/.w3m/config
+
+printf "%s\r\n" "W3m-control: READ_SHELL transmission-remote --add '$QUERY_STRING'"
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF"
+printf "%s\r\n" "W3m-control: BACK"
+#+END_SRC
+
 *** keymap
 
 #+NAME: w3m-keymap
@@ -5327,6 +5347,14 @@ substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
 url "https://www.dailymotion.com/video"
 substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
 #+END_SRC
+
+*** urimethodmap
+
+#+NAME: urimethodmap
+#+begin_src conf
+magnet: file:/cgi-bin/magnet.cgi?%s
+
+#+end_src
 
 **** w3m tangle
 
@@ -5443,6 +5471,22 @@ substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
 <<pinch-cgi>>
 #+END_SRC
 
+****** magnet-cgi
+
++ home dir
+
+#+NAME: magnet-cgi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
+<<magnet-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: magnet-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
+<<magnet-cgi>>
+#+END_SRC
+
 ***** keymap
 
 + home dir
@@ -5489,6 +5533,22 @@ substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
 #+NAME: w3m-siteconf-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/siteconf"
 <<w3m-siteconf>>
+#+END_SRC
+
+***** urimethodmap
+
++ home dir
+
+#+NAME: w3m-urimethodmap-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/urimethodmap"
+<<urimethodmap>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-urimethodmap-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/urimethodmap"
+<<urimethodmap>>
 #+END_SRC
 
 ** aria2c
