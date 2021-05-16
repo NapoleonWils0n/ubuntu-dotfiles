@@ -79,6 +79,7 @@ myStartupHook = do
       spawnOnce "dunst &" -- emacs
       spawnOnce "nm-applet &"
       spawnOnce "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc"
+      spawnOnce "transmission-daemon &"
 
 ------------------------------------------------------------------------
 -- layout
