@@ -72,7 +72,7 @@ preserve_timestamp 1
 keymap_file keymap
 document_root 
 personal_document_root 
-cgi_bin 
+cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin
 index_file 
 mime_types ~/.mime.types, /usr/local/etc/mime.types
 mailcap ~/.w3m/mailcap, /usr/local/etc/w3m/mailcap
