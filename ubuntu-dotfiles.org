@@ -5125,6 +5125,41 @@ simple_preserve_space 0
 #+END_SRC
 
 *** cgi-bin
+**** functions-w3m
+
+#+NAME: functions-w3m
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# fzf prompt to specify function to run from readme.func
+file='/usr/share/doc/w3m/README.func'
+selection=$(awk '{ print $0 }' "${file}" | fzf --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
+
+# default function
+default() {
+echo "${selection}" | xsel -ipsb
+}
+
+# open links with browser
+extern() {
+EXTERN='EXTERN /usr/bin/firefox'
+echo "${EXTERN}" | xsel -ipsb
+}
+
+# open links with browser
+extern_link() {
+EXTERN='EXTERN_LINK /usr/bin/firefox'
+echo "${EXTERN_LINK}" | xsel -ipsb
+}
+
+# case statement match selection and run function
+case "${selection}" in
+   EXTERN) extern;;
+   EXTERN_LINK) extern_link;;
+   ,*) default;;
+esac
+#+END_SRC
+
 **** fzf-surfraw
 
 #+NAME: fzf-surfraw
@@ -5148,6 +5183,115 @@ input=$(echo | fzf --print-query --prompt="${prefix}: " --info=inline --layout=r
 # dont quote the input variable and copy the url to primary clipboard
 surfraw -p "$prefix" $input | xsel -p
 
+#+END_SRC
+
+**** google-redirector
+
+#+NAME: google-redirector
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+#if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# W3m-control GOTO url without google redirect
+printf "%s\r\n" "W3m-control: GOTO ${url}";
+# delete previous buffer
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
+#+END_SRC
+
+**** goto-clipboard-primary
+
+#+NAME: goto-clipboard-primary
+#+BEGIN_SRC conf
+#!/usr/bin/env sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#         https://www.youtube.com/user/gotbletu
+# DESC:   paste and go feature for w3m web browser using primary clipboard (aka shift+insert)
+# DEMO:   https://youtu.be/p5NZb8f8AHA | updated https://youtu.be/0j3pUfZjCeQ
+# DEPEND: w3m  xsel
+# RQMTS:  1. allow permissions and put this script in /usr/lib/w3m/cgi-bin/
+#
+#         2. $EDITOR ~/.w3m/keymap
+#                       # paste url and go (current tab)
+#                       keymap  pp      GOTO        /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi
+#
+#                       # paste url and go (new tab)
+#                       keymap  PP      TAB_GOTO    /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi
+#
+#         3. set the default open-url to current url
+#               sed -i 's:default_url.*:default_url 1:g' ~/.w3m/config
+#
+# REFF:   https://github.com/felipesaa/A-vim-like-firefox-like-configuration-for-w3m
+# CLOG:   2021-02-05 version 0.2 reset url back to 1 (aka edit current url)
+#         2020-04-26 version 0.1
+
+
+# set open-url value to zero (aka empty url line)
+printf "%s\r\n" "W3m-control: SET_OPTION default_url=0";
+
+#GOTO url in clipboard in current page. If the clipboard has a 
+#"non url string/nothing" an blank page is shown.
+printf "%s\r\n" "W3m-control: GOTO $(xsel -op)";
+
+#delete the buffer (element in history) created between the current page and 
+#the searched page by calling this script.
+printf "W3m-control: DELETE_PREVBUF\r\n"
+
+# set default open-url value to one (aka current url)
+printf "%s\r\n" "W3m-control: SET_OPTION default_url=1";
+#+END_SRC
+
+**** magnet-cgi
+
+#+NAME: magnet-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#         https://www.youtube.com/user/gotbletu
+# DESC:   send magnet links to your torrent client (for W3M Web Browser)
+# DEMO:   https://youtu.be/T74FqHMHjN0
+# REQD:   1. touch ~/.w3m/urimethodmap
+#         2. echo "magnet: file:/cgi-bin/magnet.cgi?%s" >> ~/.w3m/urimethodmap
+#         3. chmod +x ~/.w3m/cgi-bin/magnet.cgi
+#         4. sed -i 's@cgi_bin.*@cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/libexec/w3m/cgi-bin@g' ~/.w3m/config
+#         5. sed -i 's@urimethodmap.*@urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap@g' ~/.w3m/config
+
+printf "%s\r\n" "W3m-control: READ_SHELL transmission-remote --add '$QUERY_STRING'"
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF"
+printf "%s\r\n" "W3m-control: BACK"
+#+END_SRC
+
+**** run-command
+
+#+NAME: run-command
+#+BEGIN_SRC conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#         https://www.youtube.com/user/gotbletu
+# DESC:   send magnet links to your torrent client (for W3M Web Browser)
+# DEMO:   https://youtu.be/T74FqHMHjN0
+# REQD:   1. touch ~/.w3m/urimethodmap
+#         2. echo "magnet: file:/cgi-bin/magnet.cgi?%s" >> ~/.w3m/urimethodmap
+#         3. chmod +x ~/.w3m/cgi-bin/magnet.cgi
+#         4. sed -i 's@cgi_bin.*@cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/libexec/w3m/cgi-bin@g' ~/.w3m/config
+#         5. sed -i 's@urimethodmap.*@urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap@g' ~/.w3m/config
+
+printf "%s\r\n" "W3m-control: READ_SHELL transmission-remote --add '$QUERY_STRING'"
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF"
+printf "%s\r\n" "W3m-control: BACK"
 #+END_SRC
 
 **** sauron-w3m
@@ -5230,59 +5374,41 @@ case "${menu}" in
 esac
 #+END_SRC
 
-**** functions-w3m
+**** video-cgi
 
-#+NAME: functions-w3m
+#+NAME: video-cgi
 #+BEGIN_SRC conf
 #!/bin/sh
 
-# fzf prompt to specify function to run from readme.func
-file='/usr/share/doc/w3m/README.func'
-selection=$(awk '{ print $0 }' "${file}" | fzf --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
+# video.cgi
 
-# default function
-default() {
-echo "${selection}" | xsel -ipsb
-}
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
 
-# open links with browser
-extern() {
-EXTERN='EXTERN /usr/bin/firefox'
-echo "${EXTERN}" | xsel -ipsb
-}
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
 
-# open links with browser
-extern_link() {
-EXTERN='EXTERN_LINK /usr/bin/firefox'
-echo "${EXTERN_LINK}" | xsel -ipsb
-}
+# queue the video with taskpooler and play the url with mpv on the current display
+#tsp mpv --no-terminal "${url}"
 
-# case statement match selection and run function
-case "${selection}" in
-   EXTERN) extern;;
-   EXTERN_LINK) extern_link;;
-   ,*) default;;
-esac
-#+END_SRC
+# queue the video with taskpooler and play the url with mpv full screen on the second display
+tsp mpv --fs --screen=1 "${url}"
 
-**** magnet-cgi
+# remove http prefix for notify-send to fix issue with (U) in the notification title
+title=$(echo "${url}" | sed -e 's#https\?://\([www.]*\)##g')
+notify-send "Queuing ♫" "${title}"
 
-#+NAME: magnet-cgi
-#+BEGIN_SRC conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#         https://www.youtube.com/user/gotbletu
-# DESC:   send magnet links to your torrent client (for W3M Web Browser)
-# DEMO:   https://youtu.be/T74FqHMHjN0
-# REQD:   1. touch ~/.w3m/urimethodmap
-#         2. echo "magnet: file:/cgi-bin/magnet.cgi?%s" >> ~/.w3m/urimethodmap
-#         3. chmod +x ~/.w3m/cgi-bin/magnet.cgi
-#         4. sed -i 's@cgi_bin.*@cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/libexec/w3m/cgi-bin@g' ~/.w3m/config
-#         5. sed -i 's@urimethodmap.*@urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap@g' ~/.w3m/config
-
-printf "%s\r\n" "W3m-control: READ_SHELL transmission-remote --add '$QUERY_STRING'"
-printf "%s\r\n" "W3m-control: DELETE_PREVBUF"
-printf "%s\r\n" "W3m-control: BACK"
+# delete previous buffer
+printf "%s\r\n" "W3m-control: BACK";
 #+END_SRC
 
 *** keymap
@@ -5384,6 +5510,22 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 #+END_SRC
 
 ***** cgi-bin
+****** functions-w3m
+
++ home dir
+
+#+NAME: functions-w3m-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
+<<functions-w3m>>
+#+END_SRC
+
++ current dir
+
+#+NAME: functions-w3m-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
+<<functions-w3m>>
+#+END_SRC
+
 ****** fzf-surfraw
 
 + home dir
@@ -5398,6 +5540,70 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 #+NAME: fzf-surfraw-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
 <<fzf-surfraw>>
+#+END_SRC
+
+****** google-redirector
+
++ home dir
+
+#+NAME: google-redirector-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/google-redirector.cgi" :tangle-mode (identity #o755)
+<<google-redirector>>
+#+END_SRC
+
++ current dir
+
+#+NAME: google-redirector-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/google-redirector.cgi" :tangle-mode (identity #o755)
+<<google-redirector>>
+#+END_SRC
+
+****** goto-clipboard-primary
+
++ home dir
+
+#+NAME: goto-clipboard-primary-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/goto_clipboard_primary.cgi" :tangle-mode (identity #o755)
+<<goto-clipboard-primary>>
+#+END_SRC
+
++ current dir
+
+#+NAME: goto-clipboard-primary-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/goto_clipboard_primary.cgi" :tangle-mode (identity #o755)
+<<goto-clipboard-primary>>
+#+END_SRC
+
+****** magnet-cgi
+
++ home dir
+
+#+NAME: magnet-cgi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
+<<magnet-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: magnet-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
+<<magnet-cgi>>
+#+END_SRC
+
+****** run-command
+
++ home dir
+
+#+NAME: run-command-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/run_command.cgi" :tangle-mode (identity #o755)
+<<run-command>>
+#+END_SRC
+
++ current dir
+
+#+NAME: run-command-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/run_command.cgi" :tangle-mode (identity #o755)
+<<run-command>>
 #+END_SRC
 
 ****** sauron-w3m
@@ -5416,36 +5622,20 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<sauron-w3m>>
 #+END_SRC
 
-****** functions-w3m
+****** video-cgi
 
 + home dir
 
-#+NAME: functions-w3m-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
-<<functions-w3m>>
+#+NAME: video-cgi-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/video.cgi" :tangle-mode (identity #o755)
+<<video-cgi>>
 #+END_SRC
 
 + current dir
 
-#+NAME: functions-w3m-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
-<<functions-w3m>>
-#+END_SRC
-
-****** magnet-cgi
-
-+ home dir
-
-#+NAME: magnet-cgi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
-<<magnet-cgi>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: magnet-cgi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
-<<magnet-cgi>>
+#+NAME: video-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/video.cgi" :tangle-mode (identity #o755)
+<<video-cgi>>
 #+END_SRC
 
 ***** keymap

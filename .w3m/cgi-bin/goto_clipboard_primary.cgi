@@ -34,4 +34,3 @@ printf "W3m-control: DELETE_PREVBUF\r\n"
 
 # set default open-url value to one (aka current url)
 printf "%s\r\n" "W3m-control: SET_OPTION default_url=1";
-

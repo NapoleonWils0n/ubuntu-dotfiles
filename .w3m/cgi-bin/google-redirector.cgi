@@ -19,4 +19,3 @@ fi
 printf "%s\r\n" "W3m-control: GOTO ${url}";
 # delete previous buffer
 printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
-
