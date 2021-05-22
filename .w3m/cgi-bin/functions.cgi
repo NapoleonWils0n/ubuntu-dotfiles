@@ -4,6 +4,9 @@
 file='/usr/share/doc/w3m/README.func'
 selection=$(awk '{ print $0 }' "${file}" | fzf --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
 
+# variables
+browser='/usr/bin/firefox'
+
 # default function
 default() {
 echo "${selection}" | xsel -ipsb
@@ -11,13 +14,13 @@ echo "${selection}" | xsel -ipsb
 
 # open links with browser
 extern() {
-EXTERN='EXTERN /usr/bin/firefox'
+EXTERN="EXTERN ${browser}"
 echo "${EXTERN}" | xsel -ipsb
 }
 
 # open links with browser
 extern_link() {
-EXTERN='EXTERN_LINK /usr/bin/firefox'
+EXTERN="EXTERN_LINK ${browser}"
 echo "${EXTERN_LINK}" | xsel -ipsb
 }
 
