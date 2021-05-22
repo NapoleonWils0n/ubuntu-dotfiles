@@ -5143,19 +5143,19 @@ default() {
 echo "${selection}" | xsel -ipsb
 }
 
-# open links with browser
+# open current page with external browser
 extern() {
 EXTERN="EXTERN ${browser}"
 echo "${EXTERN}" | xsel -ipsb
 }
 
-# open links with browser
+# open link with external browser
 extern_link() {
 EXTERN="EXTERN_LINK ${browser}"
 echo "${EXTERN_LINK}" | xsel -ipsb
 }
 
-# quit w3m and w3mimgdisplay
+# quit w3m and w3mimgdisplay with pkill -15
 quit() {
 pkill -15 w3m
 }
