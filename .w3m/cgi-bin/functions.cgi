@@ -24,9 +24,15 @@ EXTERN="EXTERN_LINK ${browser}"
 echo "${EXTERN_LINK}" | xsel -ipsb
 }
 
+# quit w3m and w3mimgdisplay
+quit() {
+pkill -15 w3m
+}
+
 # case statement match selection and run function
 case "${selection}" in
    EXTERN) extern;;
    EXTERN_LINK) extern_link;;
+   EXIT|ABORT) quit;;
    *) default;;
 esac
