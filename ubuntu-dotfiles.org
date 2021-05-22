@@ -5290,7 +5290,7 @@ printf "%s\r\n" "W3m-control: BACK"
 #+NAME: w3m-keymap
 #+BEGIN_SRC conf
 # surfraw prompt
-keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi"
+keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO file:/cgi-bin/goto_clipboard_primary.cgi"
 
 # sauron-w3m prompt
 keymap ,-. COMMAND "READ_SHELL ~/.w3m/cgi-bin/sauron-w3m.cgi; BACK"
@@ -5304,6 +5304,8 @@ keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
 # toggle line numbers
 keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
 
+# w3m function prompt
+keymap .-, COMMAND "READ_SHELL ~/.w3m/cgi-bin/functions.cgi ; BACK ; GOTO file:/cgi-bin/run_command.cgi ; BACK"
 #+END_SRC
 
 *** mailcap
@@ -5324,19 +5326,19 @@ no_referer_from on
 
 # remove google redirect from search links
 url "http://www.google.com/url?" exact
-substitute_url "file:///usr/lib/w3m/cgi-bin/google-redirector.cgi?"
+substitute_url "file:/cgi-bin/google-redirector.cgi?"
 
 # youtube open video links with mpv
 url "https://www.youtube.com/watch?" exact
-substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
+substitute_url "file:/cgi-bin/video.cgi?"
 
 # bbc iplayer open video links with mpv
 url "https://www.bbc.co.uk/iplayer/episode"
-substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
+substitute_url "file:/cgi-bin/video.cgi?"
 
 # dailymotion open video links with mpv
 url "https://www.dailymotion.com/video"
-substitute_url "file:///usr/lib/w3m/cgi-bin/video.cgi?"
+substitute_url "file:/cgi-bin/video.cgi?"
 #+END_SRC
 
 *** urimethodmap
