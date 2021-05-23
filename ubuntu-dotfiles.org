@@ -7625,9 +7625,6 @@ configuration {
 # By Nicholas Marriott. Public domain.
 #
 
-# turn off tmux status bar because it breaks w3m layout
-set -g status off
-
 # Some tweaks to the status line
 set -g status-right ""
 #set -g window-status-current-style "underscore"
