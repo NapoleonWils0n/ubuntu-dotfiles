@@ -5133,7 +5133,7 @@ simple_preserve_space 0
 
 # fzf prompt to specify function to run from readme.func
 file='/usr/share/doc/w3m/README.func'
-selection=$(awk '{ print $0 }' "${file}" | fzf --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
+selection=$(awk '{ print $0 }' "${file}" | fzf-tmux -d 30% --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
 
 # variables
 browser='/usr/bin/firefox'
@@ -5290,7 +5290,7 @@ printf "%s\r\n" "W3m-control: BACK"
 #!/bin/sh
 
 # run w3m command from clipboard
-printf "%s\r\n" "W3m-control: COMMAND $(xsel -opsb)";
+printf "%s\r\n" "W3m-control: $(xsel -opsb)";
 #+END_SRC
 
 **** sauron-w3m
@@ -7624,6 +7624,9 @@ configuration {
 #
 # By Nicholas Marriott. Public domain.
 #
+
+# turn off tmux status bar because it breaks w3m layout
+set -g status off
 
 # Some tweaks to the status line
 set -g status-right ""
