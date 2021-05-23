@@ -61,7 +61,7 @@ menu=$(printf "%s\n" \
 	      "${download_tsp}" \
 	      "${fullscreen_tsp}" \
 	      "${video_tsp}" \
-	      | fzf --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+	      | fzf-tmux -d 15% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
 
 # case statement to run function based on fzf prompt output
 case "${menu}" in
