@@ -1,30 +1,28 @@
 #!/bin/sh
 
-# bbc episodes
+# bbc search
 
-# current link under cursor in w3m
-url="${W3M_CURRENT_LINK}"   
-
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-#if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   url="${url}"
-else
-    url="${W3M_URL}"
-fi
+# base url and query string
+baseurl='https://www.bbc.co.uk/iplayer/search?'
+query="${QUERY_STRING}"
+url="${baseurl}${query}"
 
 # css selector
-css='div.tleo-list'
+css='div.list.search-list.facets'
+
+# css exclude
+search='search-list__header'
 
 # outfile
-outfile='/tmp/bbc-episodes.html'
+outfile='/tmp/bbc-search.html'
 
 # hxselect and sed
 hxnormalize -x "${url}" \
 | hxselect -s '\n' -c "${css}" \
+| hxprune -c "${search}" \
 | sed -e 's#/iplayer/#https://www.bbc.co.uk/iplayer/#g' \
 -e "/<a/ { /href/ s/.*href=['\"]https:\/\/www.bbc.co.uk\/iplayer\/episode\/.*['\"]\([^<]*\)/&play/g }" \
+-e 's#?q=#https://www.bbc.co.uk/iplayer/search?q=#g' \
 > "${outfile}"
 
 # W3m-control
