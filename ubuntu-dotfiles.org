@@ -4391,6 +4391,827 @@ export MPD_HOST="/home/djwilcox/.config/mpd/socket"
 <<zshenv>>
 #+END_SRC
 
+** w3m
+
+*** bookmark.html
+
+#+NAME: w3m-bookmark.html
+#+BEGIN_SRC conf
+<html><head><title>Bookmarks</title></head>
+<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<body>
+<h1>Bookmarks</h1>
+<ul>
+<li><a href="https://duckduckgo.com/">DuckDuckgo</a></li>
+<li><a href="https://google.com/">Google</a></li>
+<li><a href="https://www.bbc.co.uk/iplayer">BBC iPlayer</a>
+<li><a href="https://www.itv.com">ITV Player</a>
+<li><a href="https://ixirc.com/">ixirc</a></li>
+<li><a href="http://www.xdcc.eu/">xdcc</a></li>
+</ul>
+<!--End of section (do not delete this comment)-->
+</ul>
+</body>
+</html>
+#+END_SRC
+
+*** config
+
+#+NAME: w3m-config
+#+BEGIN_SRC conf
+tabstop 8
+indent_incr 4
+pixel_per_char 12
+pixel_per_line 26
+frame 0
+target_self 0
+open_tab_blank 0
+open_tab_dl_list 0
+display_link 0
+display_link_number 0
+decode_url 0
+display_lineinfo 0
+ext_dirlist 1
+dirlist_cmd file:///$LIB/dirlist.cgi
+use_dictcommand 1
+dictcommand file:///$LIB/w3mdict.cgi
+multicol 0
+alt_entity 0
+graphic_char 0
+display_borders 1
+fold_textarea 0
+display_ins_del 1
+ignore_null_img_alt 0
+view_unseenobject 0
+display_image 1
+pseudo_inlines 0
+auto_image 1
+max_load_image 4
+ext_image_viewer 1
+image_scale 100
+imgdisplay w3mimgdisplay
+image_map_list 0
+fold_line 0
+show_lnum 0
+show_srch_str 1
+label_topline 0
+nextpage_topline 0
+color 1
+basic_color terminal
+anchor_color terminal
+image_color terminal
+form_color red
+mark_color terminal
+bg_color terminal
+active_style 1
+active_color cyan
+visited_anchor 0
+visited_color magenta
+pagerline 10000
+use_history 1
+history 100
+save_hist 0
+confirm_qq 1
+close_tab_back 0
+mark 0
+emacs_like_lineedit 0
+vi_prec_num 0
+mark_all_pages 0
+wrap_search 0
+ignorecase_search 1
+use_migemo 1
+migemo_command cmigemo -q -d /usr/share/cmigemo/utf-8/migemo-dict
+use_mouse 0
+reverse_mouse 0
+relative_wheel_scroll 0
+relative_wheel_scroll_ratio 30
+fixed_wheel_scroll_count 5
+clear_buffer 1
+decode_cte 0
+auto_uncompress 0
+preserve_timestamp 1
+keymap_file keymap
+document_root 
+personal_document_root 
+cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin
+index_file 
+mime_types ~/.mime.types, /usr/local/etc/mime.types
+mailcap ~/.w3m/mailcap, /usr/local/etc/w3m/mailcap
+urimethodmap ~/.w3m/urimethodmap, /usr/local/etc/w3m/urimethodmap
+editor /usr/local/bin/emacsclient
+mailto_options 1
+mailer 
+extbrowser /usr/bin/mpv %s &
+extbrowser2 /home/djwilcox/bin/pinch -i %s &
+extbrowser3 /usr/bin/youtube-dl %s &
+extbrowser4 
+extbrowser5 
+extbrowser6 
+extbrowser7 
+extbrowser8 
+extbrowser9 
+bgextviewer 1
+use_lessopen 0
+passwd_file ~/.w3m/passwd
+disable_secret_security_check 0
+ftppasswd 
+ftppass_hostnamegen 1
+pre_form_file ~/.w3m/pre_form
+siteconf_file /home/djwilcox/.w3m/siteconf
+user_agent Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.13
+no_referer 1
+accept_language en;q=1.0
+accept_encoding gzip, compress, bzip, bzip2, deflate
+accept_media text/html, text/*;q=0.5, image/*
+argv_is_url 1
+retry_http 1
+default_url 1
+follow_redirection 10
+meta_refresh 1
+dns_order 0
+nntpserver 
+nntpmode 
+max_news 50
+use_proxy 0
+http_proxy 
+https_proxy 
+gopher_proxy 
+ftp_proxy 
+no_proxy 
+noproxy_netaddr 1
+no_cache 0
+ssl_forbid_method 2, 3
+ssl_verify_server 1
+ssl_cert_file 
+ssl_key_file 
+ssl_ca_path 
+ssl_ca_file 
+use_cookie 0
+show_cookie 0
+accept_cookie 0
+accept_bad_cookie 0
+cookie_reject_domains 
+cookie_accept_domains 
+cookie_avoid_wrong_number_of_dots 
+display_charset UTF-8
+document_charset UTF-8
+auto_detect 2
+system_charset UTF-8
+follow_locale 1
+ext_halfdump 0
+use_wide 1
+use_combining 1
+east_asian_width 0
+use_language_tag 1
+ucs_conv 1
+pre_conv 1
+search_conv 1
+fix_width_conv 1
+use_gb12345_map 0
+use_jisx0201 0
+use_jisc6226 0
+use_jisx0201k 0
+use_jisx0212 0
+use_jisx0213 0
+strict_iso2022 1
+gb18030_as_ucs 0
+simple_preserve_space 0
+#+END_SRC
+
+*** cgi-bin
+**** functions-w3m
+
+#+NAME: functions-w3m
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# fzf prompt to specify function to run from readme.func
+file='/usr/share/doc/w3m/README.func'
+selection=$(awk '{ print $0 }' "${file}" | fzf-tmux -d 30% --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
+
+# variables
+browser='/usr/bin/firefox'
+
+# default function
+default() {
+echo "${selection}" | xsel -ipsb
+}
+
+# open current page with external browser
+extern() {
+EXTERN="EXTERN ${browser}"
+echo "${EXTERN}" | xsel -ipsb
+}
+
+# open link with external browser
+extern_link() {
+EXTERN="EXTERN_LINK ${browser}"
+echo "${EXTERN_LINK}" | xsel -ipsb
+}
+
+# quit w3m and w3mimgdisplay with pkill -15
+quit() {
+pkill -15 w3m
+}
+
+# case statement match selection and run function
+case "${selection}" in
+   EXTERN) extern;;
+   EXTERN_LINK) extern_link;;
+   EXIT|ABORT) quit;;
+   ,*) default;;
+esac
+#+END_SRC
+
+**** fzf-surfraw
+
+#+NAME: fzf-surfraw
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# w3m and surfraw
+
+# clear screen
+printf "\033c"
+
+# select your elvi
+prefix=$(surfraw -elvi | grep -v 'LOCAL\|GLOBAL'| fzf -e --prompt='Search with: ' --info=inline --layout=reverse | awk '{print $1}')
+
+# exit script if no elvi is selected (e.g hit ESC)
+if [ "$prefix" = "" ]; then exit; fi
+
+# get user input using echo and fzf with the prompt set to the elvi name
+input=$(echo | fzf --print-query --prompt="${prefix}: " --info=inline --layout=reverse)
+
+# dont quote the input variable and copy the url to primary clipboard
+surfraw -p "$prefix" $input | xsel -p
+
+#+END_SRC
+
+**** google-redirector
+
+#+NAME: google-redirector
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+#if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# W3m-control GOTO url without google redirect
+printf "%s\r\n" "W3m-control: GOTO ${url}";
+# delete previous buffer
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
+#+END_SRC
+
+**** goto-clipboard-primary
+
+#+NAME: goto-clipboard-primary
+#+BEGIN_SRC conf
+#!/usr/bin/env sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#         https://www.youtube.com/user/gotbletu
+# DESC:   paste and go feature for w3m web browser using primary clipboard (aka shift+insert)
+# DEMO:   https://youtu.be/p5NZb8f8AHA | updated https://youtu.be/0j3pUfZjCeQ
+# DEPEND: w3m  xsel
+# RQMTS:  1. allow permissions and put this script in /usr/lib/w3m/cgi-bin/
+#
+#         2. $EDITOR ~/.w3m/keymap
+#                       # paste url and go (current tab)
+#                       keymap  pp      GOTO        /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi
+#
+#                       # paste url and go (new tab)
+#                       keymap  PP      TAB_GOTO    /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi
+#
+#         3. set the default open-url to current url
+#               sed -i 's:default_url.*:default_url 1:g' ~/.w3m/config
+#
+# REFF:   https://github.com/felipesaa/A-vim-like-firefox-like-configuration-for-w3m
+# CLOG:   2021-02-05 version 0.2 reset url back to 1 (aka edit current url)
+#         2020-04-26 version 0.1
+
+
+# set open-url value to zero (aka empty url line)
+printf "%s\r\n" "W3m-control: SET_OPTION default_url=0";
+
+#GOTO url in clipboard in current page. If the clipboard has a 
+#"non url string/nothing" an blank page is shown.
+printf "%s\r\n" "W3m-control: GOTO $(xsel -op)";
+
+#delete the buffer (element in history) created between the current page and 
+#the searched page by calling this script.
+printf "W3m-control: DELETE_PREVBUF\r\n"
+
+# set default open-url value to one (aka current url)
+printf "%s\r\n" "W3m-control: SET_OPTION default_url=1";
+#+END_SRC
+
+**** magnet-cgi
+
+#+NAME: magnet-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#         https://www.youtube.com/user/gotbletu
+# DESC:   send magnet links to your torrent client (for W3M Web Browser)
+# DEMO:   https://youtu.be/T74FqHMHjN0
+# REQD:   1. touch ~/.w3m/urimethodmap
+#         2. echo "magnet: file:/cgi-bin/magnet.cgi?%s" >> ~/.w3m/urimethodmap
+#         3. chmod +x ~/.w3m/cgi-bin/magnet.cgi
+#         4. sed -i 's@cgi_bin.*@cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/libexec/w3m/cgi-bin@g' ~/.w3m/config
+#         5. sed -i 's@urimethodmap.*@urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap@g' ~/.w3m/config
+
+printf "%s\r\n" "W3m-control: READ_SHELL transmission-remote --add '$QUERY_STRING'"
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF"
+printf "%s\r\n" "W3m-control: BACK"
+#+END_SRC
+
+**** run-command
+
+#+NAME: run-command
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# run w3m command from clipboard
+printf "%s\r\n" "W3m-control: $(xsel -opsb)";
+#+END_SRC
+
+**** sauron-w3m
+
+#+NAME: sauron-w3m
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# sauron - w3m
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# mpd and taskspooler
+audio() {
+      tsp pinch -i "${url}" 1>/dev/null 
+}
+
+copy_link() {
+      echo -n "${url}" | xsel -b 1>/dev/null 
+}
+
+# youtube-dl and taskspooler
+download() {
+      tsp \
+      youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
+      --restrict-filenames \
+      --no-playlist \
+      --ignore-config \
+       -o "~/Downloads/%(title)s.%(ext)s" \
+      "${url}" 1>/dev/null
+}
+
+# mpv fullscreen on second display and taskspooler
+fullscreen() {
+      tsp mpv --fs --screen=1 "${url}" 1>/dev/null 
+}
+
+# mpv and taskspooler
+video() {
+      tsp mpv --no-terminal "${url}" 1>/dev/null
+}
+
+# fzf prompt variables spaces to line up menu options
+audio_tsp='audio      - mpd play audio'
+copy_tsp='copy       - xsel copy url under the cusor to the clipboard'
+download_tsp='download   - youtube-dl download links'
+fullscreen_tsp='fullscreen - mpv play fullscreen on second display'
+video_tsp='video      - mpv play video on current display'
+
+# fzf prompt to specify function to run on links from ytfzf
+menu=$(printf "%s\n" \
+	      "${audio_tsp}" \
+	      "${copy_tsp}" \
+	      "${download_tsp}" \
+	      "${fullscreen_tsp}" \
+	      "${video_tsp}" \
+	      | fzf-tmux -d 15% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
+
+# case statement to run function based on fzf prompt output
+case "${menu}" in
+   audio*) audio;;
+   copy*) copy_link;;
+   download*) download;;
+   fullscreen*) fullscreen;;
+   video*) video;;
+   ,*) exit;;
+esac
+#+END_SRC
+
+**** video-cgi
+
+#+NAME: video-cgi
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# video.cgi
+
+# current link under cursor in w3m
+url="${W3M_CURRENT_LINK}"   
+
+# if the current link contains a url pipe it into grep,
+# remove the google redirect and decode the url
+# if the current link is empty set the url to the page url
+if [ ! -z "${url}" ]; then
+   result=$(echo "${url}" | \
+            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
+            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
+   [ ! -z "${result}" ] && url="${result}" || url="${url}"
+else
+    url="${W3M_URL}"
+fi
+
+# queue the video with taskpooler and play the url with mpv on the current display
+#tsp mpv --no-terminal "${url}"
+
+# queue the video with taskpooler and play the url with mpv full screen on the second display
+tsp mpv --fs --screen=1 "${url}"
+
+# remove http prefix for notify-send to fix issue with (U) in the notification title
+title=$(echo "${url}" | sed -e 's#https\?://\([www.]*\)##g')
+notify-send "Queuing ♫" "${title}"
+
+# delete previous buffer
+printf "%s\r\n" "W3m-control: BACK";
+#+END_SRC
+
+**** bbc-search
+
+#+NAME: bbc-search
+#+BEGIN_SRC conf
+#!/bin/sh
+
+# base url and query string
+baseurl='https://www.bbc.co.uk/iplayer/search?'
+query="${QUERY_STRING}"
+url="${baseurl}${query}"
+
+# css selector
+css='div.list.search-list.facets'
+
+# css exclude
+search='search-list__header'
+
+# outfile
+outfile='/tmp/bbc-search.html'
+
+# hxselect and sed
+hxnormalize -x "${url}" \
+| hxselect -s '\n' -c "${css}" \
+| hxprune -c "${search}" \
+| sed -e 's#/iplayer/#https://www.bbc.co.uk/iplayer/#g' \
+-e "/<a/ { /href/ s/.*href=['\"]https:\/\/www.bbc.co.uk\/iplayer\/episode\/.*['\"]\([^<]*\)/&play/g }" \
+-e 's#?q=#https://www.bbc.co.uk/iplayer/search?q=#g' \
+> "${outfile}"
+
+# W3m-control
+printf "%s\r\n" "W3m-control: GOTO ${outfile}";
+# delete previous buffer
+printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
+
+# clear screen
+printf "\033c"
+#+END_SRC
+
+*** keymap
+
+#+NAME: w3m-keymap
+#+BEGIN_SRC conf
+# surfraw prompt
+keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO file:/cgi-bin/goto_clipboard_primary.cgi"
+
+# sauron-w3m prompt
+keymap ,-. COMMAND "READ_SHELL ~/.w3m/cgi-bin/sauron-w3m.cgi; BACK"
+
+# readability mode
+keymap ,-/ COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
+
+# toggle borders
+keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
+
+# toggle line numbers
+keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
+
+# w3m function prompt
+keymap .-, COMMAND "READ_SHELL ~/.w3m/cgi-bin/functions.cgi ; BACK ; GOTO file:/cgi-bin/run_command.cgi ; BACK"
+#+END_SRC
+
+*** mailcap
+
+#+NAME: w3m-mailcap
+#+BEGIN_SRC conf
+image/*; sxiv %s
+#+END_SRC
+
+*** siteconf
+
+#+NAME: w3m-siteconf
+#+BEGIN_SRC conf
+# google set user agent to lynx
+url m@^https?://(.*\.)google\.com/@
+user_agent "Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.1"
+no_referer_from on
+
+# remove google redirect from search links
+url "http://www.google.com/url?" exact
+substitute_url "file:/cgi-bin/google-redirector.cgi?"
+
+# youtube open video links with mpv
+url "https://www.youtube.com/watch?" exact
+substitute_url "file:/cgi-bin/video.cgi?"
+
+# bbc iplayer open video links with mpv
+url "https://www.bbc.co.uk/iplayer/episode"
+substitute_url "file:/cgi-bin/video.cgi?"
+
+# dailymotion open video links with mpv
+url "https://www.dailymotion.com/video"
+substitute_url "file:/cgi-bin/video.cgi?"
+
+# bbc iplayer search
+url "https://www.bbc.co.uk/iplayer/search?"
+substitute_url "file:/cgi-bin/bbc-search.cgi?"
+#+END_SRC
+
+*** urimethodmap
+
+#+NAME: urimethodmap
+#+begin_src conf
+magnet: file:/cgi-bin/magnet.cgi?%s
+#+end_src
+
+**** w3m tangle
+
+***** bookmark.html
+
++ home dir
+
+#+NAME: w3m-bookmark.html-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/bookmark.html"
+<<w3m-bookmark.html>>
+#+END_SRC
+
++ current dir
+  
+#+NAME: w3m-bookmark.html-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/bookmark.html"
+<<w3m-bookmark.html>>
+#+END_SRC
+
+***** config
+
++ home dir
+
+#+NAME: w3m-config-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/config"
+<<w3m-config>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-config-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/config"
+<<w3m-config>>
+#+END_SRC
+
+***** cgi-bin
+****** functions-w3m
+
++ home dir
+
+#+NAME: functions-w3m-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
+<<functions-w3m>>
+#+END_SRC
+
++ current dir
+
+#+NAME: functions-w3m-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
+<<functions-w3m>>
+#+END_SRC
+
+****** fzf-surfraw
+
++ home dir
+
+#+NAME: fzf-surfraw-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
+<<fzf-surfraw>>
+#+END_SRC
+
++ current dir
+
+#+NAME: fzf-surfraw-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
+<<fzf-surfraw>>
+#+END_SRC
+
+****** google-redirector
+
++ home dir
+
+#+NAME: google-redirector-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/google-redirector.cgi" :tangle-mode (identity #o755)
+<<google-redirector>>
+#+END_SRC
+
++ current dir
+
+#+NAME: google-redirector-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/google-redirector.cgi" :tangle-mode (identity #o755)
+<<google-redirector>>
+#+END_SRC
+
+****** goto-clipboard-primary
+
++ home dir
+
+#+NAME: goto-clipboard-primary-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/goto_clipboard_primary.cgi" :tangle-mode (identity #o755)
+<<goto-clipboard-primary>>
+#+END_SRC
+
++ current dir
+
+#+NAME: goto-clipboard-primary-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/goto_clipboard_primary.cgi" :tangle-mode (identity #o755)
+<<goto-clipboard-primary>>
+#+END_SRC
+
+****** magnet-cgi
+
++ home dir
+
+#+NAME: magnet-cgi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
+<<magnet-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: magnet-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
+<<magnet-cgi>>
+#+END_SRC
+
+****** run-command
+
++ home dir
+
+#+NAME: run-command-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/run_command.cgi" :tangle-mode (identity #o755)
+<<run-command>>
+#+END_SRC
+
++ current dir
+
+#+NAME: run-command-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/run_command.cgi" :tangle-mode (identity #o755)
+<<run-command>>
+#+END_SRC
+
+****** sauron-w3m
+
++ home dir
+
+#+NAME: sauron-w3m-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
+<<sauron-w3m>>
+#+END_SRC
+
++ current dir
+
+#+NAME: sauron-w3m-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
+<<sauron-w3m>>
+#+END_SRC
+
+****** video-cgi
+
++ home dir
+
+#+NAME: video-cgi-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/video.cgi" :tangle-mode (identity #o755)
+<<video-cgi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: video-cgi-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/video.cgi" :tangle-mode (identity #o755)
+<<video-cgi>>
+#+END_SRC
+
+****** bbc-search
+
++ home dir
+
+#+NAME: bbc-search-home-dir 
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/bbc-search.cgi" :tangle-mode (identity #o755)
+<<bbc-search>>
+#+END_SRC
+
++ current dir
+
+#+NAME: bbc-search-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/bbc-search.cgi" :tangle-mode (identity #o755)
+<<bbc-search>>
+#+END_SRC
+
+***** keymap
+
++ home dir
+
+#+NAME: w3m-keymap-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/keymap"
+<<w3m-keymap>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-keymap-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/keymap"
+<<w3m-keymap>>
+#+END_SRC
+
+***** mailcap
+
++ home dir
+
+#+NAME: w3m-mailcap-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/mailcap"
+<<w3m-mailcap>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-mailcap-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/mailcap"
+<<w3m-mailcap>>
+#+END_SRC
+
+***** siteconf
+
++ home dir
+
+#+NAME: w3m-siteconf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/siteconf"
+<<w3m-siteconf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-siteconf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/siteconf"
+<<w3m-siteconf>>
+#+END_SRC
+
+***** urimethodmap
+
++ home dir
+
+#+NAME: w3m-urimethodmap-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/urimethodmap"
+<<urimethodmap>>
+#+END_SRC
+
++ current dir
+
+#+NAME: w3m-urimethodmap-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".w3m/urimethodmap"
+<<urimethodmap>>
+#+END_SRC
+
 ** ytfzf
 
 #+NAME: ytfzf
@@ -4935,770 +5756,6 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Ep
 #+NAME: newsboat-urls-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls"
 <<newsboat-urls>>
-#+END_SRC
-
-** w3m
-
-*** bookmark.html
-
-#+NAME: w3m-bookmark.html
-#+BEGIN_SRC conf
-<html><head><title>Bookmarks</title></head>
-<META http-equiv='Content-Type' content='text/html; charset=UTF-8'>
-<body>
-<h1>Bookmarks</h1>
-<ul>
-<li><a href="https://duckduckgo.com/">DuckDuckgo</a></li>
-<li><a href="https://google.com/">Google</a></li>
-<li><a href="https://www.bbc.co.uk/iplayer">BBC iPlayer</a>
-<li><a href="https://www.itv.com">ITV Player</a>
-<li><a href="https://ixirc.com/">ixirc</a></li>
-<li><a href="http://www.xdcc.eu/">xdcc</a></li>
-</ul>
-<!--End of section (do not delete this comment)-->
-</ul>
-</body>
-</html>
-#+END_SRC
-
-*** config
-
-#+NAME: w3m-config
-#+BEGIN_SRC conf
-tabstop 8
-indent_incr 4
-pixel_per_char 12
-pixel_per_line 26
-frame 0
-target_self 0
-open_tab_blank 0
-open_tab_dl_list 0
-display_link 0
-display_link_number 0
-decode_url 0
-display_lineinfo 0
-ext_dirlist 1
-dirlist_cmd file:///$LIB/dirlist.cgi
-use_dictcommand 1
-dictcommand file:///$LIB/w3mdict.cgi
-multicol 0
-alt_entity 0
-graphic_char 0
-display_borders 1
-fold_textarea 0
-display_ins_del 1
-ignore_null_img_alt 0
-view_unseenobject 0
-display_image 1
-pseudo_inlines 0
-auto_image 1
-max_load_image 4
-ext_image_viewer 1
-image_scale 100
-imgdisplay w3mimgdisplay
-image_map_list 0
-fold_line 0
-show_lnum 0
-show_srch_str 1
-label_topline 0
-nextpage_topline 0
-color 1
-basic_color terminal
-anchor_color terminal
-image_color terminal
-form_color red
-mark_color terminal
-bg_color terminal
-active_style 1
-active_color cyan
-visited_anchor 0
-visited_color magenta
-pagerline 10000
-use_history 1
-history 100
-save_hist 0
-confirm_qq 1
-close_tab_back 0
-mark 0
-emacs_like_lineedit 0
-vi_prec_num 0
-mark_all_pages 0
-wrap_search 0
-ignorecase_search 1
-use_migemo 1
-migemo_command cmigemo -q -d /usr/share/cmigemo/utf-8/migemo-dict
-use_mouse 0
-reverse_mouse 0
-relative_wheel_scroll 0
-relative_wheel_scroll_ratio 30
-fixed_wheel_scroll_count 5
-clear_buffer 1
-decode_cte 0
-auto_uncompress 0
-preserve_timestamp 1
-keymap_file keymap
-document_root 
-personal_document_root 
-cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin
-index_file 
-mime_types ~/.mime.types, /usr/local/etc/mime.types
-mailcap ~/.w3m/mailcap, /usr/local/etc/w3m/mailcap
-urimethodmap ~/.w3m/urimethodmap, /usr/local/etc/w3m/urimethodmap
-editor /usr/local/bin/emacsclient
-mailto_options 1
-mailer 
-extbrowser /usr/bin/mpv %s &
-extbrowser2 /home/djwilcox/bin/pinch -i %s &
-extbrowser3 /usr/bin/youtube-dl %s &
-extbrowser4 
-extbrowser5 
-extbrowser6 
-extbrowser7 
-extbrowser8 
-extbrowser9 
-bgextviewer 1
-use_lessopen 0
-passwd_file ~/.w3m/passwd
-disable_secret_security_check 0
-ftppasswd 
-ftppass_hostnamegen 1
-pre_form_file ~/.w3m/pre_form
-siteconf_file /home/djwilcox/.w3m/siteconf
-user_agent Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.13
-no_referer 1
-accept_language en;q=1.0
-accept_encoding gzip, compress, bzip, bzip2, deflate
-accept_media text/html, text/*;q=0.5, image/*
-argv_is_url 1
-retry_http 1
-default_url 1
-follow_redirection 10
-meta_refresh 1
-dns_order 0
-nntpserver 
-nntpmode 
-max_news 50
-use_proxy 0
-http_proxy 
-https_proxy 
-gopher_proxy 
-ftp_proxy 
-no_proxy 
-noproxy_netaddr 1
-no_cache 0
-ssl_forbid_method 2, 3
-ssl_verify_server 1
-ssl_cert_file 
-ssl_key_file 
-ssl_ca_path 
-ssl_ca_file 
-use_cookie 0
-show_cookie 0
-accept_cookie 0
-accept_bad_cookie 0
-cookie_reject_domains 
-cookie_accept_domains 
-cookie_avoid_wrong_number_of_dots 
-display_charset UTF-8
-document_charset UTF-8
-auto_detect 2
-system_charset UTF-8
-follow_locale 1
-ext_halfdump 0
-use_wide 1
-use_combining 1
-east_asian_width 0
-use_language_tag 1
-ucs_conv 1
-pre_conv 1
-search_conv 1
-fix_width_conv 1
-use_gb12345_map 0
-use_jisx0201 0
-use_jisc6226 0
-use_jisx0201k 0
-use_jisx0212 0
-use_jisx0213 0
-strict_iso2022 1
-gb18030_as_ucs 0
-simple_preserve_space 0
-#+END_SRC
-
-*** cgi-bin
-**** functions-w3m
-
-#+NAME: functions-w3m
-#+BEGIN_SRC conf
-#!/bin/sh
-
-# fzf prompt to specify function to run from readme.func
-file='/usr/share/doc/w3m/README.func'
-selection=$(awk '{ print $0 }' "${file}" | fzf-tmux -d 30% --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
-
-# variables
-browser='/usr/bin/firefox'
-
-# default function
-default() {
-echo "${selection}" | xsel -ipsb
-}
-
-# open current page with external browser
-extern() {
-EXTERN="EXTERN ${browser}"
-echo "${EXTERN}" | xsel -ipsb
-}
-
-# open link with external browser
-extern_link() {
-EXTERN="EXTERN_LINK ${browser}"
-echo "${EXTERN_LINK}" | xsel -ipsb
-}
-
-# quit w3m and w3mimgdisplay with pkill -15
-quit() {
-pkill -15 w3m
-}
-
-# case statement match selection and run function
-case "${selection}" in
-   EXTERN) extern;;
-   EXTERN_LINK) extern_link;;
-   EXIT|ABORT) quit;;
-   ,*) default;;
-esac
-#+END_SRC
-
-**** fzf-surfraw
-
-#+NAME: fzf-surfraw
-#+BEGIN_SRC conf
-#!/bin/sh
-
-# w3m and surfraw
-
-# clear screen
-printf "\033c"
-
-# select your elvi
-prefix=$(surfraw -elvi | grep -v 'LOCAL\|GLOBAL'| fzf -e --prompt='Search with: ' --info=inline --layout=reverse | awk '{print $1}')
-
-# exit script if no elvi is selected (e.g hit ESC)
-if [ "$prefix" = "" ]; then exit; fi
-
-# get user input using echo and fzf with the prompt set to the elvi name
-input=$(echo | fzf --print-query --prompt="${prefix}: " --info=inline --layout=reverse)
-
-# dont quote the input variable and copy the url to primary clipboard
-surfraw -p "$prefix" $input | xsel -p
-
-#+END_SRC
-
-**** google-redirector
-
-#+NAME: google-redirector
-#+BEGIN_SRC conf
-#!/bin/sh
-
-# current link under cursor in w3m
-url="${W3M_CURRENT_LINK}"   
-
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-#if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   result=$(echo "${url}" | \
-            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
-            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
-   [ ! -z "${result}" ] && url="${result}" || url="${url}"
-else
-    url="${W3M_URL}"
-fi
-
-# W3m-control GOTO url without google redirect
-printf "%s\r\n" "W3m-control: GOTO ${url}";
-# delete previous buffer
-printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
-#+END_SRC
-
-**** goto-clipboard-primary
-
-#+NAME: goto-clipboard-primary
-#+BEGIN_SRC conf
-#!/usr/bin/env sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#         https://www.youtube.com/user/gotbletu
-# DESC:   paste and go feature for w3m web browser using primary clipboard (aka shift+insert)
-# DEMO:   https://youtu.be/p5NZb8f8AHA | updated https://youtu.be/0j3pUfZjCeQ
-# DEPEND: w3m  xsel
-# RQMTS:  1. allow permissions and put this script in /usr/lib/w3m/cgi-bin/
-#
-#         2. $EDITOR ~/.w3m/keymap
-#                       # paste url and go (current tab)
-#                       keymap  pp      GOTO        /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi
-#
-#                       # paste url and go (new tab)
-#                       keymap  PP      TAB_GOTO    /usr/lib/w3m/cgi-bin/goto_clipboard_primary.cgi
-#
-#         3. set the default open-url to current url
-#               sed -i 's:default_url.*:default_url 1:g' ~/.w3m/config
-#
-# REFF:   https://github.com/felipesaa/A-vim-like-firefox-like-configuration-for-w3m
-# CLOG:   2021-02-05 version 0.2 reset url back to 1 (aka edit current url)
-#         2020-04-26 version 0.1
-
-
-# set open-url value to zero (aka empty url line)
-printf "%s\r\n" "W3m-control: SET_OPTION default_url=0";
-
-#GOTO url in clipboard in current page. If the clipboard has a 
-#"non url string/nothing" an blank page is shown.
-printf "%s\r\n" "W3m-control: GOTO $(xsel -op)";
-
-#delete the buffer (element in history) created between the current page and 
-#the searched page by calling this script.
-printf "W3m-control: DELETE_PREVBUF\r\n"
-
-# set default open-url value to one (aka current url)
-printf "%s\r\n" "W3m-control: SET_OPTION default_url=1";
-#+END_SRC
-
-**** magnet-cgi
-
-#+NAME: magnet-cgi
-#+BEGIN_SRC conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#         https://www.youtube.com/user/gotbletu
-# DESC:   send magnet links to your torrent client (for W3M Web Browser)
-# DEMO:   https://youtu.be/T74FqHMHjN0
-# REQD:   1. touch ~/.w3m/urimethodmap
-#         2. echo "magnet: file:/cgi-bin/magnet.cgi?%s" >> ~/.w3m/urimethodmap
-#         3. chmod +x ~/.w3m/cgi-bin/magnet.cgi
-#         4. sed -i 's@cgi_bin.*@cgi_bin ~/.w3m/cgi-bin:/usr/lib/w3m/cgi-bin:/usr/local/libexec/w3m/cgi-bin@g' ~/.w3m/config
-#         5. sed -i 's@urimethodmap.*@urimethodmap ~/.w3m/urimethodmap, /usr/etc/w3m/urimethodmap@g' ~/.w3m/config
-
-printf "%s\r\n" "W3m-control: READ_SHELL transmission-remote --add '$QUERY_STRING'"
-printf "%s\r\n" "W3m-control: DELETE_PREVBUF"
-printf "%s\r\n" "W3m-control: BACK"
-#+END_SRC
-
-**** run-command
-
-#+NAME: run-command
-#+BEGIN_SRC conf
-#!/bin/sh
-
-# run w3m command from clipboard
-printf "%s\r\n" "W3m-control: $(xsel -opsb)";
-#+END_SRC
-
-**** sauron-w3m
-
-#+NAME: sauron-w3m
-#+BEGIN_SRC conf
-#!/bin/sh
-
-# sauron - w3m
-
-# current link under cursor in w3m
-url="${W3M_CURRENT_LINK}"   
-
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-# if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   result=$(echo "${url}" | \
-            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
-            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
-   [ ! -z "${result}" ] && url="${result}" || url="${url}"
-else
-    url="${W3M_URL}"
-fi
-
-# mpd and taskspooler
-audio() {
-      tsp pinch -i "${url}" 1>/dev/null 
-}
-
-copy_link() {
-      echo -n "${url}" | xsel -b 1>/dev/null 
-}
-
-# youtube-dl and taskspooler
-download() {
-      tsp \
-      youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
-      --restrict-filenames \
-      --no-playlist \
-      --ignore-config \
-       -o "~/Downloads/%(title)s.%(ext)s" \
-      "${url}" 1>/dev/null
-}
-
-# mpv fullscreen on second display and taskspooler
-fullscreen() {
-      tsp mpv --fs --screen=1 "${url}" 1>/dev/null 
-}
-
-# mpv and taskspooler
-video() {
-      tsp mpv --no-terminal "${url}" 1>/dev/null
-}
-
-# fzf prompt variables spaces to line up menu options
-audio_tsp='audio      - mpd play audio'
-copy_tsp='copy       - xsel copy url under the cusor to the clipboard'
-download_tsp='download   - youtube-dl download links'
-fullscreen_tsp='fullscreen - mpv play fullscreen on second display'
-video_tsp='video      - mpv play video on current display'
-
-# fzf prompt to specify function to run on links from ytfzf
-menu=$(printf "%s\n" \
-	      "${audio_tsp}" \
-	      "${copy_tsp}" \
-	      "${download_tsp}" \
-	      "${fullscreen_tsp}" \
-	      "${video_tsp}" \
-	      | fzf-tmux -d 15% --delimiter='\n' --prompt='Pipe links to: ' --info=inline --layout=reverse --no-multi)
-
-# case statement to run function based on fzf prompt output
-case "${menu}" in
-   audio*) audio;;
-   copy*) copy_link;;
-   download*) download;;
-   fullscreen*) fullscreen;;
-   video*) video;;
-   ,*) exit;;
-esac
-#+END_SRC
-
-**** video-cgi
-
-#+NAME: video-cgi
-#+BEGIN_SRC conf
-#!/bin/sh
-
-# video.cgi
-
-# current link under cursor in w3m
-url="${W3M_CURRENT_LINK}"   
-
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-# if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   result=$(echo "${url}" | \
-            grep -oP '(?<=google.com\/url\?q=)[^&]*(?=&)' \
-            | python3 -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()));")
-   [ ! -z "${result}" ] && url="${result}" || url="${url}"
-else
-    url="${W3M_URL}"
-fi
-
-# queue the video with taskpooler and play the url with mpv on the current display
-#tsp mpv --no-terminal "${url}"
-
-# queue the video with taskpooler and play the url with mpv full screen on the second display
-tsp mpv --fs --screen=1 "${url}"
-
-# remove http prefix for notify-send to fix issue with (U) in the notification title
-title=$(echo "${url}" | sed -e 's#https\?://\([www.]*\)##g')
-notify-send "Queuing ♫" "${title}"
-
-# delete previous buffer
-printf "%s\r\n" "W3m-control: BACK";
-#+END_SRC
-
-*** keymap
-
-#+NAME: w3m-keymap
-#+BEGIN_SRC conf
-# surfraw prompt
-keymap xs COMMAND  "READ_SHELL ~/.w3m/cgi-bin/fzf_surfraw.cgi ; GOTO file:/cgi-bin/goto_clipboard_primary.cgi"
-
-# sauron-w3m prompt
-keymap ,-. COMMAND "READ_SHELL ~/.w3m/cgi-bin/sauron-w3m.cgi; BACK"
-
-# readability mode
-keymap ,-/ COMMAND "READ_SHELL 'python3 -m readability.readability -u $W3M_URL 2> /dev/null' ; VIEW ; DELETE_PREVBUF"
-
-# toggle borders
-keymap ,-t COMMAND "SET_OPTION display_borders=toggle ; RESHAPE"
-
-# toggle line numbers
-keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
-
-# w3m function prompt
-keymap .-, COMMAND "READ_SHELL ~/.w3m/cgi-bin/functions.cgi ; BACK ; GOTO file:/cgi-bin/run_command.cgi ; BACK"
-#+END_SRC
-
-*** mailcap
-
-#+NAME: w3m-mailcap
-#+BEGIN_SRC conf
-image/*; sxiv %s
-#+END_SRC
-
-*** siteconf
-
-#+NAME: w3m-siteconf
-#+BEGIN_SRC conf
-# google set user agent to lynx
-url m@^https?://(.*\.)google\.com/@
-user_agent "Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.1"
-no_referer_from on
-
-# remove google redirect from search links
-url "http://www.google.com/url?" exact
-substitute_url "file:/cgi-bin/google-redirector.cgi?"
-
-# youtube open video links with mpv
-url "https://www.youtube.com/watch?" exact
-substitute_url "file:/cgi-bin/video.cgi?"
-
-# bbc iplayer open video links with mpv
-url "https://www.bbc.co.uk/iplayer/episode"
-substitute_url "file:/cgi-bin/video.cgi?"
-
-# dailymotion open video links with mpv
-url "https://www.dailymotion.com/video"
-substitute_url "file:/cgi-bin/video.cgi?"
-#+END_SRC
-
-*** urimethodmap
-
-#+NAME: urimethodmap
-#+begin_src conf
-magnet: file:/cgi-bin/magnet.cgi?%s
-
-#+end_src
-
-**** w3m tangle
-
-***** bookmark.html
-
-+ home dir
-
-#+NAME: w3m-bookmark.html-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/bookmark.html"
-<<w3m-bookmark.html>>
-#+END_SRC
-
-+ current dir
-  
-#+NAME: w3m-bookmark.html-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/bookmark.html"
-<<w3m-bookmark.html>>
-#+END_SRC
-
-***** config
-
-+ home dir
-
-#+NAME: w3m-config-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/config"
-<<w3m-config>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: w3m-config-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/config"
-<<w3m-config>>
-#+END_SRC
-
-***** cgi-bin
-****** functions-w3m
-
-+ home dir
-
-#+NAME: functions-w3m-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
-<<functions-w3m>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: functions-w3m-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/functions.cgi" :tangle-mode (identity #o755)
-<<functions-w3m>>
-#+END_SRC
-
-****** fzf-surfraw
-
-+ home dir
-
-#+NAME: fzf-surfraw-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
-<<fzf-surfraw>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: fzf-surfraw-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/fzf_surfraw.cgi" :tangle-mode (identity #o755)
-<<fzf-surfraw>>
-#+END_SRC
-
-****** google-redirector
-
-+ home dir
-
-#+NAME: google-redirector-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/google-redirector.cgi" :tangle-mode (identity #o755)
-<<google-redirector>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: google-redirector-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/google-redirector.cgi" :tangle-mode (identity #o755)
-<<google-redirector>>
-#+END_SRC
-
-****** goto-clipboard-primary
-
-+ home dir
-
-#+NAME: goto-clipboard-primary-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/goto_clipboard_primary.cgi" :tangle-mode (identity #o755)
-<<goto-clipboard-primary>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: goto-clipboard-primary-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/goto_clipboard_primary.cgi" :tangle-mode (identity #o755)
-<<goto-clipboard-primary>>
-#+END_SRC
-
-****** magnet-cgi
-
-+ home dir
-
-#+NAME: magnet-cgi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
-<<magnet-cgi>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: magnet-cgi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/magnet.cgi" :tangle-mode (identity #o755)
-<<magnet-cgi>>
-#+END_SRC
-
-****** run-command
-
-+ home dir
-
-#+NAME: run-command-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/run_command.cgi" :tangle-mode (identity #o755)
-<<run-command>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: run-command-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/run_command.cgi" :tangle-mode (identity #o755)
-<<run-command>>
-#+END_SRC
-
-****** sauron-w3m
-
-+ home dir
-
-#+NAME: sauron-w3m-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
-<<sauron-w3m>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: sauron-w3m-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/sauron-w3m.cgi" :tangle-mode (identity #o755)
-<<sauron-w3m>>
-#+END_SRC
-
-****** video-cgi
-
-+ home dir
-
-#+NAME: video-cgi-home-dir 
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/cgi-bin/video.cgi" :tangle-mode (identity #o755)
-<<video-cgi>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: video-cgi-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/cgi-bin/video.cgi" :tangle-mode (identity #o755)
-<<video-cgi>>
-#+END_SRC
-
-***** keymap
-
-+ home dir
-
-#+NAME: w3m-keymap-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/keymap"
-<<w3m-keymap>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: w3m-keymap-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/keymap"
-<<w3m-keymap>>
-#+END_SRC
-
-***** mailcap
-
-+ home dir
-
-#+NAME: w3m-mailcap-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/mailcap"
-<<w3m-mailcap>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: w3m-mailcap-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/mailcap"
-<<w3m-mailcap>>
-#+END_SRC
-
-***** siteconf
-
-+ home dir
-
-#+NAME: w3m-siteconf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/siteconf"
-<<w3m-siteconf>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: w3m-siteconf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/siteconf"
-<<w3m-siteconf>>
-#+END_SRC
-
-***** urimethodmap
-
-+ home dir
-
-#+NAME: w3m-urimethodmap-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.w3m/urimethodmap"
-<<urimethodmap>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: w3m-urimethodmap-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".w3m/urimethodmap"
-<<urimethodmap>>
 #+END_SRC
 
 ** aria2c
