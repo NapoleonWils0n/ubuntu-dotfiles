@@ -1,36 +1,28 @@
-#!/bin/sh
+# google set user agent to lynx
+url m@^https?://(.*\.)google\.com/@
+user_agent "Lynx/2.9.0dev.5 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/3.6.1"
+no_referer_from on
 
-# bbc episodes
+# remove google redirect from search links
+url "http://www.google.com/url?" exact
+substitute_url "file:/cgi-bin/google-redirector.cgi?"
 
-# current link under cursor in w3m
-url="${W3M_CURRENT_LINK}"   
+# youtube open video links with mpv
+url "https://www.youtube.com/watch?" exact
+substitute_url "file:/cgi-bin/video.cgi?"
 
-# if the current link contains a url pipe it into grep,
-# remove the google redirect and decode the url
-#if the current link is empty set the url to the page url
-if [ ! -z "${url}" ]; then
-   url="${url}"
-else
-    url="${W3M_URL}"
-fi
+# bbc iplayer open video links with mpv
+url "https://www.bbc.co.uk/iplayer/episode"
+substitute_url "file:/cgi-bin/video.cgi?"
 
-# css selector
-css='div.tleo-list'
+# dailymotion open video links with mpv
+url "https://www.dailymotion.com/video"
+substitute_url "file:/cgi-bin/video.cgi?"
 
-# outfile
-outfile='/tmp/bbc-episodes.html'
+# bbc iplayer search
+url "https://www.bbc.co.uk/iplayer/search?"
+substitute_url "file:/cgi-bin/bbc-search.cgi?"
 
-# hxselect and sed
-hxnormalize -x "${url}" \
-| hxselect -s '\n' -c "${css}" \
-| sed -e 's#/iplayer/#https://www.bbc.co.uk/iplayer/#g' \
--e "/<a/ { /href/ s/.*href=['\"]https:\/\/www.bbc.co.uk\/iplayer\/episode\/.*['\"]\([^<]*\)/&play/g }" \
-> "${outfile}"
-
-# W3m-control
-printf "%s\r\n" "W3m-control: GOTO ${outfile}";
-# delete previous buffer
-printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
-
-# clear screen
-printf "\033c"
+# bbc iplayer episodes
+url "https://www.bbc.co.uk/iplayer/episodes"
+substitute_url "file:/cgi-bin/bbc-episodes.cgi?"
