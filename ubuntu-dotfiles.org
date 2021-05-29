@@ -4993,12 +4993,12 @@ substitute_url "file:/cgi-bin/google-redirector.cgi?"
 url "https://www.youtube.com/watch?" exact
 substitute_url "file:/cgi-bin/video.cgi?"
 
-# bbc iplayer open video links with mpv
-url "https://www.bbc.co.uk/iplayer/episode"
-substitute_url "file:/cgi-bin/video.cgi?"
-
 # dailymotion open video links with mpv
 url "https://www.dailymotion.com/video"
+substitute_url "file:/cgi-bin/video.cgi?"
+
+# bbc iplayer open video links with mpv
+url "https://www.bbc.co.uk/iplayer/episode"
 substitute_url "file:/cgi-bin/video.cgi?"
 
 # bbc iplayer search
