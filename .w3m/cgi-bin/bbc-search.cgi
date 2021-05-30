@@ -16,12 +16,14 @@ search='search-list__header'
 # outfile
 outfile='/tmp/bbc-search.html'
 
-# hxselect sed and wget
+# hxselect and sed
 hxnormalize -x "${url}" \
 | hxselect -s '\n' -c "${css}" \
 | hxprune -c "${search}" \
-sed "/<a/ { /href/ s/.*href=['\"]https:\/\/www.bbc.co.uk\/iplayer\/episode\/.*['\"]\([^<]*\)/&play/g }" \
-| wget -k -O "${outfile}"
+| sed -e 's#/iplayer/#https://www.bbc.co.uk/iplayer/#g' \
+-e "/<a/ { /href/ s/.*href=['\"]https:\/\/www.bbc.co.uk\/iplayer\/episode\/.*['\"]\([^<]*\)/&play/g }" \
+-e 's#?q=#https://www.bbc.co.uk/iplayer/search?q=#g' \
+> "${outfile}"
 
 # W3m-control
 printf "%s\r\n" "W3m-control: GOTO ${outfile}";
