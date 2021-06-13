@@ -41,7 +41,7 @@ mkdir -p ~/.config/xmonad/
 + xmonad config 
 
 #+NAME: xmonad
-#+BEGIN_SRC conf
+#+BEGIN_SRC haskell
 ------------------------------------------------------------------------
 -- import
 ------------------------------------------------------------------------
@@ -3752,7 +3752,7 @@ xkb_symbols "alt_win_ctrl" {
 ** emacs
 
 #+NAME: emacs
-#+BEGIN_SRC conf
+#+BEGIN_SRC lisp
 ;; emacs start up --------------------------------------------------------------------------
 
 (setq inhibit-startup-message t)
@@ -4065,7 +4065,7 @@ xkb_symbols "alt_win_ctrl" {
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (csv-mode ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key))))
+    (haskell-mode csv-mode ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key))))
 
 
 ; mpv functions --------------------------------------------------------------------------------------
