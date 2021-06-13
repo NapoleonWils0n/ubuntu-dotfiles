@@ -3752,7 +3752,7 @@ xkb_symbols "alt_win_ctrl" {
 ** emacs
 
 #+NAME: emacs
-#+BEGIN_SRC lisp
+#+BEGIN_SRC emacs-lisp
 ;; emacs start up --------------------------------------------------------------------------
 
 (setq inhibit-startup-message t)
