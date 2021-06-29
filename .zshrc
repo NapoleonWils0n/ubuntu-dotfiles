@@ -96,7 +96,7 @@ setopt correctall recexact longlistjobs
 setopt autoresume histignoredups pushdsilent noclobber
 setopt autopushd pushdminus extendedglob rcquotes mailwarning
 setopt histignorealldups sharehistory
-setopt auto_cd
+#setopt auto_cd
 cdpath=($HOME)
 unsetopt bgnice autoparamslash
 
