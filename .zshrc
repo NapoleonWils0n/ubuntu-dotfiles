@@ -191,3 +191,6 @@ trd-speed() { while true;do clear; transmission-remote -t"$1" -i | grep Speed;sl
 trd-grep() { transmission-remote --list | grep -i "$1" ;}
 trd-list() { transmission-remote --list ;}
 trd-show() { transmission-show "$1" ;}                          # show .torrent file information
+
+# namespace autocomplete
+compdef _precommand namespace
