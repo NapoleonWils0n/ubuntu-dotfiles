@@ -5551,6 +5551,45 @@ thumbnail_video_info_text () {
 <<ytfzf>>
 #+END_SRC
 
+** firejail
+
+*** transmission-daemon
+
+#+NAME: transmission-daemon-firejail
+#+begin_src conf
+# Firejail profile for transmission-daemon
+# Description: Fast, easy and free BitTorrent client (daemon)
+quiet
+# Persistent local customizations
+
+# whitelist torrents
+whitelist ${HOME}/torrents/complete
+whitelist ${HOME}/torrents/downloading
+
+# read and write to torrents
+read-write ${HOME}/torrents/complete
+read-write ${HOME}/torrents/downloading
+
+# whitelist web ui
+whitelist /usr/share/transmission/web
+
+#+end_src
+
+**** firejail tangle
+
+***** transmission-daemon
+
+#+NAME: transmission-daemon-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/transmission-daemon.local"
+<<transmission-daemon-firejail>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: transmission-daemon-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/transmission-daemon.local"
+<<transmission-daemon-firejail>>
+#+END_SRC
 ** pulseaudio
 
 #+NAME: pulseaudio

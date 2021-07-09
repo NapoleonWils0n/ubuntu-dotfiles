@@ -1,0 +1,15 @@
+# Firejail profile for transmission-daemon
+# Description: Fast, easy and free BitTorrent client (daemon)
+quiet
+# Persistent local customizations
+
+# whitelist torrents
+whitelist ${HOME}/torrents/complete
+whitelist ${HOME}/torrents/downloading
+
+# read and write to torrents
+read-write ${HOME}/torrents/complete
+read-write ${HOME}/torrents/downloading
+
+# whitelist web ui
+whitelist /usr/share/transmission/web
