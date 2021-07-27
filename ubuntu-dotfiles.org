@@ -5553,6 +5553,13 @@ thumbnail_video_info_text () {
 
 ** firejail
 
+*** firefox-common
+
+#+NAME: firefox-common-firejail
+#+begin_src conf
+ignore nodbus
+#+end_src
+
 *** transmission-daemon
 
 #+NAME: transmission-daemon-firejail
@@ -5572,12 +5579,29 @@ read-write ${HOME}/torrents/downloading
 
 # whitelist web ui
 whitelist /usr/share/transmission/web
-
 #+end_src
 
 **** firejail tangle
 
+***** firefox-common
+
++ home dir
+
+#+NAME: firefox-common-firejail-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/firefox-common.local"
+<<firefox-common-firejail>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: firefox-common-firejail-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/firefox-common.local"
+<<firefox-common-firejail>>
+#+END_SRC
+
 ***** transmission-daemon
+
++ home dir
 
 #+NAME: transmission-daemon-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/transmission-daemon.local"
@@ -5590,6 +5614,7 @@ whitelist /usr/share/transmission/web
 #+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/transmission-daemon.local"
 <<transmission-daemon-firejail>>
 #+END_SRC
+
 ** pulseaudio
 
 #+NAME: pulseaudio
