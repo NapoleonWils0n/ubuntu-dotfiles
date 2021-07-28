@@ -1,0 +1,49 @@
+# sxhkdrc - multimedia keys
+
+# Increase volume
+XF86AudioRaiseVolume
+    amixer set Master 10%+ 1>/dev/null
+
+# Decrease volume
+XF86AudioLowerVolume
+    amixer set Master 10%- 1>/dev/null
+
+# Mute Audio
+XF86AudioMute
+    amixer -D pulse set Master 1+ toggle 1>/dev/null
+
+# Play
+XF86AudioPlay
+    playerctl play-pause
+
+# Next
+XF86AudioNext
+    playerctl next
+
+# Previous
+XF86AudioPrev
+    playerctl previous
+
+# Stop
+XF86AudioStop
+    playerctl stop
+
+
+# ducky one 2 mini keyboard
+#==========================
+
+# mute = function + m
+# decrease volume = function + ,
+# increase volume = function + .
+
+# Play - ducky keyboard pause, function + o
+Pause
+    playerctl play-pause
+
+# Next - ducky keyboard next, function + ;
+Next
+    playerctl next
+
+# Previous - ducky keyboard prior, function + p
+Prior
+    playerctl previous
