@@ -3,9 +3,6 @@
 # ssh zsh fix
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
-# fpath - commented out as it slows down shell start up
-# fpath=($HOME/.zsh-completions $fpath)
-
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=1000
