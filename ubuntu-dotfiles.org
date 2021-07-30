@@ -4442,14 +4442,13 @@ XF86AudioStop
 Pause
     playerctl play-pause
 
-# Next - ducky keyboard next, function + ;
-Next
-    playerctl next
-
 # Previous - ducky keyboard prior, function + p
 Prior
     playerctl previous
 
+# Next - ducky keyboard next, function + ;
+Next
+    playerctl next
 #+end_src
 
 *** sxhkd tangle
