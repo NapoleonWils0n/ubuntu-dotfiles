@@ -4438,6 +4438,13 @@ XF86AudioStop
 alt + super + {h,j,k,l}
   playerctl position {0.5-,10-,10+,0.5+}
 
+# play/pause toggle
+alt + super + space
+    playerctl play-pause
+
+# stop/quit
+alt + super + n
+    playerctl stop
 
 # go to start of video
 alt + super + 0
