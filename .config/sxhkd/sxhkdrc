@@ -29,6 +29,19 @@ XF86AudioStop
     playerctl stop
 
 
+# fast forward and rewind
+#==========================
+
+# h,j,k,l keys
+alt + super + {h,j,k,l}
+  playerctl position {0.5-,10-,10+,0.5+}
+
+
+# go to start of video
+alt + super + 0
+  playerctl position 0
+
+
 # ducky one 2 mini keyboard
 #==========================
 
