@@ -4400,7 +4400,13 @@ sxhkd keyboard media keys
 
 #+NAME: sxhkd
 #+begin_src conf
-# sxhkdrc - multimedia keys
+# sxhkdrc 
+
+# sxhkd reload config
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# multimedia keys
 
 # Increase volume
 XF86AudioRaiseVolume
