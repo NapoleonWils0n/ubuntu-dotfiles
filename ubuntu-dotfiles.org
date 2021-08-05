@@ -259,30 +259,6 @@ mkdir -p ~/.config/xmonad/
 <<xmonad>>
 #+END_SRC
 
-** feh
-
-#+NAME: feh
-#+BEGIN_SRC sh
-#!/bin/sh
-feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/linux.png' 
-#+END_SRC
-
-*** feh tangle
-
-+ home dir
-
-#+NAME: feh-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.fehbg" :tangle-mode (identity #o755)
-<<feh>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: feh-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".fehbg" :tangle-mode (identity #o755)
-<<feh>>
-#+END_SRC
-
 ** tint2
 
 #+NAME: tint2
@@ -4420,7 +4396,7 @@ XF86AudioMute
 
 # Play
 XF86AudioPlay
-    playerctl play-pause
+    playerctl play-pause 
 
 # Next
 XF86AudioNext
@@ -4444,7 +4420,15 @@ alt + super + {h,j,k,l}
 
 # play/pause toggle
 alt + super + space
-    playerctl play-pause
+    playerctl play-pause && now-playing
+
+# Next
+alt + super + ctrl + l
+    playerctl next && sleep 1 && now-playing
+
+# Previous
+alt + super + ctrl + h
+    playerctl previous && sleep 1 && now-playing
 
 # stop/quit
 alt + super + n
@@ -4453,6 +4437,13 @@ alt + super + n
 # go to start of video
 alt + super + 0
   playerctl position 0
+
+
+# now playing
+#==========================
+
+alt + super + z
+  now-playing
 
 
 # ducky one 2 mini keyboard
@@ -4490,6 +4481,1820 @@ Next
 #+BEGIN_SRC conf :noweb yes :tangle ".config/sxhkd/sxhkdrc"
 <<sxhkd>>
 #+END_SRC
+** pulseaudio
+
+#+NAME: pulseaudio
+#+BEGIN_SRC conf
+# include the default.pa pulseaudio config file
+.include /etc/pulse/default.pa
+
+# null sink
+.ifexists module-null-sink.so
+load-module module-null-sink sink_name=Source
+.endif
+
+# virtual source
+.ifexists module-virtual-source.so
+load-module module-virtual-source source_name=VirtualMic master=Source.monitor
+.endif
+#+END_SRC
+
+*** pulseaudio tangle
+
++ home dir
+
+#+NAME: pulseaudio-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/pulse/default.pa"
+<<pulseaudio>>
+#+END_SRC
+
++ current dir
+
+#+NAME: pulseaudio-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/pulse/default.pa"
+<<pulseaudio>>
+#+END_SRC
+
+** gitconfig
+
+#+NAME: gitconfig
+#+BEGIN_SRC conf
+[user]
+name = Daniel J Wilcox
+email = danieljwilcox@gmail.com
+[color]
+ui = true
+#+END_SRC
+
+*** gitconfig tangle
+
++ home dir
+
+#+NAME: gitconfig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
+<<gitconfig>>
+#+END_SRC
+
++ current dir
+
+#+NAME: gitconfig-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
+<<gitconfig>>
+#+END_SRC
+
+** rofi
+
+#+NAME: rofi
+#+BEGIN_SRC conf
+configuration {
+ modi: "window,drun,combi";
+ font: "Inconsolata 14";
+ terminal: "urxvtc";
+ show-icons: true;
+ combi-modi: "window,drun";
+ }
+@import "/usr/share/rofi/themes/Arc-Dark.rasi"
+#+END_SRC
+
+*** rofi tangle
+
++ home dir
+
+#+NAME: rofi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/rofi/config.rasi"
+<<rofi>>
+#+END_SRC
+
++ current dir
+
+#+NAME: rofi-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/rofi/config.rasi"
+<<rofi>>
+#+END_SRC
+
+** mpv
+
+*** input.conf
+
+#+NAME: input.conf
+#+BEGIN_SRC conf
+# vim keybindings
+l seek  5
+h seek -5
+k seek  60
+j seek -60
+#+END_SRC
+
+*** mpv.conf
+
+#+NAME: mpv.conf
+#+BEGIN_SRC conf
+#audio-device=alsa/plughw:1,0
+#audio-device=alsa/plughw:0,0
+#audio-device=alsa/plughw:2,0
+msg-level=ffmpeg=fatal
+vo=gpu
+hwdec=vaapi
+ytdl-format=bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best
+osd-fractions
+#+END_SRC
+
+**** mpv tangle
+***** input.conf tangle
+
++ home dir
+
+#+NAME: input.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/input.conf"
+<<input.conf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: input.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/input.conf"
+<<input.conf>>
+#+END_SRC
+
+***** mpv.conf tangle
+
++ home dir
+
+#+NAME: mpv.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/mpv.conf"
+<<mpv.conf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: mpv.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
+<<mpv.conf>>
+#+END_SRC
+
+** firejail
+
+*** firefox-common
+
+#+NAME: firefox-common-firejail
+#+begin_src conf
+ignore nodbus
+#+end_src
+
+*** transmission-daemon
+
+#+NAME: transmission-daemon-firejail
+#+begin_src conf
+# Firejail profile for transmission-daemon
+# Description: Fast, easy and free BitTorrent client (daemon)
+quiet
+# Persistent local customizations
+
+# whitelist torrents
+whitelist ${HOME}/torrents/complete
+whitelist ${HOME}/torrents/downloading
+
+# read and write to torrents
+read-write ${HOME}/torrents/complete
+read-write ${HOME}/torrents/downloading
+
+# whitelist web ui
+whitelist /usr/share/transmission/web
+#+end_src
+
+**** firejail tangle
+
+***** firefox-common
+
++ home dir
+
+#+NAME: firefox-common-firejail-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/firefox-common.local"
+<<firefox-common-firejail>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: firefox-common-firejail-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/firefox-common.local"
+<<firefox-common-firejail>>
+#+END_SRC
+
+***** transmission-daemon
+
++ home dir
+
+#+NAME: transmission-daemon-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/transmission-daemon.local"
+<<transmission-daemon-firejail>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: transmission-daemon-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/transmission-daemon.local"
+<<transmission-daemon-firejail>>
+#+END_SRC
+
+** youtube-dl
+
+#+NAME: youtube-dl
+#+BEGIN_SRC conf
+# external downloader aria2
+--external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
+#+END_SRC
+
+*** youtube-dl tangle
+
++ home dir
+
+#+NAME: youtube-dl-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/youtube-dl/config"
+<<youtube-dl>>
+#+END_SRC
+
++ current dir
+
+#+NAME: youtube-dl-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/youtube-dl/config"
+<<youtube-dl>>
+#+END_SRC
+
+** aria2c
+
+#+NAME: aria2c
+#+begin_src conf
+#
+## aria2 config
+#
+# man page  = http://aria2.sourceforge.net/manual/en/html/aria2c.html
+# file path = $HOME/.aria2/aria2.conf
+
+# Download Directory: specify the directory all files will be downloaded to.
+# When this directive is commented out, aria2 will download the files to the
+# current directory where you execute the aria2 binary.
+#dir=/usr/home/djwilcox/downloads
+
+
+# Bit Torrent: If the speed of the incoming data (download) from other peers is
+# greater then the peer-speed-limit, then do not allow any more connections
+# than max-peers. The idea is to limit the amount of clients our system will
+# connect with to reduce our overall load when we are already saturating our
+# incoming bandwidth.  Make sure to set the the peer-speed-limit to your
+# preferred incoming (download) speed. Speeds must be whole numbers so 5.5M is
+# illegal, but 5500K is valid.  For unlimited connections set
+# request-peer-speed-limit something high like 10000M (10gig).
+ bt-max-peers=0
+ bt-request-peer-speed-limit=0
+
+
+# Bit Torrent: the max upload speed for all torrents combined. Again, only
+# whole numbers are valid. We find a global upload limit is more flexible then
+# an upload limit per torrent. Zero(0) is unrestricted upload spreeds.
+ max-overall-upload-limit=128k
+
+
+# Bit Torrent: When downloading a torrent remove ALL trackers from the listing.
+# This is a good way to only use distributed hash table (DHT) and Peer eXchange
+# (PeX) for connections. We find start up of the torrent takes a little longer
+# with all trackers disabled, but helps reduce the load on trackers.
+# bt-exclude-tracker="*"
+ bt-external-ip=127.0.0.1
+
+
+# Bit Torrent: ports and protocols used for bit torrent TCP and UDP
+# connections. Make sure DHT is enabled in order to connect to UDP trackers as
+# well as negotiating with DHT and PEX peers. 
+ dht-listen-port=6882
+ enable-dht=true
+ enable-peer-exchange=true
+ listen-port=6881
+
+
+# When running aria2 on FreeBSD with ZFS, disable disk-cache due to ZFS's use
+# of Adaptive Replacement Cache (ARC). ZFS can also take advantage of the
+# "sparse files" format which is significantly faster then pre allocation of
+# file space. For other file systems like EXT4 and XFS you can test
+# file-allocation with "prealloc" and "falloc" to see which file-allocation
+# allows arai2 to start quicker and use less disk I/O.
+# disk-cache=0
+# file-allocation=none
+
+
+# Bit Torrent: fully encrypt the negotiation as well and the payload of all bit
+# torrent traffic. With this configuration, encryption is required and all old,
+# non-encrypted clients are ignored (dropped). This may help avoid some ISPs
+# rate limiting P2P clients, but will also reduce the amount of clients aria2
+# will talk to.
+ bt-force-encryption=true
+ bt-min-crypto-level=arc4
+ bt-require-crypto=true
+
+
+# Bit Torrent: Download the torrent file into memory (RAM) if there is no need
+# to save the .torrent file itself. This option works with both magnet and
+# torrent URL links.
+ follow-torrent=mem
+
+
+# Bit Torrent: The amount of time and the upload-to-download ratio you wish to
+# seed to. If either the seed time limit ( minutes ) or the seed ratio is
+# reached, torrent seeding will stop. You can set seed-time to zero(0) to
+# disable seeding completely.
+ seed-ratio=100
+ seed-time=0
+
+
+# Bit Torrent: timeout values for servers and clients.
+#bt-tracker-connect-timeout=10
+#bt-tracker-interval=900
+#bt-tracker-timeout=10
+
+
+# Bit Torrent: scripts or commands to execute before, during or after a
+# download finishes.
+# on-bt-download-complete=/path/to/script.sh
+# on-download-complete=/path/to/script.pl
+# on-download-error=/path/to/script
+# on-download-pause=/path/to/script.sh
+# on-download-start=/path/to/script.pl
+# on-download-stop=/path/to/script
+
+
+# Network: maximum socket receive buffer in bytes. 1M can sustain 1Gbit/sec.
+# Default: 0 which is disabled.
+ socket-recv-buffer-size=1M
+
+
+# Event Multiplexing: set polling to the OS type you are using. For FreeBSD,
+# OpenBSD and NetBSD set to "kqueue". For Linux set to "epoll".
+ event-poll=epoll
+
+
+# Certificate Authority PEM : specify the full path to the OS certificate
+# authority pem file to verify the peers. On FreeBSD with OpenSSL the following
+# file path is valid. Without a valid pem file aria2 will print out the error,
+# "[ERROR] Failed to load trusted CA certificates from no. Cause:
+# error:02001002:system library:fopen:No such file or directory"
+# ca-certificate=/usr/local/openssl/cert.pem
+
+
+# Data Integrity: check the MD5 / SHA256 hash of metalink downloads as well as
+# the hash of bit torrent chunks as our client receives them. CPU time is
+# reasonably low for the high value of real time verified data. Note:
+# check-integrity set as true will show "ERROR - Checksum error detected" for
+# magnet links which can be ignored.
+#check-integrity=true
+ realtime-chunk-checksum=true
+
+
+# File Names: Resume file downloads if we have a partial copy. Do not rename
+# the file or make another copy if the same file is downloaded a second time.
+ allow-overwrite=true
+ always-resume=true
+ auto-file-renaming=false
+ continue=true
+ remote-time=true
+
+
+# User Agent: Disable the identification string of our client. If you connect
+# to a server which requires a certain id string you can always add one here.
+# Trackers should never use client id strings as security authentication or
+# access control.
+ peer-id-prefix=""
+ user-agent=""
+
+
+# Status Summery messages are disabled since the status of the download is
+# updated in real time on the CLI anyways.
+ summary-interval=0
+
+
+# FTP: use passive ftp which is firewall friendly and reuse the ftp data
+# connection when asking for multiple resources from the same server for
+# efficiency.
+ ftp-pasv=true
+ ftp-reuse-connection=true
+
+
+# Metalink: Set the country code to prefer mirrors closest to you. Prefer more
+# secure https mirrors over http and ftp servers.
+ metalink-language=en-US
+ metalink-location=us
+ metalink-preferred-protocol=https
+
+
+# Disconnect from https, http or ftp servers who do not upload data to us
+# faster then the specified value. Aria2 will then find another mirror in the
+# metalink file which might be quicker. If there are no more mirrors left then
+# the current slow mirror is still used. This value is NOT used for bit torrent
+# connections though. NOTE: we hope to convince the developer to add a
+# lower-speed value or even a minimal client U/D ratio to bit torrent some day
+# to kick off leachers too.
+ lowest-speed-limit=50K
+
+
+# Concurrent downloads: Set the number of different servers to download from
+# concurrently; i.e. in parallel. If we are downloading a single file then
+# split that file into the same amount of streams. Make sure to keep in mind
+# that if the amount of parallel downloads times the lowest-speed-limit is
+# greater then your total download bandwidth then you will drop servers
+# incorrectly. For example, we have ten(10) connections at a minimum of
+# 50KiB/sec which equals 500KiB/sec. If our total download bandwidth is not at
+# least 500KiB/sec then arai2 will think the mirrors are too slow and drop
+# connection slowing down the whole download. Do not set the
+# max-connection-per-server greater then three(3) as to avoid abusing a single
+# server.
+ max-concurrent-downloads=10
+ max-connection-per-server=3
+ min-split-size=5M
+ split=10
+
+
+# RPC Interface: To access aria2 through XML-RPC API, like using webui-aria2.
+#enable-rpc
+#rpc-listen-all
+#rpc-user=username
+#rpc-passwd=passwd
+
+
+# Daemon Mode: To run aria2 in the background as a daemon. Use daemon mode to
+# start aria2 on reboot or when using an RPC interface like webui-aria2.
+#daemon
+
+
+#
+#
+# Reference: the following options arethe developers defaults. We kept them
+# here for reference.
+
+# bt-max-open-files=100
+# bt-save-metadata=false
+# bt-stop-timeout=0
+# bt-tracker="udp://tracker.openbittorrent.com:80/announce"
+ check-certificate=true
+ conditional-get=true
+# dht-entry-point="dht.transmissionbt.com:6881"
+# dht-file-path=$HOME/.aria2/dht.dat
+# dht-message-timeout=10
+ disable-ipv6=true
+ http-accept-gzip=true
+# log=$HOME/.aria2/aria2.log
+# log-level=debug
+
+### EOF ###
+#+end_src
+
+*** aria2c tangle
+
++ home dir
+  
+#+NAME: aria2c-home-dir
+#+begin_src conf :noweb yes :tangle "~/.config/aria2/aria2.conf"
+<<aria2c>>
+#+end_src
+
++ current dir
+
+#+NAME: aria2c-current-dir
+#+begin_src conf :noweb yes :tangle ".config/aria2/aria2.conf"
+<<aria2c>>
+#+end_src
+
+** newsboat
+
+*** config
+
+#+NAME: newsboat-config
+#+BEGIN_SRC conf
+# general settings
+auto-reload yes
+max-items 50 
+
+# externel browser
+browser "/usr/bin/w3m %u"
+macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+
+#macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+#macro . set browser "/usr/bin/tsp /usr/bin/mpv --fs --screen=1 %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+#macro . set browser "/home/djwilcox/bin/yank -i %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+
+# unbind keys
+unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+
+# bind keys - vim style
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+
+# podboat
+download-path "~/Downloads/%n"
+player "mpv"
+       
+# colours
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default
+color listfocus          black     blue
+color listfocus_unread   black     blue
+color info               black   blue
+color article            default   default
+
+# highlights
+highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
+highlight article "https?://[^ ]+" color4 color8 protect
+#+END_SRC
+
+*** urls
+
+#+NAME: newsboat-urls
+#+BEGIN_SRC conf
+# News
+https://www.howtogeek.com/feed/ text
+http://feeds.arstechnica.com/arstechnica/index text
+https://www.omgubuntu.co.uk/feed text
+https://itsfoss.com/feed/ text
+http://feeds.feedburner.com/Torrentfreak text
+
+# youtube
+https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow video "The Magpie Channel" video
+https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "distrotube" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA "gotbletu" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "System Crafters" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w "Gaming Careers" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg "Streamgeeks" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Eposvox" video
+
+#+END_SRC
+
+**** newsboat tangle
+
+***** config tangle
+
++ home dir
+
+#+NAME: newsboat-config-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/config"
+<<newsboat-config>>
+#+END_SRC
+
++ current dir
+
+#+NAME: newsboat-config-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/config"
+<<newsboat-config>>
+#+END_SRC
+
+***** urls tangle
+
++ home dir
+
+#+NAME: newsboat-urls-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/urls"
+<<newsboat-urls>>
+#+END_SRC
+
++ current dir
+
+#+NAME: newsboat-urls-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls"
+<<newsboat-urls>>
+#+END_SRC
+
+** dunst
+
+#+NAME: dunst
+#+BEGIN_SRC conf
+[global]
+    ### Display ###
+
+    # Which monitor should the notifications be displayed on.
+    monitor = 0
+
+    # Display notification on focused monitor.  Possible modes are:
+    #   mouse: follow mouse pointer
+    #   keyboard: follow window with keyboard focus
+    #   none: don't follow anything
+    #
+    # "keyboard" needs a window manager that exports the
+    # _NET_ACTIVE_WINDOW property.
+    # This should be the case for almost all modern window managers.
+    #
+    # If this option is set to mouse or keyboard, the monitor option
+    # will be ignored.
+    follow = mouse
+
+    # The geometry of the window:
+    #   [{width}]x{height}[+/-{x}+/-{y}]
+    # The geometry of the message window.
+    # The height is measured in number of notifications everything else
+    # in pixels.  If the width is omitted but the height is given
+    # ("-geometry x2"), the message window expands over the whole screen
+    # (dmenu-like).  If width is 0, the window expands to the longest
+    # message displayed.  A positive x is measured from the left, a
+    # negative from the right side of the screen.  Y is measured from
+    # the top and down respectively.
+    # The width can be negative.  In this case the actual width is the
+    # screen width minus the width defined in within the geometry option.
+    geometry = "0x0-10+40"
+
+    # Show how many messages are currently hidden (because of geometry).
+    indicate_hidden = yes
+
+    # Shrink window if it's smaller than the width.  Will be ignored if
+    # width is 0.
+    shrink = no
+
+    # The transparency of the window.  Range: [0; 100].
+    # This option will only work if a compositing window manager is
+    # present (e.g. xcompmgr, compiz, etc.).
+    transparency = 0
+
+    # The height of the entire notification.  If the height is smaller
+    # than the font height and padding combined, it will be raised
+    # to the font height and padding.
+    notification_height = 0
+
+    # Draw a line of "separator_height" pixel height between two
+    # notifications.
+    # Set to 0 to disable.
+    separator_height = 2
+
+    # Padding between text and separator.
+    padding = 8
+
+    # Horizontal padding.
+    horizontal_padding = 8
+
+    # Defines width in pixels of frame around the notification window.
+    # Set to 0 to disable.
+    frame_width = 3
+
+    # Defines color of the frame around the notification window.
+    frame_color = "#eee8d5"
+
+    # Define a color for the separator.
+    # possible values are:
+    #  * auto: dunst tries to find a color fitting to the background;
+    #  * foreground: use the same color as the foreground;
+    #  * frame: use the same color as the frame;
+    #  * anything else will be interpreted as a X color.
+    separator_color = frame
+
+    # Sort messages by urgency.
+    sort = yes
+
+    # Don't remove messages, if the user is idle (no mouse or keyboard input)
+    # for longer than idle_threshold seconds.
+    # Set to 0 to disable.
+    # A client can set the 'transient' hint to bypass this. See the rules
+    # section for how to disable this if necessary
+    idle_threshold = 120
+
+    ### Text ###
+
+    font = Inconsolata 14
+
+    # The spacing between lines.  If the height is smaller than the
+    # font height, it will get raised to the font height.
+    line_height = 0
+
+    # Possible values are:
+    # full: Allow a small subset of html markup in notifications:
+    #        <b>bold</b>
+    #        <i>italic</i>
+    #        <s>strikethrough</s>
+    #        <u>underline</u>
+    #
+    #        For a complete reference see
+    #        <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
+    #
+    # strip: This setting is provided for compatibility with some broken
+    #        clients that send markup even though it's not enabled on the
+    #        server. Dunst will try to strip the markup but the parsing is
+    #        simplistic so using this option outside of matching rules for
+    #        specific applications *IS GREATLY DISCOURAGED*.
+    #
+    # no:    Disable markup parsing, incoming notifications will be treated as
+    #        plain text. Dunst will not advertise that it has the body-markup
+    #        capability if this is set as a global setting.
+    #
+    # It's important to note that markup inside the format option will be parsed
+    # regardless of what this is set to.
+    markup = full
+
+    # The format of the message.  Possible variables are:
+    #   %a  appname
+    #   %s  summary
+    #   %b  body
+    #   %i  iconname (including its path)
+    #   %I  iconname (without its path)
+    #   %p  progress value if set ([  0%] to [100%]) or nothing
+    #   %n  progress value if set without any extra characters
+    #   %%  Literal %
+    # Markup is allowed
+    format = "<b>%s</b>\n%b"
+
+    # Alignment of message text.
+    # Possible values are "left", "center" and "right".
+    alignment = left
+
+    # Show age of message if message is older than show_age_threshold
+    # seconds.
+    # Set to -1 to disable.
+    show_age_threshold = 60
+
+    # Split notifications into multiple lines if they don't fit into
+    # geometry.
+    word_wrap = yes
+
+    # When word_wrap is set to no, specify where to make an ellipsis in long lines.
+    # Possible values are "start", "middle" and "end".
+    ellipsize = middle
+
+    # Ignore newlines '\n' in notifications.
+    ignore_newline = no
+
+    # Stack together notifications with the same content
+    stack_duplicates = true
+
+    # Hide the count of stacked notifications with the same content
+    hide_duplicate_count = false
+
+    # Display indicators for URLs (U) and actions (A).
+    show_indicators = yes
+
+    ### Icons ###
+
+    # Align icons left/right/off
+    icon_position = left
+
+    # Scale larger icons down to this size, set to 0 to disable
+    max_icon_size = 100
+
+    # Paths to default icons.
+    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+
+    ### History ###
+
+    # Should a notification popped up from history be sticky or timeout
+    # as if it would normally do.
+    sticky_history = yes
+
+    # Maximum amount of notifications kept in history
+    history_length = 20
+
+    ### Misc/Advanced ###
+
+    # dmenu path.
+    dmenu = /usr/bin/dmenu -p dunst:
+
+    # Browser for opening urls in context menu.
+    browser = /usr/bin/firefox
+
+    # Always run rule-defined scripts, even if the notification is suppressed
+    always_run_script = true
+
+    # Define the title of the windows spawned by dunst
+    title = Dunst
+
+    # Define the class of the windows spawned by dunst
+    class = Dunst
+
+    # Print a notification on startup.
+    # This is mainly for error detection, since dbus (re-)starts dunst
+    # automatically after a crash.
+    startup_notification = false
+
+    # Manage dunst's desire for talking
+    # Can be one of the following values:
+    #  crit: Critical features. Dunst aborts
+    #  warn: Only non-fatal warnings
+    #  mesg: Important Messages
+    #  info: all unimportant stuff
+    # debug: all less than unimportant stuff
+    verbosity = mesg
+
+    # Define the corner radius of the notification window
+    # in pixel size. If the radius is 0, you have no rounded
+    # corners.
+    # The radius will be automatically lowered if it exceeds half of the
+    # notification height to avoid clipping text and/or icons.
+    corner_radius = 5
+
+    ### Legacy
+
+    # Use the Xinerama extension instead of RandR for multi-monitor support.
+    # This setting is provided for compatibility with older nVidia drivers that
+    # do not support RandR and using it on systems that support RandR is highly
+    # discouraged.
+    #
+    # By enabling this setting dunst will not be able to detect when a monitor
+    # is connected or disconnected which might break follow mode if the screen
+    # layout changes.
+    force_xinerama = false
+
+    ### mouse
+
+    # Defines action of mouse event
+    # Possible values are:
+    # * none: Don't do anything.
+    # * do_action: If the notification has exactly one action, or one is marked as default,
+    #              invoke it. If there are multiple and no default, open the context menu.
+    # * close_current: Close current notification.
+    # * close_all: Close all notifications.
+    mouse_left_click = close_current
+    mouse_middle_click = do_action
+    mouse_right_click = close_all
+
+# Experimental features that may or may not work correctly. Do not expect them
+# to have a consistent behaviour across releases.
+[experimental]
+    # Calculate the dpi to use on a per-monitor basis.
+    # If this setting is enabled the Xft.dpi value will be ignored and instead
+    # dunst will attempt to calculate an appropriate dpi value for each monitor
+    # using the resolution and physical size. This might be useful in setups
+    # where there are multiple screens with very different dpi values.
+    per_monitor_dpi = false
+
+[shortcuts]
+
+    # Shortcuts are specified as [modifier+][modifier+]...key
+    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
+    # "mod3" and "mod4" (windows-key).
+    # Xev might be helpful to find names for keys.
+
+    # Close notification.
+    close = ctrl+space
+
+    # Close all notifications.
+    close_all = ctrl+shift+space
+
+    # Redisplay last message(s).
+    # On the US keyboard layout "grave" is normally above TAB and left
+    # of "1". Make sure this key actually exists on your keyboard layout,
+    # e.g. check output of 'xmodmap -pke'
+    history = ctrl+grave
+
+    # Context menu.
+    context = ctrl+shift+period
+
+[urgency_low]
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the "#" and following would be interpreted as a comment.
+    background = "#002b36"
+    foreground = "#eee8d5"
+    timeout = 10
+    # Icon for notifications with low urgency, uncomment to enable
+    #icon = /path/to/icon
+
+[urgency_normal]
+    background = "#002b36"
+    foreground = "#eee8d5"
+    timeout = 10
+    # Icon for notifications with normal urgency, uncomment to enable
+    #icon = /path/to/icon
+
+[urgency_critical]
+    background = "#002b36"
+    foreground = "#eee8d5"
+    frame_color = "#ff0000"
+    timeout = 0
+    # Icon for notifications with critical urgency, uncomment to enable
+    #icon = /path/to/icon
+
+# Every section that isn't one of the above is interpreted as a rules to
+# override settings for certain messages.
+#
+# Messages can be matched by
+#    appname (discouraged, see desktop_entry)
+#    body
+#    category
+#    desktop_entry
+#    icon
+#    match_transient
+#    msg_urgency
+#    stack_tag
+#    summary
+#
+# and you can override the
+#    background
+#    foreground
+#    format
+#    frame_color
+#    fullscreen
+#    new_icon
+#    set_stack_tag
+#    set_transient
+#    timeout
+#    urgency
+#
+# Shell-like globbing will get expanded.
+#
+# Instead of the appname filter, it's recommended to use the desktop_entry filter.
+# GLib based applications export their desktop-entry name. In comparison to the appname,
+# the desktop-entry won't get localized.
+#
+# SCRIPTING
+# You can specify a script that gets run when the rule matches by
+# setting the "script" option.
+# The script will be called as follows:
+#   script appname summary body icon urgency
+# where urgency can be "LOW", "NORMAL" or "CRITICAL".
+#
+# NOTE: if you don't want a notification to be displayed, set the format
+# to "".
+# NOTE: It might be helpful to run dunst -print in a terminal in order
+# to find fitting options for rules.
+
+# Disable the transient hint so that idle_threshold cannot be bypassed from the
+# client
+#[transient_disable]
+#    match_transient = yes
+#    set_transient = no
+#
+# Make the handling of transient notifications more strict by making them not
+# be placed in history.
+#[transient_history_ignore]
+#    match_transient = yes
+#    history_ignore = yes
+
+# fullscreen values
+# show: show the notifications, regardless if there is a fullscreen window opened
+# delay: displays the new notification, if there is no fullscreen window active
+#        If the notification is already drawn, it won't get undrawn.
+# pushback: same as delay, but when switching into fullscreen, the notification will get
+#           withdrawn from screen again and will get delayed like a new notification
+#[fullscreen_delay_everything]
+#    fullscreen = delay
+#[fullscreen_show_critical]
+#    msg_urgency = critical
+#    fullscreen = show
+
+#[espeak]
+#    summary = "*"
+#    script = dunst_espeak.sh
+
+#[script-test]
+#    summary = "*script*"
+#    script = dunst_test.sh
+
+#[ignore]
+#    # This notification will not be displayed
+#    summary = "foobar"
+#    format = ""
+
+#[history-ignore]
+#    # This notification will not be saved in history
+#    summary = "foobar"
+#    history_ignore = yes
+
+#[skip-display]
+#    # This notification will not be displayed, but will be included in the history
+#    summary = "foobar"
+#    skip_display = yes
+
+#[signed_on]
+#    appname = Pidgin
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[signed_off]
+#    appname = Pidgin
+#    summary = *signed off*
+#    urgency = low
+#
+#[says]
+#    appname = Pidgin
+#    summary = *says*
+#    urgency = critical
+#
+#[twitter]
+#    appname = Pidgin
+#    summary = *twitter.com*
+#    urgency = normal
+#
+#[stack-volumes]
+#    appname = "some_volume_notifiers"
+#    set_stack_tag = "volume"
+#
+# vim: ft=cfg
+#+END_SRC
+
+*** dunst tangle
+
++ home dir
+
+#+NAME: dunst-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/dunst/dunstrc"
+<<dunst>>
+#+END_SRC
+
++ current dir
+
+#+NAME: dunst-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/dunst/dunstrc"
+<<dunst>>
+#+END_SRC
+
+** mpd
+
+#+NAME: mpd
+#+BEGIN_SRC conf
+music_directory		"~/Music"
+playlist_directory	"~/.config/mpd/playlists"
+db_file			"~/.config/mpd/mpd.db"
+log_file		"~/.config/mpd/mpd.log"
+pid_file		"~/.config/mpd/mpd.pid"
+state_file		"~/.config/mpd/mpdstate"
+sticker_file		"~/.config/mpd/sticker.sql"
+bind_to_address		"/home/djwilcox/.config/mpd/socket"
+auto_update    "yes"
+decoder {
+        plugin                  "hybrid_dsd"
+        enabled                 "no"
+#       gapless                 "no"
+}
+audio_output {
+	type		"alsa"
+	name		"My ALSA Device"
+}
+filesystem_charset		"UTF-8"
+#+END_SRC
+
+*** mpd tangle
+
+#+NAME: mpd-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/mpd.conf"
+<<mpd>>
+#+END_SRC
+
+#+NAME: mpd-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/mpd.conf"
+<<mpd>>
+#+END_SRC
+
+** ncmpc
+
+#+NAME: ncmpc
+#+BEGIN_SRC conf
+##
+## Configuration file for ncmpc (~/.ncmpc/config)
+##
+
+############## Connection ###################
+## Connect to mpd running on a specified host
+#host = "localhost"
+#host = "127.0.0.1"
+host = "/home/djwilcox/.config/mpd/socket"
+
+## Connect to mpd on the specified port.
+#port = 6600
+
+## Connect to mpd using the specified password.
+#password = "mpd"
+
+############## Interface ####################
+## Enable mouse support (if enabled at compile time).
+#enable-mouse = no
+
+## A list of screens to cycle through when using
+## the previous/next screen commands (tab and shift+tab).
+## names: playlist browse help artist search song keydef lyrics outputs
+screen-list = playlist browse
+
+## Default search mode for the search screen. The mode is an
+## integer index, with  0  for title, 1 for artist, 2 for album,
+## 3 for filename, and 4 for artist+title.
+#search-mode = 0
+
+## Auto center (center the playing track in the playlist)
+#auto-center = no
+
+## Show the most recent query when using find.
+#find-show-last = no
+
+## Wrapped find mode.
+#find-wrap = yes
+
+## Wrapped cursor movement.
+#wrap-around = no
+
+## Ring bell when find wraps around.
+#bell-on-wrap = yes
+
+## Sound audible bell on alerts.
+#audible-bell = yes
+
+## Enable visible bell on alerts.
+#visible-bell = no
+
+## Default crossfade time in seconds.
+#crossfade-time = 10
+
+## Seek forward/backward by NUM seconds.
+seek-time = 30
+
+############## Display ######################
+## Show a list of the screens in the top line on startup.
+#welcome-screen-list = yes
+
+## Make the cursor as wide as the screen.
+#wide-cursor = yes
+
+## Use the terminal's hardware cursor instead of inverse colors
+#hardware-cursor = yes
+
+## Hide playlist cursor after x seconds (0 disables this feature).
+#hide-cursor = 5
+
+## Scroll the title if it is too long for the screen.
+#scroll = yes
+
+## The separator to show at the end of the scrolling title.
+#scroll-sep = " *** "
+
+## list-format
+## The format used to display songs in the main window.
+list-format = "%name%|[%artist% - ]%title%|%file%"
+
+## The format used to display songs on the status line.
+status-format = "[%artist% - ]%title%|%shortfile%"
+
+## The time, in seconds, for which status messages will be displayed.
+#status-message-time = 3
+
+## Display the time in the status bar when idle.
+#display-time = yes
+
+## Sets whether to display remaining or elapsed time in
+## the status window. Default is elapsed.
+#timedisplay-type = elapsed
+
+## Show the bitrate in the status bar when playing a stream.
+visible-bitrate = yes
+
+## Change the XTerm title (ncmpc will not restore the title).
+#set-xterm-title = no
+
+## The format used to for the xterm title when ncmpc is playing.
+#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
+
+## Automatically save the lyrics after receiving them.
+#lyrics-autosave = no
+
+## Display song length in second column
+#second-column = yes
+
+############## Colors #######################
+## colors: none, black, red, green, yellow, blue, magenta, cyan, white
+## attributes: standout, underline, reverse, blink, dim, bold
+##
+## Colors can also be given as an integer representing a terminal specific
+## color code. The special color, none, represents the terminals default color.
+
+## Enable/disable colors.
+#enable-colors = yes
+enable-colors = no
+
+## Set the background color.
+color background = none
+
+## Set the text color for the title row.
+color title = none,black
+
+## Set the text color for the title row (the bold part).
+color title-bold = blue,bold
+
+## Set the color of the line on the second row.
+color line = black
+
+## Set the text color used to indicate mpd flags on the second row.
+color line-flags = black,bold
+
+## Set the text color in the main area of ncmpc.
+color list = none
+
+## Set the bold text color in the main area of ncmpc.
+color list-bold = none,bold
+
+## Sets the text color of directories in the browser
+color browser-directory = none
+
+## Sets the text color of playlists in the browser
+color browser-playlist = none
+
+## Set the color of the progress indicator.
+color progressbar = black
+
+## Set the text color used to display mpd status in the status window.
+color status-state = black,bold
+
+## Set the text color used to display song names in the status window.
+color status-song  = black
+
+## Set the text color used to display time the status window.
+color status-time  = black
+
+## Text color used to display alerts in the status window.
+color alert = black,bold
+
+## Redefine any of the base colors.
+## The RGB values must be an integer value between 0 and 1000.
+## Note: Only some terminals allow redefinitions of colors!
+#colordef yellow = 255, 140, 0
+#+END_SRC
+
+*** ncmpc tangle
+
++ home dir
+
+#+NAME: ncmpc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ncmpc/config"
+<<ncmpc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: ncmpc-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".ncmpc/config"
+<<ncmpc>>
+#+END_SRC
+
+** surfraw
+*** btdig
+
+#+NAME: btdig
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search btdig
+# elvis: btdig		-- Search btdig (https://btdig.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search btdig (https://btdig.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://btdig.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://btdig.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+*** ddg
+
+#+NAME: ddg
+#+BEGIN_SRC conf
+#!/bin/sh
+# elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
+# coder@kyleisom.net 20110105
+# relevant: https://duckduckgo.com/params.html
+# similar to duckduckgo elvi, adds more options and defaults to SSL.
+. surfraw || exit 1
+
+w3_config_hook () {
+    def     SURFRAW_duckduckgo_results             "$SURFRAW_results"
+    def     SURFRAW_duckduckgo_base_url            "duckduckgo.com"
+    def     SURFRAW_duckduckgo_search              search
+    def     SURFRAW_duckduckgo_params              "&kg=g"
+    defyn   SURFRAW_duckduckgo_use_javascript      0
+}
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Surfraw search the web using DuckDuckGo (duckduckgo.com)
+Local options:
+    -j,-javascript              use javascript
+EOF
+    w3_global_usage
+}
+
+w3_parse_option_hook () {
+    opt="$1"
+    optarg="$2"
+    case "$opt" in
+    -j|-javascript*)    setoptyn    SURFRAW_duckduckgo_use_javascript      1 ;;
+    ,*) return 1 ;;
+    esac
+    return 0
+}
+
+w3_config
+w3_parse_args "$@"
+
+# need to send the user to the non-javascript version if using a non-graphical
+# browser
+SURFRAW_duckduckgo_base_url="https://${SURFRAW_duckduckgo_base_url}"
+if [ "$SURFRAW_duckduckgo_use_javascript" = 0 ]; then
+    SURFRAW_duckduckgo_base_url="${SURFRAW_duckduckgo_base_url}/lite"
+    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1&k1=-1&kp=-2&kaf=1&kd=-1"
+fi
+
+if [ "$SURFRAW_graphical" != "yes" ] ; then
+    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1"
+fi
+
+escaped_args=`w3_url_of_arg $w3_args`
+w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
+#+END_SRC
+
+*** iplayer
+
+#+NAME: iplayer
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search Google Video
+# elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search bbc iplayer (https://bbc.co.uk/iplayer)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://bbc.co.uk/iplayer"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://bbc.co.uk/iplayer/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+*** dailymotion
+
+#+NAME: dailymotion
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search dailymotion
+# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search dailymotion (https://dailymotion.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://dailymotion.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://dailymotion.com/search/${escaped_args}/videos"
+fi
+#+END_SRC
+
+*** video
+
+#+NAME: video
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search Google Video
+# elvis: video		-- Search Google Video (https://www.google.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search Google Video (https://video.google.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://www.video.google.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://www.google.com/search?q=${escaped_args}&num=30&safe=off&tbo=p&tbm=vid"
+fi
+#+END_SRC
+
+*** vimeo
+
+#+NAME: vimeo
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search vimeo
+# elvis: vimeo		-- Search vimeo (https://vimeo.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search vimeo (https://vimeo.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://vimeo.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+**** surfraw tangle
+***** btdig
+
++ home dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
+***** ddg
+
++ home dir
+
+#+NAME: surfraw-ddg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+<<ddg>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-ddg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+<<ddg>>
+#+END_SRC
+
+***** iplayer
+
++ home dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+<<iplayer>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+<<iplayer>>
+#+END_SRC
+
+***** dailymotion
+
++ home dir
+
+#+NAME: surfraw-dailymotion-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+<<dailymotion>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-dailymotion-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+<<dailymotion>>
+#+END_SRC
+
+***** video
+
++ home dir
+
+#+NAME: surfraw-video-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
+<<video>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-video-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
+<<video>>
+#+END_SRC
+
+***** vimeo
+
++ home dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
+** ytfzf
+
+#+NAME: ytfzf
+#+BEGIN_SRC conf
+#This is the default config file
+#this file is read when it is placed in ~/.config/ytfzf
+
+#keep in mind that this is a .sh file, and can be used as such
+
+#this config file can be completely empty and ytfzf will still work (as these are the default settings),
+    #so feel free to get rid of anything you don't want in here
+
+###################
+#  ENV VARIABLES  #
+###################
+
+#each variable below can be set here, or using export
+#when setting them through export, use the variable in parentheses instead
+#variables set through export will override the ones set here
+
+#enable/disable history (enabled by default)
+#history is stored in $history_file ($YTFZF_CACHE/ytfzf_hst by default, change $history_file to change this)
+#(YTFZF_HIST)
+enable_hist=1
+
+#enable/disable looping (disabled by default)
+#when enabled, after a video ends it will bring up the results menu again
+#(YTFZF_LOOP)
+enable_loop=0
+
+#the directory to store cache
+#history, thumbnails, and the currently playing video will be stored here
+#(YTFZF_CACHE)
+cache_dir="$HOME/.cache/ytfzf"
+
+#enable/disable writting the selected menu option to a file
+#this file is $YTFZF_CACHE/ytfzf_cur by default, can be changed by changing $current_file
+#(YTFZF_CUR)
+enable_cur=1
+
+#enable(1)/disable(0) notification when play video
+#the notification is send via send-notify
+#(YTFZF_NOTI)
+enable_noti=0
+
+#the format of the video (1080p, 720p, etc)
+#uses the youtube-dl preference system
+#must be a number eg: 22 is 720p
+#(YTFZF_PREF)
+video_pref=""
+
+#when -D is given it will use this external menu instead of fzf
+#(YTFZF_EXTMENU)
+external_menu="dmenu -i -l 30 -p Search:"
+
+#the amount of characters that can fit on a line in the external menu
+#tweek this for better formatting if the external menu looks weird
+#(YTFZF_EXTMENU_LEN)
+external_menu_len=220
+
+#the player to use for playing the video, must be able to stream from youtube-dl
+#vlc also works
+#(YTFZF_PLAYER)
+#video_player="mpv --no-terminal"
+#video_player="tsp mpv --fs --screen=1"
+video_player="sauron"
+
+#the player to use when choosing a video format with $YTFZF_PREF
+#(YTFZF_PLAYER_FORMAT)
+video_player_format="mpv --ytdl-format="
+
+# this emulates the -m flag if set to 1
+is_audio_only=0
+#the player to use for audio ( option -m )
+#(YTFZF_AUDIO_PLAYER)
+audio_player="mpv --no-video"
+#audio_player="pinch -i"
+
+#enable/disable ytfzf's use of your $FZF_DEFAULT_OPTS
+#depending on your fzf settings, this could mess up the formatting of the menu
+#(YTFZF_ENABLE_FZF_DEFAULT_OPTS)
+enable_fzf_default_opts=0
+
+###################
+#  OPT VARIABLES  #
+###################
+
+#any variables here can be set with options when running the command
+#see ytfzf --help for more info
+
+#enable/disable using $external_menu
+#same as -D
+is_ext_menu=0
+
+#enable/disable viewing of thumbnails (currently only works when using the X display manager)
+#same as -t
+show_thumbnails=0
+
+#enable/disable selecting the first result automatically
+#same as -a
+auto_select=0
+
+#enable/disable selecting all results
+#same as -A
+select_all=0
+
+#enable/disable selecting a random result
+#same as -r
+random_select=0
+
+#the amount of links to select with -a or -r
+#same as -n{number}
+link_count=1
+
+#enable/disable only showing the selected video's link
+#same as -L
+show_link_only=0
+
+#enable/disable showing the different video formats
+#same as -f
+show_format=0
+
+#the side to show thumbnails
+#options are "left", "right", "top", "bottom"
+#same as --priview-side=
+preview_side="right"
+
+#the amount of links to get from each subscription
+#same as --subs=
+sub_link_count=10
+
+#whether or not to show --------------channel---------------- when viewing subscriptions
+#same as --fancy-subs=
+fancy_subscriptions_menu=1
+
+#where to source videos from
+#options are history, yt_subs, yt_search
+#history is the same as -H
+#yt_subs is the same as -S
+scrape="yt_search"
+
+#the filter id that will be used when searching youtube
+#same as --filter-id={filter}
+#to get a filter id go to youtube search for something, choose the filter you want,
+    #then take the part of the url that says &sp= (excluding the &sp=) and put it here
+#this will override any options having to do with the filter unless you explictly use --filter-id
+
+sp=""
+
+#COMMON FILTERS
+
+#the parentheses are options you can pass when running ytfzf
+
+#UPLOAD DATE FILTERS
+#last hour: EgIIAQ (--last-hour)
+#today: EgQIAhAB (--today)
+#this week: EgQIAxAB (--this-week)
+#this month: EgQIBBAB (--this-month)
+#this year: EgQIBRAB (--this-year)
+
+#DURATION FILTERS
+#short: EgQQARgB
+#long: EgQQARgC
+
+#FEATURE FILTERS
+#live: EgQQAUAB
+#4k: EgQQAXAB
+#subtitles/cc: EgQQASgB
+
+#SORT BY FILTERS
+#upload date: CAISAhAB (--upload-date)
+#view count: CAMSAhAB (--view-count)
+#rating: CAESAhAB (--rating)
+
+#to combine any of these filters it would be best to go to youtube,
+    #filter how you want, then copy the &sp= part of the url
+
+####################
+#       MISC       #
+####################
+
+#useragent when using curl on youtube
+useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36"
+
+#the file for storing watch history
+history_file="$cache_dir/ytfzf_hst"
+
+#the file for writing the menu option that was chosen
+current_file="$cache_dir/ytfzf_cur"
+
+#the folder where thumbnails are cached
+thumb_dir="$cache_dir/thumb"
+
+#when using the menu, use the text printed in this function to display all the info, $shorturl must be present in order to work
+#available default colors (note: they are be bolded):
+    #c_red
+    #c_green
+    #c_yellow
+    #c_blue
+    #c_magenta
+    #c_cyan
+    #c_reset (sets it back to terminal defaults)
+#available variables
+    #title
+    #title_len, the available tty columns for $title
+    #channel
+    #channel_len, the available tty columns for $channel
+    #duration
+    #dur_len, the available tty columns for $duration
+    #views
+    #view_len, the available tty columns for $views
+    #date (video upload date)
+    #date_len, the vailable tty columns for $date
+    #shorturl (the video ID)
+    #url_len, the available tty columns for $shroturl
+video_info_text() {
+	printf "%-${title_len}.${title_len}s\t" "$title"
+	printf "%-${channel_len}.${channel_len}s\t" "$channel"
+	printf "%-${dur_len}.${dur_len}s\t" "$duration"
+	printf "%-${view_len}.${view_len}s\t" "$views"
+	printf "%-${date_len}.${date_len}s\t" "$date"
+	printf "%-${url_len}.${url_len}s\t" "$shorturl"
+	printf "\n"
+}
+
+
+#when displaying thumbnails, use the text printed in this function to show the title, views, etc..
+#available default colors (note: they are be bolded):
+    #c_red
+    #c_green
+    #c_yellow
+    #c_blue
+    #c_magenta
+    #c_cyan
+    #c_reset (sets it back to terminal defaults)
+#available variables
+    #title
+    #channel
+    #duration
+    #views
+    #date (video upload date)
+    #shorturl (the video ID)
+#how this works:
+    #anything printed will stay on the screen in the fzf preview menu
+thumbnail_video_info_text () {
+         printf "\n${c_cyan}%s" "$title"
+         printf "\n${c_blue}Channel      ${c_green}%s" "$channel"
+         printf "\n${c_blue}Duration     ${c_yellow}%s" "$duration"
+         printf "\n${c_blue}Views        ${c_magenta}%s" "$views"
+         printf "\n${c_blue}Date         ${c_cyan}%s" "$date"
+}
+#+END_SRC
+
+*** ytfzf tangle
+
++ home dir
+  
+#+NAME: ytfzf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ytfzf/conf.sh"
+<<ytfzf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: ytfzf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/ytfzf/conf.sh"
+<<ytfzf>>
+#+END_SRC
+
 ** w3m
 
 *** bookmark.html
@@ -5379,856 +7184,29 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<urimethodmap>>
 #+END_SRC
 
-** ytfzf
+** feh
 
-#+NAME: ytfzf
-#+BEGIN_SRC conf
-#This is the default config file
-#this file is read when it is placed in ~/.config/ytfzf
-
-#keep in mind that this is a .sh file, and can be used as such
-
-#this config file can be completely empty and ytfzf will still work (as these are the default settings),
-    #so feel free to get rid of anything you don't want in here
-
-###################
-#  ENV VARIABLES  #
-###################
-
-#each variable below can be set here, or using export
-#when setting them through export, use the variable in parentheses instead
-#variables set through export will override the ones set here
-
-#enable/disable history (enabled by default)
-#history is stored in $history_file ($YTFZF_CACHE/ytfzf_hst by default, change $history_file to change this)
-#(YTFZF_HIST)
-enable_hist=1
-
-#enable/disable looping (disabled by default)
-#when enabled, after a video ends it will bring up the results menu again
-#(YTFZF_LOOP)
-enable_loop=0
-
-#the directory to store cache
-#history, thumbnails, and the currently playing video will be stored here
-#(YTFZF_CACHE)
-cache_dir="$HOME/.cache/ytfzf"
-
-#enable/disable writting the selected menu option to a file
-#this file is $YTFZF_CACHE/ytfzf_cur by default, can be changed by changing $current_file
-#(YTFZF_CUR)
-enable_cur=1
-
-#enable(1)/disable(0) notification when play video
-#the notification is send via send-notify
-#(YTFZF_NOTI)
-enable_noti=0
-
-#the format of the video (1080p, 720p, etc)
-#uses the youtube-dl preference system
-#must be a number eg: 22 is 720p
-#(YTFZF_PREF)
-video_pref=""
-
-#when -D is given it will use this external menu instead of fzf
-#(YTFZF_EXTMENU)
-external_menu="dmenu -i -l 30 -p Search:"
-
-#the amount of characters that can fit on a line in the external menu
-#tweek this for better formatting if the external menu looks weird
-#(YTFZF_EXTMENU_LEN)
-external_menu_len=220
-
-#the player to use for playing the video, must be able to stream from youtube-dl
-#vlc also works
-#(YTFZF_PLAYER)
-#video_player="mpv --no-terminal"
-#video_player="tsp mpv --fs --screen=1"
-video_player="sauron"
-
-#the player to use when choosing a video format with $YTFZF_PREF
-#(YTFZF_PLAYER_FORMAT)
-video_player_format="mpv --ytdl-format="
-
-# this emulates the -m flag if set to 1
-is_audio_only=0
-#the player to use for audio ( option -m )
-#(YTFZF_AUDIO_PLAYER)
-audio_player="mpv --no-video"
-#audio_player="pinch -i"
-
-#enable/disable ytfzf's use of your $FZF_DEFAULT_OPTS
-#depending on your fzf settings, this could mess up the formatting of the menu
-#(YTFZF_ENABLE_FZF_DEFAULT_OPTS)
-enable_fzf_default_opts=0
-
-###################
-#  OPT VARIABLES  #
-###################
-
-#any variables here can be set with options when running the command
-#see ytfzf --help for more info
-
-#enable/disable using $external_menu
-#same as -D
-is_ext_menu=0
-
-#enable/disable viewing of thumbnails (currently only works when using the X display manager)
-#same as -t
-show_thumbnails=0
-
-#enable/disable selecting the first result automatically
-#same as -a
-auto_select=0
-
-#enable/disable selecting all results
-#same as -A
-select_all=0
-
-#enable/disable selecting a random result
-#same as -r
-random_select=0
-
-#the amount of links to select with -a or -r
-#same as -n{number}
-link_count=1
-
-#enable/disable only showing the selected video's link
-#same as -L
-show_link_only=0
-
-#enable/disable showing the different video formats
-#same as -f
-show_format=0
-
-#the side to show thumbnails
-#options are "left", "right", "top", "bottom"
-#same as --priview-side=
-preview_side="right"
-
-#the amount of links to get from each subscription
-#same as --subs=
-sub_link_count=10
-
-#whether or not to show --------------channel---------------- when viewing subscriptions
-#same as --fancy-subs=
-fancy_subscriptions_menu=1
-
-#where to source videos from
-#options are history, yt_subs, yt_search
-#history is the same as -H
-#yt_subs is the same as -S
-scrape="yt_search"
-
-#the filter id that will be used when searching youtube
-#same as --filter-id={filter}
-#to get a filter id go to youtube search for something, choose the filter you want,
-    #then take the part of the url that says &sp= (excluding the &sp=) and put it here
-#this will override any options having to do with the filter unless you explictly use --filter-id
-
-sp=""
-
-#COMMON FILTERS
-
-#the parentheses are options you can pass when running ytfzf
-
-#UPLOAD DATE FILTERS
-#last hour: EgIIAQ (--last-hour)
-#today: EgQIAhAB (--today)
-#this week: EgQIAxAB (--this-week)
-#this month: EgQIBBAB (--this-month)
-#this year: EgQIBRAB (--this-year)
-
-#DURATION FILTERS
-#short: EgQQARgB
-#long: EgQQARgC
-
-#FEATURE FILTERS
-#live: EgQQAUAB
-#4k: EgQQAXAB
-#subtitles/cc: EgQQASgB
-
-#SORT BY FILTERS
-#upload date: CAISAhAB (--upload-date)
-#view count: CAMSAhAB (--view-count)
-#rating: CAESAhAB (--rating)
-
-#to combine any of these filters it would be best to go to youtube,
-    #filter how you want, then copy the &sp= part of the url
-
-####################
-#       MISC       #
-####################
-
-#useragent when using curl on youtube
-useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.152 Safari/537.36"
-
-#the file for storing watch history
-history_file="$cache_dir/ytfzf_hst"
-
-#the file for writing the menu option that was chosen
-current_file="$cache_dir/ytfzf_cur"
-
-#the folder where thumbnails are cached
-thumb_dir="$cache_dir/thumb"
-
-#when using the menu, use the text printed in this function to display all the info, $shorturl must be present in order to work
-#available default colors (note: they are be bolded):
-    #c_red
-    #c_green
-    #c_yellow
-    #c_blue
-    #c_magenta
-    #c_cyan
-    #c_reset (sets it back to terminal defaults)
-#available variables
-    #title
-    #title_len, the available tty columns for $title
-    #channel
-    #channel_len, the available tty columns for $channel
-    #duration
-    #dur_len, the available tty columns for $duration
-    #views
-    #view_len, the available tty columns for $views
-    #date (video upload date)
-    #date_len, the vailable tty columns for $date
-    #shorturl (the video ID)
-    #url_len, the available tty columns for $shroturl
-video_info_text() {
-	printf "%-${title_len}.${title_len}s\t" "$title"
-	printf "%-${channel_len}.${channel_len}s\t" "$channel"
-	printf "%-${dur_len}.${dur_len}s\t" "$duration"
-	printf "%-${view_len}.${view_len}s\t" "$views"
-	printf "%-${date_len}.${date_len}s\t" "$date"
-	printf "%-${url_len}.${url_len}s\t" "$shorturl"
-	printf "\n"
-}
-
-
-#when displaying thumbnails, use the text printed in this function to show the title, views, etc..
-#available default colors (note: they are be bolded):
-    #c_red
-    #c_green
-    #c_yellow
-    #c_blue
-    #c_magenta
-    #c_cyan
-    #c_reset (sets it back to terminal defaults)
-#available variables
-    #title
-    #channel
-    #duration
-    #views
-    #date (video upload date)
-    #shorturl (the video ID)
-#how this works:
-    #anything printed will stay on the screen in the fzf preview menu
-thumbnail_video_info_text () {
-         printf "\n${c_cyan}%s" "$title"
-         printf "\n${c_blue}Channel      ${c_green}%s" "$channel"
-         printf "\n${c_blue}Duration     ${c_yellow}%s" "$duration"
-         printf "\n${c_blue}Views        ${c_magenta}%s" "$views"
-         printf "\n${c_blue}Date         ${c_cyan}%s" "$date"
-}
+#+NAME: feh
+#+BEGIN_SRC sh
+#!/bin/sh
+feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/linux.png' 
 #+END_SRC
 
-*** ytfzf tangle
+*** feh tangle
 
 + home dir
-  
-#+NAME: ytfzf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ytfzf/conf.sh"
-<<ytfzf>>
+
+#+NAME: feh-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.fehbg" :tangle-mode (identity #o755)
+<<feh>>
 #+END_SRC
 
 + current dir
 
-#+NAME: ytfzf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/ytfzf/conf.sh"
-<<ytfzf>>
+#+NAME: feh-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".fehbg" :tangle-mode (identity #o755)
+<<feh>>
 #+END_SRC
-
-** firejail
-
-*** firefox-common
-
-#+NAME: firefox-common-firejail
-#+begin_src conf
-ignore nodbus
-#+end_src
-
-*** transmission-daemon
-
-#+NAME: transmission-daemon-firejail
-#+begin_src conf
-# Firejail profile for transmission-daemon
-# Description: Fast, easy and free BitTorrent client (daemon)
-quiet
-# Persistent local customizations
-
-# whitelist torrents
-whitelist ${HOME}/torrents/complete
-whitelist ${HOME}/torrents/downloading
-
-# read and write to torrents
-read-write ${HOME}/torrents/complete
-read-write ${HOME}/torrents/downloading
-
-# whitelist web ui
-whitelist /usr/share/transmission/web
-#+end_src
-
-**** firejail tangle
-
-***** firefox-common
-
-+ home dir
-
-#+NAME: firefox-common-firejail-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/firefox-common.local"
-<<firefox-common-firejail>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: firefox-common-firejail-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/firefox-common.local"
-<<firefox-common-firejail>>
-#+END_SRC
-
-***** transmission-daemon
-
-+ home dir
-
-#+NAME: transmission-daemon-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/firejail/transmission-daemon.local"
-<<transmission-daemon-firejail>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: transmission-daemon-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/transmission-daemon.local"
-<<transmission-daemon-firejail>>
-#+END_SRC
-
-** pulseaudio
-
-#+NAME: pulseaudio
-#+BEGIN_SRC conf
-# include the default.pa pulseaudio config file
-.include /etc/pulse/default.pa
-
-# null sink
-.ifexists module-null-sink.so
-load-module module-null-sink sink_name=Source
-.endif
-
-# virtual source
-.ifexists module-virtual-source.so
-load-module module-virtual-source source_name=VirtualMic master=Source.monitor
-.endif
-#+END_SRC
-
-*** pulseaudio tangle
-
-+ home dir
-
-#+NAME: pulseaudio-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/pulse/default.pa"
-<<pulseaudio>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: pulseaudio-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/pulse/default.pa"
-<<pulseaudio>>
-#+END_SRC
-
-** gitconfig
-
-#+NAME: gitconfig
-#+BEGIN_SRC conf
-[user]
-name = Daniel J Wilcox
-email = danieljwilcox@gmail.com
-[color]
-ui = true
-#+END_SRC
-
-*** gitconfig tangle
-
-+ home dir
-
-#+NAME: gitconfig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
-<<gitconfig>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: gitconfig-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
-<<gitconfig>>
-#+END_SRC
-
-** mimeinfo 
-
-#+NAME: mimeinfo
-#+BEGIN_SRC conf
-[MIME Cache]
-x-scheme-handler/org-protocol=emacs-capture.desktop;
-#+END_SRC
-
-*** mimeinfo tangle
-
-+ home dir
-
-#+NAME: mimeinfo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/mimeinfo.cache"
-<<mimeinfo>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mimeinfo-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/mimeinfo.cache"
-<<mimeinfo>>
-#+END_SRC
-
-** mpv
-
-*** input.conf
-
-#+NAME: input.conf
-#+BEGIN_SRC conf
-# vim keybindings
-l seek  5
-h seek -5
-k seek  60
-j seek -60
-#+END_SRC
-
-*** mpv.conf
-
-#+NAME: mpv.conf
-#+BEGIN_SRC conf
-#audio-device=alsa/plughw:1,0
-#audio-device=alsa/plughw:0,0
-#audio-device=alsa/plughw:2,0
-msg-level=ffmpeg=fatal
-vo=gpu
-hwdec=vaapi
-ytdl-format=bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best
-osd-fractions
-#+END_SRC
-
-**** mpv tangle
-***** input.conf tangle
-
-+ home dir
-
-#+NAME: input.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/input.conf"
-<<input.conf>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: input.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/input.conf"
-<<input.conf>>
-#+END_SRC
-
-***** mpv.conf tangle
-
-+ home dir
-
-#+NAME: mpv.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/mpv.conf"
-<<mpv.conf>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpv.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
-<<mpv.conf>>
-#+END_SRC
-
-** youtube-dl
-
-#+NAME: youtube-dl
-#+BEGIN_SRC conf
-# external downloader aria2
---external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
-#+END_SRC
-
-*** youtube-dl tangle
-
-+ home dir
-
-#+NAME: youtube-dl-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/youtube-dl/config"
-<<youtube-dl>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: youtube-dl-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/youtube-dl/config"
-<<youtube-dl>>
-#+END_SRC
-
-** newsboat
-
-*** config
-
-#+NAME: newsboat-config
-#+BEGIN_SRC conf
-# general settings
-auto-reload yes
-max-items 50 
-
-# externel browser
-browser "/usr/bin/w3m %u"
-macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-
-#macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-#macro . set browser "/usr/bin/tsp /usr/bin/mpv --fs --screen=1 %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-#macro . set browser "/home/djwilcox/bin/yank -i %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-
-# unbind keys
-unbind-key ENTER
-unbind-key j
-unbind-key k
-unbind-key J
-unbind-key K
-
-# bind keys - vim style
-bind-key j down
-bind-key k up
-bind-key l open
-bind-key h quit
-
-# podboat
-download-path "~/Downloads/%n"
-player "mpv"
-       
-# colours
-color background         default   default
-color listnormal         default   default
-color listnormal_unread  default   default
-color listfocus          black     blue
-color listfocus_unread   black     blue
-color info               black   blue
-color article            default   default
-
-# highlights
-highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
-highlight article "https?://[^ ]+" color4 color8 protect
-#+END_SRC
-
-*** urls
-
-#+NAME: newsboat-urls
-#+BEGIN_SRC conf
-# News
-https://www.howtogeek.com/feed/ text
-http://feeds.arstechnica.com/arstechnica/index text
-https://www.omgubuntu.co.uk/feed text
-https://itsfoss.com/feed/ text
-http://feeds.feedburner.com/Torrentfreak text
-
-# youtube
-https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow video "The Magpie Channel" video
-https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "distrotube" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA "gotbletu" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "System Crafters" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w "Gaming Careers" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg "Streamgeeks" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Eposvox" video
-
-#+END_SRC
-
-**** newsboat tangle
-
-***** config tangle
-
-+ home dir
-
-#+NAME: newsboat-config-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/config"
-<<newsboat-config>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: newsboat-config-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/config"
-<<newsboat-config>>
-#+END_SRC
-
-***** urls tangle
-
-+ home dir
-
-#+NAME: newsboat-urls-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/urls"
-<<newsboat-urls>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: newsboat-urls-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls"
-<<newsboat-urls>>
-#+END_SRC
-
-** aria2c
-
-#+NAME: aria2c
-#+begin_src conf
-#
-## aria2 config
-#
-# man page  = http://aria2.sourceforge.net/manual/en/html/aria2c.html
-# file path = $HOME/.aria2/aria2.conf
-
-# Download Directory: specify the directory all files will be downloaded to.
-# When this directive is commented out, aria2 will download the files to the
-# current directory where you execute the aria2 binary.
-#dir=/usr/home/djwilcox/downloads
-
-
-# Bit Torrent: If the speed of the incoming data (download) from other peers is
-# greater then the peer-speed-limit, then do not allow any more connections
-# than max-peers. The idea is to limit the amount of clients our system will
-# connect with to reduce our overall load when we are already saturating our
-# incoming bandwidth.  Make sure to set the the peer-speed-limit to your
-# preferred incoming (download) speed. Speeds must be whole numbers so 5.5M is
-# illegal, but 5500K is valid.  For unlimited connections set
-# request-peer-speed-limit something high like 10000M (10gig).
- bt-max-peers=0
- bt-request-peer-speed-limit=0
-
-
-# Bit Torrent: the max upload speed for all torrents combined. Again, only
-# whole numbers are valid. We find a global upload limit is more flexible then
-# an upload limit per torrent. Zero(0) is unrestricted upload spreeds.
- max-overall-upload-limit=128k
-
-
-# Bit Torrent: When downloading a torrent remove ALL trackers from the listing.
-# This is a good way to only use distributed hash table (DHT) and Peer eXchange
-# (PeX) for connections. We find start up of the torrent takes a little longer
-# with all trackers disabled, but helps reduce the load on trackers.
-# bt-exclude-tracker="*"
- bt-external-ip=127.0.0.1
-
-
-# Bit Torrent: ports and protocols used for bit torrent TCP and UDP
-# connections. Make sure DHT is enabled in order to connect to UDP trackers as
-# well as negotiating with DHT and PEX peers. 
- dht-listen-port=6882
- enable-dht=true
- enable-peer-exchange=true
- listen-port=6881
-
-
-# When running aria2 on FreeBSD with ZFS, disable disk-cache due to ZFS's use
-# of Adaptive Replacement Cache (ARC). ZFS can also take advantage of the
-# "sparse files" format which is significantly faster then pre allocation of
-# file space. For other file systems like EXT4 and XFS you can test
-# file-allocation with "prealloc" and "falloc" to see which file-allocation
-# allows arai2 to start quicker and use less disk I/O.
-# disk-cache=0
-# file-allocation=none
-
-
-# Bit Torrent: fully encrypt the negotiation as well and the payload of all bit
-# torrent traffic. With this configuration, encryption is required and all old,
-# non-encrypted clients are ignored (dropped). This may help avoid some ISPs
-# rate limiting P2P clients, but will also reduce the amount of clients aria2
-# will talk to.
- bt-force-encryption=true
- bt-min-crypto-level=arc4
- bt-require-crypto=true
-
-
-# Bit Torrent: Download the torrent file into memory (RAM) if there is no need
-# to save the .torrent file itself. This option works with both magnet and
-# torrent URL links.
- follow-torrent=mem
-
-
-# Bit Torrent: The amount of time and the upload-to-download ratio you wish to
-# seed to. If either the seed time limit ( minutes ) or the seed ratio is
-# reached, torrent seeding will stop. You can set seed-time to zero(0) to
-# disable seeding completely.
- seed-ratio=100
- seed-time=0
-
-
-# Bit Torrent: timeout values for servers and clients.
-#bt-tracker-connect-timeout=10
-#bt-tracker-interval=900
-#bt-tracker-timeout=10
-
-
-# Bit Torrent: scripts or commands to execute before, during or after a
-# download finishes.
-# on-bt-download-complete=/path/to/script.sh
-# on-download-complete=/path/to/script.pl
-# on-download-error=/path/to/script
-# on-download-pause=/path/to/script.sh
-# on-download-start=/path/to/script.pl
-# on-download-stop=/path/to/script
-
-
-# Network: maximum socket receive buffer in bytes. 1M can sustain 1Gbit/sec.
-# Default: 0 which is disabled.
- socket-recv-buffer-size=1M
-
-
-# Event Multiplexing: set polling to the OS type you are using. For FreeBSD,
-# OpenBSD and NetBSD set to "kqueue". For Linux set to "epoll".
- event-poll=epoll
-
-
-# Certificate Authority PEM : specify the full path to the OS certificate
-# authority pem file to verify the peers. On FreeBSD with OpenSSL the following
-# file path is valid. Without a valid pem file aria2 will print out the error,
-# "[ERROR] Failed to load trusted CA certificates from no. Cause:
-# error:02001002:system library:fopen:No such file or directory"
-# ca-certificate=/usr/local/openssl/cert.pem
-
-
-# Data Integrity: check the MD5 / SHA256 hash of metalink downloads as well as
-# the hash of bit torrent chunks as our client receives them. CPU time is
-# reasonably low for the high value of real time verified data. Note:
-# check-integrity set as true will show "ERROR - Checksum error detected" for
-# magnet links which can be ignored.
-#check-integrity=true
- realtime-chunk-checksum=true
-
-
-# File Names: Resume file downloads if we have a partial copy. Do not rename
-# the file or make another copy if the same file is downloaded a second time.
- allow-overwrite=true
- always-resume=true
- auto-file-renaming=false
- continue=true
- remote-time=true
-
-
-# User Agent: Disable the identification string of our client. If you connect
-# to a server which requires a certain id string you can always add one here.
-# Trackers should never use client id strings as security authentication or
-# access control.
- peer-id-prefix=""
- user-agent=""
-
-
-# Status Summery messages are disabled since the status of the download is
-# updated in real time on the CLI anyways.
- summary-interval=0
-
-
-# FTP: use passive ftp which is firewall friendly and reuse the ftp data
-# connection when asking for multiple resources from the same server for
-# efficiency.
- ftp-pasv=true
- ftp-reuse-connection=true
-
-
-# Metalink: Set the country code to prefer mirrors closest to you. Prefer more
-# secure https mirrors over http and ftp servers.
- metalink-language=en-US
- metalink-location=us
- metalink-preferred-protocol=https
-
-
-# Disconnect from https, http or ftp servers who do not upload data to us
-# faster then the specified value. Aria2 will then find another mirror in the
-# metalink file which might be quicker. If there are no more mirrors left then
-# the current slow mirror is still used. This value is NOT used for bit torrent
-# connections though. NOTE: we hope to convince the developer to add a
-# lower-speed value or even a minimal client U/D ratio to bit torrent some day
-# to kick off leachers too.
- lowest-speed-limit=50K
-
-
-# Concurrent downloads: Set the number of different servers to download from
-# concurrently; i.e. in parallel. If we are downloading a single file then
-# split that file into the same amount of streams. Make sure to keep in mind
-# that if the amount of parallel downloads times the lowest-speed-limit is
-# greater then your total download bandwidth then you will drop servers
-# incorrectly. For example, we have ten(10) connections at a minimum of
-# 50KiB/sec which equals 500KiB/sec. If our total download bandwidth is not at
-# least 500KiB/sec then arai2 will think the mirrors are too slow and drop
-# connection slowing down the whole download. Do not set the
-# max-connection-per-server greater then three(3) as to avoid abusing a single
-# server.
- max-concurrent-downloads=10
- max-connection-per-server=3
- min-split-size=5M
- split=10
-
-
-# RPC Interface: To access aria2 through XML-RPC API, like using webui-aria2.
-#enable-rpc
-#rpc-listen-all
-#rpc-user=username
-#rpc-passwd=passwd
-
-
-# Daemon Mode: To run aria2 in the background as a daemon. Use daemon mode to
-# start aria2 on reboot or when using an RPC interface like webui-aria2.
-#daemon
-
-
-#
-#
-# Reference: the following options arethe developers defaults. We kept them
-# here for reference.
-
-# bt-max-open-files=100
-# bt-save-metadata=false
-# bt-stop-timeout=0
-# bt-tracker="udp://tracker.openbittorrent.com:80/announce"
- check-certificate=true
- conditional-get=true
-# dht-entry-point="dht.transmissionbt.com:6881"
-# dht-file-path=$HOME/.aria2/dht.dat
-# dht-message-timeout=10
- disable-ipv6=true
- http-accept-gzip=true
-# log=$HOME/.aria2/aria2.log
-# log-level=debug
-
-### EOF ###
-#+end_src
-
-*** aria2c tangle
-
-+ home dir
-  
-#+NAME: aria2c-home-dir
-#+begin_src conf :noweb yes :tangle "~/.config/aria2/aria2.conf"
-<<aria2c>>
-#+end_src
-
-+ current dir
-
-#+NAME: aria2c-current-dir
-#+begin_src conf :noweb yes :tangle ".config/aria2/aria2.conf"
-<<aria2c>>
-#+end_src
 
 ** desktop files
 *** chromium
@@ -7039,6 +8017,30 @@ Exec=/usr/bin/firejail --name=firefox-netns --caps.drop=all --seccomp --netns=vp
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/firefox-netns.desktop"
 <<firefox-netns-desktop>>
 #+END_SRC
+** mimeinfo 
+
+#+NAME: mimeinfo
+#+BEGIN_SRC conf
+[MIME Cache]
+x-scheme-handler/org-protocol=emacs-capture.desktop;
+#+END_SRC
+
+*** mimeinfo tangle
+
++ home dir
+
+#+NAME: mimeinfo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/mimeinfo.cache"
+<<mimeinfo>>
+#+END_SRC
+
++ current dir
+
+#+NAME: mimeinfo-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/mimeinfo.cache"
+<<mimeinfo>>
+#+END_SRC
+
 ** weechat
 
 #+NAME: weechat.conf
@@ -7727,43 +8729,6 @@ meta2-D = "/cursor move left"
 <<weechat.conf>>
 #+END_SRC
 
-** mpd
-
-#+NAME: mpd
-#+BEGIN_SRC conf
-music_directory		"~/Music"
-playlist_directory	"~/.config/mpd/playlists"
-db_file			"~/.config/mpd/mpd.db"
-log_file		"~/.config/mpd/mpd.log"
-pid_file		"~/.config/mpd/mpd.pid"
-state_file		"~/.config/mpd/mpdstate"
-sticker_file		"~/.config/mpd/sticker.sql"
-bind_to_address		"/home/djwilcox/.config/mpd/socket"
-auto_update    "yes"
-decoder {
-        plugin                  "hybrid_dsd"
-        enabled                 "no"
-#       gapless                 "no"
-}
-audio_output {
-	type		"alsa"
-	name		"My ALSA Device"
-}
-filesystem_charset		"UTF-8"
-#+END_SRC
-
-*** mpd tangle
-
-#+NAME: mpd-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/mpd.conf"
-<<mpd>>
-#+END_SRC
-
-#+NAME: mpd-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/mpd.conf"
-<<mpd>>
-#+END_SRC
-
 ** muttrc
 
 #+NAME: muttrc
@@ -7943,490 +8908,6 @@ set my_pgp_id="3B2C8BA1"
 <<muttrc>>
 #+END_SRC
 
-** ncmpc
-
-#+NAME: ncmpc
-#+BEGIN_SRC conf
-##
-## Configuration file for ncmpc (~/.ncmpc/config)
-##
-
-############## Connection ###################
-## Connect to mpd running on a specified host
-#host = "localhost"
-#host = "127.0.0.1"
-host = "/home/djwilcox/.config/mpd/socket"
-
-## Connect to mpd on the specified port.
-#port = 6600
-
-## Connect to mpd using the specified password.
-#password = "mpd"
-
-############## Interface ####################
-## Enable mouse support (if enabled at compile time).
-#enable-mouse = no
-
-## A list of screens to cycle through when using
-## the previous/next screen commands (tab and shift+tab).
-## names: playlist browse help artist search song keydef lyrics outputs
-screen-list = playlist browse
-
-## Default search mode for the search screen. The mode is an
-## integer index, with  0  for title, 1 for artist, 2 for album,
-## 3 for filename, and 4 for artist+title.
-#search-mode = 0
-
-## Auto center (center the playing track in the playlist)
-#auto-center = no
-
-## Show the most recent query when using find.
-#find-show-last = no
-
-## Wrapped find mode.
-#find-wrap = yes
-
-## Wrapped cursor movement.
-#wrap-around = no
-
-## Ring bell when find wraps around.
-#bell-on-wrap = yes
-
-## Sound audible bell on alerts.
-#audible-bell = yes
-
-## Enable visible bell on alerts.
-#visible-bell = no
-
-## Default crossfade time in seconds.
-#crossfade-time = 10
-
-## Seek forward/backward by NUM seconds.
-seek-time = 30
-
-############## Display ######################
-## Show a list of the screens in the top line on startup.
-#welcome-screen-list = yes
-
-## Make the cursor as wide as the screen.
-#wide-cursor = yes
-
-## Use the terminal's hardware cursor instead of inverse colors
-#hardware-cursor = yes
-
-## Hide playlist cursor after x seconds (0 disables this feature).
-#hide-cursor = 5
-
-## Scroll the title if it is too long for the screen.
-#scroll = yes
-
-## The separator to show at the end of the scrolling title.
-#scroll-sep = " *** "
-
-## list-format
-## The format used to display songs in the main window.
-list-format = "%name%|[%artist% - ]%title%|%file%"
-
-## The format used to display songs on the status line.
-status-format = "[%artist% - ]%title%|%shortfile%"
-
-## The time, in seconds, for which status messages will be displayed.
-#status-message-time = 3
-
-## Display the time in the status bar when idle.
-#display-time = yes
-
-## Sets whether to display remaining or elapsed time in
-## the status window. Default is elapsed.
-#timedisplay-type = elapsed
-
-## Show the bitrate in the status bar when playing a stream.
-visible-bitrate = yes
-
-## Change the XTerm title (ncmpc will not restore the title).
-#set-xterm-title = no
-
-## The format used to for the xterm title when ncmpc is playing.
-#xterm-title-format = "ncmpc: [ %name%|[%artist% - ]%title%|%file%]"
-
-## Automatically save the lyrics after receiving them.
-#lyrics-autosave = no
-
-## Display song length in second column
-#second-column = yes
-
-############## Colors #######################
-## colors: none, black, red, green, yellow, blue, magenta, cyan, white
-## attributes: standout, underline, reverse, blink, dim, bold
-##
-## Colors can also be given as an integer representing a terminal specific
-## color code. The special color, none, represents the terminals default color.
-
-## Enable/disable colors.
-#enable-colors = yes
-enable-colors = no
-
-## Set the background color.
-color background = none
-
-## Set the text color for the title row.
-color title = none,black
-
-## Set the text color for the title row (the bold part).
-color title-bold = blue,bold
-
-## Set the color of the line on the second row.
-color line = black
-
-## Set the text color used to indicate mpd flags on the second row.
-color line-flags = black,bold
-
-## Set the text color in the main area of ncmpc.
-color list = none
-
-## Set the bold text color in the main area of ncmpc.
-color list-bold = none,bold
-
-## Sets the text color of directories in the browser
-color browser-directory = none
-
-## Sets the text color of playlists in the browser
-color browser-playlist = none
-
-## Set the color of the progress indicator.
-color progressbar = black
-
-## Set the text color used to display mpd status in the status window.
-color status-state = black,bold
-
-## Set the text color used to display song names in the status window.
-color status-song  = black
-
-## Set the text color used to display time the status window.
-color status-time  = black
-
-## Text color used to display alerts in the status window.
-color alert = black,bold
-
-## Redefine any of the base colors.
-## The RGB values must be an integer value between 0 and 1000.
-## Note: Only some terminals allow redefinitions of colors!
-#colordef yellow = 255, 140, 0
-#+END_SRC
-
-*** ncmpc tangle
-
-+ home dir
-
-#+NAME: ncmpc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ncmpc/config"
-<<ncmpc>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: ncmpc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".ncmpc/config"
-<<ncmpc>>
-#+END_SRC
-
-** surfraw
-*** btdig
-
-#+NAME: btdig
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search btdig
-# elvis: btdig		-- Search btdig (https://btdig.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search btdig (https://btdig.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://btdig.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://btdig.com/search?q=${escaped_args}"
-fi
-#+END_SRC
-
-*** ddg
-
-#+NAME: ddg
-#+BEGIN_SRC conf
-#!/bin/sh
-# elvis: ddg             -- Securely search the web using duckduckgo (duckduckgo.com)
-# coder@kyleisom.net 20110105
-# relevant: https://duckduckgo.com/params.html
-# similar to duckduckgo elvi, adds more options and defaults to SSL.
-. surfraw || exit 1
-
-w3_config_hook () {
-    def     SURFRAW_duckduckgo_results             "$SURFRAW_results"
-    def     SURFRAW_duckduckgo_base_url            "duckduckgo.com"
-    def     SURFRAW_duckduckgo_search              search
-    def     SURFRAW_duckduckgo_params              "&kg=g"
-    defyn   SURFRAW_duckduckgo_use_javascript      0
-}
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Surfraw search the web using DuckDuckGo (duckduckgo.com)
-Local options:
-    -j,-javascript              use javascript
-EOF
-    w3_global_usage
-}
-
-w3_parse_option_hook () {
-    opt="$1"
-    optarg="$2"
-    case "$opt" in
-    -j|-javascript*)    setoptyn    SURFRAW_duckduckgo_use_javascript      1 ;;
-    ,*) return 1 ;;
-    esac
-    return 0
-}
-
-w3_config
-w3_parse_args "$@"
-
-# need to send the user to the non-javascript version if using a non-graphical
-# browser
-SURFRAW_duckduckgo_base_url="https://${SURFRAW_duckduckgo_base_url}"
-if [ "$SURFRAW_duckduckgo_use_javascript" = 0 ]; then
-    SURFRAW_duckduckgo_base_url="${SURFRAW_duckduckgo_base_url}/lite"
-    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1&k1=-1&kp=-2&kaf=1&kd=-1"
-fi
-
-if [ "$SURFRAW_graphical" != "yes" ] ; then
-    SURFRAW_duckduckgo_params="${SURFRAW_duckduckgo_params}&kf=-1&kz=-1&kq=-1&kv=-1"
-fi
-
-escaped_args=`w3_url_of_arg $w3_args`
-w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
-#+END_SRC
-
-*** iplayer
-
-#+NAME: iplayer
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search Google Video
-# elvis: iplayer         -- Search bbc iplayer (https://bbc.co.uk/iplayer)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search bbc iplayer (https://bbc.co.uk/iplayer)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://bbc.co.uk/iplayer"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://bbc.co.uk/iplayer/search?q=${escaped_args}"
-fi
-#+END_SRC
-
-*** dailymotion
-
-#+NAME: dailymotion
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search dailymotion
-# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search dailymotion (https://dailymotion.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://dailymotion.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://dailymotion.com/search/${escaped_args}/videos"
-fi
-#+END_SRC
-
-*** video
-
-#+NAME: video
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search Google Video
-# elvis: video		-- Search Google Video (https://www.google.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search Google Video (https://video.google.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://www.video.google.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://www.google.com/search?q=${escaped_args}&num=30&safe=off&tbo=p&tbm=vid"
-fi
-#+END_SRC
-
-*** vimeo
-
-#+NAME: vimeo
-#+BEGIN_SRC conf
-#!/bin/sh
-# DESC: Elvi to search vimeo
-# elvis: vimeo		-- Search vimeo (https://vimeo.com)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search vimeo (https://vimeo.com)
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "https://vimeo.com"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
-fi
-#+END_SRC
-
-**** surfraw tangle
-***** btdig
-
-+ home dir
-
-#+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
-<<btdig>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
-<<btdig>>
-#+END_SRC
-
-***** ddg
-
-+ home dir
-
-#+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
-<<ddg>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
-<<ddg>>
-#+END_SRC
-
-***** iplayer
-
-+ home dir
-
-#+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
-<<iplayer>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
-<<iplayer>>
-#+END_SRC
-
-***** dailymotion
-
-+ home dir
-
-#+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
-<<dailymotion>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
-<<dailymotion>>
-#+END_SRC
-
-***** video
-
-+ home dir
-
-#+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
-<<video>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
-<<video>>
-#+END_SRC
-
-***** vimeo
-
-+ home dir
-
-#+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
-<<vimeo>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
-<<vimeo>>
-#+END_SRC
-
 ** tmux
 
 #+NAME: tmux
@@ -8543,705 +9024,6 @@ bind-key s set -g status
 #+NAME: tmux-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".tmux.conf"
 <<tmux>>
-#+END_SRC
-
-** rofi
-
-#+NAME: rofi
-#+BEGIN_SRC conf
-configuration {
- modi: "window,drun,combi";
- font: "Inconsolata 14";
- terminal: "urxvtc";
- show-icons: true;
- combi-modi: "window,drun";
- }
-@import "/usr/share/rofi/themes/Arc-Dark.rasi"
-#+END_SRC
-
-*** rofi tangle
-
-+ home dir
-
-#+NAME: rofi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/rofi/config.rasi"
-<<rofi>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: rofi-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/rofi/config.rasi"
-<<rofi>>
-#+END_SRC
-
-** dunst
-
-#+NAME: dunst
-#+BEGIN_SRC conf
-[global]
-    ### Display ###
-
-    # Which monitor should the notifications be displayed on.
-    monitor = 0
-
-    # Display notification on focused monitor.  Possible modes are:
-    #   mouse: follow mouse pointer
-    #   keyboard: follow window with keyboard focus
-    #   none: don't follow anything
-    #
-    # "keyboard" needs a window manager that exports the
-    # _NET_ACTIVE_WINDOW property.
-    # This should be the case for almost all modern window managers.
-    #
-    # If this option is set to mouse or keyboard, the monitor option
-    # will be ignored.
-    follow = mouse
-
-    # The geometry of the window:
-    #   [{width}]x{height}[+/-{x}+/-{y}]
-    # The geometry of the message window.
-    # The height is measured in number of notifications everything else
-    # in pixels.  If the width is omitted but the height is given
-    # ("-geometry x2"), the message window expands over the whole screen
-    # (dmenu-like).  If width is 0, the window expands to the longest
-    # message displayed.  A positive x is measured from the left, a
-    # negative from the right side of the screen.  Y is measured from
-    # the top and down respectively.
-    # The width can be negative.  In this case the actual width is the
-    # screen width minus the width defined in within the geometry option.
-    geometry = "0x0-10+40"
-
-    # Show how many messages are currently hidden (because of geometry).
-    indicate_hidden = yes
-
-    # Shrink window if it's smaller than the width.  Will be ignored if
-    # width is 0.
-    shrink = no
-
-    # The transparency of the window.  Range: [0; 100].
-    # This option will only work if a compositing window manager is
-    # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0
-
-    # The height of the entire notification.  If the height is smaller
-    # than the font height and padding combined, it will be raised
-    # to the font height and padding.
-    notification_height = 0
-
-    # Draw a line of "separator_height" pixel height between two
-    # notifications.
-    # Set to 0 to disable.
-    separator_height = 2
-
-    # Padding between text and separator.
-    padding = 8
-
-    # Horizontal padding.
-    horizontal_padding = 8
-
-    # Defines width in pixels of frame around the notification window.
-    # Set to 0 to disable.
-    frame_width = 3
-
-    # Defines color of the frame around the notification window.
-    frame_color = "#eee8d5"
-
-    # Define a color for the separator.
-    # possible values are:
-    #  * auto: dunst tries to find a color fitting to the background;
-    #  * foreground: use the same color as the foreground;
-    #  * frame: use the same color as the frame;
-    #  * anything else will be interpreted as a X color.
-    separator_color = frame
-
-    # Sort messages by urgency.
-    sort = yes
-
-    # Don't remove messages, if the user is idle (no mouse or keyboard input)
-    # for longer than idle_threshold seconds.
-    # Set to 0 to disable.
-    # A client can set the 'transient' hint to bypass this. See the rules
-    # section for how to disable this if necessary
-    idle_threshold = 120
-
-    ### Text ###
-
-    font = Inconsolata 14
-
-    # The spacing between lines.  If the height is smaller than the
-    # font height, it will get raised to the font height.
-    line_height = 0
-
-    # Possible values are:
-    # full: Allow a small subset of html markup in notifications:
-    #        <b>bold</b>
-    #        <i>italic</i>
-    #        <s>strikethrough</s>
-    #        <u>underline</u>
-    #
-    #        For a complete reference see
-    #        <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
-    #
-    # strip: This setting is provided for compatibility with some broken
-    #        clients that send markup even though it's not enabled on the
-    #        server. Dunst will try to strip the markup but the parsing is
-    #        simplistic so using this option outside of matching rules for
-    #        specific applications *IS GREATLY DISCOURAGED*.
-    #
-    # no:    Disable markup parsing, incoming notifications will be treated as
-    #        plain text. Dunst will not advertise that it has the body-markup
-    #        capability if this is set as a global setting.
-    #
-    # It's important to note that markup inside the format option will be parsed
-    # regardless of what this is set to.
-    markup = full
-
-    # The format of the message.  Possible variables are:
-    #   %a  appname
-    #   %s  summary
-    #   %b  body
-    #   %i  iconname (including its path)
-    #   %I  iconname (without its path)
-    #   %p  progress value if set ([  0%] to [100%]) or nothing
-    #   %n  progress value if set without any extra characters
-    #   %%  Literal %
-    # Markup is allowed
-    format = "<b>%s</b>\n%b"
-
-    # Alignment of message text.
-    # Possible values are "left", "center" and "right".
-    alignment = left
-
-    # Show age of message if message is older than show_age_threshold
-    # seconds.
-    # Set to -1 to disable.
-    show_age_threshold = 60
-
-    # Split notifications into multiple lines if they don't fit into
-    # geometry.
-    word_wrap = yes
-
-    # When word_wrap is set to no, specify where to make an ellipsis in long lines.
-    # Possible values are "start", "middle" and "end".
-    ellipsize = middle
-
-    # Ignore newlines '\n' in notifications.
-    ignore_newline = no
-
-    # Stack together notifications with the same content
-    stack_duplicates = true
-
-    # Hide the count of stacked notifications with the same content
-    hide_duplicate_count = false
-
-    # Display indicators for URLs (U) and actions (A).
-    show_indicators = yes
-
-    ### Icons ###
-
-    # Align icons left/right/off
-    icon_position = left
-
-    # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 100
-
-    # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
-
-    ### History ###
-
-    # Should a notification popped up from history be sticky or timeout
-    # as if it would normally do.
-    sticky_history = yes
-
-    # Maximum amount of notifications kept in history
-    history_length = 20
-
-    ### Misc/Advanced ###
-
-    # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
-
-    # Browser for opening urls in context menu.
-    browser = /usr/bin/firefox
-
-    # Always run rule-defined scripts, even if the notification is suppressed
-    always_run_script = true
-
-    # Define the title of the windows spawned by dunst
-    title = Dunst
-
-    # Define the class of the windows spawned by dunst
-    class = Dunst
-
-    # Print a notification on startup.
-    # This is mainly for error detection, since dbus (re-)starts dunst
-    # automatically after a crash.
-    startup_notification = false
-
-    # Manage dunst's desire for talking
-    # Can be one of the following values:
-    #  crit: Critical features. Dunst aborts
-    #  warn: Only non-fatal warnings
-    #  mesg: Important Messages
-    #  info: all unimportant stuff
-    # debug: all less than unimportant stuff
-    verbosity = mesg
-
-    # Define the corner radius of the notification window
-    # in pixel size. If the radius is 0, you have no rounded
-    # corners.
-    # The radius will be automatically lowered if it exceeds half of the
-    # notification height to avoid clipping text and/or icons.
-    corner_radius = 5
-
-    ### Legacy
-
-    # Use the Xinerama extension instead of RandR for multi-monitor support.
-    # This setting is provided for compatibility with older nVidia drivers that
-    # do not support RandR and using it on systems that support RandR is highly
-    # discouraged.
-    #
-    # By enabling this setting dunst will not be able to detect when a monitor
-    # is connected or disconnected which might break follow mode if the screen
-    # layout changes.
-    force_xinerama = false
-
-    ### mouse
-
-    # Defines action of mouse event
-    # Possible values are:
-    # * none: Don't do anything.
-    # * do_action: If the notification has exactly one action, or one is marked as default,
-    #              invoke it. If there are multiple and no default, open the context menu.
-    # * close_current: Close current notification.
-    # * close_all: Close all notifications.
-    mouse_left_click = close_current
-    mouse_middle_click = do_action
-    mouse_right_click = close_all
-
-# Experimental features that may or may not work correctly. Do not expect them
-# to have a consistent behaviour across releases.
-[experimental]
-    # Calculate the dpi to use on a per-monitor basis.
-    # If this setting is enabled the Xft.dpi value will be ignored and instead
-    # dunst will attempt to calculate an appropriate dpi value for each monitor
-    # using the resolution and physical size. This might be useful in setups
-    # where there are multiple screens with very different dpi values.
-    per_monitor_dpi = false
-
-[shortcuts]
-
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
-    # Close notification.
-    close = ctrl+space
-
-    # Close all notifications.
-    close_all = ctrl+shift+space
-
-    # Redisplay last message(s).
-    # On the US keyboard layout "grave" is normally above TAB and left
-    # of "1". Make sure this key actually exists on your keyboard layout,
-    # e.g. check output of 'xmodmap -pke'
-    history = ctrl+grave
-
-    # Context menu.
-    context = ctrl+shift+period
-
-[urgency_low]
-    # IMPORTANT: colors have to be defined in quotation marks.
-    # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#002b36"
-    foreground = "#eee8d5"
-    timeout = 10
-    # Icon for notifications with low urgency, uncomment to enable
-    #icon = /path/to/icon
-
-[urgency_normal]
-    background = "#002b36"
-    foreground = "#eee8d5"
-    timeout = 10
-    # Icon for notifications with normal urgency, uncomment to enable
-    #icon = /path/to/icon
-
-[urgency_critical]
-    background = "#002b36"
-    foreground = "#eee8d5"
-    frame_color = "#ff0000"
-    timeout = 0
-    # Icon for notifications with critical urgency, uncomment to enable
-    #icon = /path/to/icon
-
-# Every section that isn't one of the above is interpreted as a rules to
-# override settings for certain messages.
-#
-# Messages can be matched by
-#    appname (discouraged, see desktop_entry)
-#    body
-#    category
-#    desktop_entry
-#    icon
-#    match_transient
-#    msg_urgency
-#    stack_tag
-#    summary
-#
-# and you can override the
-#    background
-#    foreground
-#    format
-#    frame_color
-#    fullscreen
-#    new_icon
-#    set_stack_tag
-#    set_transient
-#    timeout
-#    urgency
-#
-# Shell-like globbing will get expanded.
-#
-# Instead of the appname filter, it's recommended to use the desktop_entry filter.
-# GLib based applications export their desktop-entry name. In comparison to the appname,
-# the desktop-entry won't get localized.
-#
-# SCRIPTING
-# You can specify a script that gets run when the rule matches by
-# setting the "script" option.
-# The script will be called as follows:
-#   script appname summary body icon urgency
-# where urgency can be "LOW", "NORMAL" or "CRITICAL".
-#
-# NOTE: if you don't want a notification to be displayed, set the format
-# to "".
-# NOTE: It might be helpful to run dunst -print in a terminal in order
-# to find fitting options for rules.
-
-# Disable the transient hint so that idle_threshold cannot be bypassed from the
-# client
-#[transient_disable]
-#    match_transient = yes
-#    set_transient = no
-#
-# Make the handling of transient notifications more strict by making them not
-# be placed in history.
-#[transient_history_ignore]
-#    match_transient = yes
-#    history_ignore = yes
-
-# fullscreen values
-# show: show the notifications, regardless if there is a fullscreen window opened
-# delay: displays the new notification, if there is no fullscreen window active
-#        If the notification is already drawn, it won't get undrawn.
-# pushback: same as delay, but when switching into fullscreen, the notification will get
-#           withdrawn from screen again and will get delayed like a new notification
-#[fullscreen_delay_everything]
-#    fullscreen = delay
-#[fullscreen_show_critical]
-#    msg_urgency = critical
-#    fullscreen = show
-
-#[espeak]
-#    summary = "*"
-#    script = dunst_espeak.sh
-
-#[script-test]
-#    summary = "*script*"
-#    script = dunst_test.sh
-
-#[ignore]
-#    # This notification will not be displayed
-#    summary = "foobar"
-#    format = ""
-
-#[history-ignore]
-#    # This notification will not be saved in history
-#    summary = "foobar"
-#    history_ignore = yes
-
-#[skip-display]
-#    # This notification will not be displayed, but will be included in the history
-#    summary = "foobar"
-#    skip_display = yes
-
-#[signed_on]
-#    appname = Pidgin
-#    summary = "*signed on*"
-#    urgency = low
-#
-#[signed_off]
-#    appname = Pidgin
-#    summary = *signed off*
-#    urgency = low
-#
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
-#
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
-#
-#[stack-volumes]
-#    appname = "some_volume_notifiers"
-#    set_stack_tag = "volume"
-#
-# vim: ft=cfg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#+END_SRC
-
-*** dunst tangle
-
-+ home dir
-
-#+NAME: dunst-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/dunst/dunstrc"
-<<dunst>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: dunst-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/dunst/dunstrc"
-<<dunst>>
 #+END_SRC
 
 ** barrier

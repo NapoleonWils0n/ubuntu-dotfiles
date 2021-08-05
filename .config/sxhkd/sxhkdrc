@@ -20,7 +20,7 @@ XF86AudioMute
 
 # Play
 XF86AudioPlay
-    playerctl play-pause
+    playerctl play-pause 
 
 # Next
 XF86AudioNext
@@ -44,7 +44,15 @@ alt + super + {h,j,k,l}
 
 # play/pause toggle
 alt + super + space
-    playerctl play-pause
+    playerctl play-pause && now-playing
+
+# Next
+alt + super + ctrl + l
+    playerctl next && sleep 1 && now-playing
+
+# Previous
+alt + super + ctrl + h
+    playerctl previous && sleep 1 && now-playing
 
 # stop/quit
 alt + super + n
@@ -53,6 +61,13 @@ alt + super + n
 # go to start of video
 alt + super + 0
   playerctl position 0
+
+
+# now playing
+#==========================
+
+alt + super + z
+  now-playing
 
 
 # ducky one 2 mini keyboard
