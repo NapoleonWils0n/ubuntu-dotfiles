@@ -5,6 +5,7 @@ super + Escape
 	pkill -USR1 -x sxhkd
 
 # multimedia keys
+#==========================
 
 # Increase volume
 XF86AudioRaiseVolume
@@ -35,7 +36,7 @@ XF86AudioStop
     playerctl stop
 
 
-# fast forward and rewind
+# standard keys
 #==========================
 
 # h,j,k,l keys
@@ -62,6 +63,17 @@ alt + super + n
 alt + super + 0
   playerctl position 0
 
+# Increase volume
+alt + super + .
+    amixer set Master 10%+ 1>/dev/null
+
+# Decrease volume
+alt + super + ,
+    amixer set Master 10%- 1>/dev/null
+
+# Mute Audio
+alt + super + m
+    amixer -D pulse set Master 1+ toggle 1>/dev/null
 
 # now playing
 #==========================
