@@ -5735,6 +5735,28 @@ color alert = black,bold
 <<ncmpc>>
 #+END_SRC
 
+** zathura
+
+#+NAME: zathura
+#+BEGIN_SRC conf
+set selection-clipboard clipboard
+#+END_SRC
+
+*** zathura tangle
+
++ home dir
+  
+#+NAME: zathura-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/zathura/zathurarc"
+<<zathura>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: zathura-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/zathura/zathurarc"
+<<zathura>>
+#+END_SRC
 ** surfraw
 *** btdig
 
@@ -9032,4 +9054,5 @@ Config { font = "xft:Inconsolata:size=11:lcdfilter=lcddefault:hintstyle=hintnone
 #+BEGIN_SRC conf :noweb yes :tangle ".config/xmobar/xmobarrc"
 <<xmobar>>
 #+END_SRC
+
 
