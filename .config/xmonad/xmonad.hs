@@ -123,7 +123,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Firefox" <&&> resource =? "Toolkit" --> doFloat -- firefox pip
     , className =? "qjackctl"       --> doFloat
-    , className =? "Google Earth Pro" --> doIgnore
+    , className =? "Google Earth Pro" --> doFloat
     , title =? "emacs-capture"      --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) -- emacs org capture
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore 
