@@ -4724,6 +4724,30 @@ whitelist /usr/share/transmission/web
 <<youtube-dl>>
 #+END_SRC
 
+** yt-dlp
+
+#+NAME: yt-dlp
+#+BEGIN_SRC conf
+# external downloader aria2
+--external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
+#+END_SRC
+
+*** yt-dlp tangle
+
++ home dir
+
+#+NAME: yt-dlp-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/yt-dlp/config"
+<<yt-dlp>>
+#+END_SRC
+
++ current dir
+
+#+NAME: yt-dlp-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/yt-dlp/config"
+<<yt-dlp>>
+#+END_SRC
+
 ** aria2c
 
 #+NAME: aria2c
