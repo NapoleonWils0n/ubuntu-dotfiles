@@ -4729,7 +4729,7 @@ whitelist /usr/share/transmission/web
 #+NAME: yt-dlp
 #+BEGIN_SRC conf
 # external downloader aria2
---external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
+--downloader aria2c --downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
 #+END_SRC
 
 *** yt-dlp tangle
