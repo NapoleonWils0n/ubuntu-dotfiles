@@ -192,3 +192,6 @@ trd-show() { transmission-show "$1" ;}                          # show .torrent 
 
 # namespace autocomplete
 compdef _precommand namespace
+
+# ytfzf autocomplete
+compdef _gnu_generic ytfzf
