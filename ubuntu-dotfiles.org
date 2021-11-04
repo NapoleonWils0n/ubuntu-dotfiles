@@ -8431,8 +8431,9 @@ Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns --temp-profile
 #+NAME: firefox-netns-desktop
 #+begin_src conf
 [Desktop Entry]
+X-SnapInstanceName=firefox
 Version=1.0
-Name=Firefox vpn
+Name=Firefox Web Browser - vpn
 Name[ar]=متصفح الويب فَيَرفُكْس
 Name[ast]=Restolador web Firefox
 Name[bn]=ফায়ারফক্স ওয়েব ব্রাউজার
@@ -8499,7 +8500,7 @@ Comment[nb]=Surf på nettet
 Comment[nl]=Verken het internet
 Comment[nn]=Surf på nettet
 Comment[no]=Surf på nettet
-Comment[pl]=Przeglądanie stron WWW 
+Comment[pl]=Przeglądanie stron WWW
 Comment[pt]=Navegue na Internet
 Comment[pt_BR]=Navegue na Internet
 Comment[ro]=Navigați pe Internet
@@ -8571,7 +8572,7 @@ Keywords[it]=Internet;WWW;Browser;Web;Navigatore
 Keywords[is]=Internet;WWW;Vafri;Vefur;Netvafri;Flakk
 Keywords[ja]=Internet;WWW;Web;インターネット;ブラウザ;ウェブ;エクスプローラ
 Keywords[nb]=Internett;WWW;Nettleser;Explorer;Web;Browser;Nettside
-Keywords[nl]=Internet;WWW;Browser;Web;Explorer;Verkenner;Website;Surfen;Online 
+Keywords[nl]=Internet;WWW;Browser;Web;Explorer;Verkenner;Website;Surfen;Online
 Keywords[pt]=Internet;WWW;Browser;Web;Explorador;Navegador
 Keywords[pt_BR]=Internet;WWW;Browser;Web;Explorador;Navegador
 Keywords[ru]=Internet;WWW;Browser;Web;Explorer;интернет;браузер;веб;файрфокс;огнелис
@@ -8582,17 +8583,16 @@ Keywords[uk]=Internet;WWW;Browser;Web;Explorer;Інтернет;мережа;п�
 Keywords[vi]=Internet;WWW;Browser;Web;Explorer;Trình duyệt;Trang web
 Keywords[zh_CN]=Internet;WWW;Browser;Web;Explorer;网页;浏览;上网;火狐;Firefox;ff;互联网;网站;
 Keywords[zh_TW]=Internet;WWW;Browser;Web;Explorer;網際網路;網路;瀏覽器;上網;網頁;火狐
-Exec=/usr/local/bin/namespace /usr/local/bin/firefox-namespace-audio %u
+Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns %u
 Terminal=false
-X-MultipleArgs=false
 Type=Application
-Icon=firefox
+Icon=/snap/firefox/701/default256.png
 Categories=GNOME;GTK;Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;x-scheme-handler/chrome;video/webm;application/x-xpinstall;
 StartupNotify=true
-Actions=new-window;new-private-window;
+Actions=NewWindow;NewPrivateWindow;
 
-[Desktop Action new-window]
+[Desktop Action NewWindow]
 Name=Open a New Window
 Name[ar]=افتح نافذة جديدة
 Name[ast]=Abrir una ventana nueva
@@ -8601,7 +8601,7 @@ Name[ca]=Obre una finestra nova
 Name[cs]=Otevřít nové okno
 Name[da]=Åbn et nyt vindue
 Name[de]=Ein neues Fenster öffnen
-Name[el]=Νέο παράθυρο
+Name[el]=Άνοιγμα νέου παραθύρου
 Name[es]=Abrir una ventana nueva
 Name[fi]=Avaa uusi ikkuna
 Name[fr]=Ouvrir une nouvelle fenêtre
@@ -8623,21 +8623,19 @@ Name[ru]=Новое окно
 Name[sk]=Otvoriť nové okno
 Name[sl]=Odpri novo okno
 Name[sv]=Öppna ett nytt fönster
-Name[tr]=Yeni pencere aç 
+Name[tr]=Yeni pencere aç
 Name[ug]=يېڭى كۆزنەك ئېچىش
 Name[uk]=Відкрити нове вікно
 Name[vi]=Mở cửa sổ mới
 Name[zh_CN]=新建窗口
 Name[zh_TW]=開啟新視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/firefox-namespace-audio -new-window
+Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -new-window
 
-[Desktop Action new-private-window]
+[Desktop Action NewPrivateWindow]
 Name=Open a New Private Window
 Name[ar]=افتح نافذة جديدة للتصفح الخاص
 Name[ca]=Obre una finestra nova en mode d'incògnit
-Name[cs]=Otevřít nové anonymní okno
 Name[de]=Ein neues privates Fenster öffnen
-Name[el]=Νέο ιδιωτικό παράθυρο
 Name[es]=Abrir una ventana privada nueva
 Name[fi]=Avaa uusi yksityinen ikkuna
 Name[fr]=Ouvrir une nouvelle fenêtre de navigation privée
@@ -8647,11 +8645,10 @@ Name[it]=Apri una nuova finestra anonima
 Name[nb]=Åpne et nytt privat vindu
 Name[ru]=Новое приватное окно
 Name[sl]=Odpri novo okno zasebnega brskanja
-Name[sv]=Öppna ett nytt privat fönster
-Name[tr]=Yeni gizli pencere aç
+Name[tr]=Yeni bir pencere aç
 Name[uk]=Відкрити нове вікно у потайливому режимі
 Name[zh_TW]=開啟新隱私瀏覽視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/firefox-namespace-audio -private-window
+Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -private-window
 #+end_src
 
 **** desktop files tangle
