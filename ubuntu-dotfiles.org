@@ -5563,7 +5563,7 @@ max-items 50
 browser "/usr/bin/w3m %u"
 macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro l set browser "/snap/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
 #macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 #macro . set browser "/usr/bin/tsp /usr/bin/mpv --fs --screen=1 %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
@@ -6343,6 +6343,17 @@ set selection-clipboard clipboard
 <<zathura>>
 #+END_SRC
 ** surfraw
+*** surfraw
+
+surfraw config
+
+#+NAME: surfraw
+#+BEGIN_SRC conf
+SURFRAW_graphical_browser=/snap/bin/firefox
+SURFRAW_text_browser=/usr/bin/w3m
+SURFRAW_graphical=yes
+#+END_SRC
+
 *** btdig
 
 #+NAME: btdig
@@ -6543,6 +6554,22 @@ fi
 #+END_SRC
 
 **** surfraw tangle
+***** surfraw
+
++ home dir
+
+#+NAME: surfraw-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/conf"
+<<surfraw>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/conf"
+<<surfraw>>
+#+END_SRC
+
 ***** btdig
 
 + home dir

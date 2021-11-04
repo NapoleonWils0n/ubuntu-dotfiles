@@ -1,0 +1,3 @@
+SURFRAW_graphical_browser=/snap/bin/firefox
+SURFRAW_text_browser=/usr/bin/w3m
+SURFRAW_graphical=yes
