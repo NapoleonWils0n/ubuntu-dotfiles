@@ -254,7 +254,6 @@
 ; dont indent src block for export
 (setq org-src-preserve-indentation t)
 
-
 ; org mode copy url from org link
 (fset 'getlink
       (lambda (&optional arg) 
