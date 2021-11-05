@@ -3988,6 +3988,15 @@ xkb_symbols "alt_win_ctrl" {
 (setq org-src-preserve-indentation t)
 
 
+; org mode copy url from org link
+(fset 'getlink
+      (lambda (&optional arg) 
+        "Keyboard macro." 
+        (interactive "p") 
+        (kmacro-exec-ring-item (quote ("\C-c\C-l\C-a\C-k\C-g" 0 "%d")) arg)))
+
+(define-key org-mode-map (kbd "C-c p") #'getlink)
+
 ; general settings --------------------------------------------------------------------------------------
 
 ; change prompt from yes or no, to y or n
