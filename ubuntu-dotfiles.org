@@ -7430,7 +7430,7 @@ query="${QUERY_STRING}"
 url="${baseurl}${query}"
 
 # css selector
-css='div.list.search-list.facets'
+css='div.list.search-list'
 
 # css exclude
 search='search-list__header'
