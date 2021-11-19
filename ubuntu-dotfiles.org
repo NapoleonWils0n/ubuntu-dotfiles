@@ -5613,42 +5613,42 @@ highlight article "https?://[^ ]+" color4 color8 protect
 #+NAME: newsboat-urls
 #+BEGIN_SRC conf
 # News
-https://www.howtogeek.com/feed/ text
-http://feeds.arstechnica.com/arstechnica/index text
-https://www.omgubuntu.co.uk/feed text
-https://itsfoss.com/feed/ text
-http://feeds.feedburner.com/Torrentfreak text
+https://www.howtogeek.com/feed/ news
+http://feeds.arstechnica.com/arstechnica/index news
+https://www.omgubuntu.co.uk/feed news
+https://itsfoss.com/feed/ news
+http://feeds.feedburner.com/Torrentfreak news
 
 # youtube
 
-# toon
-https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow video "The Magpie Channel" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg video "Newcastle Fans TV" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg video "Roobenstein" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg video "The Toon Review" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA video "Adam Pearson" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw video "Newcastle United" video
+# newcastle
+https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow "The Magpie Channel" newcastle
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg "Newcastle Fans TV" newcastle
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg "Roobenstein" newcastle
+https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg "The Toon Review" newcastle
+https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA "Adam Pearson" newcastle
+https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw "Newcastle United" newcastle
 
 # general
-https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" video
+https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" comedy
 
 # tech
-https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "distrotube" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "Brodie Robertson" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ "Chris Titus Tech" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA "gotbletu" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw "The Linux Experiment" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw "Hikmat E Ustad" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg "distrotube" linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA "Brodie Robertson" linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ "Chris Titus Tech" linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA "gotbletu" linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw "The Linux Experiment" linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw "Hikmat E Ustad" linux
 
 # emacs
-https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "System Crafters" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g "Protesilaos Stavrou" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w "Mike Zamansky" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ "System Crafters" emacs
+https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g "Protesilaos Stavrou" emacs
+https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w "Mike Zamansky" emacs
 
 # obs
-https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w "Gaming Careers" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg "Streamgeeks" video
-https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Eposvox" video
+https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w "Gaming Careers" obs
+https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg "Streamgeeks" obs
+https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "Eposvox" obs
 
 #+END_SRC
 
