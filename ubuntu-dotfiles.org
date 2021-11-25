@@ -5612,14 +5612,17 @@ highlight article "https?://[^ ]+" color4 color8 protect
 
 #+NAME: newsboat-urls
 #+BEGIN_SRC conf
+# query feeds
+"query:Newcastle United query:tags # \"newcastle\"" meta
+"query:Unread:unread = \"yes\"" meta
+
 # News
 https://www.howtogeek.com/feed/ news
 http://feeds.arstechnica.com/arstechnica/index news
 https://www.omgubuntu.co.uk/feed news
 https://itsfoss.com/feed/ news
 http://feeds.feedburner.com/Torrentfreak news
-
-# youtube
+https://news.ycombinator.com/rss "~Hacker News" news
 
 # newcastle
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow "~The Magpie Channel" newcastle
