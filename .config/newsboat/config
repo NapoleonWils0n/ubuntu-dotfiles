@@ -41,3 +41,6 @@ color article            default   default
 # highlights
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
+
+# notify
+notify-program "/usr/bin/notify-send"
