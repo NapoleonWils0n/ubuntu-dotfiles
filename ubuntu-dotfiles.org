@@ -5609,12 +5609,13 @@ highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
 
 # notify
-notify-program "/usr/bin/notify-send"
+# notify-program "/usr/bin/notify-send"
 
 # styling
 highlight feedlist "[║│]" default default bold
 highlight feedlist "╠═.*" default default bold
-feedlist-format "%?T?║%4i %n %8u %t &╠%t═════════════════════════════════════════════════════?"
+#feedlist-format "%?T?║%4i %n %8u %t &╠%t═════════════════════════════════════════════════════?"
+feedlist-format "%?T?║%4i %n %8u %t &╠ %-8t═════════════════════════════════════════════════════?"
 #+END_SRC
 
 *** urls
@@ -5625,7 +5626,7 @@ queries
 "query:Newcastle United:tags # \"newcastle\"" meta
 "query:Unread Articles:unread = \"yes\"" meta
 
-News
+news
 https://www.howtogeek.com/feed/ news
 http://feeds.arstechnica.com/arstechnica/index news
 https://www.omgubuntu.co.uk/feed news
@@ -5647,7 +5648,7 @@ https://www.reddit.com/r/UnixProTips/.rss "~Unix Pro tips" reddit
 https://www.reddit.com/r/haskell/new.rss "~Haskell" reddit
 https://www.reddit.com/r/gnu/.rss "~gnu" reddit
 
-newcastle
+toon
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow "~The Magpie Channel" newcastle
 https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg "~Newcastle Fans TV" newcastle
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg "~Roobenstein" newcastle
@@ -5656,7 +5657,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA "~A
 https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw "~Newcastle United" newcastle
 https://rss.acast.com/thechronicle "~Everything Black and White" newcastle
 
-general
+comedy
 https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa "~A Closer Look" comedy
 
 tech
@@ -5681,7 +5682,6 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g "~E
 
 general
 https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag "~David Pakman" general
-═══
 #+END_SRC
 
 **** newsboat tangle
