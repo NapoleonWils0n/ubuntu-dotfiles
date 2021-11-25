@@ -1,6 +1,6 @@
 # query feeds
-"query:Newcastle United query:tags # \"newcastle\"" meta
-"query:Unread:unread = \"yes\"" meta
+"query:Newcastle United:tags # \"newcastle\"" meta
+"query:Unread Articles:unread = \"yes\"" meta
 
 # News
 https://www.howtogeek.com/feed/ news
@@ -9,6 +9,13 @@ https://www.omgubuntu.co.uk/feed news
 https://itsfoss.com/feed/ news
 http://feeds.feedburner.com/Torrentfreak news
 https://news.ycombinator.com/rss "~Hacker News" news
+
+# reddit
+https://www.reddit.com/r/linux/new.rss "~Linux - reddit" reddit
+https://www.reddit.com/r/ubuntu/new.rss "~Ubuntu - reddit" reddit
+https://www.reddit.com/r/xmonad/new.rss "~Xmonad - reddit" reddit
+https://www.reddit.com/r/haskell/new.rss "~Haskell - reddit" reddit
+https://www.reddit.com/r/commandline/new.rss "~Command Line - reddit" reddit
 
 # newcastle
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow "~The Magpie Channel" newcastle
