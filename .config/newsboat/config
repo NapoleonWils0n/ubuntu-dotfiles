@@ -49,4 +49,4 @@ notify-program "/usr/bin/notify-send"
 # styling
 highlight feedlist "[║│]" default default bold
 highlight feedlist "╠═.*" default default bold
-feedlist-format "%?T?║%4i %n %8u %t &╠ %-8t════════════════════════════════════════?"
+feedlist-format "%?T?║%4i %n %8u %t &╠#%-8t════════════════════════════════════════?"
