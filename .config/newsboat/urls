@@ -11,12 +11,18 @@ http://feeds.feedburner.com/Torrentfreak news
 https://news.ycombinator.com/rss "~Hacker News" news
 
 # reddit
+https://www.reddit.com/r/emacs/new.rss "~Emacs - reddit" reddit
+https://www.reddit.com/r/xmonad/new.rss "~Xmonad - reddit" reddit
+https://www.reddit.com/r/zsh/.rss "~zsh - reddit" reddit
 https://www.reddit.com/r/linux/new.rss "~Linux - reddit" reddit
 https://www.reddit.com/r/ubuntu/new.rss "~Ubuntu - reddit" reddit
 https://www.reddit.com/r/newsboat/new.rss "~Newsboat - reddit" reddit
-https://www.reddit.com/r/xmonad/new.rss "~Xmonad - reddit" reddit
-https://www.reddit.com/r/haskell/new.rss "~Haskell - reddit" reddit
+https://www.reddit.com/r/w3m/.rss "~w3m - reddit" reddit
 https://www.reddit.com/r/commandline/new.rss "~Command Line - reddit" reddit
+https://www.reddit.com/r/clistuff/.rss "~clistuff - reddit" reddit
+https://www.reddit.com/r/UnixProTips/.rss "~Unix Pro tips - reddit" reddit
+https://www.reddit.com/r/haskell/new.rss "~Haskell - reddit" reddit
+https://www.reddit.com/r/gnu/.rss "~gnu - reddit" reddit
 
 # newcastle
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow "~The Magpie Channel" newcastle
