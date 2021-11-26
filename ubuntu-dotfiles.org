@@ -5502,6 +5502,7 @@ osd-fractions
 auto-reload yes
 reload-time 30 # update all feeds every x minutes
 max-items 50 
+reload-threads 100
 cleanup-on-quit yes
 
 # externel browser
