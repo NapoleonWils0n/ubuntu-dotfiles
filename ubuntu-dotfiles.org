@@ -5500,9 +5500,10 @@ osd-fractions
 #+BEGIN_SRC conf
 # general settings
 auto-reload yes
-reload-time 30 # update all feeds every x minutes
 max-items 50 
+reload-time 30 # update all feeds every x minutes
 reload-threads 100
+prepopulate-query-feeds yes
 cleanup-on-quit yes
 
 # externel browser
@@ -5533,13 +5534,13 @@ download-path "~/Downloads/%n"
 player "mpv"
 
 # colours
-color background         default   default
-color listnormal         default   default
-color listnormal_unread  default   default
-color listfocus          black     blue
-color listfocus_unread   black     blue
-color info               black   blue
-color article            default   default
+#color background         default default
+color listnormal         default default
+color listnormal_unread  default default
+color listfocus          black blue
+color listfocus_unread   black blue
+color info               black blue
+color article            default default
 
 # highlights
 highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
