@@ -6549,6 +6549,100 @@ else
 fi
 #+END_SRC
 
+*** sunxdcc
+
+#+NAME: sunxdcc
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sun Feb 14, 2016
+#
+# DESC: Elvi to search sunxdcc for irc xdcc files
+# elvis: sunxdcc		-- Search sunxdcc for irc xdcc files (http://sunxdcc.com/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search sunxdcc (http://sunxdcc.com/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://sunxdcc.com/"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "http://sunxdcc.com/?sterm=${escaped_args}"
+fi
+
+#+end_src
+
+*** xdcceu
+
+#+NAME: xdcceu
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed June 14, 2017
+#
+# DESC: Elvi to search xdcceu for irc xdcc files
+# elvis: xdcceu		-- Search xdcceu for irc xdcc files (http://xdcc.eu/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search xdcceu (http://xdcc.eu/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://xdcc.eu/"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "http://www.xdcc.eu/search.php?searchkey=${escaped_args}"
+fi
+
+#+end_src
+
+*** thepacket
+
+#+NAME: thepacket
+#+begin_src conf
+#!/bin/sh
+# DESC: Elvi to search thepacket for irc xdcc files
+# elvis: thepacket     		-- Search thepacket for irc xdcc files (https://thepacket.info/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search thepacket (https://thepacket.info/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://thepacket.info"
+else
+    escaped_args=$(w3_url_of_arg $w3_args)
+    w3_browse_url "https://thepacket.info/?q=${escaped_args}"
+fi
+#+end_src
+
 **** surfraw tangle
 ***** surfraw
 
@@ -6660,6 +6754,54 @@ fi
 #+NAME: surfraw-vimeo-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
 <<vimeo>>
+#+END_SRC
+
+***** thepacket
+
++ home dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
+***** sunxdcc
+
++ home dir
+
+#+NAME: surfraw-sunxdcc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+<<sunxdcc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-sunxdcc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+<<sunxdcc>>
+#+END_SRC
+
+***** xdcceu
+
++ home dir
+
+#+NAME: surfraw-xdcceu-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+<<xdcceu>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-xdcceu-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+<<xdcceu>>
 #+END_SRC
 
 ** ytfzf
