@@ -6577,9 +6577,8 @@ if test -z "$w3_args"; then
     w3_browse_url "http://sunxdcc.com/"
 else
     escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "http://sunxdcc.com/?sterm=${escaped_args}"
+    w3_browse_url "http://sunxdcc.com/?sterm=${escaped_args}%20-tar%20-rar"
 fi
-
 #+end_src
 
 *** xdcceu
@@ -6756,22 +6755,6 @@ fi
 <<vimeo>>
 #+END_SRC
 
-***** thepacket
-
-+ home dir
-
-#+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
-<<thepacket>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
-<<thepacket>>
-#+END_SRC
-
 ***** sunxdcc
 
 + home dir
@@ -6802,6 +6785,22 @@ fi
 #+NAME: surfraw-xdcceu-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
 <<xdcceu>>
+#+END_SRC
+
+***** thepacket
+
++ home dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
 #+END_SRC
 
 ** ytfzf
