@@ -5155,6 +5155,10 @@ l seek  5
 h seek -5
 k seek  60
 j seek -60
+
+# subtitles
+J cycle sub 
+K cycle sub down 
 #+END_SRC
 
 *** mpv.conf
