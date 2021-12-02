@@ -197,11 +197,32 @@ trd-pause() {
     || transmission-remote -t"${1-all}" --stop ;
     }
 
-# show torrent info
+# show torrent info <id>
 trd-info() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"$1" --info \
-    || transmission-remote -t"$1" --info ;
+    && namespace transmission-remote -t"${1}" --info \
+    || transmission-remote -t"${1}" --info ;
+    }
+
+# show torrent files <id>
+trd-files() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"${1}" --info-files \
+    || transmission-remote -t"${1}" --info-files ;
+    }
+
+# get torrent files in list
+trd-get() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"${1}" -g"${2-all}" \
+    || transmission-remote -t"${1}" -g"${2-all}" ;
+    }
+
+# dont get torrent files in list
+trd-noget() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"${1}" -G"${2-all}" \
+    || transmission-remote -t"${1}" -G"${2-all}" ;
     }
 
 # grep for torrent in download list
