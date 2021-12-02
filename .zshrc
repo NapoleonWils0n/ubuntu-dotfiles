@@ -18,7 +18,7 @@ fi
 
 # git prompt script
 if [ -f "$HOME/.git-prompt.sh" ]; then
-	source "$HOME/.git-prompt.sh"
+        source "$HOME/.git-prompt.sh"
 fi
 
 # git prompt variables
@@ -160,35 +160,122 @@ alias hdmi-on='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --mode 1
 # hdmi display off
 alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off && ~/.fehbg &>/dev/null'
 
-# functions
+# transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
-# transmission
+# daemon start
+trd-daemon() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-daemon \
+    || transmission-daemon ;
+    }
+
+# add torrent
+trd-add() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --add "$1" \
+    || transmission-remote --add "$1" ;
+    }
+
+# adding via hash info
+trd-hash() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --add "magnet:?xt=urn:btih:$1" \
+    || transmission-remote --add "magnet:?xt=urn:btih:$1" ;
+    }
+
+# start torrent <id> or all
+trd-start() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"${1-all}" --start \
+    || transmission-remote -t"${1-all}" --start ;
+    }             
+
+# pause torrent <id> or all
+trd-pause() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"${1-all}" --stop \
+    || transmission-remote -t"${1-all}" --stop ;
+    }
+
+# show torrent info
+trd-info() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"$1" --info \
+    || transmission-remote -t"$1" --info ;
+    }
+
+# grep for torrent in download list
+trd-grep() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --list | grep -i "$1" \
+    || transmission-remote --list | grep -i "$1" ;
+}
+
+# list torrents
+trd-list() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --list \
+    || transmission-remote --list ;
+    }
 
 # clear completed torrents
 trd-clearcompleted() {
-  transmission-remote -l | grep 100% | grep Done | \
-  awk '{print $1}' | xargs -n 1 -I % transmission-remote -t % -r
+    [ -d "/etc/netns/vpn" ] && namespace 
+    { transmission-remote -l | grep '100%\|Done' | awk '{print $1}' | xargs -n 1 -I % transmission-remote -t % -r; } \
+    || { transmission-remote -l | grep '100%\|Done' | awk '{print $1}' | xargs -n 1 -I % transmission-remote -t % -r; }; 
+    }
+
+# remove torrent and leaves data alone
+trd-remove() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"$1" --remove \
+    || transmission-remote -t"$1" --remove ;
+    }
+
+# remove torrent and delete data
+trd-purge() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"$1" --remove-and-delete \
+    || transmission-remote -t"$1" --remove-and-delete ;
+    } 
+
+# download default to 900K, else enter your own
+trd-altdownloadspeed() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --downlimit "${@:-900}" \
+    || transmission-remote --downlimit "${@:-900}" ;
+    } 
+
+# alt download speed unlimited
+trd-altdownloadspeedunlimited() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --no-downlimit \
+    || transmission-remote --no-downlimit ;
+    }
+
+# upload default to 10kpbs, else enter your own
+trd-limitupload() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --uplimit "${@:-10}" \
+    || transmission-remote --uplimit "${@:-10}" ;
+    } 
+
+# no upload limit
+trd-limituploadunlimited() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote --no-uplimit \
+    || transmission-remote --no-uplimit ;
 }
 
-trd-altdownloadspeed() { transmission-remote --downlimit "${@:-900}" ;}	# download default to 900K, else enter your own
-trd-altdownloadspeedunlimited() { transmission-remote --no-downlimit ;}
-trd-limitupload() { transmission-remote --uplimit "${@:-10}" ;}	# upload default to 10kpbs, else enter your own
-trd-limituploadunlimited() { transmission-remote --no-uplimit ;}
-trd-askmorepeers() { transmission-remote -t"$1" --reannounce ;}
-trd-daemon() { transmission-daemon ;}
+# ask for for peers
+trd-askmorepeers() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace transmission-remote -t"$1" --reannounce \
+    || transmission-remote -t"$1" --reannounce ;
+}
+
+# daemon stop
 trd-quit() { killall transmission-daemon ;}
-trd-add() { transmission-remote --add "$1" ;}
-trd-hash() { transmission-remote --add "magnet:?xt=urn:btih:$1" ;}       # adding via hash info
-trd-verify() { transmission-remote --verify "$1" ;}
-trd-pause() { transmission-remote -t"$1" --stop ;}		# <id> or all
-trd-start() { transmission-remote -t"$1" --start ;}		# <id> or all
-trd-purge() { transmission-remote -t"$1" --remove-and-delete ;} # delete data also
-trd-remove() { transmission-remote -t"$1" --remove ;}		# leaves data alone
-trd-info() { transmission-remote -t"$1" --info ;}
-trd-speed() { while true;do clear; transmission-remote -t"$1" -i | grep Speed;sleep 1;done ;}
-trd-grep() { transmission-remote --list | grep -i "$1" ;}
-trd-list() { transmission-remote --list ;}
-trd-show() { transmission-show "$1" ;}                          # show .torrent file information
 
 # namespace autocomplete
 compdef _precommand namespace
