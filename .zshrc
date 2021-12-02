@@ -214,15 +214,15 @@ trd-files() {
 # get torrent files in list
 trd-get() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1}" -g"${2-all}" \
-    || transmission-remote -t"${1}" -g"${2-all}" ;
+    && namespace transmission-remote -t"${1}" -g"${2}" \
+    || transmission-remote -t"${1}" -g"${2}" ;
     }
 
 # dont get torrent files in list
 trd-noget() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1}" -G"${2-all}" \
-    || transmission-remote -t"${1}" -G"${2-all}" ;
+    && namespace transmission-remote -t"${1}" -G"${2}" \
+    || transmission-remote -t"${1}" -G"${2}" ;
     }
 
 # grep for torrent in download list
