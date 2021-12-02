@@ -239,6 +239,13 @@ trd-list() {
     || transmission-remote --list ;
     }
 
+# watch torrent list with viddy
+trd-watch() {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace viddy transmission-remote --list \
+    || viddy transmission-remote --list ;
+    }
+
 # clear completed torrents
 trd-clearcompleted() {
     [ -d "/etc/netns/vpn" ] && namespace 
