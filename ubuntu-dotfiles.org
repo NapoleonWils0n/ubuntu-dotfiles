@@ -5694,7 +5694,7 @@ cleanup-on-quit yes
 download-timeout 60
 
 # transmission remote as externel browser
-#browser "transmission-remote --add '%u'"
+#browser "transmission-remote --add '%u' &"
 browser "[ -d /etc/netns/vpn ] && namespace transmission-remote --add '%u' || transmission-remote --add '%u'"
 
 # unbind keys
@@ -10370,9 +10370,7 @@ Config { font = "xft:Inconsolata:size=11:lcdfilter=lcddefault:hintstyle=hintnone
 <<xmobar>>
 #+END_SRC
 
-
 ** firejail
-
 *** firefox-common
 
 #+NAME: firefox-common-firejail
