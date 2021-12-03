@@ -308,8 +308,8 @@ trd-quit() { killall transmission-daemon ;}
 # newsboat torrent feeds
 torrent-feeds () {
     [ -d "/etc/netns/vpn" ] \
-    && namespace newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents \
-    || newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents ;
+    && namespace newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents -c ~/.local/share/newsboat/cache-torrents.db \
+    || newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents -c ~/.local/share/newsboat/cache-torrents.db ;
 }
 
 # namespace autocomplete
