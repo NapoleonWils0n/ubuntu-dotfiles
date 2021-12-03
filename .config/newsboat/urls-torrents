@@ -1,0 +1,36 @@
+queries
+"query:tv:tags # \"tv\"" meta
+"query:movies:tags # \"movies\"" meta
+"query:music:tags # \"music\"" meta
+
+rarbg
+https://rarbg.to/rssdd_magnet.php?categories=18 tv sd rarbg "~tv sd"
+https://rarbg.to/rssdd_magnet.php?categories=41 tv hd rarbg "~tv hd"
+https://rarbg.to/rssdd.php?categories=17 movies h264 rarbg "~h264 movies"
+https://rarbg.to/rssdd.php?categories=44 movies 1080 h264 rarbg "~h264 1080p"
+https://rarbg.to/rssdd.php?categories=45 movies 720 h264 rarbg "~h264 720p"
+https://rarbg.to/rssdd.php?categories=54 movies 1080 h265 rarbg "~h265 1080p"
+https://rarbg.to/rssdd.php?categories=42 movies bd full rarbg "~full bd"
+https://rarbg.to/rssdd.php?categories=46 bd remux rarbg "~bd remux"
+https://rarbg.to/rssdd.php?categories=25 music flac rarbg "~flac audio"
+
+torrentgalaxy
+https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies"
+https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies"
+https://torrentgalaxy.to/rss.php?cat=4 movies packs torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=41 tv hd torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=5 tv sd torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=6 tv packs torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=22 music albums torrentgalaxy "~music albums"
+https://torrentgalaxy.to/rss.php?cat=23 music lossless torrentgalaxy "~music lossless"
+
+limetorrents
+https://www.limetorrents.pro/rss/16/ movies limetorrents "~movies"
+https://www.limetorrents.pro/rss/20/ tv limetorrents "~tv"
+https://www.limetorrents.pro/rss/20/ music limetorrents "~music"
+
+demonoid
+https://www.dnoid.to/rss/8.xml movies demonoid "~movies"
+https://www.dnoid.to/rss/12.xml tv demonoid "~tv"
+https://www.dnoid.to/rss/9.xml music demonoid "~music"
+https://www.dnoid.to/rss/4.xml comics demonoid "~comics"

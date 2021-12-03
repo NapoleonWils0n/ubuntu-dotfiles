@@ -305,6 +305,13 @@ trd-askmorepeers() {
 # daemon stop
 trd-quit() { killall transmission-daemon ;}
 
+# newsboat torrent feeds
+torrent-feeds () {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents \
+    || newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents ;
+}
+
 # namespace autocomplete
 compdef _precommand namespace
 

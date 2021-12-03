@@ -4116,7 +4116,6 @@ MimeType=x-scheme-handler/org-protocol;
 #+END_SRC
 
 ** zsh
-
 *** zshrc
 
 #+NAME: zshrc
@@ -4427,6 +4426,13 @@ trd-askmorepeers() {
 
 # daemon stop
 trd-quit() { killall transmission-daemon ;}
+
+# newsboat torrent feeds
+torrent-feeds () {
+    [ -d "/etc/netns/vpn" ] \
+    && namespace newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents \
+    || newsboat -C ~/.config/newsboat/config-torrents -u ~/.config/newsboat/urls-torrents ;
+}
 
 # namespace autocomplete
 compdef _precommand namespace
@@ -5674,6 +5680,59 @@ feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-8t═════════�
 notify-program "/usr/bin/notify-send"
 #+END_SRC
 
+*** config-torrents
+
+#+NAME: newsboat-config-torrents
+#+BEGIN_SRC conf
+# general settings
+auto-reload yes
+max-items 100 
+reload-time 30 # update all feeds every x minutes
+reload-threads 100
+prepopulate-query-feeds yes
+cleanup-on-quit yes
+download-timeout 60
+
+# transmission remote as externel browser
+#browser "transmission-remote --add '%u'"
+browser "[ -d /etc/netns/vpn ] && namespace transmission-remote --add '%u' || transmission-remote --add '%u'"
+
+# unbind keys
+unbind-key ENTER
+unbind-key j
+unbind-key k
+unbind-key J
+unbind-key K
+
+# bind keys - vim style
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key h quit
+bind-key L open-in-browser-and-mark-read
+
+# colours
+#color background         default default
+color listnormal         default default
+color listnormal_unread  default default
+color listfocus          black blue
+color listfocus_unread   black blue
+color info               black blue
+color article            default default
+
+# highlights
+highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
+highlight article "https?://[^ ]+" color4 color8 protect
+
+# styling
+highlight feedlist "[║│]" default default bold
+highlight feedlist "╠═.*" default default bold
+feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-15t═════════════════════════════════?"
+
+# notify
+notify-program "/usr/bin/notify-send"
+#+END_SRC
+
 *** urls
 
 #+NAME: newsboat-urls
@@ -5739,6 +5798,48 @@ https://www.reddit.com/r/haskell/new.rss reddit "~Haskell"
 https://www.reddit.com/r/gnu/.rss reddit "~gnu" 
 #+END_SRC
 
+*** urls-torrents
+
+#+NAME: newsboat-urls-torrents
+#+BEGIN_SRC conf
+queries
+"query:tv:tags # \"tv\"" meta
+"query:movies:tags # \"movies\"" meta
+"query:music:tags # \"music\"" meta
+
+rarbg
+https://rarbg.to/rssdd_magnet.php?categories=18 tv sd rarbg "~tv sd"
+https://rarbg.to/rssdd_magnet.php?categories=41 tv hd rarbg "~tv hd"
+https://rarbg.to/rssdd.php?categories=17 movies h264 rarbg "~h264 movies"
+https://rarbg.to/rssdd.php?categories=44 movies 1080 h264 rarbg "~h264 1080p"
+https://rarbg.to/rssdd.php?categories=45 movies 720 h264 rarbg "~h264 720p"
+https://rarbg.to/rssdd.php?categories=54 movies 1080 h265 rarbg "~h265 1080p"
+https://rarbg.to/rssdd.php?categories=42 movies bd full rarbg "~full bd"
+https://rarbg.to/rssdd.php?categories=46 bd remux rarbg "~bd remux"
+https://rarbg.to/rssdd.php?categories=25 music flac rarbg "~flac audio"
+
+torrentgalaxy
+https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies"
+https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies"
+https://torrentgalaxy.to/rss.php?cat=4 movies packs torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=41 tv hd torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=5 tv sd torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=6 tv packs torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=22 music albums torrentgalaxy "~music albums"
+https://torrentgalaxy.to/rss.php?cat=23 music lossless torrentgalaxy "~music lossless"
+
+limetorrents
+https://www.limetorrents.pro/rss/16/ movies limetorrents "~movies"
+https://www.limetorrents.pro/rss/20/ tv limetorrents "~tv"
+https://www.limetorrents.pro/rss/20/ music limetorrents "~music"
+
+demonoid
+https://www.dnoid.to/rss/8.xml movies demonoid "~movies"
+https://www.dnoid.to/rss/12.xml tv demonoid "~tv"
+https://www.dnoid.to/rss/9.xml music demonoid "~music"
+https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
+#+END_SRC
+
 **** newsboat tangle
 ***** config tangle
 
@@ -5756,6 +5857,22 @@ https://www.reddit.com/r/gnu/.rss reddit "~gnu"
 <<newsboat-config>>
 #+END_SRC
 
+***** config-torrents tangle
+
++ home dir
+
+#+NAME: newsboat-config-torrents-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/config-torrents"
+<<newsboat-config-torrents>>
+#+END_SRC
+
++ current dir
+
+#+NAME: newsboat-config-torrents-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/config-torrents"
+<<newsboat-config-torrents>>
+#+END_SRC
+
 ***** urls tangle
 
 + home dir
@@ -5770,6 +5887,22 @@ https://www.reddit.com/r/gnu/.rss reddit "~gnu"
 #+NAME: newsboat-urls-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls"
 <<newsboat-urls>>
+#+END_SRC
+
+***** urls-torrents tangle
+
++ home dir
+
+#+NAME: newsboat-urls-torrents-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/urls-torrents"
+<<newsboat-urls-torrents>>
+#+END_SRC
+
++ current dir
+
+#+NAME: newsboat-urls-torrents-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls-torrents"
+<<newsboat-urls-torrents>>
 #+END_SRC
 
 ** dunst
