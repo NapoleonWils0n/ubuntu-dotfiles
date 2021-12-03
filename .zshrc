@@ -242,8 +242,8 @@ trd-list() {
 # watch torrent list with viddy
 trd-watch() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace viddy transmission-remote --list \
-    || viddy transmission-remote --list ;
+    && namespace viddy -t transmission-remote --list \
+    || viddy -t transmission-remote --list ;
     }
 
 # clear completed torrents
