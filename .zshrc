@@ -246,13 +246,6 @@ trd-watch() {
     || viddy -t transmission-remote --list ;
     }
 
-# clear completed torrents
-trd-clearcompleted() {
-    [ -d "/etc/netns/vpn" ] && namespace 
-    { transmission-remote -l | grep '100%\|Done' | awk '{print $1}' | xargs -n 1 -I % transmission-remote -t % -r; } \
-    || { transmission-remote -l | grep '100%\|Done' | awk '{print $1}' | xargs -n 1 -I % transmission-remote -t % -r; }; 
-    }
-
 # remove torrent and leaves data alone
 trd-remove() {
     [ -d "/etc/netns/vpn" ] \
