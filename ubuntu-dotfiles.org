@@ -4439,6 +4439,15 @@ compdef _precommand namespace
 
 # ytfzf autocomplete
 compdef _gnu_generic ytfzf
+
+# transmission autocomplete
+compdef _gnu_generic transmission-daemon
+compdef _gnu_generic transmission-remote
+compdef _gnu_generic transmission-show
+compdef _gnu_generic transmission-cli
+compdef _gnu_generic transmission-create
+compdef _gnu_generic transmission-edit
+compdef _gnu_generic transmission-pwgen
 #+END_SRC
 
 *** zshenv
