@@ -35,7 +35,6 @@ mkdir -p ~/.config/xmonad/
 :PROPERTIES:
 :VISIBILITY: children
 :END!:
-
 ** xmonad
 
 + xmonad config 
@@ -6745,6 +6744,70 @@ SURFRAW_text_browser=/usr/bin/w3m
 SURFRAW_graphical=yes
 #+END_SRC
 
+*** 1337x
+
+#+NAME: 1337x
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sat Feb 27, 2016
+#
+# DESC: Elvi to search 1337x
+# elvis: 1337x		-- Search 1337x for torrents (1337x.to)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search 1337x (1337x.to) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://1337x.to"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://1337x.to/search/${escaped_args}/1/"
+fi
+#+end_src
+
+*** archive
+
+#+NAME: archive
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sun August 09, 2015
+#
+# DESC: Elvi to search old software, games, other media
+# elvis: archive		-- Search old software, games, other media (https://archive.org)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search old software, games, other media (https://archive.org)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://archive.org"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://archive.org/search.php?query=${escaped_args}"
+fi
+#+end_src
+
 *** btdig
 
 #+NAME: btdig
@@ -6770,6 +6833,34 @@ if test -z "$w3_args"; then
 else
     escaped_args=`w3_url_of_arg $w3_args`
     w3_browse_url "https://btdig.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+*** dailymotion
+
+#+NAME: dailymotion
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search dailymotion
+# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search dailymotion (https://dailymotion.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://dailymotion.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://dailymotion.com/search/${escaped_args}/videos"
 fi
 #+END_SRC
 
@@ -6860,20 +6951,24 @@ else
 fi
 #+END_SRC
 
-*** dailymotion
+*** rarbg
 
-#+NAME: dailymotion
-#+BEGIN_SRC conf
+#+NAME: rarbg
+#+begin_src conf
 #!/bin/sh
-# DESC: Elvi to search dailymotion
-# elvis: dailymotion     -- Search dailymotion (https://dailymotion.com)
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Mar 02, 2016
+#
+# DESC: Elvi to search rarbg
+# elvis: rarbg		-- Search rarbg for torrents (rarbg.to)
 . surfraw || exit 1
 
 w3_usage_hook () {
     cat <<EOF
 Usage: $w3_argv0 [options] [search words]...
 Description:
-  Search dailymotion (https://dailymotion.com)
+  Search rarbg (rarbg.to) for torrents
 EOF
     w3_global_usage
 }
@@ -6881,27 +6976,31 @@ EOF
 w3_config
 w3_parse_args "$@"
 if test -z "$w3_args"; then
-    w3_browse_url "https://dailymotion.com"
+    w3_browse_url "https://rarbg.to"
 else
     escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://dailymotion.com/search/${escaped_args}/videos"
+    w3_browse_url "https://rarbg.to/torrents.php?search=${escaped_args}&order=seeders&by=DESC"
 fi
-#+END_SRC
+#+end_src
 
-*** video
+*** reddit
 
-#+NAME: video
-#+BEGIN_SRC conf
+#+NAME: reddit
+#+begin_src conf
 #!/bin/sh
-# DESC: Elvi to search Google Video
-# elvis: video		-- Search Google Video (https://www.google.com)
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: April 07, 2013
+#
+# DESC: Elvi to search Reddit News
+# elvis: reddit		-- Search Reddit for user submitted news (www.reddit.com)
 . surfraw || exit 1
 
 w3_usage_hook () {
     cat <<EOF
 Usage: $w3_argv0 [options] [search words]...
 Description:
-  Search Google Video (https://video.google.com)
+  Search Reddit (www.reddit.com) for user submitted news
 EOF
     w3_global_usage
 }
@@ -6909,27 +7008,31 @@ EOF
 w3_config
 w3_parse_args "$@"
 if test -z "$w3_args"; then
-    w3_browse_url "https://www.video.google.com"
+    w3_browse_url "http://www.reddit.com"
 else
     escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://www.google.com/search?q=${escaped_args}&num=30&safe=off&tbo=p&tbm=vid"
+    w3_browse_url "http://www.reddit.com/search?q=${escaped_args}"
 fi
-#+END_SRC
+#+end_src
 
-*** vimeo
+*** stackexchange
 
-#+NAME: vimeo
-#+BEGIN_SRC conf
+#+NAME: stackexchange
+#+begin_src conf
 #!/bin/sh
-# DESC: Elvi to search vimeo
-# elvis: vimeo		-- Search vimeo (https://vimeo.com)
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Sat Nov 17 2012
+#
+# DESC: Elvi to search stackexchange computer questions
+# elvis: stackexchange	-- Search StackExchange for computer questions (www.stackexchange.org)
 . surfraw || exit 1
 
 w3_usage_hook () {
     cat <<EOF
 Usage: $w3_argv0 [options] [search words]...
 Description:
-  Search vimeo (https://vimeo.com)
+  Search stackexchange (www.stackexchange.org) for computer questions
 EOF
     w3_global_usage
 }
@@ -6937,12 +7040,12 @@ EOF
 w3_config
 w3_parse_args "$@"
 if test -z "$w3_args"; then
-    w3_browse_url "https://vimeo.com"
+    w3_browse_url "http://www.stackexchange.com/"
 else
     escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
+    w3_browse_url "http://stackexchange.com/search?q=${escaped_args}"
 fi
-#+END_SRC
+#+end_src
 
 *** sunxdcc
 
@@ -6974,39 +7077,6 @@ else
     escaped_args=$(w3_url_of_arg $w3_args)
     w3_browse_url "http://sunxdcc.com/?sterm=${escaped_args}%20-tar%20-rar"
 fi
-#+end_src
-
-*** xdcceu
-
-#+NAME: xdcceu
-#+begin_src conf
-#!/bin/sh
-# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
-#
-# DATE: Wed June 14, 2017
-#
-# DESC: Elvi to search xdcceu for irc xdcc files
-# elvis: xdcceu		-- Search xdcceu for irc xdcc files (http://xdcc.eu/)
-. surfraw || exit 1
-
-w3_usage_hook () {
-    cat <<EOF
-Usage: $w3_argv0 [options] [search words]...
-Description:
-  Search xdcceu (http://xdcc.eu/) for irc xdcc files 
-EOF
-    w3_global_usage
-}
-
-w3_config
-w3_parse_args "$@"
-if test -z "$w3_args"; then
-    w3_browse_url "http://xdcc.eu/"
-else
-    escaped_args=`w3_url_of_arg $w3_args`
-    w3_browse_url "http://www.xdcc.eu/search.php?searchkey=${escaped_args}"
-fi
-
 #+end_src
 
 *** thepacket
@@ -7196,6 +7266,448 @@ fi
 #+NAME: surfraw-thepacket-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
 <<thepacket>>
+#+END_SRC
+
+*** torrentdownloads
+
+#+NAME: torrentdownloads
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Mar 11, 2020
+#
+# DESC: Elvi to search torrentdownloads
+# elvis: torrentdownloads -- Search torrentdownloads for torrents (torrentdownloads.pro)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search torrentdownloads (torrentdownloads.pro) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://torrentdownloads.pro"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://www.torrentdownloads.pro/search/?search=${escaped_args}"
+fi
+#+end_src
+
+*** torrentgalaxy
+
+#+NAME: torrentgalaxy
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed Nov 21, 2018
+#
+# DESC: Elvi to search torrentgalaxy
+# elvis: torrentgalaxy   -- Search torrentgalaxy for torrents (torrentgalaxy.org)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search torrentgalaxy (torrentgalaxy.org) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://torrentgalaxy.org"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://torrentgalaxy.org/torrents.php?search=${escaped_args}"
+fi
+#+end_src
+
+*** video
+
+#+NAME: video
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search Google Video
+# elvis: video		-- Search Google Video (https://www.google.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search Google Video (https://video.google.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://www.video.google.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://www.google.com/search?q=${escaped_args}&num=30&safe=off&tbo=p&tbm=vid"
+fi
+#+END_SRC
+
+*** vimeo
+
+#+NAME: vimeo
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search vimeo
+# elvis: vimeo		-- Search vimeo (https://vimeo.com)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search vimeo (https://vimeo.com)
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://vimeo.com"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://vimeo.com/search?q=${escaped_args}"
+fi
+#+END_SRC
+
+*** xdcceu
+
+#+NAME: xdcceu
+#+begin_src conf
+#!/bin/sh
+# AUTHOR: gotbletu (@gmail|twitter|youtube|github|lbry)
+#
+# DATE: Wed June 14, 2017
+#
+# DESC: Elvi to search xdcceu for irc xdcc files
+# elvis: xdcceu		-- Search xdcceu for irc xdcc files (http://xdcc.eu/)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search xdcceu (http://xdcc.eu/) for irc xdcc files 
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "http://xdcc.eu/"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "http://www.xdcc.eu/search.php?searchkey=${escaped_args}"
+fi
+
+#+end_src
+
+**** surfraw tangle
+***** surfraw
+
++ home dir
+
+#+NAME: surfraw-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/conf"
+<<surfraw>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/conf"
+<<surfraw>>
+#+END_SRC
+
+***** 1337x
+
++ home dir
+
+#+NAME: surfraw-1337x-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
+<<1337x>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-1337x-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/1337x" :tangle-mode (identity #o755)
+<<1337x>>
+#+END_SRC
+
+***** archive
+
++ home dir
+
+#+NAME: surfraw-archive-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/archive" :tangle-mode (identity #o755)
+<<archive>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-archive-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/archive" :tangle-mode (identity #o755)
+<<archive>>
+#+END_SRC
+
+***** btdig
+
++ home dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-btdig-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
+<<btdig>>
+#+END_SRC
+
+***** dailymotion
+
++ home dir
+
+#+NAME: surfraw-dailymotion-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+<<dailymotion>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-dailymotion-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
+<<dailymotion>>
+#+END_SRC
+
+***** ddg
+
++ home dir
+
+#+NAME: surfraw-ddg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+<<ddg>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-ddg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
+<<ddg>>
+#+END_SRC
+
+***** iplayer
+
++ home dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+<<iplayer>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-iplayer-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
+<<iplayer>>
+#+END_SRC
+
+***** limetorrents
+
++ home dir
+
+#+NAME: surfraw-limetorrents-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
+<<limetorrents>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-limetorrents-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/limetorrents" :tangle-mode (identity #o755)
+<<limetorrents>>
+#+END_SRC
+
+***** rarbg
+
++ home dir
+
+#+NAME: surfraw-rarbg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
+<<rarbg>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-rarbg-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/rarbg" :tangle-mode (identity #o755)
+<<rarbg>>
+#+END_SRC
+
+***** reddit
+
++ home dir
+
+#+NAME: surfraw-reddit-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
+<<reddit>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-reddit-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/reddit" :tangle-mode (identity #o755)
+<<reddit>>
+#+END_SRC
+
+***** stackexchange
+
++ home dir
+
+#+NAME: surfraw-stackexchange-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
+<<stackexchange>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-stackexchange-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/stackexchange" :tangle-mode (identity #o755)
+<<stackexchange>>
+#+END_SRC
+
+***** sunxdcc
+
++ home dir
+
+#+NAME: surfraw-sunxdcc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+<<sunxdcc>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-sunxdcc-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
+<<sunxdcc>>
+#+END_SRC
+
+***** thepacket
+
++ home dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-thepacket-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
+<<thepacket>>
+#+END_SRC
+
+***** torrentdownloads
+
++ home dir
+
+#+NAME: surfraw-torrentdownloads-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
+<<torrentdownloads>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-torrentdownloads-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentdownloads" :tangle-mode (identity #o755)
+<<torrentdownloads>>
+#+END_SRC
+
+***** torrentgalaxy
+
++ home dir
+
+#+NAME: surfraw-torrentgalaxy-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
+<<torrentgalaxy>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-torrentgalaxy-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/torrentgalaxy" :tangle-mode (identity #o755)
+<<torrentgalaxy>>
+#+END_SRC
+
+***** video
+
++ home dir
+
+#+NAME: surfraw-video-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
+<<video>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-video-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
+<<video>>
+#+END_SRC
+
+***** vimeo
+
++ home dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-vimeo-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
+<<vimeo>>
+#+END_SRC
+
+***** xdcceu
+
++ home dir
+
+#+NAME: surfraw-xdcceu-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+<<xdcceu>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-xdcceu-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
+<<xdcceu>>
 #+END_SRC
 
 ** ytfzf
