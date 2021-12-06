@@ -5266,8 +5266,8 @@ set -g default-terminal "screen"
 # No bells at all
 set -g bell-action none
 
-# Keep windows around after they exit
-set -g remain-on-exit on
+# close panes after command has finished
+set -g remain-on-exit off
 
 # Change the prefix key to C-a
 set -g prefix C-a
@@ -5359,6 +5359,10 @@ bind-key -T choice-mode-vi H send-keys -X tree-collapse-all
 bind-key -T choice-mode-vi L send-keys -X tree-expand-all
 bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe "xclip -in -selection clipboard"
 bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -in -selection clipboard"
+
+# urlscan as context and url view
+bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; \
+	new-window -n "urlscan" '$SHELL -c "urlscan -c < /tmp/tmux-buffer"'
 #+END_SRC
 
 *** tmux tangle
@@ -5779,10 +5783,6 @@ macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browse
 macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro l set browser "/snap/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 
-# urlscan
-external-url-viewer "urlscan"
-bind-key U show-urls
-
 #macro m set browser "/usr/bin/mpv %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 #macro . set browser "/usr/bin/tsp /usr/bin/mpv --fs --screen=1 %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 #macro . set browser "/home/djwilcox/bin/yank -i %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
@@ -5842,10 +5842,6 @@ download-timeout 60
 # transmission remote as externel browser
 #browser "transmission-remote --add '%u'"
 browser "[ -d /etc/netns/vpn ] && namespace transmission-remote --add '%u' || transmission-remote --add '%u'"
-
-# urlscan
-external-url-viewer "urlscan"
-bind-key U show-urls
 
 # unbind keys
 unbind-key ENTER
@@ -8176,9 +8172,9 @@ urimethodmap ~/.w3m/urimethodmap, /usr/local/etc/w3m/urimethodmap
 editor /usr/local/bin/emacsclient
 mailto_options 1
 mailer 
-extbrowser /usr/bin/mpv %s &
-extbrowser2 /home/djwilcox/bin/pinch -i %s &
-extbrowser3 /usr/bin/youtube-dl %s &
+extbrowser /snap/bin/firefox
+extbrowser2 
+extbrowser3 
 extbrowser4 
 extbrowser5 
 extbrowser6 
