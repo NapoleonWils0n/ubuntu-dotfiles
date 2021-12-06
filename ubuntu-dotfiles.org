@@ -5961,6 +5961,9 @@ https://rarbg.to/rssdd.php?categories=42 movies bd full rarbg "~full bd"
 https://rarbg.to/rssdd.php?categories=46 bd remux rarbg "~bd remux"
 https://rarbg.to/rssdd.php?categories=25 music flac rarbg "~flac audio"
 
+eztv
+https://eztv.re/ezrss.xml tv eztv "~eztv"
+
 torrentgalaxy
 https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies"
 https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies"
@@ -6924,6 +6927,34 @@ escaped_args=`w3_url_of_arg $w3_args`
 w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
 #+END_SRC
 
+*** eztv
+
+#+NAME: eztv
+#+BEGIN_SRC conf
+#!/bin/sh
+# DESC: Elvi to search 1337x
+# elvis: eztv		-- Search eztv for torrents (eztv.re)
+. surfraw || exit 1
+
+w3_usage_hook () {
+    cat <<EOF
+Usage: $w3_argv0 [options] [search words]...
+Description:
+  Search eztv (eztv.re) for torrents
+EOF
+    w3_global_usage
+}
+
+w3_config
+w3_parse_args "$@"
+if test -z "$w3_args"; then
+    w3_browse_url "https://eztv.re"
+else
+    escaped_args=`w3_url_of_arg $w3_args`
+    w3_browse_url "https://eztv.re/search/${escaped_args}/1/"
+fi
+#+END_SRC
+
 *** iplayer
 
 #+NAME: iplayer
@@ -7549,6 +7580,22 @@ fi
 #+NAME: surfraw-ddg-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
 <<ddg>>
+#+END_SRC
+
+***** eztv
+
++ home dir
+
+#+NAME: surfraw-eztv-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
+<<eztv>>
+#+END_SRC
+
++ current dir
+
+#+NAME: surfraw-eztv-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/eztv" :tangle-mode (identity #o755)
+<<eztv>>
 #+END_SRC
 
 ***** iplayer
