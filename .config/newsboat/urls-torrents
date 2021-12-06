@@ -18,12 +18,12 @@ eztv
 https://eztv.re/ezrss.xml tv eztv "~eztv"
 
 torrentgalaxy
-https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies"
-https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies"
+https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies hd"
+https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies sd"
 https://torrentgalaxy.to/rss.php?cat=4 movies packs torrentgalaxy "~movies packs"
-https://torrentgalaxy.to/rss.php?cat=41 tv hd torrentgalaxy "~movies packs"
-https://torrentgalaxy.to/rss.php?cat=5 tv sd torrentgalaxy "~movies packs"
-https://torrentgalaxy.to/rss.php?cat=6 tv packs torrentgalaxy "~movies packs"
+https://torrentgalaxy.to/rss.php?cat=41 tv hd torrentgalaxy "~tv hd"
+https://torrentgalaxy.to/rss.php?cat=5 tv sd torrentgalaxy "~tv sd"
+https://torrentgalaxy.to/rss.php?cat=6 tv packs torrentgalaxy "~tv packs"
 https://torrentgalaxy.to/rss.php?cat=22 music albums torrentgalaxy "~music albums"
 https://torrentgalaxy.to/rss.php?cat=23 music lossless torrentgalaxy "~music lossless"
 
