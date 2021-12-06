@@ -5362,7 +5362,11 @@ bind-key -T copy-mode-vi y send-keys -X copy-pipe "xclip -in -selection clipboar
 
 # urlscan as context and url view
 bind-key u capture-pane \; save-buffer /tmp/tmux-buffer \; \
-	new-window -n "urlscan" '$SHELL -c "urlscan -c < /tmp/tmux-buffer"'
+new-window -n "urlscan" '$SHELL -c "urlscan -c < /tmp/tmux-buffer"'
+
+# copy mode - emulate right click "search google for {text}" like you do in GUI web browsers. 
+bind-key -T copy-mode-vi 'o' send-keys -X copy-selection \; \
+new-window -n google \; send-keys -t google 'sr google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
 #+END_SRC
 
 *** tmux tangle
