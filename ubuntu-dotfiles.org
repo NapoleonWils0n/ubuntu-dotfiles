@@ -5977,7 +5977,7 @@ https://torrentgalaxy.to/rss.php?cat=23 music lossless torrentgalaxy "~music los
 limetorrents
 https://www.limetorrents.pro/rss/16/ movies limetorrents "~movies"
 https://www.limetorrents.pro/rss/20/ tv limetorrents "~tv"
-https://www.limetorrents.pro/rss/20/ music limetorrents "~music"
+https://www.limetorrents.pro/rss/17/ music limetorrents "~music"
 
 demonoid
 https://www.dnoid.to/rss/8.xml movies demonoid "~movies"
