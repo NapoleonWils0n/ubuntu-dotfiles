@@ -9856,14 +9856,14 @@ Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -private-window
 + home dir
   
 #+NAME: firefox-netns-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/firefox-vpn.desktop"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/firefox_vpn.desktop"
 <<firefox-netns-desktop>>
 #+END_SRC
   
 + current dir
 
 #+NAME: firefox-netns-desktop-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/firefox-vpn.desktop"
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/firefox_vpn.desktop"
 <<firefox-netns-desktop>>
 #+END_SRC
 ** mimeinfo 
