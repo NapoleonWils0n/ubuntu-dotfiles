@@ -5,4 +5,4 @@ configuration {
  show-icons: true;
  combi-modi: "window,drun";
  }
-@import "/usr/share/rofi/themes/Arc-Dark.rasi"
+@import "/home/djwilcox/.config/rofi/themes/Arc-Dark.rasi"

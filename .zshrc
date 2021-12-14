@@ -312,3 +312,6 @@ compdef _gnu_generic transmission-cli
 compdef _gnu_generic transmission-create
 compdef _gnu_generic transmission-edit
 compdef _gnu_generic transmission-pwgen
+
+# export fix for nixos
+export LC_ALL=C
