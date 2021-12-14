@@ -20,6 +20,3 @@ export KEYTIMEOUT=1
 
 # mpd host variable for mpc
 export MPD_HOST="/home/djwilcox/.config/mpd/socket"
-
-# homebrew
-eval "$(/home/djwilcox/.linuxbrew/bin/brew shellenv)"
