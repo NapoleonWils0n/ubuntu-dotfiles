@@ -1635,39 +1635,7 @@ Restart=always
 WantedBy=default.target
 #+END_SRC
 
-*** mpd.service
-
-#+NAME: mpd.service
-#+BEGIN_SRC conf
-[Unit]
-Description=Music Player Daemon
-After=network.target sound.target
-
-[Service]
-ExecStart=/usr/bin/mpd --no-daemon /home/djwilcox/.config/mpd/mpd.conf
-
-[Install]
-WantedBy=default.target
-#+END_SRC
-
 **** systemd tangle
-
-***** mpd.service
-
-+ home dir
-
-#+NAME: mpd.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/mpd.service"
-<<mpd.service>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpd.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/mpd.service"
-<<mpd.service>>
-#+END_SRC
-
 ***** ssh-agent.service
 
 + home dir
@@ -5079,7 +5047,7 @@ ctrl + super + Escape
 
 # sxhkd reload config
 ctrl + super + p
-    export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS" && rofi -show combi -modi combi
+    XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS" && rofi -show combi -modi combi
 
 # multimedia keys
 #==========================
@@ -8813,10 +8781,16 @@ decoder {
         enabled                 "no"
 #       gapless                 "no"
 }
+#audio_output {
+#	type		"alsa"
+#	name		"My ALSA Device"
+#}
+
 audio_output {
-	type		"alsa"
-	name		"My ALSA Device"
+        type            "pulse"
+        name            "pulse audio"
 }
+
 filesystem_charset		"UTF-8"
 #+END_SRC
 
