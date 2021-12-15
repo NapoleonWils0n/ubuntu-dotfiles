@@ -1,8 +1,13 @@
 # sxhkdrc 
 
 # sxhkd reload config
-super + Escape
-	pkill -USR1 -x sxhkd
+ctrl + super + Escape
+    pkill -USR1 -x sxhkd
+
+
+# sxhkd reload config
+ctrl + super + p
+    rofi -show combi -modi combi
 
 # multimedia keys
 #==========================
@@ -69,7 +74,6 @@ alt + super + 0
 
 alt + super + z
   now-playing
-
 
 # ducky one 2 mini keyboard
 #==========================

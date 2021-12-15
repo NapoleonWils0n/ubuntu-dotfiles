@@ -191,7 +191,7 @@ myKeys =
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
-     , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
+    -- , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
@@ -4436,6 +4436,15 @@ compdef _gnu_generic transmission-pwgen
 
 # export fix for nixos
 export LC_ALL=C
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
+# nix os xdg directories
+export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 #+END_SRC
 
 *** zshenv
@@ -5064,8 +5073,13 @@ sxhkd keyboard media keys
 # sxhkdrc 
 
 # sxhkd reload config
-super + Escape
-	pkill -USR1 -x sxhkd
+ctrl + super + Escape
+    pkill -USR1 -x sxhkd
+
+
+# sxhkd reload config
+ctrl + super + p
+    rofi -show combi -modi combi
 
 # multimedia keys
 #==========================
@@ -5132,7 +5146,6 @@ alt + super + 0
 
 alt + super + z
   now-playing
-
 
 # ducky one 2 mini keyboard
 #==========================
@@ -7835,7 +7848,7 @@ fi
 
 # mpd and taskspooler
 audio() {
-      tsp pinch -i "${url}" 1>/dev/null 
+      ts pinch -i "${url}" 1>/dev/null 
 }
 
 copy_link() {
@@ -7844,7 +7857,7 @@ copy_link() {
 
 # youtube-dl and taskspooler
 download() {
-      tsp \
+      ts \
       youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
       --restrict-filenames \
       --no-playlist \
@@ -7855,12 +7868,12 @@ download() {
 
 # mpv fullscreen on second display and taskspooler
 fullscreen() {
-      tsp mpv --fs --screen=1 "${url}" 1>/dev/null 
+      ts mpv --fs --screen=1 "${url}" 1>/dev/null 
 }
 
 # mpv and taskspooler
 video() {
-      tsp mpv --no-terminal "${url}" 1>/dev/null
+      ts mpv --no-terminal "${url}" 1>/dev/null
 }
 
 # fzf prompt variables spaces to line up menu options

@@ -148,7 +148,7 @@ myKeys =
      , ("M-t", sendMessage $ JumpToLayout "Tall")
      , ("M-g", sendMessage $ JumpToLayout "Grid")
      , ("M-b", sendMessage $ JumpToLayout "BSP")
-     , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
+    -- , ("M-p", spawn "rofi -show combi -modi combi") -- rofi
      , ("S-M-t", withFocused $ windows . W.sink) -- flatten floating window to tiled
      , ("M-C-<Space>", namedScratchpadAction myScratchpads "terminal")
      , ("M-C-<Return>", namedScratchpadAction myScratchpads "emacs-scratch")
