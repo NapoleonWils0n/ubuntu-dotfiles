@@ -5079,7 +5079,7 @@ ctrl + super + Escape
 
 # sxhkd reload config
 ctrl + super + p
-    rofi -show combi -modi combi
+    export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS" && rofi -show combi -modi combi
 
 # multimedia keys
 #==========================
