@@ -79,7 +79,7 @@ myStartupHook = do
       spawnOnce "sxhkd &" -- sxhkd keyboard
       spawnOnce "dunst &" -- dunst
       spawnOnce "nm-applet &" -- network applet
-      spawnOnce "/usr/bin/tint2 -c /home/djwilcox/.config/tint2/tint2rc"
+      spawnOnce "tint2 -c /home/djwilcox/.config/tint2/tint2rc"
 
 ------------------------------------------------------------------------
 -- layout
