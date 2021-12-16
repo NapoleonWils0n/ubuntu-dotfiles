@@ -2,8 +2,8 @@
 
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
-export EDITOR="/usr/bin/emacsclient -a emacs"
-export VISUAL="/usr/bin/emacsclient -c -a emacs"
+export EDITOR="emacsclient -a emacs"
+export VISUAL="emacsclient -c -a emacs"
 
 # ssh-add
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
