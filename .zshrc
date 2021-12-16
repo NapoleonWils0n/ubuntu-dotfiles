@@ -316,11 +316,5 @@ compdef _gnu_generic transmission-pwgen
 # export fix for nixos
 export LC_ALL=C
 
-# Nix
-if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-# End Nix
-
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
