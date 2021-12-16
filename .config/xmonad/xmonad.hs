@@ -75,11 +75,12 @@ instance UrgencyHook LibNotifyUrgencyHook where
 
 myStartupHook = do
       spawnOnce "urxvtd &" -- start urxvt terminal daemon
-      spawnOnce "emacs &" -- emacs
+      spawnOnce "emacs --daemon" -- emacs
       spawnOnce "sxhkd &" -- sxhkd keyboard
       spawnOnce "dunst &" -- dunst
       spawnOnce "nm-applet &" -- network applet
       spawnOnce "tint2 -c /home/djwilcox/.config/tint2/tint2rc"
+      spawnOnce "mpd --no-daemon /home/djwilcox/.config/mpd/mpd.conf"
 
 ------------------------------------------------------------------------
 -- layout

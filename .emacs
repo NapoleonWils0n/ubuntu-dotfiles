@@ -4,9 +4,6 @@
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
 
-; server start
-(server-start)
-
 ; melpa packages --------------------------------------------------------------------------
 
 (require 'package)
