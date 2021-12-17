@@ -62,8 +62,8 @@
         w3m
         zathura
       ];
-      pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/applications" "/bin" "/etc" ];
-      extraOutputsToInstall = [ "man" "doc" "info" "applications" ];
+      pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/applications" "/share/icons" "/bin" "/etc" ];
+      extraOutputsToInstall = [ "man" "doc" "info" "applications" "icons" ];
       postBuild = ''
         if [ -x $out/bin/install-info -a -w $out/share/info ]; then
           shopt -s nullglob
