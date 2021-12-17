@@ -19,7 +19,7 @@ fi
 
 # mpd and taskspooler
 audio() {
-      ts pinch -i "${url}" 1>/dev/null 
+      tsp pinch -i "${url}" 1>/dev/null 
 }
 
 copy_link() {
@@ -28,7 +28,7 @@ copy_link() {
 
 # youtube-dl and taskspooler
 download() {
-      ts \
+      tsp \
       youtube-dl -f 'bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best' \
       --restrict-filenames \
       --no-playlist \
@@ -39,12 +39,12 @@ download() {
 
 # mpv fullscreen on second display and taskspooler
 fullscreen() {
-      ts mpv --fs --screen=1 "${url}" 1>/dev/null 
+      tsp mpv --fs --screen=1 "${url}" 1>/dev/null 
 }
 
 # mpv and taskspooler
 video() {
-      ts mpv --no-terminal "${url}" 1>/dev/null
+      tsp mpv --no-terminal "${url}" 1>/dev/null
 }
 
 # fzf prompt variables spaces to line up menu options
