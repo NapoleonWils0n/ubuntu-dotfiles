@@ -118,6 +118,12 @@ mkdir -p ~/.config/xmonad/
 }
 #+END_SRC
 
+install packages by running 
+
+#+begin_src sh
+nix-env -iA nixpkgs.myPackages
+#+end_src
+
 *** nixpkgs tangle
 :PROPERTIES:
 :ORDERED:  t
