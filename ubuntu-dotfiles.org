@@ -63,7 +63,6 @@ mkdir -p ~/.config/xmonad/
         emacs
         exiftool
         feh
-        fzf
         gdal
         gimp
         gpsbabel
@@ -120,6 +119,7 @@ mkdir -p ~/.config/xmonad/
 
 install packages by running 
 
+#+NAME: nixpkgs-install
 #+begin_src sh
 nix-env -iA nixpkgs.myPackages
 #+end_src

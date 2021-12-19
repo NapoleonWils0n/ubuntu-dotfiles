@@ -22,7 +22,6 @@
         emacs
         exiftool
         feh
-        fzf
         gdal
         gimp
         gpsbabel
