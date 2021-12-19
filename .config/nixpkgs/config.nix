@@ -21,6 +21,7 @@
         dunst
         emacs
         exiftool
+	exa
         feh
         gdal
         gimp

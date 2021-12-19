@@ -62,6 +62,7 @@ mkdir -p ~/.config/xmonad/
         dunst
         emacs
         exiftool
+	exa
         feh
         gdal
         gimp
