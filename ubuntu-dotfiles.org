@@ -4,7 +4,6 @@
 #+PROPERTY: header-args :mkdirp yes
 
 * tangle dotfiles
-
 ** tangle document
 
 C-c C-v t
@@ -17,18 +16,6 @@ C-u C-c C-v t
 
 #+begin_src sh
 emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubuntu-dotfiles.org")'
-#+end_src
-
-* xdg and dotfiles
-
-** xmonad
-
-+ Create XDG directories for xmonad
-
-#+NAME: xmonad-xdg
-#+begin_src sh
-mkdir -p ~/.local/share/xmonad
-mkdir -p ~/.config/xmonad/
 #+end_src
 
 * ubuntu dotfiles
@@ -145,8 +132,6 @@ nix-env -iA nixpkgs.myPackages
 #+END_SRC
 
 ** xmonad
-
-+ xmonad config 
 
 #+NAME: xmonad
 #+BEGIN_SRC haskell
@@ -342,14 +327,6 @@ main = do
         }
         `additionalKeysP` myKeys
 #+END_SRC
-
-+ Create XDG directories for xmonad
-
-#+NAME: xmonad-xdg
-#+begin_src sh
-mkdir -p ~/.local/share/xmonad
-mkdir -p ~/.config/xmonad/
-#+end_src
 
 *** xmonad tangle
 :PROPERTIES:
