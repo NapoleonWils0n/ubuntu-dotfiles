@@ -6234,9 +6234,9 @@ highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
 
 # styling
-highlight feedlist "[║│]" default default bold
-highlight feedlist "╠═.*" default default bold
-feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-8t════════════════════════════════════════?"
+#highlight feedlist "[║│]" default default bold
+#highlight feedlist "╠═.*" default default bold
+#feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-8t════════════════════════════════════════?"
 
 # notify
 notify-program "/usr/bin/notify-send"
@@ -6293,9 +6293,9 @@ highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
 
 # styling
-highlight feedlist "[║│]" default default bold
-highlight feedlist "╠═.*" default default bold
-feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-15t═════════════════════════════════?"
+#highlight feedlist "[║│]" default default bold
+#highlight feedlist "╠═.*" default default bold
+#feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-15t═════════════════════════════════?"
 
 # notify
 notify-program "/usr/bin/notify-send"
@@ -6305,11 +6305,11 @@ notify-program "/usr/bin/notify-send"
 
 #+NAME: newsboat-urls
 #+BEGIN_SRC conf
-queries
+# queries
 "query:Newcastle United:tags # \"newcastle\"" meta
 "query:Unread Articles:unread = \"yes\"" meta
 
-news
+# news
 https://www.howtogeek.com/feed/ news
 http://feeds.arstechnica.com/arstechnica/index news
 https://www.omgubuntu.co.uk/feed news
@@ -6317,7 +6317,7 @@ https://itsfoss.com/feed/ news
 http://feeds.feedburner.com/Torrentfreak news
 https://news.ycombinator.com/rss news "~Hacker News" 
 
-toon
+# toon
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~The Magpie Channel" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg newcastle "~Newcastle Fans TV" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg newcastle "~Roobenstein" 
@@ -6325,7 +6325,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg new
 https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA newcastle "~Adam Pearson" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw newcastle "~Newcastle United" 
 
-tech
+# tech
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg linux "~Distrotube" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA linux "~Brodie Robertson" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw linux "~Linus Tech Tips" 
@@ -6336,23 +6336,23 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA lin
 https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw linux "~The Linux Experiment" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw linux "~Hikmat E Ustad" 
 
-comedy
+# comedy
 https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa comedy "~A Closer Look" 
 
-general
+# general
 https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag general "~David Pakman" 
 
-emacs
+# emacs
 https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ emacs "~System Crafters" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g emacs "~Protesilaos Stavrou" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w emacs "~Mike Zamansky" 
 
-obs
+# obs
 https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w obs "~Gaming Careers" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg obs "~Streamgeeks" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g obs "~Eposvox" 
 
-reddit
+# reddit
 https://www.reddit.com/r/emacs/new.rss reddit "~Emacs" 
 https://www.reddit.com/r/xmonad/new.rss reddit "~Xmonad" 
 https://www.reddit.com/r/zsh/.rss reddit "~zsh" 
@@ -6364,19 +6364,19 @@ https://www.reddit.com/r/commandline/new.rss reddit "~Command Line"
 https://www.reddit.com/r/clistuff/.rss reddit "~cli stuff" 
 https://www.reddit.com/r/UnixProTips/.rss reddit "~Unix Pro tips" 
 https://www.reddit.com/r/haskell/new.rss reddit "~Haskell" 
-https://www.reddit.com/r/gnu/.rss reddit "~gnu" 
+https://www.reddit.com/r/gnu/.rss reddit "~gnu"
 #+END_SRC
 
 *** urls-torrents
 
 #+NAME: newsboat-urls-torrents
 #+BEGIN_SRC conf
-queries
+# queries
 "query:tv:tags # \"tv\"" meta
 "query:movies:tags # \"movies\"" meta
 "query:music:tags # \"music\"" meta
 
-rarbg
+# rarbg
 https://rarbg.to/rssdd_magnet.php?categories=18 tv sd rarbg "~tv sd"
 https://rarbg.to/rssdd_magnet.php?categories=41 tv hd rarbg "~tv hd"
 https://rarbg.to/rssdd.php?categories=17 movies h264 rarbg "~h264 movies"
@@ -6387,10 +6387,10 @@ https://rarbg.to/rssdd.php?categories=42 movies bd full rarbg "~full bd"
 https://rarbg.to/rssdd.php?categories=46 bd remux rarbg "~bd remux"
 https://rarbg.to/rssdd.php?categories=25 music flac rarbg "~flac audio"
 
-eztv
+# eztv
 https://eztv.re/ezrss.xml tv eztv "~eztv"
 
-torrentgalaxy
+# torrentgalaxy
 https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies hd"
 https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies sd"
 https://torrentgalaxy.to/rss.php?cat=4 movies packs torrentgalaxy "~movies packs"
@@ -6400,12 +6400,12 @@ https://torrentgalaxy.to/rss.php?cat=6 tv packs torrentgalaxy "~tv packs"
 https://torrentgalaxy.to/rss.php?cat=22 music albums torrentgalaxy "~music albums"
 https://torrentgalaxy.to/rss.php?cat=23 music lossless torrentgalaxy "~music lossless"
 
-limetorrents
+# limetorrents
 https://www.limetorrents.pro/rss/16/ movies limetorrents "~movies"
 https://www.limetorrents.pro/rss/20/ tv limetorrents "~tv"
 https://www.limetorrents.pro/rss/17/ music limetorrents "~music"
 
-demonoid
+# demonoid
 https://www.dnoid.to/rss/8.xml movies demonoid "~movies"
 https://www.dnoid.to/rss/12.xml tv demonoid "~tv"
 https://www.dnoid.to/rss/9.xml music demonoid "~music"

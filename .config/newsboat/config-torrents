@@ -45,9 +45,9 @@ highlight article "^(Feed|Title|Link|Date|Author):.*$" color12 color8
 highlight article "https?://[^ ]+" color4 color8 protect
 
 # styling
-highlight feedlist "[║│]" default default bold
-highlight feedlist "╠═.*" default default bold
-feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-15t═════════════════════════════════?"
+#highlight feedlist "[║│]" default default bold
+#highlight feedlist "╠═.*" default default bold
+#feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-15t═════════════════════════════════?"
 
 # notify
 notify-program "/usr/bin/notify-send"

@@ -1,8 +1,8 @@
-queries
+# queries
 "query:Newcastle United:tags # \"newcastle\"" meta
 "query:Unread Articles:unread = \"yes\"" meta
 
-news
+# news
 https://www.howtogeek.com/feed/ news
 http://feeds.arstechnica.com/arstechnica/index news
 https://www.omgubuntu.co.uk/feed news
@@ -10,7 +10,7 @@ https://itsfoss.com/feed/ news
 http://feeds.feedburner.com/Torrentfreak news
 https://news.ycombinator.com/rss news "~Hacker News" 
 
-toon
+# toon
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~The Magpie Channel" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg newcastle "~Newcastle Fans TV" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg newcastle "~Roobenstein" 
@@ -18,7 +18,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg new
 https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA newcastle "~Adam Pearson" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw newcastle "~Newcastle United" 
 
-tech
+# tech
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg linux "~Distrotube" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA linux "~Brodie Robertson" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw linux "~Linus Tech Tips" 
@@ -29,23 +29,23 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA lin
 https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw linux "~The Linux Experiment" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw linux "~Hikmat E Ustad" 
 
-comedy
+# comedy
 https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa comedy "~A Closer Look" 
 
-general
+# general
 https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag general "~David Pakman" 
 
-emacs
+# emacs
 https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ emacs "~System Crafters" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g emacs "~Protesilaos Stavrou" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w emacs "~Mike Zamansky" 
 
-obs
+# obs
 https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w obs "~Gaming Careers" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg obs "~Streamgeeks" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g obs "~Eposvox" 
 
-reddit
+# reddit
 https://www.reddit.com/r/emacs/new.rss reddit "~Emacs" 
 https://www.reddit.com/r/xmonad/new.rss reddit "~Xmonad" 
 https://www.reddit.com/r/zsh/.rss reddit "~zsh" 
