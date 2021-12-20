@@ -313,7 +313,13 @@ compdef _gnu_generic transmission-create
 compdef _gnu_generic transmission-edit
 compdef _gnu_generic transmission-pwgen
 
-# export fix for nixos
+# exa
+compdef _gnu_generic exa
+
+# nixpks completion
+compdef _gnu_generic nix-env
+
+# export fix for nixpkgs
 export LC_ALL=C
 
 # nix os xdg directories
