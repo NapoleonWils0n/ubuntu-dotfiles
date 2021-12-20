@@ -2,7 +2,6 @@
 #+STARTUP: overview hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
-
 * tangle dotfiles
 ** tangle document
 
@@ -11317,4 +11316,5 @@ whitelist /usr/share/transmission/web
 #+BEGIN_SRC conf :noweb yes :tangle ".config/youtube-dl/config"
 <<youtube-dl>>
 #+END_SRC
+
 
