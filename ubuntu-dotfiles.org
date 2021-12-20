@@ -1689,7 +1689,8 @@ exec /usr/bin/xmonad
 #+end_src
 
 ** systemd
-*** ssh-agent.service
+*** systemd config
+**** ssh-agent.service
 
 #+NAME: ssh-agent.service
 #+BEGIN_SRC conf
@@ -1705,7 +1706,7 @@ ExecStart=/usr/bin/ssh-agent -a $SSH_AUTH_SOCK
 WantedBy=default.target
 #+END_SRC
 
-*** emacs.service
+**** emacs.service
 
 #+NAME: emacs.service
 #+BEGIN_SRC conf
@@ -1722,8 +1723,8 @@ Restart=always
 WantedBy=default.target
 #+END_SRC
 
-**** systemd tangle
-***** ssh-agent.service
+*** systemd tangle
+**** ssh-agent.service
 
 + home dir
 
@@ -1739,7 +1740,7 @@ WantedBy=default.target
 <<ssh-agent.service>>
 #+END_SRC
 
-***** emacs.service
+**** emacs.service
 
 + home dir
 
@@ -1756,7 +1757,8 @@ WantedBy=default.target
 #+END_SRC
 
 ** xkb
-*** keymap.xkb
+*** xkb config
+**** keymap.xkb
 
 #+NAME: xkb-keymap.xkb
 #+BEGIN_SRC conf
@@ -3731,7 +3733,7 @@ xkb_geometry "pc(pc104)" {
 };
 #+END_SRC
 
-*** custom
+**** custom
 
 #+NAME: xkb-custom
 #+BEGIN_SRC conf
@@ -3747,9 +3749,8 @@ xkb_symbols "alt_win_ctrl" {
 };
 #+END_SRC
 
-**** xkb tangle
-
-***** keymap.xkb
+*** xkb tangle
+**** keymap.xkb
 
 + home dir
 
@@ -3765,7 +3766,7 @@ xkb_symbols "alt_win_ctrl" {
 <<xkb-keymap.xkb>>
 #+END_SRC
 
-***** custom
+**** custom
 
 + home dir
 
@@ -4169,7 +4170,8 @@ MimeType=x-scheme-handler/org-protocol;
 #+END_SRC
 
 ** zsh
-*** zshrc
+*** zsh config
+**** zshrc
 
 #+NAME: zshrc
 #+BEGIN_SRC conf
@@ -4501,7 +4503,7 @@ export LC_ALL=C
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 #+END_SRC
 
-*** zshenv
+**** zshenv
 
 #+NAME: zshenv
 #+begin_src conf
@@ -4529,6 +4531,7 @@ export KEYTIMEOUT=1
 export MPD_HOST="/home/djwilcox/.config/mpd/socket"
 #+end_src
 
+*** zsh tangle
 **** zshrc tangle
 
 + home dir
@@ -5606,7 +5609,8 @@ new-window -n google \; send-keys -t google 'sr google "$(tmux show-buffer)" && 
 #+END_SRC
 
 ** rofi
-*** config.rasi
+*** rofi config
+**** config.rasi
 
 #+NAME: rofi
 #+BEGIN_SRC conf
@@ -5620,7 +5624,7 @@ configuration {
 @import "/home/djwilcox/.config/rofi/themes/Arc-Dark.rasi"
 #+END_SRC
 
-*** rofi-theme
+**** rofi-theme
 
 #+NAME: rofi-theme
 #+BEGIN_SRC conf
@@ -5776,7 +5780,8 @@ textbox-prompt-colon {
 }
 #+END_SRC
 
-**** rofi tangle
+*** rofi tangle
+**** rofi config tangle
 
 + home dir
 
@@ -5809,8 +5814,8 @@ textbox-prompt-colon {
 #+END_SRC
 
 ** mpv
-
-*** input.conf
+*** mpv config
+**** input.conf
 
 #+NAME: input.conf
 #+BEGIN_SRC conf
@@ -5825,7 +5830,7 @@ J cycle sub
 K cycle sub down 
 #+END_SRC
 
-*** mpv.conf
+**** mpv.conf
 
 #+NAME: mpv.conf
 #+BEGIN_SRC conf
@@ -5839,8 +5844,8 @@ ytdl-format=bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best
 osd-fractions
 #+END_SRC
 
-**** mpv tangle
-***** input.conf tangle
+*** mpv tangle
+**** input.conf tangle
 
 + home dir
 
@@ -5856,7 +5861,7 @@ osd-fractions
 <<input.conf>>
 #+END_SRC
 
-***** mpv.conf tangle
+**** mpv.conf tangle
 
 + home dir
 
@@ -5870,30 +5875,6 @@ osd-fractions
 #+NAME: mpv.conf-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
 <<mpv.conf>>
-#+END_SRC
-
-** youtube-dl
-
-#+NAME: youtube-dl
-#+BEGIN_SRC conf
-# external downloader aria2
---external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
-#+END_SRC
-
-*** youtube-dl tangle
-
-+ home dir
-
-#+NAME: youtube-dl-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/youtube-dl/config"
-<<youtube-dl>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: youtube-dl-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/youtube-dl/config"
-<<youtube-dl>>
 #+END_SRC
 
 ** yt-dlp
@@ -6162,7 +6143,8 @@ osd-fractions
 #+end_src
 
 ** newsboat
-*** config
+*** newsboat config
+**** config
 
 #+NAME: newsboat-config
 #+BEGIN_SRC conf
@@ -6225,7 +6207,7 @@ highlight article "https?://[^ ]+" color4 color8 protect
 notify-program "/usr/bin/notify-send"
 #+END_SRC
 
-*** config-torrents
+**** config-torrents
 
 #+NAME: newsboat-config-torrents
 #+BEGIN_SRC conf
@@ -6284,7 +6266,7 @@ highlight article "https?://[^ ]+" color4 color8 protect
 notify-program "/usr/bin/notify-send"
 #+END_SRC
 
-*** urls
+**** urls
 
 #+NAME: newsboat-urls
 #+BEGIN_SRC conf
@@ -6350,7 +6332,7 @@ https://www.reddit.com/r/haskell/new.rss reddit "~Haskell"
 https://www.reddit.com/r/gnu/.rss reddit "~gnu"
 #+END_SRC
 
-*** urls-torrents
+**** urls-torrents
 
 #+NAME: newsboat-urls-torrents
 #+BEGIN_SRC conf
@@ -6395,8 +6377,8 @@ https://www.dnoid.to/rss/9.xml music demonoid "~music"
 https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 #+END_SRC
 
-**** newsboat tangle
-***** config tangle
+*** newsboat tangle
+**** config tangle
 
 + home dir
 
@@ -6412,7 +6394,7 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 <<newsboat-config>>
 #+END_SRC
 
-***** config-torrents tangle
+**** config-torrents tangle
 
 + home dir
 
@@ -6428,7 +6410,7 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 <<newsboat-config-torrents>>
 #+END_SRC
 
-***** urls tangle
+**** urls tangle
 
 + home dir
 
@@ -6444,7 +6426,7 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 <<newsboat-urls>>
 #+END_SRC
 
-***** urls-torrents tangle
+**** urls-torrents tangle
 
 + home dir
 
@@ -6461,7 +6443,8 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 #+END_SRC
 
 ** surfraw
-*** surfraw
+*** surfraw config
+**** surfraw
 
 surfraw config
 
@@ -6472,7 +6455,7 @@ SURFRAW_text_browser=/usr/bin/w3m
 SURFRAW_graphical=yes
 #+END_SRC
 
-*** 1337x
+**** 1337x
 
 #+NAME: 1337x
 #+begin_src conf
@@ -6504,7 +6487,7 @@ else
 fi
 #+end_src
 
-*** archive
+**** archive
 
 #+NAME: archive
 #+begin_src conf
@@ -6536,7 +6519,7 @@ else
 fi
 #+end_src
 
-*** btdig
+**** btdig
 
 #+NAME: btdig
 #+BEGIN_SRC conf
@@ -6564,7 +6547,7 @@ else
 fi
 #+END_SRC
 
-*** dailymotion
+**** dailymotion
 
 #+NAME: dailymotion
 #+BEGIN_SRC conf
@@ -6592,7 +6575,7 @@ else
 fi
 #+END_SRC
 
-*** ddg
+**** ddg
 
 #+NAME: ddg
 #+BEGIN_SRC conf
@@ -6651,7 +6634,7 @@ escaped_args=`w3_url_of_arg $w3_args`
 w3_browse_url "${SURFRAW_duckduckgo_base_url}/?q=${escaped_args}${SURFRAW_duckduckgo_params}"
 #+END_SRC
 
-*** eztv
+**** eztv
 
 #+NAME: eztv
 #+BEGIN_SRC conf
@@ -6679,7 +6662,7 @@ else
 fi
 #+END_SRC
 
-*** iplayer
+**** iplayer
 
 #+NAME: iplayer
 #+BEGIN_SRC conf
@@ -6707,7 +6690,7 @@ else
 fi
 #+END_SRC
 
-*** limetorrents
+**** limetorrents
 
 #+NAME: limetorrents
 #+BEGIN_SRC conf
@@ -6739,7 +6722,7 @@ else
 fi
 #+END_SRC
 
-*** rarbg
+**** rarbg
 
 #+NAME: rarbg
 #+begin_src conf
@@ -6771,7 +6754,7 @@ else
 fi
 #+end_src
 
-*** reddit
+**** reddit
 
 #+NAME: reddit
 #+begin_src conf
@@ -6803,7 +6786,7 @@ else
 fi
 #+end_src
 
-*** stackexchange
+**** stackexchange
 
 #+NAME: stackexchange
 #+begin_src conf
@@ -6835,7 +6818,7 @@ else
 fi
 #+end_src
 
-*** sunxdcc
+**** sunxdcc
 
 #+NAME: sunxdcc
 #+begin_src conf
@@ -6867,7 +6850,7 @@ else
 fi
 #+end_src
 
-*** thepacket
+**** thepacket
 
 #+NAME: thepacket
 #+begin_src conf
@@ -6895,168 +6878,7 @@ else
 fi
 #+end_src
 
-**** surfraw tangle
-***** surfraw
-
-+ home dir
-
-#+NAME: surfraw-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/conf"
-<<surfraw>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/conf"
-<<surfraw>>
-#+END_SRC
-
-***** btdig
-
-+ home dir
-
-#+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
-<<btdig>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-btdig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/btdig" :tangle-mode (identity #o755)
-<<btdig>>
-#+END_SRC
-
-***** ddg
-
-+ home dir
-
-#+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
-<<ddg>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-ddg-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/ddg" :tangle-mode (identity #o755)
-<<ddg>>
-#+END_SRC
-
-***** iplayer
-
-+ home dir
-
-#+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
-<<iplayer>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-iplayer-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/iplayer" :tangle-mode (identity #o755)
-<<iplayer>>
-#+END_SRC
-
-***** dailymotion
-
-+ home dir
-
-#+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
-<<dailymotion>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-dailymotion-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/dailymotion" :tangle-mode (identity #o755)
-<<dailymotion>>
-#+END_SRC
-
-***** video
-
-+ home dir
-
-#+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/video" :tangle-mode (identity #o755)
-<<video>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-video-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/video" :tangle-mode (identity #o755)
-<<video>>
-#+END_SRC
-
-***** vimeo
-
-+ home dir
-
-#+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
-<<vimeo>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-vimeo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/vimeo" :tangle-mode (identity #o755)
-<<vimeo>>
-#+END_SRC
-
-***** sunxdcc
-
-+ home dir
-
-#+NAME: surfraw-sunxdcc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
-<<sunxdcc>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-sunxdcc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/sunxdcc" :tangle-mode (identity #o755)
-<<sunxdcc>>
-#+END_SRC
-
-***** xdcceu
-
-+ home dir
-
-#+NAME: surfraw-xdcceu-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
-<<xdcceu>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-xdcceu-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/xdcceu" :tangle-mode (identity #o755)
-<<xdcceu>>
-#+END_SRC
-
-***** thepacket
-
-+ home dir
-
-#+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
-<<thepacket>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: surfraw-thepacket-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/surfraw/elvi/thepacket" :tangle-mode (identity #o755)
-<<thepacket>>
-#+END_SRC
-
-*** torrentdownloads
+**** torrentdownloads
 
 #+NAME: torrentdownloads
 #+begin_src conf
@@ -7088,7 +6910,7 @@ else
 fi
 #+end_src
 
-*** torrentgalaxy
+**** torrentgalaxy
 
 #+NAME: torrentgalaxy
 #+begin_src conf
@@ -7120,7 +6942,7 @@ else
 fi
 #+end_src
 
-*** video
+**** video
 
 #+NAME: video
 #+BEGIN_SRC conf
@@ -7148,7 +6970,7 @@ else
 fi
 #+END_SRC
 
-*** vimeo
+**** vimeo
 
 #+NAME: vimeo
 #+BEGIN_SRC conf
@@ -7176,7 +6998,7 @@ else
 fi
 #+END_SRC
 
-*** xdcceu
+**** xdcceu
 
 #+NAME: xdcceu
 #+begin_src conf
@@ -7209,8 +7031,8 @@ fi
 
 #+end_src
 
-**** surfraw tangle
-***** surfraw
+*** surfraw tangle
+**** surfraw
 
 + home dir
 
@@ -7226,7 +7048,7 @@ fi
 <<surfraw>>
 #+END_SRC
 
-***** 1337x
+**** 1337x
 
 + home dir
 
@@ -7242,7 +7064,7 @@ fi
 <<1337x>>
 #+END_SRC
 
-***** archive
+**** archive
 
 + home dir
 
@@ -7258,7 +7080,7 @@ fi
 <<archive>>
 #+END_SRC
 
-***** btdig
+**** btdig
 
 + home dir
 
@@ -7274,7 +7096,7 @@ fi
 <<btdig>>
 #+END_SRC
 
-***** dailymotion
+**** dailymotion
 
 + home dir
 
@@ -7290,7 +7112,7 @@ fi
 <<dailymotion>>
 #+END_SRC
 
-***** ddg
+**** ddg
 
 + home dir
 
@@ -7306,7 +7128,7 @@ fi
 <<ddg>>
 #+END_SRC
 
-***** eztv
+**** eztv
 
 + home dir
 
@@ -7322,7 +7144,7 @@ fi
 <<eztv>>
 #+END_SRC
 
-***** iplayer
+**** iplayer
 
 + home dir
 
@@ -7338,7 +7160,7 @@ fi
 <<iplayer>>
 #+END_SRC
 
-***** limetorrents
+**** limetorrents
 
 + home dir
 
@@ -7354,7 +7176,7 @@ fi
 <<limetorrents>>
 #+END_SRC
 
-***** rarbg
+**** rarbg
 
 + home dir
 
@@ -7370,7 +7192,7 @@ fi
 <<rarbg>>
 #+END_SRC
 
-***** reddit
+**** reddit
 
 + home dir
 
@@ -7386,7 +7208,7 @@ fi
 <<reddit>>
 #+END_SRC
 
-***** stackexchange
+**** stackexchange
 
 + home dir
 
@@ -7402,7 +7224,7 @@ fi
 <<stackexchange>>
 #+END_SRC
 
-***** sunxdcc
+**** sunxdcc
 
 + home dir
 
@@ -7418,7 +7240,7 @@ fi
 <<sunxdcc>>
 #+END_SRC
 
-***** thepacket
+**** thepacket
 
 + home dir
 
@@ -7434,7 +7256,7 @@ fi
 <<thepacket>>
 #+END_SRC
 
-***** torrentdownloads
+**** torrentdownloads
 
 + home dir
 
@@ -7450,7 +7272,7 @@ fi
 <<torrentdownloads>>
 #+END_SRC
 
-***** torrentgalaxy
+**** torrentgalaxy
 
 + home dir
 
@@ -7466,7 +7288,7 @@ fi
 <<torrentgalaxy>>
 #+END_SRC
 
-***** video
+**** video
 
 + home dir
 
@@ -7482,7 +7304,7 @@ fi
 <<video>>
 #+END_SRC
 
-***** vimeo
+**** vimeo
 
 + home dir
 
@@ -7498,7 +7320,7 @@ fi
 <<vimeo>>
 #+END_SRC
 
-***** xdcceu
+**** xdcceu
 
 + home dir
 
@@ -7515,7 +7337,8 @@ fi
 #+END_SRC
 
 ** w3m
-*** bookmark.html
+*** w3m config
+**** bookmark.html
 
 #+NAME: w3m-bookmark.html
 #+BEGIN_SRC conf
@@ -7537,7 +7360,7 @@ fi
 </html>
 #+END_SRC
 
-*** config
+**** config
 
 #+NAME: w3m-config
 #+BEGIN_SRC conf
@@ -7700,8 +7523,8 @@ gb18030_as_ucs 0
 simple_preserve_space 0
 #+END_SRC
 
-*** cgi-bin
-**** functions-w3m
+**** cgi-bin
+***** functions-w3m
 
 #+NAME: functions-w3m
 #+BEGIN_SRC conf
@@ -7745,7 +7568,7 @@ case "${selection}" in
 esac
 #+END_SRC
 
-**** fzf-surfraw
+***** fzf-surfraw
 
 #+NAME: fzf-surfraw
 #+BEGIN_SRC conf
@@ -7770,7 +7593,7 @@ surfraw -p "$prefix" $input | xsel -p
 
 #+END_SRC
 
-**** google-redirector
+***** google-redirector
 
 #+NAME: google-redirector
 #+BEGIN_SRC conf
@@ -7797,7 +7620,7 @@ printf "%s\r\n" "W3m-control: GOTO ${url}";
 printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
 #+END_SRC
 
-**** goto-clipboard-primary
+***** goto-clipboard-primary
 
 #+NAME: goto-clipboard-primary
 #+BEGIN_SRC conf
@@ -7839,7 +7662,7 @@ printf "W3m-control: DELETE_PREVBUF\r\n"
 printf "%s\r\n" "W3m-control: SET_OPTION default_url=1";
 #+END_SRC
 
-**** magnet-cgi
+***** magnet-cgi
 
 #+NAME: magnet-cgi
 #+BEGIN_SRC conf
@@ -7867,7 +7690,7 @@ fi
 
 #+END_SRC
 
-**** run-command
+***** run-command
 
 #+NAME: run-command
 #+BEGIN_SRC conf
@@ -7877,7 +7700,7 @@ fi
 printf "%s\r\n" "W3m-control: $(xsel -opsb)";
 #+END_SRC
 
-**** sauron-w3m
+***** sauron-w3m
 
 #+NAME: sauron-w3m
 #+BEGIN_SRC conf
@@ -7957,7 +7780,7 @@ case "${menu}" in
 esac
 #+END_SRC
 
-**** video-cgi
+***** video-cgi
 
 #+NAME: video-cgi
 #+BEGIN_SRC conf
@@ -7994,7 +7817,7 @@ notify-send "Queuing ♫" "${title}"
 printf "%s\r\n" "W3m-control: BACK";
 #+END_SRC
 
-**** bbc-search
+***** bbc-search
 
 #+NAME: bbc-search
 #+BEGIN_SRC conf
@@ -8034,7 +7857,7 @@ printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
 printf "\033c"
 #+END_SRC
 
-**** bbc-episodes
+***** bbc-episodes
 
 #+NAME: bbc-episodes
 #+BEGIN_SRC conf
@@ -8080,7 +7903,7 @@ printf "%s\r\n" "W3m-control: DELETE_PREVBUF";
 printf "\033c"
 #+END_SRC
 
-*** keymap
+**** keymap
 
 #+NAME: w3m-keymap
 #+BEGIN_SRC conf
@@ -8103,14 +7926,14 @@ keymap ,-l COMMAND "SET_OPTION display_link_number=toggle ; RESHAPE"
 keymap .-, COMMAND "READ_SHELL ~/.w3m/cgi-bin/functions.cgi ; BACK ; GOTO file:/cgi-bin/run_command.cgi ; BACK"
 #+END_SRC
 
-*** mailcap
+**** mailcap
 
 #+NAME: w3m-mailcap
 #+BEGIN_SRC conf
 image/*; sxiv %s
 #+END_SRC
 
-*** siteconf
+**** siteconf
 
 #+NAME: w3m-siteconf
 #+BEGIN_SRC conf
@@ -8144,16 +7967,15 @@ url "https://www.bbc.co.uk/iplayer/episodes"
 substitute_url "file:/cgi-bin/bbc-episodes.cgi?"
 #+END_SRC
 
-*** urimethodmap
+**** urimethodmap
 
 #+NAME: urimethodmap
 #+begin_src conf
 magnet: file:/cgi-bin/magnet.cgi?%s
 #+end_src
 
-**** w3m tangle
-
-***** bookmark.html
+*** w3m tangle
+**** bookmark.html
 
 + home dir
 
@@ -8169,7 +7991,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<w3m-bookmark.html>>
 #+END_SRC
 
-***** config
+**** config
 
 + home dir
 
@@ -8185,8 +8007,8 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<w3m-config>>
 #+END_SRC
 
-***** cgi-bin
-****** functions-w3m
+**** cgi-bin
+***** functions-w3m
 
 + home dir
 
@@ -8202,7 +8024,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<functions-w3m>>
 #+END_SRC
 
-****** fzf-surfraw
+***** fzf-surfraw
 
 + home dir
 
@@ -8218,7 +8040,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<fzf-surfraw>>
 #+END_SRC
 
-****** google-redirector
+***** google-redirector
 
 + home dir
 
@@ -8234,7 +8056,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<google-redirector>>
 #+END_SRC
 
-****** goto-clipboard-primary
+***** goto-clipboard-primary
 
 + home dir
 
@@ -8250,7 +8072,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<goto-clipboard-primary>>
 #+END_SRC
 
-****** magnet-cgi
+***** magnet-cgi
 
 + home dir
 
@@ -8266,7 +8088,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<magnet-cgi>>
 #+END_SRC
 
-****** run-command
+***** run-command
 
 + home dir
 
@@ -8282,7 +8104,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<run-command>>
 #+END_SRC
 
-****** sauron-w3m
+***** sauron-w3m
 
 + home dir
 
@@ -8298,7 +8120,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<sauron-w3m>>
 #+END_SRC
 
-****** video-cgi
+***** video-cgi
 
 + home dir
 
@@ -8314,7 +8136,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<video-cgi>>
 #+END_SRC
 
-****** bbc-search
+***** bbc-search
 
 + home dir
 
@@ -8330,7 +8152,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<bbc-search>>
 #+END_SRC
 
-****** bbc-episodes
+***** bbc-episodes
 
 + home dir
 
@@ -8346,7 +8168,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<bbc-episodes>>
 #+END_SRC
 
-***** keymap
+**** keymap
 
 + home dir
 
@@ -8362,7 +8184,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<w3m-keymap>>
 #+END_SRC
 
-***** mailcap
+**** mailcap
 
 + home dir
 
@@ -8378,7 +8200,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<w3m-mailcap>>
 #+END_SRC
 
-***** siteconf
+**** siteconf
 
 + home dir
 
@@ -8394,7 +8216,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 <<w3m-siteconf>>
 #+END_SRC
 
-***** urimethodmap
+**** urimethodmap
 
 + home dir
 
@@ -9395,7 +9217,8 @@ feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpape
 #+END_SRC
 
 ** desktop files
-*** chromium
+*** desktop files config
+**** chromium
 
 #+NAME: chromium-desktop
 #+begin_src conf
@@ -9698,7 +9521,7 @@ Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chr
 
 #+end_src
 
-*** chromium vpn
+**** chromium vpn
 
 #+NAME: chromium-desktop-vpn
 #+begin_src conf
@@ -9999,7 +9822,7 @@ Name[zh_TW]=以暫時性個人身分開啟新視窗
 Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns --temp-profile
 #+end_src
 
-*** firefox netns
+**** firefox netns
 
 #+NAME: firefox-netns-desktop
 #+begin_src conf
@@ -10224,9 +10047,8 @@ Name[zh_TW]=開啟新隱私瀏覽視窗
 Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -private-window
 #+end_src
 
-**** desktop files tangle
-
-***** chromium tangle
+*** desktop files tangle
+**** chromium tangle
 
 + home dir
   
@@ -10242,7 +10064,7 @@ Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -private-window
 <<chromium-desktop>>
 #+END_SRC
 
-***** chromium vpn tangle
+**** chromium vpn tangle
 
 + home dir
   
@@ -10258,7 +10080,7 @@ Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -private-window
 <<chromium-desktop-vpn>>
 #+END_SRC
 
-***** firefox netns tangle
+**** firefox netns tangle
 
 + home dir
   
@@ -11470,5 +11292,29 @@ whitelist /usr/share/transmission/web
 #+NAME: transmission-daemon-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/firejail/transmission-daemon.local"
 <<transmission-daemon-firejail>>
+#+END_SRC
+
+** youtube-dl
+
+#+NAME: youtube-dl
+#+BEGIN_SRC conf
+# external downloader aria2
+--external-downloader aria2c --external-downloader-args '-c -j 3 -x 3 -s 3 -k 1M'
+#+END_SRC
+
+*** youtube-dl tangle
+
++ home dir
+
+#+NAME: youtube-dl-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/youtube-dl/config"
+<<youtube-dl>>
+#+END_SRC
+
++ current dir
+
+#+NAME: youtube-dl-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/youtube-dl/config"
+<<youtube-dl>>
 #+END_SRC
 
