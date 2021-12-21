@@ -28,6 +28,9 @@
 
 ;; tramp ssh config --------------------------------------------------------------------------
 
+; set tramp shell to sh to avoid zsh problems
+(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+
 (tramp-set-completion-function "ssh"
                                '((tramp-parse-sconfig "/etc/ssh_config")
                                  (tramp-parse-sconfig "~/.ssh/config")))
@@ -45,7 +48,7 @@
              (not
               (let ((method (file-remote-p name 'method)))
                 (when (stringp method)
-                  (member method '("su" "sudo"))))))))
+                  (member method '("su" "sudo" "doas"))))))))
 
 ;; tramp setq
 (setq tramp-default-method "ssh")
