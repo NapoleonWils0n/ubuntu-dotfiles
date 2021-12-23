@@ -9697,7 +9697,7 @@ Comment[vi]=Truy cập Internet
 Comment[zh_CN]=访问互联网
 Comment[zh_HK]=連線到網際網路
 Comment[zh_TW]=連線到網際網路
-Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns %u
+Exec=doas namespace /usr/local/bin/chromium-netns %u
 Terminal=false
 Type=Application
 Icon=/snap/chromium/current/chromium.png
@@ -9745,7 +9745,7 @@ Name[uk]=Відкрити нове вікно
 Name[vi]=Mở cửa sổ mới
 Name[zh_CN]=打开新窗口
 Name[zh_TW]=開啟新視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns %u
+Exec=doas namespace /usr/local/bin/chromium-netns %u
 
 [Desktop Action Incognito]
 Name=Open a New Window in incognito mode
@@ -9821,7 +9821,7 @@ Name[ug]=ۋاقىتلىق سەپلىمە ھۆججەت بىلەن يېڭى كۆز
 Name[vi]=Mở cửa sổ mới với hồ sơ tạm
 Name[zh_CN]=以临时配置文件打开新窗口
 Name[zh_TW]=以暫時性個人身分開啟新視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns --temp-profile
+Exec=doas namespace /usr/local/bin/chromium-netns --temp-profile
 #+end_src
 
 **** firefox netns
@@ -9981,7 +9981,7 @@ Keywords[uk]=Internet;WWW;Browser;Web;Explorer;Інтернет;мережа;п�
 Keywords[vi]=Internet;WWW;Browser;Web;Explorer;Trình duyệt;Trang web
 Keywords[zh_CN]=Internet;WWW;Browser;Web;Explorer;网页;浏览;上网;火狐;Firefox;ff;互联网;网站;
 Keywords[zh_TW]=Internet;WWW;Browser;Web;Explorer;網際網路;網路;瀏覽器;上網;網頁;火狐
-Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns %u
+Exec=doas namespace /usr/local/bin/firefox-netns %u
 Terminal=false
 Type=Application
 Icon=/snap/firefox/current/default256.png
@@ -10027,7 +10027,7 @@ Name[uk]=Відкрити нове вікно
 Name[vi]=Mở cửa sổ mới
 Name[zh_CN]=新建窗口
 Name[zh_TW]=開啟新視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -new-window
+Exec=doas namespace /usr/local/bin/firefox-netns -new-window
 
 [Desktop Action NewPrivateWindow]
 Name=Open a New Private Window
@@ -10046,7 +10046,7 @@ Name[sl]=Odpri novo okno zasebnega brskanja
 Name[tr]=Yeni bir pencere aç
 Name[uk]=Відкрити нове вікно у потайливому режимі
 Name[zh_TW]=開啟新隱私瀏覽視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/firefox-netns -private-window
+Exec=doas namespace /usr/local/bin/firefox-netns -private-window
 #+end_src
 
 *** desktop files tangle

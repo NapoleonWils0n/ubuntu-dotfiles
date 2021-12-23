@@ -168,7 +168,7 @@ Comment[vi]=Truy cập Internet
 Comment[zh_CN]=访问互联网
 Comment[zh_HK]=連線到網際網路
 Comment[zh_TW]=連線到網際網路
-Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns %u
+Exec=doas namespace /usr/local/bin/chromium-netns %u
 Terminal=false
 Type=Application
 Icon=/snap/chromium/current/chromium.png
@@ -216,7 +216,7 @@ Name[uk]=Відкрити нове вікно
 Name[vi]=Mở cửa sổ mới
 Name[zh_CN]=打开新窗口
 Name[zh_TW]=開啟新視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns %u
+Exec=doas namespace /usr/local/bin/chromium-netns %u
 
 [Desktop Action Incognito]
 Name=Open a New Window in incognito mode
@@ -292,4 +292,4 @@ Name[ug]=ۋاقىتلىق سەپلىمە ھۆججەت بىلەن يېڭى كۆز
 Name[vi]=Mở cửa sổ mới với hồ sơ tạm
 Name[zh_CN]=以临时配置文件打开新窗口
 Name[zh_TW]=以暫時性個人身分開啟新視窗
-Exec=/usr/local/bin/namespace /usr/local/bin/chromium-netns --temp-profile
+Exec=doas namespace /usr/local/bin/chromium-netns --temp-profile
