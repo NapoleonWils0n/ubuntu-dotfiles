@@ -165,133 +165,133 @@ alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off &
 # daemon start
 trd-daemon() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-daemon \
+    && doas namespace transmission-daemon \
     || transmission-daemon ;
     }
 
 # add torrent
 trd-add() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --add "$1" \
+    && doas namespace transmission-remote --add "$1" \
     || transmission-remote --add "$1" ;
     }
 
 # adding via hash info
 trd-hash() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --add "magnet:?xt=urn:btih:$1" \
+    && doas namespace transmission-remote --add "magnet:?xt=urn:btih:$1" \
     || transmission-remote --add "magnet:?xt=urn:btih:$1" ;
     }
 
 # start torrent <id> or all
 trd-start() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1-all}" --start \
+    && doas namespace transmission-remote -t"${1-all}" --start \
     || transmission-remote -t"${1-all}" --start ;
     }             
 
 # pause torrent <id> or all
 trd-pause() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1-all}" --stop \
+    && doas namespace transmission-remote -t"${1-all}" --stop \
     || transmission-remote -t"${1-all}" --stop ;
     }
 
 # show torrent info <id>
 trd-info() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1}" --info \
+    && doas namespace transmission-remote -t"${1}" --info \
     || transmission-remote -t"${1}" --info ;
     }
 
 # show torrent files <id>
 trd-files() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1}" --info-files \
+    && doas namespace transmission-remote -t"${1}" --info-files \
     || transmission-remote -t"${1}" --info-files ;
     }
 
 # get torrent files in list
 trd-get() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1}" -g"${2}" \
+    && doas namespace transmission-remote -t"${1}" -g"${2}" \
     || transmission-remote -t"${1}" -g"${2}" ;
     }
 
 # dont get torrent files in list
 trd-noget() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"${1}" -G"${2}" \
+    && doas namespace transmission-remote -t"${1}" -G"${2}" \
     || transmission-remote -t"${1}" -G"${2}" ;
     }
 
 # grep for torrent in download list
 trd-grep() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --list | grep -i "$1" \
+    && doas namespace transmission-remote --list | grep -i "$1" \
     || transmission-remote --list | grep -i "$1" ;
 }
 
 # list torrents
 trd-list() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --list \
+    && doas namespace transmission-remote --list \
     || transmission-remote --list ;
     }
 
 # watch torrent list with viddy
 trd-watch() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace viddy -t transmission-remote --list \
+    && doas namespace viddy -t transmission-remote --list \
     || viddy -t transmission-remote --list ;
     }
 
 # remove torrent and leaves data alone
 trd-remove() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"$1" --remove \
+    && doas namespace transmission-remote -t"$1" --remove \
     || transmission-remote -t"$1" --remove ;
     }
 
 # remove torrent and delete data
 trd-purge() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"$1" --remove-and-delete \
+    && doas namespace transmission-remote -t"$1" --remove-and-delete \
     || transmission-remote -t"$1" --remove-and-delete ;
     } 
 
 # download default to 900K, else enter your own
 trd-altdownloadspeed() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --downlimit "${@:-900}" \
+    && doas namespace transmission-remote --downlimit "${@:-900}" \
     || transmission-remote --downlimit "${@:-900}" ;
     } 
 
 # alt download speed unlimited
 trd-altdownloadspeedunlimited() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --no-downlimit \
+    && doas namespace transmission-remote --no-downlimit \
     || transmission-remote --no-downlimit ;
     }
 
 # upload default to 10kpbs, else enter your own
 trd-limitupload() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --uplimit "${@:-10}" \
+    && doas namespace transmission-remote --uplimit "${@:-10}" \
     || transmission-remote --uplimit "${@:-10}" ;
     } 
 
 # no upload limit
 trd-limituploadunlimited() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote --no-uplimit \
+    && doas namespace transmission-remote --no-uplimit \
     || transmission-remote --no-uplimit ;
 }
 
 # ask for for peers
 trd-askmorepeers() {
     [ -d "/etc/netns/vpn" ] \
-    && namespace transmission-remote -t"$1" --reannounce \
+    && doas namespace transmission-remote -t"$1" --reannounce \
     || transmission-remote -t"$1" --reannounce ;
 }
 
