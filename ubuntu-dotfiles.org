@@ -5332,6 +5332,32 @@ bind generic V !sh -c 'git show $1:$2' -- %(commit) %(fileargs)
 <<tig>>
 #+END_SRC
 
+** bat
+
+#+NAME: bat
+#+BEGIN_SRC conf
+# This is `bat`s configuration file
+
+# bat theme
+--theme="Solarized (dark)"
+#+END_SRC
+
+*** bat tangle
+
++ home dir
+
+#+NAME: bat-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
+<<bat>>
+#+END_SRC
+
++ current dir
+
+#+NAME: bat-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
+<<bat>>
+#+END_SRC
+
 ** tmux
 
 #+NAME: tmux
