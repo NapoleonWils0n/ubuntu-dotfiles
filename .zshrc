@@ -6,16 +6,6 @@
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 
-# set PATH so it includes user bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user local bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
 # git prompt script
 if [ -f "$HOME/.git-prompt.sh" ]; then
         source "$HOME/.git-prompt.sh"
@@ -318,9 +308,3 @@ compdef _gnu_generic exa
 
 # nixpks completion
 compdef _gnu_generic nix-env
-
-# export fix for nixpkgs
-export LC_ALL=C
-
-# nix os xdg directories
-export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"

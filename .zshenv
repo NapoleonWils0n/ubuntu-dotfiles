@@ -1,5 +1,10 @@
 # ~/.zshenv
 
+# Path
+typeset -U PATH path
+path=("$HOME/bin" "$HOME/.local/bin" "$path[@]")
+export PATH
+
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -a emacs"
@@ -23,6 +28,13 @@ export MPD_HOST="/home/djwilcox/.config/mpd/socket"
 
 # git pager bat with colour
 export GIT_PAGER="bat --color=always -l rs"
+
+
+# export fix for nixpkgs
+export LC_ALL=C
+
+# nix os xdg directories
+export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 
 # nixpkgs
 if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
