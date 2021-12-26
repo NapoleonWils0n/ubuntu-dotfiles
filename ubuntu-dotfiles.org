@@ -1674,19 +1674,21 @@ exec /usr/bin/xmonad
 
 *** xinitrc tangle
 
+commented out xinitrc, not using startx
+
 + home dir
   
-#+NAME: xinitrc-home-dir
-#+begin_src conf :noweb yes :tangle "~/.xinitrc"
-<<xinitrc>>
-#+end_src
+##+NAME: xinitrc-home-dir
+##+begin_src conf :noweb yes :tangle "~/.xinitrc"
+#<<xinitrc>>
+##+end_src
 
 + current dir
 
-#+NAME: xinitrc-current-dir
-#+begin_src conf :noweb yes :tangle ".xinitrc"
-<<xinitrc>>
-#+end_src
+##+NAME: xinitrc-current-dir
+##+begin_src conf :noweb yes :tangle ".xinitrc"
+#<<xinitrc>>
+##+end_src
 
 ** systemd
 *** systemd config
