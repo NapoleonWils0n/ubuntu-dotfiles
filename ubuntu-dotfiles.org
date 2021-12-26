@@ -9630,30 +9630,6 @@ thumbnail_video_info_text () {
 <<ytfzf>>
 #+END_SRC
 
-** feh
-
-#+NAME: feh
-#+BEGIN_SRC sh
-#!/bin/sh
-feh --no-fehbg --bg-center --image-bg '#353535' '/home/djwilcox/.config/wallpaper/linux.png' 
-#+END_SRC
-
-*** feh tangle
-
-+ home dir
-
-#+NAME: feh-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.fehbg" :tangle-mode (identity #o755)
-<<feh>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: feh-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".fehbg" :tangle-mode (identity #o755)
-<<feh>>
-#+END_SRC
-
 ** desktop files
 *** desktop files config
 **** chromium
