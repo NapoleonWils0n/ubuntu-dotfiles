@@ -5877,14 +5877,14 @@ new-window -n google \; send-keys -t google 'sr google "$(tmux show-buffer)" && 
 + home dir
 
 #+NAME: tmux-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.tmux.conf"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/tmux/tmux.conf"
 <<tmux>>
 #+END_SRC
 
 + current dir
 
 #+NAME: tmux-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".tmux.conf"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/tmux/tmux.conf"
 <<tmux>>
 #+END_SRC
 
