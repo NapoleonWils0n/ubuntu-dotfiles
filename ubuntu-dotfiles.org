@@ -3816,14 +3816,14 @@ xkb_symbols "alt_win_ctrl" {
 
 ; backup directory --------------------------------------------------------------------------
 
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
 (setq delete-old-versions -1)
 (setq version-control t)
 (setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+(setq auto-save-file-name-transforms '((".*" "~/.config/emacs/auto-save-list/" t)))
 
 ;Tell emacs where is your personal elisp lib dir
-(add-to-list 'load-path "~/.emacs.d/lisp/")
+(add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
 
 
@@ -4135,14 +4135,14 @@ xkb_symbols "alt_win_ctrl" {
 + home dir
 
 #+NAME: emacs-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.emacs"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/init.el"
 <<emacs>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".emacs"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/init.el"
 <<emacs>>
 #+END_SRC
 
@@ -4499,14 +4499,14 @@ Returns list (HTML . TITLE)."
 + home dir
 
 #+NAME: emacs-bookmarks-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.emacs.d/bookmarks"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs-bookmarks-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".emacs.d/bookmarks"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/bookmarks"
 <<emacs-bookmarks>>
 #+END_SRC
 
@@ -4516,14 +4516,14 @@ Returns list (HTML . TITLE)."
 + home dir
 
 #+NAME: org-protocol-capture-html-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.emacs.d/lisp/org-protocol-capture-html.el"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/lisp/org-protocol-capture-html.el"
 <<org-protocol-capture-html>>
 #+END_SRC
 
 + current dir
 
 #+NAME: org-protocol-capture-html-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".emacs.d/lisp/org-protocol-capture-html.el"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/lisp/org-protocol-capture-html.el"
 <<org-protocol-capture-html>>
 #+END_SRC
 
