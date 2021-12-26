@@ -9338,7 +9338,7 @@ color alert = black,bold
 + current dir
 
 #+NAME: ncmpc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".ncmpc/config"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/ncmpc/config"
 <<ncmpc>>
 #+END_SRC
 
