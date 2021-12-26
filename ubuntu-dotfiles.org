@@ -11600,53 +11600,6 @@ gtk-theme-name = Adwaita-dark
 <<gtk>>
 #+END_SRC
 
-** xmobar
-
-#+NAME: xmobar
-#+BEGIN_SRC conf
-Config { font = "xft:Inconsolata:size=11:lcdfilter=lcddefault:hintstyle=hintnone:rgba=rgb:antialias=true:autohint=false:style=bold"
-       , additionalFonts = []
-       , borderColor = "#292929"
-       , border = TopB
-       , bgColor = "#292929"
-       , fgColor = "#FDF6E3"
-       , alpha = 255
-       , position = Top
-       , textOffset = -1
-       , iconOffset = -1
-       , lowerOnStart = True
-       , pickBroadest = False
-       , persistent = False
-       , hideOnStart = False
-       , iconRoot = "."
-       , allDesktops = True
-       , overrideRedirect = True
-       , commands = [ Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-		    , Run StdinReader
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = "%StdinReader% }\
-                    \{"
-       }
-#+END_SRC
-
-*** xmobar tangle
-
-+ home dir
-  
-#+NAME: xmobar-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xmobar/xmobarrc"
-<<xmobar>>
-#+END_SRC
-  
-+ current dir
-
-#+NAME: xmobar-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xmobar/xmobarrc"
-<<xmobar>>
-#+END_SRC
-
 ** youtube-dl
 
 #+NAME: youtube-dl
