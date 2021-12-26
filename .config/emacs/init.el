@@ -28,9 +28,11 @@
 
 ; backup directory --------------------------------------------------------------------------
 
-;; disable auto-save and auto-backup
-(setq auto-save-default nil)
-(setq make-backup-files nil)
+(setq temporary-file-directory "/tmp")
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 
 ; version control ----------------------------------------------------------------------------
@@ -54,8 +56,19 @@
                                '((tramp-parse-sconfig "/etc/ssh_config")
                                  (tramp-parse-sconfig "~/.ssh/config")))
 
+(add-to-list 'backup-directory-alist
+                  (cons tramp-file-name-regexp nil))
 
 ; setq --------------------------------------------------------------------------------------
+
+;; dont backup files opened by sudo
+(setq backup-enable-predicate
+      (lambda (name)
+        (and (normal-backup-enable-predicate name)
+             (not
+              (let ((method (file-remote-p name 'method)))
+                (when (stringp method)
+                  (member method '("su" "sudo" "doas"))))))))
 
 ;; tramp setq
 (setq tramp-default-method "ssh")
