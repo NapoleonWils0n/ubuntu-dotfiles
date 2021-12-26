@@ -86,6 +86,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         urlview
         ytfzf
         yt-dlp
+        weechat
         w3m
         zathura
       ];
@@ -11237,14 +11238,14 @@ meta2-D = "/cursor move left"
 + home dir
 
 #+NAME: weechat.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.weechat/weechat.conf"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/weechat/weechat.conf"
 <<weechat.conf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: weechat.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".weechat/weechat.conf"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/weechat/weechat.conf"
 <<weechat.conf>>
 #+END_SRC
 
