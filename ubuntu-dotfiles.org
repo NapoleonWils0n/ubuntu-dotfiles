@@ -381,11 +381,15 @@ main = do
 
 ; backup directory --------------------------------------------------------------------------
 
-(setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 (setq delete-old-versions -1)
 (setq version-control t)
 (setq vc-make-backup-files t)
-(setq auto-save-file-name-transforms '((".*" "~/.config/emacs/auto-save-list/" t)))
 
 ;Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.config/emacs/lisp/")
