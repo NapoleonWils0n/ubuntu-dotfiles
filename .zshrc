@@ -171,9 +171,6 @@ alias hdmi-on='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --mode 1
 # hdmi display off
 alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off && ~/.fehbg &>/dev/null'
 
-# wget
-wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts"
-
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
 # daemon start
