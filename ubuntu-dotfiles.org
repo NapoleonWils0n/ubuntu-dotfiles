@@ -1462,9 +1462,19 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
-#  less
+# less
 export LESSHISTFILE="${XDG_CONFIG_HOME}/less/history"
 export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
+
+# urxvt 
+export RXVT_SOCKET="${XDG_RUNTIME_DIR}/urxvtd"
+
+# libdvdcss
+export DVDCSS_CACHE="${XDG_DATA_HOME}/dvdcss"
+
+# awscli
+export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
+export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
 
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
@@ -1489,7 +1499,6 @@ export MPD_HOST="/home/djwilcox/.config/mpd/socket"
 
 # git pager bat with colour
 export GIT_PAGER="bat --color=always -l rs"
-
 
 # export fix for nixpkgs
 export LC_ALL=C
