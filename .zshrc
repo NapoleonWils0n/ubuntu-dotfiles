@@ -142,6 +142,27 @@ ZSH_HIGHLIGHT_STYLES[arg0]=fg=cyan
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
+# namespace autocomplete
+compdef _precommand namespace
+
+# ytfzf autocomplete
+compdef _gnu_generic ytfzf
+
+# transmission autocomplete
+compdef _gnu_generic transmission-daemon
+compdef _gnu_generic transmission-remote
+compdef _gnu_generic transmission-show
+compdef _gnu_generic transmission-cli
+compdef _gnu_generic transmission-create
+compdef _gnu_generic transmission-edit
+compdef _gnu_generic transmission-pwgen
+
+# exa
+compdef _gnu_generic exa
+
+# nixpks completion
+compdef _gnu_generic nix-env
+
 # aliases
 
 # hdmi display on
@@ -149,6 +170,9 @@ alias hdmi-on='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --mode 1
 
 # hdmi display off
 alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off && ~/.fehbg &>/dev/null'
+
+# wget
+wget --hsts-file="${XDG_CACHE_HOME}/wget-hsts"
 
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
@@ -287,24 +311,3 @@ trd-askmorepeers() {
 
 # daemon stop
 trd-quit() { killall transmission-daemon ;}
-
-# namespace autocomplete
-compdef _precommand namespace
-
-# ytfzf autocomplete
-compdef _gnu_generic ytfzf
-
-# transmission autocomplete
-compdef _gnu_generic transmission-daemon
-compdef _gnu_generic transmission-remote
-compdef _gnu_generic transmission-show
-compdef _gnu_generic transmission-cli
-compdef _gnu_generic transmission-create
-compdef _gnu_generic transmission-edit
-compdef _gnu_generic transmission-pwgen
-
-# exa
-compdef _gnu_generic exa
-
-# nixpks completion
-compdef _gnu_generic nix-env
