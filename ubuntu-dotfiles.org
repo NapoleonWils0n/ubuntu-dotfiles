@@ -1457,6 +1457,15 @@ typeset -U PATH path
 path=("$HOME/bin" "$HOME/.local/bin" "$path[@]")
 export PATH
 
+# xdg directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+#  less
+export LESSHISTFILE="${XDG_CONFIG_HOME}/less/history"
+export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
+
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -a emacs"
