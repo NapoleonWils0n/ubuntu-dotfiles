@@ -6,9 +6,9 @@
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 
-# git prompt script
-if [ -f "$HOME/.git-prompt.sh" ]; then
-        source "$HOME/.git-prompt.sh"
+# git-sh-prompt
+if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+   source /usr/lib/git-core/git-sh-prompt
 fi
 
 # git prompt variables
