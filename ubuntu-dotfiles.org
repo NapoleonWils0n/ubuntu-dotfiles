@@ -6447,6 +6447,29 @@ thumbnail_video_info_text () {
 <<urlscan>>
 #+END_SRC
 
+** wget
+
+#+NAME: wget
+#+BEGIN_SRC conf
+hsts-file=/home/djwilcox/.cache/wget-hsts
+#+END_SRC
+
+*** wget tangle
+
++ home dir
+
+#+NAME: wget-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wget/wgetrc"
+<<wget>>
+#+END_SRC
+
++ current dir
+
+#+NAME: wget-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
+<<wget>>
+#+END_SRC
+
 ** zathura
 
 #+NAME: zathura
