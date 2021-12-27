@@ -10,6 +10,9 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
+# ssh-add
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 # less
 export LESSHISTFILE="${XDG_CONFIG_HOME}/less/history"
 export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
@@ -27,13 +30,13 @@ export DVDCSS_CACHE="${XDG_DATA_HOME}/dvdcss"
 export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
 export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
 
+# cuda
+export CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv"
+
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -a emacs"
 export VISUAL="emacsclient -c -a emacs"
-
-# ssh-add
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # tell ls to be colourfull
 export LSCOLORS=ExFxCxDxBxegedabagacad
