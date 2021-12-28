@@ -1594,7 +1594,7 @@ ctrl + super + Escape
 
 # sxhkd reload config
 ctrl + super + p
-    XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS" && rofi -show combi -modi combi
+    rofi -show combi -modi combi
 
 # multimedia keys
 #==========================
