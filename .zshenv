@@ -27,9 +27,6 @@ export DVDCSS_CACHE="${XDG_DATA_HOME}/dvdcss"
 export AWS_SHARED_CREDENTIALS_FILE="${XDG_CONFIG_HOME}/aws/credentials"
 export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
 
-# cuda
-export CUDA_CACHE_PATH="${XDG_CACHE_HOME}/nv"
-
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -a emacs"
