@@ -20,9 +20,6 @@ export LESSKEY="${XDG_CONFIG_HOME}/less/keys"
 # wget
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 
-# urxvt 
-export RXVT_SOCKET="${XDG_RUNTIME_DIR}/urxvtd"
-
 # libdvdcss
 export DVDCSS_CACHE="${XDG_DATA_HOME}/dvdcss"
 
