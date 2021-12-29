@@ -1977,7 +1977,7 @@ download-timeout 60
 
 # transmission remote as externel browser
 #browser "transmission-remote --add '%u'"
-browser "[ -d /etc/netns/vpn ] && namespace transmission-remote --add '%u' || transmission-remote --add '%u'"
+browser "[ -d /etc/netns/vpn ] && doas namespace transmission-remote --add '%u' || transmission-remote --add '%u'"
 
 # urlscan
 external-url-viewer "urlscan"
