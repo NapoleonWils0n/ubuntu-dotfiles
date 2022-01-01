@@ -82,6 +82,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         tint2
         tmux
         tree
+	viddy
         urlscan
         urlview
         ytfzf

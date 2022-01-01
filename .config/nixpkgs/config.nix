@@ -55,6 +55,7 @@
         tint2
         tmux
         tree
+	viddy
         urlscan
         urlview
         ytfzf
