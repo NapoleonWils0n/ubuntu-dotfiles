@@ -28,7 +28,7 @@
 
 ; backup directory --------------------------------------------------------------------------
 
-(setq temporary-file-directory "/tmp")
+(setq temporary-file-directory "~/.cache/emacs")
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
