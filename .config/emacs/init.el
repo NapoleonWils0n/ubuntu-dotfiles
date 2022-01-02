@@ -97,7 +97,7 @@
 (setq markdown-asymmetric-header t)
 
 ; markdown preview using pandoc
-(setq markdown-command "pandoc -f markdown -t html -s -S --mathjax --highlight-style=pygments -c ~/git/pandoc-css/pandoc.css")
+(setq markdown-command "pandoc -f markdown -t html -s -S --mathjax --highlight-style=pygments -c ~/git/personal/pandoc-css/pandoc.css")
 
 ; gfm mode
 (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
@@ -174,7 +174,7 @@
 (require 'org-protocol)
 (require 'org-capture)
 (require 'org-protocol-capture-html)
-(setq org-agenda-files '("~/git/org/"))
+(setq org-agenda-files '("~/git/personal/org/"))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
@@ -198,12 +198,12 @@
 ; org capture templates
 (setq org-capture-templates
     '(("t" "todo" entry
-      (file+headline "~/git/org/todo.org" "Tasks")
-      (file "~/git/org/templates/tpl-todo.txt")
+      (file+headline "~/git/personal/org/todo.org" "Tasks")
+      (file "~/git/personal/org/templates/tpl-todo.txt")
       :empty-lines-before 1)
       ("w" "web site" entry
-      (file+olp "~/git/org/web.org" "sites")
-      (file "~/git/org/templates/tpl-web.txt")
+      (file+olp "~/git/personal/org/web.org" "sites")
+      (file "~/git/personal/org/templates/tpl-web.txt")
        :empty-lines-before 1)))
 
 ; refile
