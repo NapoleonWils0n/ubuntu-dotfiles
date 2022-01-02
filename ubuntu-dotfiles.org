@@ -385,12 +385,14 @@ main = do
 
 ; backup directory --------------------------------------------------------------------------
 
-(setq temporary-file-directory "~/.cache/emacs")
+;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 (setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
+    `((".*" . ,emacs-tmp-dir)))
 (setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
+    `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+    emacs-tmp-dir)
 
 ; version control ----------------------------------------------------------------------------
 
