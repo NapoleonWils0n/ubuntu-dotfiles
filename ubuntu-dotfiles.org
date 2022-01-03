@@ -45,16 +45,23 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         aria
         awscli
         bat
+        bc
+        curl
         csvkit
+        dos2unix
         dunst
         emacs
         exiftool
-	exa
+        exa
         feh
+        fzf
         gdal
         gimp
+        git
+        gnuplot
         gpsbabel
         graphviz
+        gparted
         handbrake
         html-xml-utils
         imagemagick
@@ -73,17 +80,20 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         oathToolkit
         pandoc
         playerctl
+        p7zip
         ripgrep
         scrot
         sox
         shellcheck
+        surfraw
         sxhkd
         sxiv
         tig
         tint2
         tmux
         tree
-	viddy
+        unzip
+        viddy
         urlscan
         urlview
         ytfzf
@@ -91,6 +101,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         weechat
         w3m
         zathura
+        zip
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/applications" "/share/icons" "/bin" "/etc" ];
       extraOutputsToInstall = [ "man" "doc" "info" "applications" "icons" ];
@@ -2052,6 +2063,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg new
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg newcastle "~Roobenstein" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg newcastle "~The Toon Review" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA newcastle "~Adam Pearson" 
+https://www.youtube.com/feeds/videos.xml?channel_id=UCnfaXGG3LUFjbdnTmbWXKMw newcastle "~Tyneside Life" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw newcastle "~Newcastle United" 
 
 # tech

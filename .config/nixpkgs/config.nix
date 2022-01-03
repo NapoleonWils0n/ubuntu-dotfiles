@@ -17,16 +17,23 @@
         aria
         awscli
         bat
+        bc
+        curl
         csvkit
+        dos2unix
         dunst
         emacs
         exiftool
-	exa
+        exa
         feh
+        fzf
         gdal
         gimp
+        git
+        gnuplot
         gpsbabel
         graphviz
+        gparted
         handbrake
         html-xml-utils
         imagemagick
@@ -45,17 +52,20 @@
         oathToolkit
         pandoc
         playerctl
+        p7zip
         ripgrep
         scrot
         sox
         shellcheck
+        surfraw
         sxhkd
         sxiv
         tig
         tint2
         tmux
         tree
-	viddy
+        unzip
+        viddy
         urlscan
         urlview
         ytfzf
@@ -63,6 +73,7 @@
         weechat
         w3m
         zathura
+        zip
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/applications" "/share/icons" "/bin" "/etc" ];
       extraOutputsToInstall = [ "man" "doc" "info" "applications" "icons" ];
