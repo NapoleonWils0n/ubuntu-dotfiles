@@ -16,6 +16,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg new
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg newcastle "~Roobenstein" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg newcastle "~The Toon Review" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA newcastle "~Adam Pearson" 
+https://www.youtube.com/feeds/videos.xml?channel_id=UCnfaXGG3LUFjbdnTmbWXKMw newcastle "~Tyneside Life" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw newcastle "~Newcastle United" 
 
 # tech
@@ -46,6 +47,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg obs
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g obs "~Eposvox" 
 
 # reddit
+https://www.reddit.com/r/nixos/new.rss reddit "~nixos" 
 https://www.reddit.com/r/emacs/new.rss reddit "~Emacs" 
 https://www.reddit.com/r/xmonad/new.rss reddit "~Xmonad" 
 https://www.reddit.com/r/zsh/.rss reddit "~zsh" 
