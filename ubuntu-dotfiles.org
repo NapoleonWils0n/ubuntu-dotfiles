@@ -702,6 +702,10 @@ main = do
  ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
 
+; ediff ----------------------------------------------------------------------------------------------
+
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ; mpv functions --------------------------------------------------------------------------------------
 
@@ -2094,7 +2098,6 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg obs
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g obs "~Eposvox" 
 
 # reddit
-https://www.reddit.com/r/nixos/new.rss reddit "~nixos" 
 https://www.reddit.com/r/emacs/new.rss reddit "~Emacs" 
 https://www.reddit.com/r/xmonad/new.rss reddit "~Xmonad" 
 https://www.reddit.com/r/zsh/.rss reddit "~zsh" 

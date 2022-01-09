@@ -334,6 +334,10 @@
  ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
 
+; ediff ----------------------------------------------------------------------------------------------
+
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ; mpv functions --------------------------------------------------------------------------------------
 
