@@ -380,9 +380,9 @@ main = do
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auth-source-save-behavior nil)
  '(package-selected-packages
-   (quote
-    (haskell-mode csv-mode ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key))))
+   '(dired-subtree haskell-mode csv-mode ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key)))
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -663,17 +663,24 @@ main = do
 ; dont display time in mode line
 (display-time-mode 0)
 
-; magit 
+;; mutt
+(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+
+
+; magit -------------------------------------------------------------------------------------------------
+
 (global-set-key (kbd "C-x g") 'magit-status)
 
 
-; add to list --------------------------------------------------------------------------------------
+; dired -------------------------------------------------------------------------------------------------
 
 ; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
-;; mutt
-(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+(setq dired-subtree-use-backgrounds nil)
+(let ((map dired-mode-map))
+  (define-key map (kbd "<tab>") #'dired-subtree-toggle)
+  (define-key map (kbd "<backtab>") #'dired-subtree-remove))
 
 
 ; define key ---------------------------------------------------------------------------------------
