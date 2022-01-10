@@ -119,6 +119,8 @@
 ; always follow symlinks
 (setq vc-follow-symlinks t)
 
+; dired --------------------------------------------------------------------------------------
+
 ; dired directory listing options for ls
 (setq dired-listing-switches "-ahl")
 
@@ -132,6 +134,10 @@
 (require 'dired-x)
 (setq dired-omit-files "^\\...+$")
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
+; recursive delete and copy
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
 
 ; require --------------------------------------------------------------------------------------
 
