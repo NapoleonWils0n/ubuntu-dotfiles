@@ -37,10 +37,13 @@
 (setq auto-save-list-file-prefix
     emacs-tmp-dir)
 
-; version control ----------------------------------------------------------------------------
-
 (setq version-control t)
 (setq vc-make-backup-files t)
+(setq backup-by-copying t)
+(setq delete-old-versions t)
+(setq kept-new-versions 6)
+(setq kept-old-versions 2)
+(setq create-lockfiles nil)
 
 
 ;Tell emacs where is your personal elisp lib dir ---------------------------------------------
