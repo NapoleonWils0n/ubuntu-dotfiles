@@ -1951,6 +1951,7 @@ reload-threads 100
 prepopulate-query-feeds yes
 cleanup-on-quit yes
 confirm-mark-feed-read no
+wrap-scroll yes
 
 # externel browser
 browser "/usr/bin/w3m %u"
@@ -2017,6 +2018,7 @@ prepopulate-query-feeds yes
 cleanup-on-quit yes
 download-timeout 60
 confirm-mark-feed-read no
+wrap-scroll yes
 
 # transmission remote as externel browser
 #browser "transmission-remote --add '%u'"
