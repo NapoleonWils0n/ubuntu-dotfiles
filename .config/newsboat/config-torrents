@@ -6,6 +6,7 @@ reload-threads 100
 prepopulate-query-feeds yes
 cleanup-on-quit yes
 download-timeout 60
+confirm-mark-feed-read no
 
 # transmission remote as externel browser
 #browser "transmission-remote --add '%u'"
