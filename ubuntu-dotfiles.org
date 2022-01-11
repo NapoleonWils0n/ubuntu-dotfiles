@@ -1956,6 +1956,7 @@ browser "/usr/bin/w3m %u"
 macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro l set browser "/snap/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro p set browser "/home/djwilcox/bin/punch -i %u 2> /dev/null"; one; set browser "/usr/bin/w3m %u"
 
 # urlscan
 external-url-viewer "urlscan"
@@ -2086,6 +2087,9 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA new
 https://www.youtube.com/feeds/videos.xml?channel_id=UCnfaXGG3LUFjbdnTmbWXKMw newcastle "~Tyneside Life" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw newcastle "~Newcastle United" 
 
+# newcastle podcast
+https://rss.acast.com/thechronicle newcastle "~Everything Black and White"
+
 # tech
 https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg linux "~Distrotube" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA linux "~Brodie Robertson" 
@@ -2114,6 +2118,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg obs
 https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g obs "~Eposvox" 
 
 # reddit
+https://www.reddit.com/r/nixos/new.rss reddit "~nixos" 
 https://www.reddit.com/r/emacs/new.rss reddit "~Emacs" 
 https://www.reddit.com/r/xmonad/new.rss reddit "~Xmonad" 
 https://www.reddit.com/r/zsh/.rss reddit "~zsh" 
