@@ -9,10 +9,6 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintfull
 
-! emacs
-Emacs*toolBar: 0
-Emacs.verticalScrollBars: off
-
 !! emacs font
 emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
 
