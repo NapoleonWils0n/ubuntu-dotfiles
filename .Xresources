@@ -9,11 +9,44 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintfull
 
+!! internal border
+URxvt.internalBorder: 4
+
 !! emacs font
 emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
 
-!! internal border
-URxvt.internalBorder: 4
+!! fonts
+URxvt*font: xft:Inconsolata:size=18,xft:DejaVu Sans Mono:size=11
+
+! Set scrollbar style to rxvt, plain, next or xterm. plain is the authors favourite.
+! URxvt*scrollstyle: mode
+URxvt*scrollstyle: plain
+
+! True: enable the scrollbar [default]; option -sb. False: disable the scrollbar; option +sb.
+! URxvt*scrollBar: boolean
+URxvt*scrollBar: False
+
+! Set the key to be interpreted as the Meta key to: alt, meta, hyper, super, mod1, mod2, mod3, mod4, mod5; option -mod.
+! URxvt*modifier: modifier
+URxvt*modifier: mod1
+
+! URxvt*perl-ext-common: string
+URxvt*perl-ext-common: default,clipboard,selection-to-clipboard,font-size
+
+! copy and paster
+URxvt.keysym.Shift-C-C: eval:selection_to_clipboard
+URxvt.keysym.Shift-C-V: eval:paste_clipboard
+
+! Turn on/off ISO 14755 (default enabled).
+URxvt*iso14755: False
+URxvt.iso14755_52: false
+
+! urgency bell
+URxvt*urgentOnBell: true
+URxvt*visualBell:   false
+
+! urxvt icon
+URxvt.iconFile: /home/djwilcox/.local/share/icons/Papirus-Dark/32x32/apps/utilities-terminal.svg
 
 ! color
 *background: #002b36
@@ -55,36 +88,3 @@ URxvt.internalBorder: 4
 !! white dark/light
 *color7: #eee8d5
 *color15: #fdf6e3
-
-!! fonts
-URxvt*font: xft:Inconsolata:size=18,xft:DejaVu Sans Mono:size=11
-
-! Set scrollbar style to rxvt, plain, next or xterm. plain is the authors favourite.
-! URxvt*scrollstyle: mode
-URxvt*scrollstyle: plain
-
-! True: enable the scrollbar [default]; option -sb. False: disable the scrollbar; option +sb.
-! URxvt*scrollBar: boolean
-URxvt*scrollBar: False
-
-! Set the key to be interpreted as the Meta key to: alt, meta, hyper, super, mod1, mod2, mod3, mod4, mod5; option -mod.
-! URxvt*modifier: modifier
-URxvt*modifier: mod1
-
-! URxvt*perl-ext-common: string
-URxvt*perl-ext-common: default,clipboard,selection-to-clipboard,font-size
-
-! copy and paster
-URxvt.keysym.Shift-C-C: eval:selection_to_clipboard
-URxvt.keysym.Shift-C-V: eval:paste_clipboard
-
-! Turn on/off ISO 14755 (default enabled).
-URxvt*iso14755: False
-URxvt.iso14755_52: false
-
-! urgency bell
-URxvt*urgentOnBell: true
-URxvt*visualBell:   false
-
-! urxvt icon
-URxvt.iconFile: /home/djwilcox/.icons/Papirus-Dark/32x32/apps/urxvt.svg
