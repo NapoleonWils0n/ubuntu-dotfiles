@@ -307,13 +307,6 @@
 ;; mutt
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
-;; rg
-(global-set-key (kbd "C-c s") #'rg-menu)
-(with-eval-after-load 'rg
-   ;; Your settings goes here.
-)
-
-
 ; magit -------------------------------------------------------------------------------------------------
 
 (global-set-key (kbd "C-x g") 'magit-status)
