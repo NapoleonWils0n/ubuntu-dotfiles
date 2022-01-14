@@ -126,6 +126,7 @@ myManageHook = composeAll
     , className =? "qjackctl"       --> doFloat
     , className =? "Google Earth Pro" --> doFloat
     , title =? "emacs-capture"      --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) -- emacs org capture
+    , title =? "emacs-scratch"      --> doRectFloat (W.RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) -- emacs org capture
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore 
     , isFullscreen --> doFullFloat
