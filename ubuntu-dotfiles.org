@@ -1140,36 +1140,6 @@ Returns list (HTML . TITLE)."
 <<org-protocol-capture-html>>
 #+END_SRC
 
-** emacs-capture
-*** emacs-capture config
-
-#+NAME: emacs-capture
-#+BEGIN_SRC conf
-[Desktop Entry]
-Name=Emacs Client
-Exec=/home/djwilcox/bin/emacs-capture %u 
-Icon=emacs-icon
-Type=Application
-Terminal=false
-MimeType=x-scheme-handler/org-protocol;
-#+END_SRC
-
-*** emacs-capture tangle
-
-+ home dir
-
-#+NAME: emacs-capture-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/emacs-capture.desktop"
-<<emacs-capture>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: emacs-capture-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/emacs-capture.desktop"
-<<emacs-capture>>
-#+END_SRC
-
 ** zsh
 *** zsh config
 **** zshrc
@@ -10003,7 +9973,33 @@ load-module module-virtual-source source_name=VirtualMic master=Source.monitor
 
 ** desktop files
 *** desktop files config
-**** chromium
+**** emacs-capture config
+
+#+NAME: emacs-capture
+#+BEGIN_SRC conf
+[Desktop Entry]
+Name=Emacs Client
+Exec=emacs-capture %u 
+Icon=emacs-icon
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/org-protocol;
+#+END_SRC
+
+**** org-protocol config
+
+#+NAME: org-protocol
+#+BEGIN_SRC conf
+[Desktop Entry]
+Name=org-protocol
+Exec=emacsclient %u
+Type=Application
+Terminal=false
+Categories=System;
+MimeType=x-scheme-handler/org-protocol;
+#+END_SRC
+
+**** chromium config
 
 #+NAME: chromium-desktop
 #+begin_src conf
@@ -10306,7 +10302,7 @@ Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chr
 
 #+end_src
 
-**** chromium vpn
+**** chromium vpn config
 
 #+NAME: chromium-desktop-vpn
 #+begin_src conf
@@ -10607,7 +10603,7 @@ Name[zh_TW]=以暫時性個人身分開啟新視窗
 Exec=doas namespace /usr/local/bin/chromium-netns --temp-profile
 #+end_src
 
-**** firefox netns
+**** firefox netns config
 
 #+NAME: firefox-netns-desktop
 #+begin_src conf
@@ -10833,6 +10829,38 @@ Exec=doas namespace /usr/local/bin/firefox-netns -private-window
 #+end_src
 
 *** desktop files tangle
+**** emacs-capture tangle
+
++ home dir
+
+#+NAME: emacs-capture-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/emacs-capture.desktop"
+<<emacs-capture>>
+#+END_SRC
+
++ current dir
+
+#+NAME: emacs-capture-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/emacs-capture.desktop"
+<<emacs-capture>>
+#+END_SRC
+
+**** org-protocol tangle
+
++ home dir
+
+#+NAME: org-protocol-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/org-protocol.desktop"
+<<org-protocol>>
+#+END_SRC
+
++ current dir
+
+#+NAME: org-protocol-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/org-protocol.desktop"
+<<org-protocol>>
+#+END_SRC
+
 **** chromium tangle
 
 + home dir
