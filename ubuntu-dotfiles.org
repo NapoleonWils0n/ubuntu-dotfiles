@@ -372,10 +372,6 @@ main = do
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
 
-; hide toolbar and scroll bar
-(tool-bar-mode -1) 
-(toggle-scroll-bar -1) 
-
 ; melpa packages --------------------------------------------------------------------------
 
 ; package-selected-packages
@@ -1458,7 +1454,9 @@ Xft.hintstyle:  hintfull
 !! internal border
 URxvt.internalBorder: 4
 
-!! emacs font
+!! emacs 
+Emacs*toolBar: 0
+Emacs*verticalScrollBars: off
 emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
 
 !! fonts

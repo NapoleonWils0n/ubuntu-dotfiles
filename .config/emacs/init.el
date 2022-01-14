@@ -4,10 +4,6 @@
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
 
-; hide toolbar and scroll bar
-(tool-bar-mode -1) 
-(toggle-scroll-bar -1) 
-
 ; melpa packages --------------------------------------------------------------------------
 
 ; package-selected-packages

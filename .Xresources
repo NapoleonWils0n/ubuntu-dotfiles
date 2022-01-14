@@ -12,7 +12,9 @@ Xft.hintstyle:  hintfull
 !! internal border
 URxvt.internalBorder: 4
 
-!! emacs font
+!! emacs 
+Emacs*toolBar: 0
+Emacs*verticalScrollBars: off
 emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
 
 !! fonts
