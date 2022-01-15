@@ -174,6 +174,9 @@ alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off &
 # abook - copy addressbook to ~/.config/abook/addressbook
 alias abook='abook --datafile "${XDG_CONFIG_HOME}/abook/addressbook"'
 
+# mpc host and socket
+alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
+
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
 # daemon start
