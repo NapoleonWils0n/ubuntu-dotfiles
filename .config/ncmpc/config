@@ -38,7 +38,7 @@ screen-list = playlist browse
 #find-wrap = yes
 
 ## Wrapped cursor movement.
-#wrap-around = no
+wrap-around = yes
 
 ## Ring bell when find wraps around.
 #bell-on-wrap = yes
