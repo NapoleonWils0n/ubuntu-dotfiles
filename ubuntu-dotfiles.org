@@ -4484,6 +4484,7 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 
 ** mpd
 *** mpd config
+**** mpd.conf config
 
 #+NAME: mpd
 #+BEGIN_SRC conf
@@ -4514,16 +4515,49 @@ audio_output {
 filesystem_charset		"UTF-8"
 #+END_SRC
 
+**** playlists config
+
+#+NAME: mpd-playlists
+#+begin_src conf
+#EXTM3U
+#EXTINF:0,Talk Sport
+https://radio.talksport.com/stream
+
+#EXTINF:0,LBC London
+http://icecast.thisisdax.com/LBCLondon
+#+end_src
+
 *** mpd tangle
+**** mpd.conf tangle
+
++ home dir
 
 #+NAME: mpd-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/mpd.conf"
 <<mpd>>
 #+END_SRC
 
++ current dir
+
 #+NAME: mpd-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/mpd.conf"
 <<mpd>>
+#+END_SRC
+
+**** playlists tangle
+
++ home dir
+
+#+NAME: mpd-playlists-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/playlists/radio.m3u"
+<<mpd-playlists>>
+#+END_SRC
+
++ current dir
+
+#+NAME: mpd-playlists-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/playlists/radio.m3u"
+<<mpd-playlists>>
 #+END_SRC
 
 ** ncmpc
