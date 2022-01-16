@@ -296,6 +296,9 @@
 
 (define-key org-mode-map (kbd "C-c p") #'getlink)
 
+; org src to use the current window
+(setq org-src-window-setup 'current-window)
+
 ; general settings --------------------------------------------------------------------------------------
 
 ; change prompt from yes or no, to y or n
