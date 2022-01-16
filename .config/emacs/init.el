@@ -4,6 +4,7 @@
 (setq inhibit-startup-screen t)
 (setq initial-scratch-message nil)
 
+
 ; melpa packages --------------------------------------------------------------------------
 
 ; package-selected-packages
@@ -184,6 +185,22 @@
                   (cons tramp-file-name-regexp nil))
 
 
+; define key ---------------------------------------------------------------------------------------
+
+; fixing elpy keybinding
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+(define-key global-map (kbd "C-c o") 'iedit-mode)
+
+
+; add hook -----------------------------------------------------------------------------------------
+
+; visual line mode
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+; flycheck syntax linting
+(add-hook 'sh-mode-hook 'flycheck-mode)
+
+
 ; dired --------------------------------------------------------------------------------------
 
 ; dired directory listing options for ls
@@ -341,21 +358,8 @@
 
 (define-key org-mode-map (kbd "C-c p") #'getlink)
 
-
-; define key ---------------------------------------------------------------------------------------
-
-; fixing elpy keybinding
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-(define-key global-map (kbd "C-c o") 'iedit-mode)
-
-
-; add hook -----------------------------------------------------------------------------------------
-
-; visual line mode
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-; flycheck syntax linting
-(add-hook 'sh-mode-hook 'flycheck-mode)
+; org src to use the current window
+(setq org-src-window-setup 'current-window)
 
 
 ; custom --------------------------------------------------------------------------------------------
@@ -367,18 +371,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
-
-; mpv functions --------------------------------------------------------------------------------------
-
-;; open youtube links with mpv
-;; (defun mpv-play-url (url &rest args)
-;;   ""
-;;   (interactive)
-;;   (start-process "mpv" nil "mpv" url))
-
-;; browse url open different browsers based on url
-;; (setq browse-url-browser-function
-;;   (quote
-;;     (("youtu\\.?be" . mpv-play-url)
-;;     ;; catch all
-;;     ("." . browse-url-default-browser))))
