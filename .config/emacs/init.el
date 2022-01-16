@@ -25,45 +25,6 @@
   (package-install-selected-packages)
   (elpy-enable)
 
-
-  ; backup directory --------------------------------------------------------------------------
-
-  ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
-  (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
-  (setq backup-directory-alist
-      `((".*" . ,emacs-tmp-dir)))
-  (setq auto-save-file-name-transforms
-      `((".*" ,emacs-tmp-dir t)))
-  (setq auto-save-list-file-prefix
-      emacs-tmp-dir)
-
-  (setq version-control t)
-  (setq vc-make-backup-files t)
-  (setq backup-by-copying t)
-  (setq delete-old-versions t)
-  (setq kept-new-versions 6)
-  (setq kept-old-versions 2)
-  (setq create-lockfiles nil)
-
-
-  ;Tell emacs where is your personal elisp lib dir ---------------------------------------------
-
-  (add-to-list 'load-path "~/.config/emacs/lisp/")
-  (load "org-protocol-capture-html")
-
-
-  ;; tramp ssh config --------------------------------------------------------------------------
-
-  ; set tramp shell to sh to avoid zsh problems
-  (eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
-
-  (tramp-set-completion-function "ssh"
-				 '((tramp-parse-sconfig "/etc/ssh_config")
-				   (tramp-parse-sconfig "~/.ssh/config")))
-
-  (add-to-list 'backup-directory-alist
-		    (cons tramp-file-name-regexp nil))
-
   ; setq --------------------------------------------------------------------------------------
 
   ;; dont backup files opened by sudo
@@ -119,6 +80,46 @@
   ; always follow symlinks
   (setq vc-follow-symlinks t)
 
+
+
+  ; backup directory --------------------------------------------------------------------------
+
+  ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+  (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
+  (setq backup-directory-alist
+      `((".*" . ,emacs-tmp-dir)))
+  (setq auto-save-file-name-transforms
+      `((".*" ,emacs-tmp-dir t)))
+  (setq auto-save-list-file-prefix
+      emacs-tmp-dir)
+
+  (setq version-control t)
+  (setq vc-make-backup-files t)
+  (setq backup-by-copying t)
+  (setq delete-old-versions t)
+  (setq kept-new-versions 6)
+  (setq kept-old-versions 2)
+  (setq create-lockfiles nil)
+
+
+  ;Tell emacs where is your personal elisp lib dir ---------------------------------------------
+
+  (add-to-list 'load-path "~/.config/emacs/lisp/")
+  (load "org-protocol-capture-html")
+
+
+  ;; tramp ssh config --------------------------------------------------------------------------
+
+  ; set tramp shell to sh to avoid zsh problems
+  (eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+
+  (tramp-set-completion-function "ssh"
+				 '((tramp-parse-sconfig "/etc/ssh_config")
+				   (tramp-parse-sconfig "~/.ssh/config")))
+
+  (add-to-list 'backup-directory-alist
+		    (cons tramp-file-name-regexp nil))
+
   ; dired --------------------------------------------------------------------------------------
 
   ; dired directory listing options for ls
@@ -138,6 +139,15 @@
   ; recursive delete and copy
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
+
+  ; dired hide aync output buffer
+  (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
+  ; dired subtree
+  (setq dired-subtree-use-backgrounds nil)
+  (let ((map dired-mode-map))
+    (define-key map (kbd "<tab>") #'dired-subtree-toggle)
+    (define-key map (kbd "<backtab>") #'dired-subtree-remove))
 
   ; require --------------------------------------------------------------------------------------
 
@@ -331,17 +341,6 @@
                   (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
                             nil t)))
 
-
-
-  ; dired -------------------------------------------------------------------------------------------------
-
-  ; dired hide aync output buffer
-  (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-
-  (setq dired-subtree-use-backgrounds nil)
-  (let ((map dired-mode-map))
-    (define-key map (kbd "<tab>") #'dired-subtree-toggle)
-    (define-key map (kbd "<backtab>") #'dired-subtree-remove))
 
 
   ; define key ---------------------------------------------------------------------------------------
