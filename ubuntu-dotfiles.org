@@ -394,6 +394,71 @@ main = do
   (package-install-selected-packages)
   (elpy-enable)
 
+
+  ; general settings --------------------------------------------------------------------------------------
+
+  ; change prompt from yes or no, to y or n
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+  ; dont display time in mode line
+  (display-time-mode 0)
+
+  ;; mutt
+  (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+
+
+  ; require --------------------------------------------------------------------------------------
+
+  ; evil
+  (require 'evil)
+  (evil-mode 1)
+
+  ; which key
+  (require 'which-key)
+  (which-key-mode)
+
+  ; powerline-evil
+  (require 'powerline)
+  (powerline-default-theme)
+
+  ; ob-async
+  (require 'ob-async)
+
+  ; undo tree
+  (require 'undo-tree)
+  (global-undo-tree-mode 1)
+  (setq undo-tree-visualizer-timestamps t)
+
+  ; xml folding
+  (require 'hideshow)
+  (require 'sgml-mode)
+  (require 'nxml-mode)
+
+  (add-to-list 'hs-special-modes-alist
+	       '(nxml-mode
+		 "<!--\\|<[^/>]*[^/]>"
+		 "-->\\|</[^/>]*[^/]>"
+
+		 "<!--"
+		 sgml-skip-tag-forward
+		 nil))
+
+  (add-hook 'nxml-mode-hook 'hs-minor-mode)
+
+  ;; optional key bindings, easier than hs defaults
+  (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
+
+  ; org mode
+  (require 'org)
+  (require 'org-tempo)
+  (require 'org-protocol)
+  (require 'org-capture)
+  (require 'org-protocol-capture-html)
+  (setq org-agenda-files '("~/git/personal/org/"))
+  (define-key global-map "\C-cl" 'org-store-link)
+  (define-key global-map "\C-ca" 'org-agenda)
+
+
   ; setq --------------------------------------------------------------------------------------
 
   ;; dont backup files opened by sudo
@@ -449,6 +514,9 @@ main = do
   ; always follow symlinks
   (setq vc-follow-symlinks t)
 
+  ; ediff
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-split-window-function 'split-window-horizontally)
 
 
   ; backup directory --------------------------------------------------------------------------
@@ -469,6 +537,22 @@ main = do
   (setq kept-new-versions 6)
   (setq kept-old-versions 2)
   (setq create-lockfiles nil)
+
+
+  ; define key ---------------------------------------------------------------------------------------
+
+  ; fixing elpy keybinding
+  (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+  (define-key global-map (kbd "C-c o") 'iedit-mode)
+
+
+  ; add hook -----------------------------------------------------------------------------------------
+
+  ; visual line mode
+  (add-hook 'text-mode-hook 'visual-line-mode)
+
+  ; flycheck syntax linting
+  (add-hook 'sh-mode-hook 'flycheck-mode)
 
 
   ;Tell emacs where is your personal elisp lib dir ---------------------------------------------
@@ -518,56 +602,27 @@ main = do
     (define-key map (kbd "<tab>") #'dired-subtree-toggle)
     (define-key map (kbd "<backtab>") #'dired-subtree-remove))
 
-  ; require --------------------------------------------------------------------------------------
 
-  ; evil
-  (require 'evil)
-  (evil-mode 1)
+  ; magit -------------------------------------------------------------------------------------------------
 
-  ; which key
-  (require 'which-key)
-  (which-key-mode)
+  (global-set-key (kbd "C-x g") 'magit-status)
 
-  ; powerline-evil
-  (require 'powerline)
-  (powerline-default-theme)
+  ; delete magit buffers
+  (defun kill-magit-diff-buffer-in-current-repo (&rest _)
+        "Delete the magit-diff buffer related to the current repo"
+        (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
+          (kill-buffer magit-diff-buffer-in-current-repo)))
+      ;;
+      ;; When 'C-c C-c' or 'C-c C-l' are pressed in the magit commit message buffer,
+      ;; delete the magit-diff buffer related to the current repo.
+      ;;    
+      (add-hook 'git-commit-setup-hook
+                (lambda ()
+                  (add-hook 'with-editor-post-finish-hook #'kill-magit-diff-buffer-in-current-repo
+                            nil t)
+                  (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
+                            nil t)))
 
-  ; ob-async
-  (require 'ob-async)
-
-  ; undo tree
-  (require 'undo-tree)
-  (global-undo-tree-mode 1)
-  (setq undo-tree-visualizer-timestamps t)
-
-  ; xml folding
-  (require 'hideshow)
-  (require 'sgml-mode)
-  (require 'nxml-mode)
-
-  (add-to-list 'hs-special-modes-alist
-	       '(nxml-mode
-		 "<!--\\|<[^/>]*[^/]>"
-		 "-->\\|</[^/>]*[^/]>"
-
-		 "<!--"
-		 sgml-skip-tag-forward
-		 nil))
-
-  (add-hook 'nxml-mode-hook 'hs-minor-mode)
-
-  ;; optional key bindings, easier than hs defaults
-  (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
-
-  ; org mode
-  (require 'org)
-  (require 'org-tempo)
-  (require 'org-protocol)
-  (require 'org-capture)
-  (require 'org-protocol-capture-html)
-  (setq org-agenda-files '("~/git/personal/org/"))
-  (define-key global-map "\C-cl" 'org-store-link)
-  (define-key global-map "\C-ca" 'org-agenda)
 
   ; org mode --------------------------------------------------------------------------------------
 
@@ -679,54 +734,6 @@ main = do
   ; org src to use the current window
   (setq org-src-window-setup 'current-window)
 
-  ; general settings --------------------------------------------------------------------------------------
-
-  ; change prompt from yes or no, to y or n
-  (fset 'yes-or-no-p 'y-or-n-p)
-
-  ; dont display time in mode line
-  (display-time-mode 0)
-
-  ;; mutt
-  (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
-
-  ; magit -------------------------------------------------------------------------------------------------
-
-  (global-set-key (kbd "C-x g") 'magit-status)
-
-  ; delete magit buffers
-  (defun kill-magit-diff-buffer-in-current-repo (&rest _)
-        "Delete the magit-diff buffer related to the current repo"
-        (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
-          (kill-buffer magit-diff-buffer-in-current-repo)))
-      ;;
-      ;; When 'C-c C-c' or 'C-c C-l' are pressed in the magit commit message buffer,
-      ;; delete the magit-diff buffer related to the current repo.
-      ;;    
-      (add-hook 'git-commit-setup-hook
-                (lambda ()
-                  (add-hook 'with-editor-post-finish-hook #'kill-magit-diff-buffer-in-current-repo
-                            nil t)
-                  (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
-                            nil t)))
-
-
-
-  ; define key ---------------------------------------------------------------------------------------
-
-  ; fixing elpy keybinding
-  (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
-  (define-key global-map (kbd "C-c o") 'iedit-mode)
-
-
-  ; add hook -----------------------------------------------------------------------------------------
-
-  ; visual line mode
-  (add-hook 'text-mode-hook 'visual-line-mode)
-
-  ; flycheck syntax linting
-  (add-hook 'sh-mode-hook 'flycheck-mode)
-
 
   ; custom --------------------------------------------------------------------------------------------
 
@@ -737,11 +744,6 @@ main = do
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(org-link ((t (:inherit link :underline nil)))))
-
-  ; ediff ----------------------------------------------------------------------------------------------
-
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-  (setq ediff-split-window-function 'split-window-horizontally)
 
   ; mpv functions --------------------------------------------------------------------------------------
 
