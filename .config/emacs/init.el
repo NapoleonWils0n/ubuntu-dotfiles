@@ -108,6 +108,9 @@
 
 ;; setq --------------------------------------------------------------------------------------
 
+;; asynchronous tangle
+(setq org-export-async-debug t)
+
 ;; tramp setq
 (setq tramp-default-method "ssh")
 
@@ -200,6 +203,9 @@
 (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer)
+
+;; dired dwim
+(setq dired-dwim-target t)
 
 
 ;; magit -------------------------------------------------------------------------------------------------
