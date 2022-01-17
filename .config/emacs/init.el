@@ -41,14 +41,15 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(evil-collection dired-single rg haskell-mode csv-mode ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key)))
+   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader elpy flycheck git-auto-commit-mode haskell-mode ob-async ox-pandoc powerline magit markdown-mode rg undo-tree which-key)))
 
 ;; require package
 (require 'package)
 
-;; package archives 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpy" . "http://jorgenschaefer.github.io/packages/")))
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpy" . "http://jorgenschaefer.github.io/packages/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
 ;; package initialize
 (package-initialize)
@@ -97,25 +98,6 @@
 ;; undo tree
 (require 'undo-tree)
 (global-undo-tree-mode 1)
-
-;; xml folding
-(require 'hideshow)
-(require 'sgml-mode)
-(require 'nxml-mode)
-
-(add-to-list 'hs-special-modes-alist
-             '(nxml-mode
-               "<!--\\|<[^/>]*[^/]>"
-               "-->\\|</[^/>]*[^/]>"
-
-               "<!--"
-               sgml-skip-tag-forward
-               nil))
-
-(add-hook 'nxml-mode-hook 'hs-minor-mode)
-
-;; optional key bindings, easier than hs defaults
-(define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
 
 ;; org mode
 (require 'org)
@@ -368,13 +350,6 @@
 ;; org src to use the current window
 (setq org-src-window-setup 'current-window)
 
-
-;; custom --------------------------------------------------------------------------------------------
-
 ;; custom faces
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
