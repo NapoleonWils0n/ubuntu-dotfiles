@@ -37,7 +37,7 @@
 (custom-set-variables
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit markdown-mode rg undo-tree which-key s)))
+   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
@@ -124,12 +124,6 @@
 ;; case insensitive search
 (setq read-file-name-completion-ignore-case t)
 (setq pcomplete-ignore-case t)
-
-;; place headers on the left
-(setq markdown-asymmetric-header t)
-
-;; markdown preview using pandoc
-(setq markdown-command "pandoc -f markdown -t html -s -S --mathjax --highlight-style=pygments -c ~/git/personal/pandoc-css/pandoc.css")
 
 ;; gfm mode
 (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
@@ -321,7 +315,6 @@
      ("\\.pdf\\'" . default))))
 
 ;; ox-pandoc export
-(setq org-pandoc-options-for-markdown '((atx-headers . t)))
 (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
 
 ;; dont indent src block for export
