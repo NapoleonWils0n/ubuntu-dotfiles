@@ -289,12 +289,6 @@
       org-src-fontify-natively t
       org-src-tab-acts-natively t)
 
-;; org-babel graphviz
-(org-babel-do-load-languages
-'org-babel-load-languages
-'((dot . t)
-  (shell . t))) ;; this line activates bash shell script
-
 (setq org-latex-minted-options
     '(("frame" "lines") ("linenos=true")) )
 ;;(setq org-latex-listings 'minted)
