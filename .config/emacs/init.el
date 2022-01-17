@@ -340,3 +340,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
+
+;; garbage collection -----------------------------------------------------------------------------------
+
+;; Make gc pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
