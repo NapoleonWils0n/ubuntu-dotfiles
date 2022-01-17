@@ -35,30 +35,22 @@
 
 ;; package-selected-packages
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader elpy flycheck git-auto-commit-mode haskell-mode ob-async ox-pandoc powerline magit markdown-mode rg undo-tree which-key)))
+   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit markdown-mode rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
-                         ("elpy" . "http://jorgenschaefer.github.io/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+                         ("elpy" . "http://jorgenschaefer.github.io/packages/")))
 
 ;; package initialize
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
-
-;; elpy
-(elpy-enable)
 
 
 ;; general settings --------------------------------------------------------------------------------------
@@ -75,6 +67,7 @@
 ;;Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
+
 
 ;; require --------------------------------------------------------------------------------------
 
@@ -109,6 +102,9 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
+;; tramp
+(require 'tramp)
+
 
 ;; setq --------------------------------------------------------------------------------------
 
@@ -124,12 +120,6 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
-
-;; For elpy
-(setq elpy-rpc-python-command "python3")
-
-;; For interactive shell
-(setq python-shell-interpreter "python3")
 
 ;; case insensitive search
 (setq read-file-name-completion-ignore-case t)
@@ -176,8 +166,7 @@
 
 ;; define key ---------------------------------------------------------------------------------------
 
-;; fixing elpy keybinding
-(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+;; iedit
 (define-key global-map (kbd "C-c o") 'iedit-mode)
 
 
@@ -352,4 +341,8 @@
 
 ;; custom faces
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
