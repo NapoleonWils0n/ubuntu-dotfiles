@@ -47,13 +47,17 @@
 (require 'package)
 
 ;; package archives 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("elpy" . "http://jorgenschaefer.github.io/packages/")))
 
 ;; package initialize
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
+
+;; elpy
+(elpy-enable)
 
 
 ;; general settings --------------------------------------------------------------------------------------
@@ -138,6 +142,12 @@
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
+
+;; For elpy
+(setq elpy-rpc-python-command "python3")
+
+;; For interactive shell
+(setq python-shell-interpreter "python3")
 
 ;; case insensitive search
 (setq read-file-name-completion-ignore-case t)
