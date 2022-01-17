@@ -1,3 +1,14 @@
+;; emacs start up time ----------------------------------------------------------------------
+
+(defun efs/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                     (time-subtract after-init-time before-init-time)))
+           gcs-done))
+
+(add-hook 'emacs-startup-hook #'efs/display-startup-time)
+
 ;; emacs start up --------------------------------------------------------------------------
 
 (setq inhibit-startup-message t)
@@ -31,9 +42,9 @@
                   (member method '("su" "sudo" "doas"))))))))
 
 
-; melpa packages --------------------------------------------------------------------------
+;; melpa packages --------------------------------------------------------------------------
 
-; package-selected-packages
+;; package-selected-packages
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -43,55 +54,62 @@
  '(package-selected-packages
    '(evil-collection dired-single rg haskell-mode csv-mode ob-async flycheck git-auto-commit-mode powerline ox-pandoc markdown-mode magit evil-surround evil-leader emmet-mode elpy undo-tree which-key)))
 
+;; require package
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
+
+;; package archives 
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("elpy" . "http://jorgenschaefer.github.io/packages/")))
+
+;; package initialize
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents))
 (package-install-selected-packages)
+
+;; elpy
 (elpy-enable)
 
 
-; general settings --------------------------------------------------------------------------------------
+;; general settings --------------------------------------------------------------------------------------
 
-; change prompt from yes or no, to y or n
+;; change prompt from yes or no, to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-; dont display time in mode line
+;; dont display time in mode line
 (display-time-mode 0)
 
 ;; mutt
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
-;Tell emacs where is your personal elisp lib dir
+;;Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
 
-; require --------------------------------------------------------------------------------------
+;; require --------------------------------------------------------------------------------------
 
-; evil
+;; evil
 (setq evil-want-keybinding nil)
 (require 'evil)
 (evil-collection-init)
 (evil-mode 1)
 
-; which key
+;; which key
 (require 'which-key)
 (which-key-mode)
 
-; powerline-evil
+;; powerline-evil
 (require 'powerline)
 (powerline-default-theme)
 
-; ob-async
+;; ob-async
 (require 'ob-async)
 
-; undo tree
+;; undo tree
 (require 'undo-tree)
 (global-undo-tree-mode 1)
 
-; xml folding
+;; xml folding
 (require 'hideshow)
 (require 'sgml-mode)
 (require 'nxml-mode)
@@ -110,7 +128,7 @@
 ;; optional key bindings, easier than hs defaults
 (define-key nxml-mode-map (kbd "C-c h") 'hs-toggle-hiding)
 
-; org mode
+;; org mode
 (require 'org)
 (require 'org-tempo)
 (require 'org-protocol)
@@ -121,17 +139,17 @@
 (define-key global-map "\C-ca" 'org-agenda)
 
 
-; setq --------------------------------------------------------------------------------------
+;; setq --------------------------------------------------------------------------------------
 
 ;; tramp setq
 (setq tramp-default-method "ssh")
 
-; company auto complete
+;; company auto complete
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 3)
 (add-hook 'after-init-hook 'global-company-mode)
 
-; ido mode
+;; ido mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
@@ -142,39 +160,39 @@
 ;; For interactive shell
 (setq python-shell-interpreter "python3")
 
-; case insensitive search
+;; case insensitive search
 (setq read-file-name-completion-ignore-case t)
 (setq pcomplete-ignore-case t)
 
-; place headers on the left
+;; place headers on the left
 (setq markdown-asymmetric-header t)
 
-; markdown preview using pandoc
+;; markdown preview using pandoc
 (setq markdown-command "pandoc -f markdown -t html -s -S --mathjax --highlight-style=pygments -c ~/git/personal/pandoc-css/pandoc.css")
 
-; gfm mode
+;; gfm mode
 (setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
 
-; fix tab in evil for org mode
+;; fix tab in evil for org mode
 (setq evil-want-C-i-jump nil)
 
-; dont show images full size
+;; dont show images full size
 (setq org-image-actual-width nil)
 
 ;; prevent demoting heading also shifting text inside sections
 (setq org-adapt-indentation nil)
 
-; always follow symlinks
+;; always follow symlinks
 (setq vc-follow-symlinks t)
 
-; ediff
+;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
 
 
 ;; tramp ssh config --------------------------------------------------------------------------
 
-; set tramp shell to sh to avoid zsh problems
+;; set tramp shell to sh to avoid zsh problems
 (eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
 
 (tramp-set-completion-function "ssh"
@@ -185,56 +203,56 @@
                   (cons tramp-file-name-regexp nil))
 
 
-; define key ---------------------------------------------------------------------------------------
+;; define key ---------------------------------------------------------------------------------------
 
-; fixing elpy keybinding
+;; fixing elpy keybinding
 (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 (define-key global-map (kbd "C-c o") 'iedit-mode)
 
 
-; add hook -----------------------------------------------------------------------------------------
+;; add hook -----------------------------------------------------------------------------------------
 
-; visual line mode
+;; visual line mode
 (add-hook 'text-mode-hook 'visual-line-mode)
 
-; flycheck syntax linting
+;; flycheck syntax linting
 (add-hook 'sh-mode-hook 'flycheck-mode)
 
 
-; dired --------------------------------------------------------------------------------------
+;; dired --------------------------------------------------------------------------------------
 
-; dired directory listing options for ls
+;; dired directory listing options for ls
 (setq dired-listing-switches "-ahl")
 
-; dired hide long listing by default
+;; dired hide long listing by default
 (defun my-dired-mode-setup ()
   "show less information in dired buffers"
   (dired-hide-details-mode 1))
 (add-hook 'dired-mode-hook 'my-dired-mode-setup)
 
-; Toggle Hidden Files in Emacs dired with C-x M-o
+;; Toggle Hidden Files in Emacs dired with C-x M-o
 (require 'dired-x)
 (setq dired-omit-files "^\\...+$")
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
-; recursive delete and copy
+;; recursive delete and copy
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
-; dired hide aync output buffer
+;; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
-; dired use h and l
+;; dired use h and l
 (evil-collection-define-key 'normal 'dired-mode-map
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer)
 
 
-; magit -------------------------------------------------------------------------------------------------
+;; magit -------------------------------------------------------------------------------------------------
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
-; delete magit buffers
+;; delete magit buffers
 (defun kill-magit-diff-buffer-in-current-repo (&rest _)
       "Delete the magit-diff buffer related to the current repo"
       (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
@@ -251,9 +269,9 @@
                           nil t)))
 
 
-; org mode --------------------------------------------------------------------------------------
+;; org mode --------------------------------------------------------------------------------------
 
-; org-capture
+;; org-capture
 (global-set-key "\C-cc" 'org-capture)
 
 (defadvice org-capture
@@ -268,7 +286,7 @@
   (if (equal "emacs-capture" (frame-parameter nil 'name))
       (delete-frame)))
 
-; org capture templates
+;; org capture templates
 (setq org-capture-templates
     '(("t" "todo" entry
       (file+headline "~/git/personal/org/todo.org" "Tasks")
@@ -279,46 +297,46 @@
       (file "~/git/personal/org/templates/tpl-web.txt")
        :empty-lines-before 1)))
 
-; refile
+;; refile
 (setq org-refile-targets '((nil :maxlevel . 2)
                                 (org-agenda-files :maxlevel . 2)))
 (setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
 (setq org-refile-use-outline-path t)                  ; Show full paths for refiling
 
-; Prepare stuff for org-export-backends
+;; Prepare stuff for org-export-backends
 (setq org-export-backends '(org md html latex icalendar odt ascii))
 
-; org hide markup
+;; org hide markup
 (setq org-hide-emphasis-markers t)
 
-; org column spacing for tags
+;; org column spacing for tags
 (setq org-tags-column 0)
 
-; todo keywords
+;; todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
 (setq org-log-done t)
 
-; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
+;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
 (setq org-use-fast-todo-selection t)
 
-; org todo logbook
+;; org todo logbook
 (setq org-log-into-drawer t)
 
-; org babel supress do you want to execute code message
+;; org babel supress do you want to execute code message
 (setq org-confirm-babel-evaluate nil
       org-src-fontify-natively t
       org-src-tab-acts-natively t)
 
-; org-babel graphviz
+;; org-babel graphviz
 (org-babel-do-load-languages
 'org-babel-load-languages
 '((dot . t)
-  (shell . t))) ; this line activates bash shell script
+  (shell . t))) ;; this line activates bash shell script
 
 (setq org-latex-minted-options
     '(("frame" "lines") ("linenos=true")) )
-;(setq org-latex-listings 'minted)
+;;(setq org-latex-listings 'minted)
 (setq org-latex-listings 'minted
     org-latex-packages-alist '(("" "minted"))
     org-latex-pdf-process
@@ -328,7 +346,7 @@
 (setq org-latex-minted-options
     '(("frame" "lines") ("linenos=true")) )
 
-; org open files
+;; org open files
 (setq org-file-apps
      (quote
      ((auto-mode . emacs)
@@ -342,14 +360,14 @@
      ("\\.jpeg\\'" . "sxiv %s")
      ("\\.pdf\\'" . default))))
 
-; ox-pandoc export
+;; ox-pandoc export
 (setq org-pandoc-options-for-markdown '((atx-headers . t)))
 (setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
 
-; dont indent src block for export
+;; dont indent src block for export
 (setq org-src-preserve-indentation t)
 
-; org mode copy url from org link
+;; org mode copy url from org link
 (fset 'getlink
       (lambda (&optional arg) 
         "Keyboard macro." 
@@ -358,13 +376,13 @@
 
 (define-key org-mode-map (kbd "C-c p") #'getlink)
 
-; org src to use the current window
+;; org src to use the current window
 (setq org-src-window-setup 'current-window)
 
 
-; custom --------------------------------------------------------------------------------------------
+;; custom --------------------------------------------------------------------------------------------
 
-; custom faces
+;; custom faces
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
