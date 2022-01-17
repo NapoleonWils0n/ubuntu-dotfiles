@@ -129,9 +129,6 @@
 (setq read-file-name-completion-ignore-case t)
 (setq pcomplete-ignore-case t)
 
-;; gfm mode
-(setq auto-mode-alist (cons '("\\.mdt$" . gfm-mode) auto-mode-alist))
-
 ;; fix tab in evil for org mode
 (setq evil-want-C-i-jump nil)
 
