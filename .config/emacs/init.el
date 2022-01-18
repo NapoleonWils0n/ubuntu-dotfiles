@@ -38,9 +38,13 @@
 
 ;; package-selected-packages
 (custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
@@ -112,8 +116,31 @@
 ;; tramp
 (require 'tramp)
 
+;; openwith
+(require 'openwith)
+(setq openwith-associations
+      (list
+       (list (openwith-make-extension-regexp
+              '("mpg" "mpeg" "mp3" "mp4"
+                "avi" "wmv" "wav" "mov" "flv"
+                "ogm" "ogg" "mkv"))
+             "mpv"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("xbm" "pbm" "pgm" "ppm" "pnm"
+                "png" "gif" "bmp" "tif" "jpeg"))
+             "sxiv"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("pdf"))
+             "zathura"
+             '(file))))
+
 
 ;; setq --------------------------------------------------------------------------------------
+
+;; suppress large file prompt
+(setq large-file-warning-threshold nil)
 
 ;; asynchronous tangle
 (setq org-export-async-debug t)
