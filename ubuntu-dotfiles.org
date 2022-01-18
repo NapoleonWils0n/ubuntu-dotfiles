@@ -427,6 +427,10 @@ main = do
 
 ;; general settings --------------------------------------------------------------------------------------
 
+;; h1 line mode
+(global-hl-line-mode 1)
+(set-face-background hl-line-face "#104e8b")
+
 ;; change prompt from yes or no, to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -713,6 +717,7 @@ main = do
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
+
 #+END_SRC
 
 *** emacs tangle

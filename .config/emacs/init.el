@@ -59,6 +59,10 @@
 
 ;; general settings --------------------------------------------------------------------------------------
 
+;; h1 line mode
+(global-hl-line-mode 1)
+(set-face-background hl-line-face "#104e8b")
+
 ;; change prompt from yes or no, to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
