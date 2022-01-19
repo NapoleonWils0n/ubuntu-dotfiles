@@ -128,7 +128,7 @@
              '(file))
        (list (openwith-make-extension-regexp
               '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg"))
+                "png" "gif" "bmp" "tif" "jpeg" "jpg"))
              "sxiv"
              '(file))
        (list (openwith-make-extension-regexp
