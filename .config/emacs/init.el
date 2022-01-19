@@ -233,6 +233,7 @@
 
 ;; dired use h and l
 (evil-collection-define-key 'normal 'dired-mode-map
+    "e" 'dired-find-file
     "h" 'dired-single-up-directory
     "l" 'dired-single-buffer)
 
