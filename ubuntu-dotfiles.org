@@ -688,6 +688,11 @@ main = do
       org-src-fontify-natively t
       org-src-tab-acts-natively t)
 
+; org-babel shell script
+(org-babel-do-load-languages
+'org-babel-load-languages
+'((shell . t))) 
+
 (setq org-latex-minted-options
     '(("frame" "lines") ("linenos=true")) )
 ;;(setq org-latex-listings 'minted)
