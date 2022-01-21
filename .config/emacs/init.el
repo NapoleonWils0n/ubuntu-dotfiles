@@ -123,7 +123,7 @@
        (list (openwith-make-extension-regexp
               '("mpg" "mpeg" "mp3" "mp4"
                 "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv"))
+                "ogm" "ogg" "mkv" "webm"))
              "mpv"
              '(file))
        (list (openwith-make-extension-regexp
