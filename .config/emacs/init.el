@@ -211,7 +211,7 @@
 ;; dired --------------------------------------------------------------------------------------
 
 ;; dired directory listing options for ls
-(setq dired-listing-switches "-ahl")
+(setq dired-listing-switches "-ahlv")
 
 ;; dired hide long listing by default
 (defun my-dired-mode-setup ()
