@@ -17,6 +17,8 @@ C-u C-c C-v t
 emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubuntu-dotfiles.org")'
 #+end_src
 
+#+RESULTS:
+
 * ubuntu dotfiles
 :PROPERTIES:
 :VISIBILITY: children
