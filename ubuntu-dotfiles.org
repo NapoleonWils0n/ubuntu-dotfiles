@@ -56,7 +56,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         exiftool
         exa
         feh
-        ffmpeg
+        ffmpeg_5
         fzf
         gdal
         gimp

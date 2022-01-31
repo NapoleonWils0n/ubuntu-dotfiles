@@ -26,7 +26,7 @@
         exiftool
         exa
         feh
-        ffmpeg
+        ffmpeg_5
         fzf
         gdal
         gimp
