@@ -2407,7 +2407,7 @@ K cycle sub down
 msg-level=ffmpeg=fatal
 vo=gpu
 hwdec=vaapi
-ytdl-format=bestvideo[height<=?1080][fps<=?30][vcodec!=?vp9]+bestaudio/best
+ytdl-format=bestvideo[height<=?1080][fps<=?60][vcodec!=?vp9]+bestaudio[acodec!=?opus]
 osd-fractions
 #+END_SRC
 
@@ -2450,7 +2450,7 @@ osd-fractions
 #+NAME: yt-dlp
 #+BEGIN_SRC conf
 # download 1080p video in mp4 format for sponsorblock
--f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio'
+-f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
 
 # external downloader aria2
 --downloader aria2c --downloader-args aria2c:'-c -j 3 -x 3 -s 3 -k 1M'
