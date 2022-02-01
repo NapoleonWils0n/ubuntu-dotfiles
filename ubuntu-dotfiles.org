@@ -2454,8 +2454,8 @@ osd-fractions
 # ffmpeg 5 location
 --ffmpeg-location "/home/djwilcox/.nix-profile/bin/ffmpeg"
 
-# download 1080p video in mp4 format for sponsorblock
--f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
+# download 1080p video in mp4 format
+#-f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
 
 # external downloader aria2
 --downloader aria2c --downloader-args aria2c:'-c -j 3 -x 3 -s 3 -k 1M'
