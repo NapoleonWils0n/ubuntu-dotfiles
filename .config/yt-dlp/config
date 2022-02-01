@@ -1,5 +1,5 @@
 # ffmpeg 5 location
---ffmpeg-location "/home/djwilcox/.nix-profile/bin/ffmpeg" \
+--ffmpeg-location "/home/djwilcox/.nix-profile/bin/ffmpeg"
 
 # download 1080p video in mp4 format for sponsorblock
 -f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
