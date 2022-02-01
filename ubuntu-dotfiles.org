@@ -2408,7 +2408,8 @@ K cycle sub down
 msg-level=ffmpeg=fatal
 vo=gpu
 hwdec=vaapi
-ytdl-format=bestvideo[height<=?1080][fps<=?60][vcodec!=?vp9]+bestaudio[acodec!=?opus]
+#ytdl-format=bestvideo[height<=?1080][fps<=?60][vcodec!=?vp9]+bestaudio[acodec!=?opus]
+ytdl-format=bestvideo[height<=?1080][fps<=?60]+bestaudio
 osd-fractions
 #+END_SRC
 
