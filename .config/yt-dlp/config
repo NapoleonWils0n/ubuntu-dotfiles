@@ -9,3 +9,9 @@
 
 # native downloader for dash and m3u8
 --downloader 'dash,m3u8:native'
+
+# restrict filenames
+--restrict-filenames
+
+# merge output format mkv
+--merge-output-format mkv
