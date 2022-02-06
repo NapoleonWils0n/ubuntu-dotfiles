@@ -2291,9 +2291,6 @@ https://rarbg.to/rssdd.php?categories=42 movies bd full rarbg "~full bd"
 https://rarbg.to/rssdd.php?categories=46 bd remux rarbg "~bd remux"
 https://rarbg.to/rssdd.php?categories=25 music flac rarbg "~flac audio"
 
-# eztv
-https://eztv.re/ezrss.xml tv eztv "~eztv"
-
 # torrentgalaxy
 https://torrentgalaxy.to/rss.php?cat=42 movies hd torrentgalaxy "~movies hd"
 https://torrentgalaxy.to/rss.php?cat=1 movies sd torrentgalaxy "~movies sd"
