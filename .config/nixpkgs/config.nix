@@ -56,6 +56,7 @@
         p7zip
         ripgrep
         scrot
+        socat
         sox
         shellcheck
         surfraw

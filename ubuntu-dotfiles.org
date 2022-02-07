@@ -86,6 +86,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         p7zip
         ripgrep
         scrot
+        socat
         sox
         shellcheck
         surfraw
