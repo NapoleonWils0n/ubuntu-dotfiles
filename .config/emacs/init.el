@@ -44,7 +44,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(mpv company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
