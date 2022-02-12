@@ -416,30 +416,23 @@ If the integer is negative, the string will start with \"-\"."
     (format "%s%02d:%02d:%02d.%02d" sign h m sec ms)))
 
 
-
-;; mpv code to  -----------------------------------------------------------------------------------
-
-(defun my/org-timer-hms-to-secs (hmsm)
+;; org-timer covert hours, minutes, seconds, milliseconds to seconds, milliseconds
+(defun my/org-timer-hms-to-secs (hms)
   "Convert h:mm:ss string to an integer time.
 If the string starts with a minus sign, the integer will be negative."
   (if (not (string-match
-	    "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)"
-	    hmsm))
+	    "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)\\([.]?[0-9]\\{0,3\\}\\)"
+	    hms))
       0
-    (setq x `hmsm
-          seconds (car (split-string x "[.]"))
-          milliseconds (cadr (split-string x "[.]"))
-          hms (string-to-number seconds)
-          ms (string-to-number milliseconds))
     (let* ((h (string-to-number (match-string 1 hms)))
 	   (m (string-to-number (match-string 2 hms)))
 	   (s (string-to-number (match-string 3 hms)))
+	   (ms (string-to-number (match-string 4 hms)))
 	   (sign (equal (substring (match-string 1 hms) 0 1) "-")))
       (setq h (abs h))
-      (* (if sign -1 1) (+ s (* 60 (+ m (* 60 h (+ ms)))))))))
+      (* (if sign -1 1) (+ s (+ ms (* 60 (+ m (* 60 h))))))))
 
-
-;;   "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)\\([.]?[0-9]?\\)"
+;; mpv code to  -----------------------------------------------------------------------------------
 
 ;; seek to position
 (defun mpv-seek-to-position-at-point ()
@@ -449,13 +442,11 @@ This can be used with the `org-open-at-point-functions' hook."
   (interactive)
   (save-excursion
     (skip-chars-backward ":[:digit:]" (point-at-bol))
-    (when (looking-at "[0-9]+:[0-9]\\{2\\}:[0-9]\\{2\\}\\([.]?[0-9]?\\)")
+    (when (looking-at "[0-9]+:[0-9]\\{2\\}:[0-9]\\{2\\}\\([.]?[0-9]\\{0,3\\}\\)"))
       (let ((secs (my/org-timer-hms-to-secs (match-string 0))))
         (when (>= secs 0)
           (mpv-seek secs))))))
 
-
-;;    (when (looking-at "[0-9]+:[0-9]\\{2\\}:[0-9]\\{2\\}")
 
 ;; garbage collection -----------------------------------------------------------------------------------
 
