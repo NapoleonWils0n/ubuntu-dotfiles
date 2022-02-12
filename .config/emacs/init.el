@@ -473,6 +473,8 @@
   ("l" mpv-seek-forward "5")
   ("SPC" mpv-pause)
   ("i" mpv-insert-playback-position)
+  ("," mpv-run-command frame-back-step)
+  ("." mpv-run-command frame-step)
   ("q" mpv-kill))
 
 
