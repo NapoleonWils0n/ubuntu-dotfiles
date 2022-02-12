@@ -472,7 +472,9 @@
   ("k" mpv-seek-forward "60")
   ("l" mpv-seek-forward "5")
   ("SPC" mpv-pause)
+  ("i" mpv-insert-playback-position)
   ("q" mpv-kill))
+
 
 ;; garbage collection -----------------------------------------------------------------------------------
 
