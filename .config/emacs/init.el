@@ -44,7 +44,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(mpv company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(hydra mpv company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
@@ -462,6 +462,17 @@
 ;; have mpv seek to the position of a timestamp when pressing /RET/ in an org buffer
 (add-hook 'org-open-at-point-functions #'mpv-seek-to-position-at-point)
 
+;; hydra --------------------------------------------------------------------------------------------------
+
+;; hydra control mpv
+(defhydra hydra-mpv (global-map "C-x z")
+  "mpv"
+  ("h" mpv-seek-backward "-5")
+  ("j" mpv-seek-backward "-60")
+  ("k" mpv-seek-forward "60")
+  ("l" mpv-seek-forward "5")
+  ("SPC" mpv-pause)
+  ("q" mpv-kill))
 
 ;; garbage collection -----------------------------------------------------------------------------------
 
