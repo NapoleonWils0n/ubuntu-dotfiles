@@ -378,6 +378,7 @@
  ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
 
+
 ;; mpv --------------------------------------------------------------------------------------------------
 
 (org-link-set-parameters "mpv" :follow #'mpv-play)
@@ -462,10 +463,12 @@
 ;; have mpv seek to the position of a timestamp when pressing /RET/ in an org buffer
 (add-hook 'org-open-at-point-functions #'mpv-seek-to-position-at-point)
 
+
 ;; hydra --------------------------------------------------------------------------------------------------
 
+
 ;; hydra control mpv
-(defhydra hydra-mpv (global-map "C-x z")
+(defhydra hydra-mpv (global-map "<f2>")
   "mpv"
   ("h" mpv-seek-backward "-5")
   ("j" mpv-seek-backward "-60")
@@ -473,9 +476,11 @@
   ("l" mpv-seek-forward "5")
   ("SPC" mpv-pause)
   ("i" mpv-insert-playback-position)
-  ("," mpv-run-command frame-back-step)
-  ("." mpv-run-command frame-step)
   ("q" mpv-kill))
+
+
+;;  ("," mpv-run-command frame-back-step)
+;;  ("." mpv-run-command frame-step)
 
 
 ;; garbage collection -----------------------------------------------------------------------------------
