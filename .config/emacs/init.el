@@ -400,6 +400,22 @@
        (if arg #'mpv--position-insert-as-org-item #'insert)
        (org-timer-secs-to-hms (float time))))))
 
+;; M-RET will insert a new item with the timestamp of the current playback position
+(defun my:mpv/org-metareturn-insert-playback-position ()
+  (when-let ((item-beg (org-in-item-p)))
+    (when (and (not org-timer-start-time)
+               (mpv-live-p)
+               (save-excursion
+                 (goto-char item-beg)
+                 (and (not (org-invisible-p)) (org-at-item-timer-p))))
+      (mpv-insert-playback-position t))))
+(add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
+
+;; have mpv seek to the position of a timestamp when pressing /RET/ in an org buffer
+(add-hook 'org-open-at-point-functions #'mpv-seek-to-position-at-point)
+
+
+;; mpv custom --------------------------------------------------------------------------------------------
 
 ;; org-timer covert seconds and milliseconds to hours, minutes, seconds, milliseconds
 (with-eval-after-load 'org-timer
@@ -448,20 +464,6 @@
         (let ((secs (org-timer-hms-to-secs (match-string 0))))
           (when (>= secs 0)
             (mpv-seek secs))))))
-
-;; M-RET will insert a new item with the timestamp of the current playback position
-(defun my:mpv/org-metareturn-insert-playback-position ()
-  (when-let ((item-beg (org-in-item-p)))
-    (when (and (not org-timer-start-time)
-               (mpv-live-p)
-               (save-excursion
-                 (goto-char item-beg)
-                 (and (not (org-invisible-p)) (org-at-item-timer-p))))
-      (mpv-insert-playback-position t))))
-(add-hook 'org-metareturn-hook #'my:mpv/org-metareturn-insert-playback-position)
-
-;; have mpv seek to the position of a timestamp when pressing /RET/ in an org buffer
-(add-hook 'org-open-at-point-functions #'mpv-seek-to-position-at-point)
 
 
 ;; hydra --------------------------------------------------------------------------------------------------
