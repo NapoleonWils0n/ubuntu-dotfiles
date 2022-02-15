@@ -842,15 +842,19 @@ main = do
 ;; mpv step forwards and backwards -----------------------------------------------------------------------
 
 ;; pinched from sacha chua's waveform.el
-(defun mpv-frame-step ()
-  "Step one frame forward."
-  (interactive)
-  (mpv--enqueue '("frame-step") #'ignore))
 
-(defun mpv-frame-back-step ()
-  "Step one frame backward."
-  (interactive)
-  (mpv--enqueue '("frame-back-step") #'ignore))
+(with-eval-after-load 'mpv
+  (defun mpv-frame-step ()
+    "Step one frame forward."
+    (interactive)
+    (mpv--enqueue '("frame-step") #'ignore)))
+
+
+(with-eval-after-load 'mpv
+  (defun mpv-frame-back-step ()
+    "Step one frame backward."
+    (interactive)
+    (mpv--enqueue '("frame-back-step") #'ignore)))
 
 ;; hydra --------------------------------------------------------------------------------------------------
 
