@@ -79,7 +79,6 @@
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
 
-
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
@@ -484,6 +483,13 @@
     (interactive)
     (mpv--enqueue '("frame-back-step") #'ignore)))
 
+
+(with-eval-after-load 'mpv
+  (defun mpv-screenshot ()
+    "Take a screenshot"
+    (interactive)
+    (mpv--enqueue '("screenshot") #'ignore)))
+
 ;; hydra --------------------------------------------------------------------------------------------------
 
 (defhydra hydra-mpv (global-map "<f2>")
@@ -493,7 +499,7 @@
   _h_: seek back -5         _,_: back frame          _SPC_: pause
   _j_: seek back -60        _._: forward frame       _q_: quit mpv
   _k_: seek forward 60      ^^                       _i_: insert playback position
-  _l_: seek forward 5       ^^
+  _l_: seek forward 5       ^^                       _s_: take a screenshot
   ^
   "
   ("h" mpv-seek-backward "-5")
@@ -504,6 +510,7 @@
   ("." mpv-frame-step "forward")
   ("i" mpv-insert-playback-position "insert")
   ("SPC" mpv-pause "pause")
+  ("s" mpv-screenshot "screenshot")
   ("q" mpv-kill "quit"))
 
 
