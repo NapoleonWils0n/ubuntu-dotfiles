@@ -78,6 +78,7 @@
 ;;Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
+;;(load "waveform")
 
 ;; revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
@@ -495,6 +496,15 @@
     (interactive)
     (mpv--enqueue '("screenshot") #'ignore)))
 
+
+;; mpv show osd
+(with-eval-after-load 'mpv
+  (defun mpv-osd ()
+    "Show the osd"
+    (interactive)
+    (mpv--enqueue '("set_property" "osd-level" "3") #'ignore)))
+
+
 ;; add a newline in the current document
 (defun end-of-line-and-indented-new-line ()
   (interactive)
@@ -511,7 +521,7 @@
   _h_: seek back -5         _,_: back frame          _i_: insert playback position
   _j_: seek back -60        _._: forward frame       _n_: insert a newline
   _k_: seek forward 60      _SPC_: pause             _s_: take a screenshot
-  _l_: seek forward 5       _q_: quit mpv            ^^ 
+  _l_: seek forward 5       _q_: quit mpv            _o_: show the osd
   ^
   "
   ("h" mpv-seek-backward "-5")
@@ -524,6 +534,7 @@
   ("q" mpv-kill "quit")
   ("s" mpv-screenshot "screenshot")
   ("i" my/mpv-insert-playback-position "insert position")
+  ("o" mpv-osd "osd")
   ("n" end-of-line-and-indented-new-line "insert newline"))
 
 
