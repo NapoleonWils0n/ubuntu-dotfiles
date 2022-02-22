@@ -83,6 +83,9 @@
 ;; revert buffers when the underlying file has changed
 (global-auto-revert-mode 1)
 
+;; save cursor position
+(save-place-mode 1)
+
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
@@ -181,6 +184,10 @@
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
+
+;; M-n, M-p recall previous mini buffer commands
+(setq history-length 25)
+(savehist-mode 1)
 
 
 ;; tramp ssh config --------------------------------------------------------------------------
