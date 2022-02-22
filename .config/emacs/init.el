@@ -528,14 +528,14 @@
   ("j" mpv-seek-backward "-60")
   ("k" mpv-seek-forward "60")
   ("l" mpv-seek-forward "5")
-  ("," mpv-frame-back-step "back")
-  ("." mpv-frame-step "forward")
-  ("SPC" mpv-pause "pause")
-  ("q" mpv-kill "quit")
-  ("s" mpv-screenshot "screenshot")
-  ("i" my/mpv-insert-playback-position "insert position")
-  ("o" mpv-osd "osd")
-  ("n" end-of-line-and-indented-new-line "insert newline"))
+  ("," mpv-frame-back-step)
+  ("." mpv-frame-step)
+  ("SPC" mpv-pause)
+  ("q" mpv-kill)
+  ("s" mpv-screenshot)
+  ("i" my/mpv-insert-playback-position)
+  ("o" mpv-osd)
+  ("n" end-of-line-and-indented-new-line))
 
 
 ;; garbage collection -----------------------------------------------------------------------------------
