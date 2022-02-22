@@ -79,6 +79,9 @@
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
 
+;; revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
+
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
@@ -238,6 +241,9 @@
 
 ;; dired dwim
 (setq dired-dwim-target t)
+
+;; revert dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
 
 
 ;; magit -------------------------------------------------------------------------------------------------
