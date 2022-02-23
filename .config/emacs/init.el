@@ -217,6 +217,9 @@
 ;; flycheck syntax linting
 (add-hook 'sh-mode-hook 'flycheck-mode)
 
+;; Make shebang (#!) file executable when saved
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 
 ;; dired --------------------------------------------------------------------------------------
 
