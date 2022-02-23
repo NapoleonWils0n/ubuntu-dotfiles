@@ -189,6 +189,9 @@
 (setq history-length 25)
 (savehist-mode 1)
 
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
+
 
 ;; tramp ssh config --------------------------------------------------------------------------
 
