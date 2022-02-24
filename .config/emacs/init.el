@@ -86,10 +86,6 @@
 ;; save cursor position
 (save-place-mode 1)
 
-;; parentheses
-(electric-pair-mode 1) ; auto-insert matching bracket
-(show-paren-mode 1)    ; turn on paren match highlighting
-
 
 ;; require --------------------------------------------------------------------------------------
 
