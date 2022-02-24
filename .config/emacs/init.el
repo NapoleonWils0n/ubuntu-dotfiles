@@ -80,9 +80,6 @@
 (load "org-protocol-capture-html")
 ;;(load "waveform")
 
-;; revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
-
 ;; save cursor position
 (save-place-mode 1)
 
@@ -259,6 +256,9 @@
 
 ;; revert dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
+
+;; revert buffers when the underlying file has changed
+(global-auto-revert-mode 1)
 
 
 ;; magit -------------------------------------------------------------------------------------------------
