@@ -2265,7 +2265,7 @@ wrap-scroll yes
 browser "/usr/bin/w3m %u"
 macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro l set browser "/snap/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
+macro l set browser "flatpak run org.mozilla.firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
 macro p set browser "/home/djwilcox/bin/punch -i %u 2> /dev/null"; one; set browser "/usr/bin/w3m %u"
 
 # urlscan
