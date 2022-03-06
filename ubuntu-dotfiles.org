@@ -2659,6 +2659,32 @@ osd-fractions
 <<yt-dlp>>
 #+END_SRC
 
+** streamlink
+*** streamlink config
+
+#+NAME: streamlink
+#+BEGIN_SRC conf
+# streamlink
+player=mpv
+default-stream=best,720p
+#+END_SRC
+
+*** streamlink tangle
+
++ home dir
+
+#+NAME: streamlink-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/streamlink/config"
+<<streamlink>>
+#+END_SRC
+
++ current dir
+
+#+NAME: streamlink-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/streamlink/config"
+<<streamlink>>
+#+END_SRC
+
 ** aria2c
 *** aria2c config
 
