@@ -89,6 +89,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         socat
         sox
         shellcheck
+        streamlink
         surfraw
         sxhkd
         sxiv

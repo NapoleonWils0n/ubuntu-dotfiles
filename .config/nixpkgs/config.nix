@@ -59,6 +59,7 @@
         socat
         sox
         shellcheck
+        streamlink
         surfraw
         sxhkd
         sxiv
