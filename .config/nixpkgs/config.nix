@@ -50,6 +50,7 @@
         ncmpc
         networkmanagerapplet
         newsboat
+        nsxiv
         oathToolkit
         pandoc
         playerctl
