@@ -1,7 +1,7 @@
 # queries
-"query:tv:tags # \"tv\"" meta
-"query:movies:tags # \"movies\"" meta
-"query:music:tags # \"music\"" meta
+"query:Tv:unread = \"yes\" and tags # \"tv\"" meta
+"query:Movies:unread = \"yes\" and tags # \"movies\"" meta
+"query:Music:unread = \"yes\" and tags # \"music\"" meta
 
 # rarbg
 https://rarbg.to/rssdd_magnet.php?categories=18 tv sd rarbg "~tv sd"

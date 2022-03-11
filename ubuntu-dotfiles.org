@@ -2381,8 +2381,28 @@ notify-program "/usr/bin/notify-send"
 #+NAME: newsboat-urls
 #+BEGIN_SRC conf
 # queries
-"query:Newcastle United:tags # \"newcastle\"" meta
-"query:Unread Articles:unread = \"yes\"" meta
+
+# unread articles tagged newcastle
+"query:Newcastle:unread = \"yes\" and tags # \"newcastle\""
+
+# unread articles tagged news
+"query:News:unread = \"yes\" and tags # \"news\""
+
+# unread articles tagged general
+"query:General:unread = \"yes\" and tags # \"general\""
+
+# unread articles tagged linux
+"query:Linux:unread = \"yes\" and tags # \"linux\""
+
+# unread articles tagged emacs
+"query:Emacs:unread = \"yes\" and tags # \"emacs\""
+
+# unread articles tagged obs
+"query:OBS:unread = \"yes\" and tags # \"obs\""
+
+# unread articles tagged reddit
+"query:Reddit:unread = \"yes\" and tags # \"reddit\""
+
 
 # news
 https://www.howtogeek.com/feed/ news
@@ -2392,7 +2412,7 @@ https://itsfoss.com/feed/ news
 http://feeds.feedburner.com/Torrentfreak news
 https://news.ycombinator.com/rss news "~Hacker News" 
 
-# toon
+# newcastle youtube
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~The Magpie Channel" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg newcastle "~Newcastle Fans TV" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg newcastle "~Roobenstein" 
@@ -2416,10 +2436,8 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw lin
 https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw linux "~Hikmat E Ustad" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC0ds7DW6IIl7mXcyz5vMEHQ linux "~Blackberry Boy"
 
-# comedy
-https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa comedy "~A Closer Look" 
-
 # general
+https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa general "~A Closer Look" 
 https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag general "~David Pakman" 
 
 # emacs
@@ -2453,9 +2471,9 @@ https://www.reddit.com/r/gnu/.rss reddit "~gnu"
 #+NAME: newsboat-urls-torrents
 #+BEGIN_SRC conf
 # queries
-"query:tv:tags # \"tv\"" meta
-"query:movies:tags # \"movies\"" meta
-"query:music:tags # \"music\"" meta
+"query:Tv:unread = \"yes\" and tags # \"tv\"" meta
+"query:Movies:unread = \"yes\" and tags # \"movies\"" meta
+"query:Music:unread = \"yes\" and tags # \"music\"" meta
 
 # rarbg
 https://rarbg.to/rssdd_magnet.php?categories=18 tv sd rarbg "~tv sd"
