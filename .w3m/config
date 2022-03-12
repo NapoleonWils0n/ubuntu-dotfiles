@@ -77,10 +77,10 @@ index_file
 mime_types ~/.mime.types, /usr/local/etc/mime.types
 mailcap ~/.w3m/mailcap, /usr/local/etc/w3m/mailcap
 urimethodmap ~/.w3m/urimethodmap, /usr/local/etc/w3m/urimethodmap
-editor /usr/local/bin/emacsclient
+editor /home/djwilcox/.nix-profile/bin/emacsclient
 mailto_options 1
 mailer 
-extbrowser /snap/bin/firefox
+extbrowser "flatpak run org.mozilla.firefox"
 extbrowser2 
 extbrowser3 
 extbrowser4 
