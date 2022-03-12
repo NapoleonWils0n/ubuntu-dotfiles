@@ -10271,6 +10271,19 @@ Terminal=false
 MimeType=x-scheme-handler/org-protocol;
 #+END_SRC
 
+**** st-terminal config
+
+#+NAME: st-terminal
+#+BEGIN_SRC conf
+[Desktop Entry]
+Type=Application
+Name=st
+Comment=simple-terminal emulator for X
+Icon=utilities-terminal
+Exec=st
+Categories=System;TerminalEmulator
+#+END_SRC
+
 **** org-protocol config
 
 #+NAME: org-protocol
@@ -11185,6 +11198,22 @@ Exec=doas namespace /usr/local/bin/firefox-netns --ProfileManager
 #+NAME: emacs-capture-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/emacs-capture.desktop"
 <<emacs-capture>>
+#+END_SRC
+
+**** st-terminal tangle
+
++ home dir
+
+#+NAME: st-terminal-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
+<<st-terminal>>
+#+END_SRC
+
++ current dir
+
+#+NAME: st-terminal-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
+<<st-terminal>>
 #+END_SRC
 
 **** org-protocol tangle
