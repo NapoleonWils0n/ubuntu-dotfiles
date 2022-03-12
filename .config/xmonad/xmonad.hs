@@ -50,7 +50,7 @@ import XMonad.Layout.BinarySpacePartition
 ------------------------------------------------------------------------
 
 myModMask = mod4Mask -- Sets modkey to super/windows key
-myTerminal = "urxvtc" -- Sets default terminal
+myTerminal = "st" -- Sets default terminal
 myBorderWidth = 2 -- Sets border width for windows
 myNormalBorderColor = "#839496"
 myFocusedBorderColor = "#268BD2"
@@ -164,7 +164,7 @@ myScratchpads = [ NS "terminal" spawnTerm findTerm manageTerm
                 ] 
     where
     role = stringProperty "WM_WINDOW_ROLE"
-    spawnTerm = myTerminal ++  " -name scratchpad"
+    spawnTerm = myTerminal ++  " -n scratchpad"
     findTerm = resource =? "scratchpad"
     manageTerm = nonFloating
     findEmacsScratch = title =? "emacs-scratch"
