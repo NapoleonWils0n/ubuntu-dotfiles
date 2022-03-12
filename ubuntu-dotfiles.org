@@ -105,7 +105,6 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         ytfzf
         yt-dlp
         weechat
-        w3m
         zathura
         zip
       ];

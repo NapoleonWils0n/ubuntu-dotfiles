@@ -75,7 +75,6 @@
         ytfzf
         yt-dlp
         weechat
-        w3m
         zathura
         zip
       ];
