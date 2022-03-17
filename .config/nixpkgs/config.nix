@@ -17,6 +17,7 @@
         aria
         awscli
         bat
+        bento4
         bc
         curl
         csvkit

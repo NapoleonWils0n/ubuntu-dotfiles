@@ -47,6 +47,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         aria
         awscli
         bat
+        bento4
         bc
         curl
         csvkit
