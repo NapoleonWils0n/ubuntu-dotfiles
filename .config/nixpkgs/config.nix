@@ -29,7 +29,6 @@
         feh
         ffmpeg_5
         fzf
-        gdal
         gimp
         git
         gnuplot
