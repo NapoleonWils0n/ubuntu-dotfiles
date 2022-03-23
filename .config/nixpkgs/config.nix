@@ -40,6 +40,7 @@
         imagemagick
         jq
         lynx
+        libxslt
         mediainfo
         meld
         mpc_cli
