@@ -553,6 +553,11 @@
   ("n" end-of-line-and-indented-new-line))
 
 
+;; eww browser text width  ------------------------------------------------------------------------------
+
+(setq shr-width 80)
+
+
 ;; garbage collection -----------------------------------------------------------------------------------
 
 ;; Make gc pauses faster by decreasing the threshold.
