@@ -1,12 +1,12 @@
 tabstop 8
 indent_incr 4
 pixel_per_char 12
-pixel_per_line 26
+pixel_per_line 27
 frame 0
 target_self 0
 open_tab_blank 0
 open_tab_dl_list 0
-display_link 0
+display_link 1
 display_link_number 0
 decode_url 0
 display_lineinfo 0
@@ -55,7 +55,7 @@ close_tab_back 0
 mark 0
 emacs_like_lineedit 0
 vi_prec_num 0
-mark_all_pages 0
+mark_all_pages 1
 wrap_search 0
 ignorecase_search 1
 use_migemo 1
@@ -132,10 +132,10 @@ accept_bad_cookie 0
 cookie_reject_domains 
 cookie_accept_domains 
 cookie_avoid_wrong_number_of_dots 
-display_charset UTF-8
+display_charset US-ASCII
 document_charset UTF-8
 auto_detect 2
-system_charset UTF-8
+system_charset US-ASCII
 follow_locale 1
 ext_halfdump 0
 use_wide 1
@@ -145,7 +145,7 @@ use_language_tag 1
 ucs_conv 1
 pre_conv 1
 search_conv 1
-fix_width_conv 1
+fix_width_conv 0
 use_gb12345_map 0
 use_jisx0201 0
 use_jisc6226 0
