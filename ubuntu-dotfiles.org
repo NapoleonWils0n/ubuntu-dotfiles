@@ -3878,7 +3878,7 @@ tabstop 8
 indent_incr 4
 pixel_per_char 12
 pixel_per_line 27
-frame 0
+frame 1
 target_self 0
 open_tab_blank 0
 open_tab_dl_list 0
@@ -3899,7 +3899,7 @@ display_ins_del 1
 ignore_null_img_alt 0
 view_unseenobject 0
 display_image 1
-pseudo_inlines 0
+pseudo_inlines 1
 auto_image 1
 max_load_image 4
 ext_image_viewer 1
@@ -3926,7 +3926,7 @@ pagerline 10000
 use_history 1
 history 100
 save_hist 0
-confirm_qq 1
+confirm_qq 0
 close_tab_back 0
 mark 0
 emacs_like_lineedit 0
