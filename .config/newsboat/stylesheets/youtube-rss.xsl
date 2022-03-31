@@ -88,7 +88,6 @@
                </a>
              </h1>
 
-
                <!-- youtube description -->
               <description>
                <p>
@@ -96,19 +95,18 @@
                </p>
               </description>
 
-
-               <!-- youtube likes, views -->
+               <!-- youtube views, likes -->
              <ul>
-             <li>
-             <span>
-               <xsl:text>Likes: </xsl:text>
-               <xsl:value-of select="media:group/media:community/media:starRating/@count" />
-             </span>
-             </li>
              <li>
              <span>
                <xsl:text>Views: </xsl:text>
                <xsl:value-of select="media:group/media:community/media:statistics/@views" />
+             </span>
+             </li>
+             <li>
+             <span>
+               <xsl:text>Likes: </xsl:text>
+               <xsl:value-of select="media:group/media:community/media:starRating/@count" />
              </span>
              </li>
              </ul>

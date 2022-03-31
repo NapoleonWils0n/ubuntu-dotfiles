@@ -2413,8 +2413,6 @@ notify-program "/usr/bin/notify-send"
 
 # newcastle
 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~normal"
-
 # magpie channel
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow" newcastle "~The Magpie Channel" 
 
@@ -2639,7 +2637,6 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
                </a>
              </h1>
 
-
                <!-- youtube description -->
               <description>
                <p>
@@ -2647,19 +2644,18 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
                </p>
               </description>
 
-
-               <!-- youtube likes, views -->
+               <!-- youtube views, likes -->
              <ul>
-             <li>
-             <span>
-               <xsl:text>Likes: </xsl:text>
-               <xsl:value-of select="media:group/media:community/media:starRating/@count" />
-             </span>
-             </li>
              <li>
              <span>
                <xsl:text>Views: </xsl:text>
                <xsl:value-of select="media:group/media:community/media:statistics/@views" />
+             </span>
+             </li>
+             <li>
+             <span>
+               <xsl:text>Likes: </xsl:text>
+               <xsl:value-of select="media:group/media:community/media:starRating/@count" />
              </span>
              </li>
              </ul>

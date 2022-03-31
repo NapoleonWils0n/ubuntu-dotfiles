@@ -21,8 +21,6 @@
 
 # newcastle
 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~normal"
-
 # magpie channel
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow" newcastle "~The Magpie Channel" 
 
