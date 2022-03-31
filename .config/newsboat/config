@@ -18,6 +18,10 @@ macro p set browser "/home/djwilcox/bin/punch -i %u 2> /dev/null"; one; set brow
 # urlscan
 external-url-viewer "urlscan"
 
+# html-renderer and pager
+pager "/usr/bin/w3m -T text/html"
+html-renderer "/usr/bin/w3m"
+
 # text width
 text-width 80
 

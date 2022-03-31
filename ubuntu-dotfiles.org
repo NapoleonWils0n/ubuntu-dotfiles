@@ -2279,6 +2279,10 @@ macro p set browser "/home/djwilcox/bin/punch -i %u 2> /dev/null"; one; set brow
 # urlscan
 external-url-viewer "urlscan"
 
+# html-renderer and pager
+pager "/usr/bin/w3m -T text/html"
+html-renderer "/usr/bin/w3m"
+
 # text width
 text-width 80
 
@@ -2391,9 +2395,6 @@ notify-program "/usr/bin/notify-send"
 # unread articles tagged newcastle
 "query:Newcastle:unread = \"yes\" and tags # \"newcastle\""
 
-# unread articles tagged news
-"query:News:unread = \"yes\" and tags # \"news\""
-
 # unread articles tagged general
 "query:General:unread = \"yes\" and tags # \"general\""
 
@@ -2406,70 +2407,100 @@ notify-program "/usr/bin/notify-send"
 # unread articles tagged obs
 "query:OBS:unread = \"yes\" and tags # \"obs\""
 
-# unread articles tagged reddit
-"query:Reddit:unread = \"yes\" and tags # \"reddit\""
+# unread articles not tagged newcastle
+"query:Unread:unread = \"yes\" and tags !# \"newcastle\""
 
 
-# news
-https://www.howtogeek.com/feed/ news
-http://feeds.arstechnica.com/arstechnica/index news
-https://www.omgubuntu.co.uk/feed news
-https://itsfoss.com/feed/ news
-http://feeds.feedburner.com/Torrentfreak news
-https://news.ycombinator.com/rss news "~Hacker News" 
+# newcastle
 
-# newcastle youtube
-https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~The Magpie Channel" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg newcastle "~Newcastle Fans TV" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg newcastle "~Roobenstein" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg newcastle "~The Toon Review" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA newcastle "~Adam Pearson" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCnfaXGG3LUFjbdnTmbWXKMw newcastle "~Tyneside Life" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw newcastle "~Newcastle United" 
+https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow newcastle "~normal"
 
-# newcastle podcast
-https://rss.acast.com/thechronicle newcastle "~Everything Black and White"
+# magpie channel
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow" newcastle "~The Magpie Channel" 
+
+# newcastle fans tv
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg" newcastle "~Newcastle Fans TV" 
+
+# robenstein
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg" newcastle "~Roobenstein" 
+
+# toon review
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg" newcastle "~The Toon Review" 
+
+# adam pearson
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA" newcastle "~Adam Pearson" 
+
+# tyneside life
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCnfaXGG3LUFjbdnTmbWXKMw" newcastle "~Tyneside Life" 
+
+# newcastle united
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw" newcastle "~Newcastle United" 
+
 
 # tech
-https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg linux "~Distrotube" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA linux "~Brodie Robertson" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw linux "~Linus Tech Tips" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ linux "~Chris Titus Tech" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCCIHOP7e271SIumQgyl6XBQ linux "~OldTechBloke" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA linux "~gotbletu" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA linux "~Mental Outlaw" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw linux "~The Linux Experiment" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw linux "~Hikmat E Ustad" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0ds7DW6IIl7mXcyz5vMEHQ linux "~Blackberry Boy"
+
+# Distrotube
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" linux "~Distrotube" 
+
+# Brodie Robertson
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" linux "~Brodie Robertson" 
+
+# Linus Tech Tips
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw" linux "~Linus Tech Tips" 
+
+# Chris Titus Tech
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCg6gPGh8HU2U01vaFCAsvmQ" linux "~Chris Titus Tech" 
+
+# OldTechBloke
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCCIHOP7e271SIumQgyl6XBQ" linux "~OldTechBloke" 
+
+# gotbletu
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA" linux "~gotbletu" 
+
+# Mental Outlaw
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA" linux "~Mental Outlaw" 
+
+# The Linux Experiment
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw" linux "~The Linux Experiment" 
+
+# Hikmat E Ustad
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCi_6--KS6qRmOn5bNQsxLNw" linux "~Hikmat E Ustad" 
+
+# Blackberry Boy
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC0ds7DW6IIl7mXcyz5vMEHQ" linux "~Blackberry Boy" 
+
 
 # general
-https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa general "~A Closer Look" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag general "~David Pakman" 
+
+# A Closer Look
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?playlist_id=PLJaq64dKJZoqsh7PGGUi-SARV4wUz_lVa" general "~A Closer Look" 
+
+# David Pakman
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag" general "~David Pakman" 
+
 
 # emacs
-https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ emacs "~System Crafters" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g emacs "~Protesilaos Stavrou" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w emacs "~Mike Zamansky" 
+
+# System Crafters
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" emacs "~System Crafters" 
+
+# Protesilaos Stavrou
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g" emacs "~Protesilaos Stavrou" 
+
+# Mike Zamansky
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w" emacs "~Mike Zamansky" 
+
 
 # obs
-https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w obs "~Gaming Careers" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg obs "~Streamgeeks" 
-https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g obs "~Eposvox" 
 
-# reddit
-https://www.reddit.com/r/nixos/new.rss reddit "~nixos" 
-https://www.reddit.com/r/emacs/new.rss reddit "~Emacs" 
-https://www.reddit.com/r/xmonad/new.rss reddit "~Xmonad" 
-https://www.reddit.com/r/zsh/.rss reddit "~zsh" 
-https://www.reddit.com/r/linux/new.rss reddit "~Linux" 
-https://www.reddit.com/r/ubuntu/new.rss reddit "~Ubuntu" 
-https://www.reddit.com/r/newsboat/new.rss reddit "~Newsboat" 
-https://www.reddit.com/r/w3m/.rss reddit "~w3m" 
-https://www.reddit.com/r/commandline/new.rss reddit "~Command Line" 
-https://www.reddit.com/r/clistuff/.rss reddit "~cli stuff" 
-https://www.reddit.com/r/UnixProTips/.rss reddit "~Unix Pro tips" 
-https://www.reddit.com/r/haskell/new.rss reddit "~Haskell" 
-https://www.reddit.com/r/gnu/.rss reddit "~gnu"
+# Gaming Careers
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w" obs "~Gaming Careers" 
+
+# Streamgeeks
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg" obs "~Streamgeeks" 
+
+# Eposvox
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g" obs "~Eposvox" 
 #+END_SRC
 
 **** urls-torrents
@@ -2512,6 +2543,134 @@ https://www.dnoid.to/rss/8.xml movies demonoid "~movies"
 https://www.dnoid.to/rss/12.xml tv demonoid "~tv"
 https://www.dnoid.to/rss/9.xml music demonoid "~music"
 https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
+#+END_SRC
+
+**** stylesheet
+
+#+NAME: newsboat-stylesheet
+#+BEGIN_SRC conf
+<?xml version="1.0"?>
+
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:atom="http://www.w3.org/2005/Atom"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:media="http://search.yahoo.com/mrss/"
+                xmlns:content="http://purl.org/rss/1.0/modules/content/"
+                xmlns="http://purl.org/rss/1.0/">
+
+<xsl:output method="xml" indent="yes" cdata-section-elements="description" />
+
+<xsl:template match="/">
+	<xsl:apply-templates select="atom:feed" />
+</xsl:template>
+
+<xsl:template match="atom:feed">
+	<rdf:RDF>
+		<channel>
+			<xsl:attribute name="rdf:about"><xsl:value-of select="atom:link[@rel='service.feed']/@href" /></xsl:attribute>
+			<title><xsl:value-of select="normalize-space(atom:title)" /></title>
+			<link><xsl:value-of select="atom:link/@href" /></link>
+			<description><xsl:value-of select="normalize-space(atom:info)" /></description>
+			<items>
+				<rdf:Seq>
+					<xsl:apply-templates select="atom:entry" mode="rdfitem"/>
+				</rdf:Seq>
+			</items>
+		</channel>
+		<xsl:apply-templates select="atom:entry" mode="rssitem" />
+	</rdf:RDF>
+</xsl:template>
+
+<xsl:template match="atom:entry" mode="rdfitem">
+	<rdf:li>
+		<xsl:attribute name="rdf:resource">
+			<xsl:value-of select="normalize-space(atom:id)" />
+		</xsl:attribute>
+	</rdf:li>
+</xsl:template>
+
+<xsl:template match="atom:entry" mode="rssitem">
+	<item>
+		<xsl:attribute name="rdf:about">
+			<xsl:value-of select="normalize-space(atom:id)" />
+		</xsl:attribute>
+		<title><xsl:value-of select="normalize-space(atom:title)" /></title>
+		<link><xsl:value-of select="atom:link/@href" /></link>
+		<xsl:if test="atom:issued">
+			<dc:date><xsl:value-of select="normalize-space(atom:issued)" /></dc:date>
+		</xsl:if>
+                <!-- change cd creator to match author/name -->
+		<xsl:if test="atom:author">
+			<dc:creator><xsl:value-of select="normalize-space(atom:author/child::*)" /></dc:creator>
+		</xsl:if>
+        <xsl:choose>
+            <xsl:when test="atom:content">
+    			<description><xsl:value-of select="normalize-space(atom:content)" /></description>
+    		</xsl:when>
+    		<xsl:when test="atom:summary">
+    			<description><xsl:value-of select="normalize-space(atom:summary)" /></description>
+    		</xsl:when>
+               <!-- match media:group -->
+            <xsl:when test="media:group">
+              <content:encoded>
+               <!-- cdata -->
+              <xsl:text disable-output-escaping="yes"><![CDATA[<![CDATA[]]></xsl:text>
+
+               <!-- youtube thumbnail -->
+             <div>
+               <img alt="image" width="640" height="480">
+                    <xsl:attribute name="src">
+                        <xsl:value-of select='media:group/media:thumbnail/@url'/>
+                   </xsl:attribute>
+               </img>
+             </div>
+             <br/>
+
+               <!-- youtube link -->
+             <h1>
+               <a>
+                <xsl:attribute name="href">
+                   <!-- <xsl:value-of select="media:group/media:content/@url"/> -->
+                    <xsl:value-of select="atom:link/@href"/>
+                </xsl:attribute>
+                <xsl:value-of select="media:group/media:title"/>
+               </a>
+             </h1>
+
+
+               <!-- youtube description -->
+              <description>
+               <p>
+                <xsl:value-of select="media:group/media:description" />
+               </p>
+              </description>
+
+
+               <!-- youtube likes, views -->
+             <ul>
+             <li>
+             <span>
+               <xsl:text>Likes: </xsl:text>
+               <xsl:value-of select="media:group/media:community/media:starRating/@count" />
+             </span>
+             </li>
+             <li>
+             <span>
+               <xsl:text>Views: </xsl:text>
+               <xsl:value-of select="media:group/media:community/media:statistics/@views" />
+             </span>
+             </li>
+             </ul>
+               <!-- cdata closing tag -->
+               <xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+              </content:encoded>
+            </xsl:when>
+        </xsl:choose>
+	</item>
+</xsl:template>
+</xsl:stylesheet>
 #+END_SRC
 
 *** newsboat tangle
@@ -2577,6 +2736,22 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 #+NAME: newsboat-urls-torrents-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/urls-torrents"
 <<newsboat-urls-torrents>>
+#+END_SRC
+
+**** stylesheet
+
++ home dir
+
+#+NAME: newsboat-stylesheet-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/newsboat/stylesheets/youtube-rss.xsl"
+<<newsboat-stylesheet>>
+#+END_SRC
+
++ current dir
+
+#+NAME: newsboat-stylesheet-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/stylesheets/youtube-rss.xsl"
+<<newsboat-stylesheet>>
 #+END_SRC
 
 ** mpv
