@@ -2407,9 +2407,6 @@ notify-program "/usr/bin/notify-send"
 # unread articles tagged obs
 "query:OBS:unread = \"yes\" and tags # \"obs\""
 
-# unread articles not tagged newcastle
-"query:Unread:unread = \"yes\" and tags !# \"newcastle\""
-
 
 # newcastle
 
