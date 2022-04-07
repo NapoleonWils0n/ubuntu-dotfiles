@@ -4970,6 +4970,104 @@ http://icecast.thisisdax.com/LBCLondon
 <<mpd-playlists>>
 #+END_SRC
 
+** kodi
+*** kodi config
+**** kodi playercorefactory.xml config
+
+#+NAME: playercorefactory
+#+BEGIN_SRC conf
+<playercorefactory>
+ <players>
+   <player name="save url" type="ExternalPlayer" audio="true" video="true">
+	<filename>printf</filename>
+     <args>"%s\n" "{0}" > "$HOME/Desktop/url-$(date +"%Y-%m-%d-%H-%M-%S").txt"</args>
+     <hidexbmc>false</hidexbmc>
+   </player>
+   <player name="mpv" type="ExternalPlayer" audio="false" video="true">
+	<filename>"/usr/bin/mpv"</filename>
+     <args>"{0}"</args>
+     <hidexbmc>true</hidexbmc>
+   </player>  
+   <player name="play" type="ExternalPlayer" audio="false" video="true">
+	<filename>"$HOME/.local/bin/pilferplay"</filename>
+     <args>-i "{0}"</args>
+     <hidexbmc>true</hidexbmc>
+   </player>  
+   <player name="record video" type="ExternalPlayer" audio="false" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-i "{0}" &</args>
+     <hidexbmc>false</hidexbmc>
+   </player>  
+   <player name="record video - 30 minutes" type="ExternalPlayer" audio="false" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-i "{0}" -t 00:30:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record video - 1 hour" type="ExternalPlayer" audio="false" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-i "{0}" -t 01:00:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record video - 2 hours" type="ExternalPlayer" audio="false" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-i "{0}" -t 02:00:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record video - 3 hours" type="ExternalPlayer" audio="false" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-i "{0}" -t 03:00:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record audio" type="ExternalPlayer" audio="true" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-a "{0}" &</args>
+     <hidexbmc>false</hidexbmc>
+   </player>  
+   <player name="record audio - 30 minutes" type="ExternalPlayer" audio="true" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-a "{0}" -t 00:30:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record audio - 1 hour" type="ExternalPlayer" audio="true" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-a "{0}" -t 01:00:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record audio - 2 hours" type="ExternalPlayer" audio="true" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-a "{0}" -t 02:00:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+   <player name="record audio - 3 hours" type="ExternalPlayer" audio="true" video="true">
+	<filename>"$HOME/.local/bin/pilfer"</filename>
+     <args>-a "{0}" -t 03:00:00 &</args>
+     <hidexbmc>false</hidexbmc>
+   </player> 
+ </players>
+ <rules action="overwrite">
+   <!-- <rule internetstream="true" player="mpv"></rule> -->
+   <rule internetstream="true" player="mpv"></rule>
+ </rules>
+</playercorefactory>
+#+END_SRC
+
+*** kodi tangle
+**** kodi playercorefactory tangle
+
++ home dir
+
+#+NAME: kodi-playercorefactory-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.kodi/userdata/playercorefactory.xml"
+<<playercorefactory>>
+#+END_SRC
+
++ current dir
+
+#+NAME: kodi-playercorefactory-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".kodi/userdata/playercorefactory.xml"
+<<playercorefactory>>
+#+END_SRC
+
 ** ncmpc
 *** ncmpc config
 
