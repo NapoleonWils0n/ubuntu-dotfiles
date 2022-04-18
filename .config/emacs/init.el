@@ -44,7 +44,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(hydra mpv company csv-mode dired-single emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
@@ -67,7 +67,8 @@
 (set-face-background hl-line-face "#073642")
 
 ;; change prompt from yes or no, to y or n
-(fset 'yes-or-no-p 'y-or-n-p)
+;;(fset 'yes-or-no-p 'y-or-n-p)
+(setq use-short-answers t) ;; emacs 28
 
 ;; dont display time in mode line
 (display-time-mode 0)
@@ -78,7 +79,6 @@
 ;;Tell emacs where is your personal elisp lib dir
 (add-to-list 'load-path "~/.config/emacs/lisp/")
 (load "org-protocol-capture-html")
-;;(load "waveform")
 
 ;; save cursor position
 (save-place-mode 1)
@@ -225,6 +225,9 @@
 
 ;; dired --------------------------------------------------------------------------------------
 
+;; kill the current buffer when selecting a new directory to display
+(setq dired-kill-when-opening-new-dired-buffer t)
+
 ;; dired directory listing options for ls
 (setq dired-listing-switches "-ahlv")
 
@@ -249,8 +252,8 @@
 ;; dired use h and l
 (evil-collection-define-key 'normal 'dired-mode-map
     "e" 'dired-find-file
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer)
+    "h" 'dired-up-directory
+    "l" 'dired-find-file)
 
 ;; dired dwim
 (setq dired-dwim-target t)
