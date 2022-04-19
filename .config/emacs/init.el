@@ -24,7 +24,7 @@
 (setq kept-old-versions 2)
 (setq create-lockfiles nil)
 
-;; dont backup files opened by sudo
+;; dont backup files opened by sudo or doas
 (setq backup-enable-predicate
       (lambda (name)
         (and (normal-backup-enable-predicate name)
@@ -85,6 +85,9 @@
 
 ;; turn off blinking cursor
 (setq blink-cursor-mode nil)
+
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
 ;; require --------------------------------------------------------------------------------------
 
