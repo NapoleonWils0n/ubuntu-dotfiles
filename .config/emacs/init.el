@@ -83,6 +83,8 @@
 ;; save cursor position
 (save-place-mode 1)
 
+;; turn off blinking cursor
+(setq blink-cursor-mode nil)
 
 ;; require --------------------------------------------------------------------------------------
 
