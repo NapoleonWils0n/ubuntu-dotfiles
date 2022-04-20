@@ -89,6 +89,9 @@
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
+;; emacs 28 - dictionary server
+(setq dictionary-server "dict.org")
+
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
