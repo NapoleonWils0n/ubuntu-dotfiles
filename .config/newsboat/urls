@@ -42,6 +42,9 @@
 
 # tech
 
+# Distrotube
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCVls1GmFKf6WlTraIb_IaJg" linux "~Distrotube" 
+
 # Brodie Robertson
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" linux "~Brodie Robertson" 
 
