@@ -2809,9 +2809,6 @@ osd-fractions
 
 #+NAME: yt-dlp
 #+BEGIN_SRC conf
-# ffmpeg 5 location
---ffmpeg-location "/home/djwilcox/.nix-profile/bin/ffmpeg"
-
 # download 1080p video in mp4 format
 #-f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
 
