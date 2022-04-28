@@ -1687,7 +1687,7 @@ URxvt*scrollBar: False
 URxvt*modifier: mod1
 
 ! URxvt*perl-ext-common: string
-URxvt*perl-ext-common: default,clipboard,selection-to-clipboard,font-size
+URxvt*perl-ext-common: default,clipboard,selection-to-clipboard,font-size,-confirm-paste
 
 ! copy and paster
 URxvt.keysym.Shift-C-C: eval:selection_to_clipboard
