@@ -11749,7 +11749,6 @@ peer_exchange = yes
 #+BEGIN_SRC conf
 [Settings]
 gtk-theme-name=Yaru-blue-dark
-gtk-application-prefer-dark-theme=1
 #+END_SRC
 
 *** gtk-3.0 tangle
