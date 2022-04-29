@@ -11742,29 +11742,57 @@ peer_exchange = yes
 <<rtorrent.rc>>
 #+END_SRC
 
-** gtk-3.0
+** gtk
 *** gtk-3.0 config 
 
-#+NAME: gtk
+#+NAME: gtk-3
 #+BEGIN_SRC conf
 [Settings]
 gtk-theme-name=Yaru-blue-dark
+gtk-icon-theme-name=Yaru-blue-dark
+gtk-application-prefer-dark-theme=true
+#+END_SRC
+
+*** gtk-4.0 config 
+
+#+NAME: gtk-4
+#+BEGIN_SRC conf
+[Settings]
+gtk-theme-name=Yaru-blue-dark
+gtk-icon-theme-name=Yaru-blue-dark
+gtk-application-prefer-dark-theme=true
 #+END_SRC
 
 *** gtk-3.0 tangle
 
 + home dir
 
-#+NAME: gtk-home-dir
+#+NAME: gtk-3-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle "~/.config/gtk-3.0/settings.ini"
-<<gtk>>
+<<gtk-3>>
 #+END_SRC
 
 + current dir
 
-#+NAME: gtk-current-dir
+#+NAME: gtk-3-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/gtk-3.0/settings.ini"
-<<gtk>>
+<<gtk-3>>
+#+END_SRC
+
+*** gtk-4.0 tangle
+
++ home dir
+
+#+NAME: gtk-4-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/gtk-4.0/settings.ini"
+<<gtk-4>>
+#+END_SRC
+
++ current dir
+
+#+NAME: gtk-4-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/gtk-4.0/settings.ini"
+<<gtk-4>>
 #+END_SRC
 
 ** youtube-dl
