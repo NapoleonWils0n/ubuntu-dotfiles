@@ -620,7 +620,10 @@ main = do
 
 ;; Toggle Hidden Files in Emacs dired with C-x M-o
 (require 'dired-x)
-(setq dired-omit-files "^\\...+$")
+;; hide dotfiles and firefox.tmp
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
 ;; recursive delete and copy
