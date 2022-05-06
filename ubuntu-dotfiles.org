@@ -1476,7 +1476,7 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # Filename suffixes to ignore during completion (except after rm command)
 zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
-    '*?.old' '*?.pro' 'firefox.tmp'
+    '*?.old' '*?.pro' 'firefox.tmp' '.hidden'
 
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'
