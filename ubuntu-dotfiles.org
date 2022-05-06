@@ -1530,6 +1530,9 @@ alias abook='abook --datafile "${XDG_CONFIG_HOME}/abook/addressbook"'
 # mpc host and socket
 alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
 
+# ls ignore firefox.tmp snap folder in ~/Downloads
+alias ls='ls --ignore=firefox.tmp'
+
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
 # daemon start
