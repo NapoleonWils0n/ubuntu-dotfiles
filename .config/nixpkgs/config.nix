@@ -28,7 +28,6 @@
         exa
         feh
         fzf
-        gimp
         git
         gnuplot
         gpsbabel

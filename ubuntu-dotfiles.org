@@ -58,7 +58,6 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         exa
         feh
         fzf
-        gimp
         git
         gnuplot
         gpsbabel
