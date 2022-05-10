@@ -1544,6 +1544,12 @@ trd-daemon() {
     || transmission-daemon ;
     }
 
+# start torrent <id> or all
+trd-start() { transmission-remote -t"${1-all}" --start ;} 
+
+# pause torrent <id> or all
+trd-pause() { transmission-remote -t"${1-all}" --stop ;}
+
 # daemon stop
 trd-quit() { killall transmission-daemon ;}
 
