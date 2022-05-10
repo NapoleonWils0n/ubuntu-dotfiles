@@ -1545,10 +1545,18 @@ trd-daemon() {
     }
 
 # start torrent <id> or all
-trd-start() { transmission-remote -t"${1-all}" --start ;} 
+trd-start() {
+    [ -d "/etc/netns/vpn" ] \
+    && doas namespace transmission-remote -t"${1-all}" --start \
+    || transmission-remote -t"${1-all}" --start;
+    }
 
 # pause torrent <id> or all
-trd-pause() { transmission-remote -t"${1-all}" --stop ;}
+trd-pause() {
+    [ -d "/etc/netns/vpn" ] \
+    && doas namespace transmission-remote -t"${1-all}" --stop \
+    || transmission-remote -t"${1-all}" --stop;
+    }
 
 # daemon stop
 trd-quit() { killall transmission-daemon ;}
