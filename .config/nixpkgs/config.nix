@@ -53,6 +53,7 @@
         oathToolkit
         pandoc
         playerctl
+        prowlarr
         p7zip
         ripgrep
         scrot

@@ -83,6 +83,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         oathToolkit
         pandoc
         playerctl
+        prowlarr
         p7zip
         ripgrep
         scrot
@@ -2583,6 +2584,7 @@ notify-program "/usr/bin/notify-send"
 https://www.reddit.com/r/linux/new.rss reddit "~Linux" 
 https://www.reddit.com/r/ubuntu/new.rss reddit "~Ubuntu" 
 https://www.reddit.com/r/torrents/new.rss "~Torrents"
+https://www.reddit.com/r/prowlarr/new.rss "~Prowlarr"
 https://www.reddit.com/r/unixporn/new.rss "~unixporn"
 https://www.reddit.com/r/firefox/new.rss reddit "~Firefox" 
 https://www.reddit.com/r/Firefoxcss/new.rss reddit "~Firefox css" 
