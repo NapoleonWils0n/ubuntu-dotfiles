@@ -172,7 +172,7 @@ alias hdmi-on='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --mode 1
 alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off && ~/.fehbg &>/dev/null'
 
 # abook - copy addressbook to ~/.config/abook/addressbook
-alias abook='abook --datafile "${XDG_CONFIG_HOME}/abook/addressbook"'
+#alias abook='abook --datafile "${XDG_CONFIG_HOME}/abook/addressbook"'
 
 # mpc host and socket
 alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
