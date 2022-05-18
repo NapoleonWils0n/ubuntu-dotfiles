@@ -62,3 +62,6 @@ highlight article "https?://[^ ]+" color4 color8 protect
 
 # notify
 notify-program "/usr/bin/notify-send"
+
+# kill files ignore articles marked #shorts to filter out youtube shorts
+ignore-article "*" "title =~ \"#shorts$\""
