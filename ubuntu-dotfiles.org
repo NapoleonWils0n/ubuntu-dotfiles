@@ -1939,7 +1939,11 @@ new-window -n "urlscan" '$SHELL -c "urlscan < /tmp/tmux-buffer"'
 
 # copy mode - emulate right click "search google for {text}" like you do in GUI web browsers. 
 bind-key -T copy-mode-vi 'o' send-keys -X copy-selection \; \
-new-window -n google \; send-keys -t google 'sr google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+new-window -n google \; send-keys -t google 'sr -browser=/usr/bin/w3m google "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+
+# copy mode - emulate right click "search imdb for {text}" like you do in GUI web browsers. 
+bind-key -T copy-mode-vi 'i' send-keys -X copy-selection \; \
+new-window -n google \; send-keys -t google 'sr -browser=/usr/bin/w3m imdb "$(tmux show-buffer)" && tmux kill-window' 'Enter'
 #+END_SRC
 
 *** tmux tangle
