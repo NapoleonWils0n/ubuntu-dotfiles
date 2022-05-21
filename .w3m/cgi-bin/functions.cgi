@@ -5,7 +5,7 @@ file='/usr/share/doc/w3m/README.func'
 selection=$(awk '{ print $0 }' "${file}" | fzf --delimiter='\n' --prompt='Run w3m function: ' --info=inline --layout=reverse --no-multi | awk '{ print $1 }')
 
 # variables
-browser='/usr/bin/firefox'
+browser='/usr/bin/xdg-open'
 
 # default function
 default() {

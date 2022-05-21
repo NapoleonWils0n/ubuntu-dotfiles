@@ -80,7 +80,7 @@ urimethodmap ~/.w3m/urimethodmap, /usr/local/etc/w3m/urimethodmap
 editor /home/djwilcox/.nix-profile/bin/emacsclient
 mailto_options 1
 mailer 
-extbrowser /usr/bin/firefox
+extbrowser /usr/bin/xdg-open
 extbrowser2 
 extbrowser3 
 extbrowser4 
