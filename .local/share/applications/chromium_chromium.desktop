@@ -168,7 +168,7 @@ Comment[vi]=Truy cập Internet
 Comment[zh_CN]=访问互联网
 Comment[zh_HK]=連線到網際網路
 Comment[zh_TW]=連線到網際網路
-Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium %U
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium --force-dark-mode --enable-features=WebUIDarkMode %U
 Terminal=false
 Type=Application
 Icon=/snap/chromium/current/chromium.png
@@ -216,7 +216,7 @@ Name[uk]=Відкрити нове вікно
 Name[vi]=Mở cửa sổ mới
 Name[zh_CN]=打开新窗口
 Name[zh_TW]=開啟新視窗
-Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium --force-dark-mode --enable-features=WebUIDarkMode
 
 [Desktop Action Incognito]
 Name=Open a New Window in incognito mode
@@ -254,7 +254,7 @@ Name[uk]=Відкрити нове вікно у приватному режим
 Name[vi]=Mở cửa sổ mới trong chế độ ẩn danh
 Name[zh_CN]=以隐身模式打开新窗口
 Name[zh_TW]=以匿名模式開啟新視窗
-Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium --incognito
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium --incognito --force-dark-mode --enable-features=WebUIDarkMode
 
 [Desktop Action TempProfile]
 Name=Open a New Window with a temporary profile
@@ -292,4 +292,4 @@ Name[ug]=ۋاقىتلىق سەپلىمە ھۆججەت بىلەن يېڭى كۆز
 Name[vi]=Mở cửa sổ mới với hồ sơ tạm
 Name[zh_CN]=以临时配置文件打开新窗口
 Name[zh_TW]=以暫時性個人身分開啟新視窗
-Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium --temp-profile
+Exec=env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/chromium_chromium.desktop /snap/bin/chromium --temp-profile --force-dark-mode --enable-features=WebUIDarkMode
