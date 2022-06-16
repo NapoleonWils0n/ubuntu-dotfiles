@@ -166,10 +166,10 @@ compdef _gnu_generic nix-env
 # aliases
 
 # hdmi display on
-alias hdmi-on='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --mode 1920x1080 --right-of eDP-1-1 && ~/.fehbg &>/dev/null'
+alias hdmi-on='xrandr --output eDP-1 --auto --primary --output DP-3 --mode 1920x1080 --right-of eDP-1 && ~/.fehbg &>/dev/null'
 
 # hdmi display off
-alias hdmi-off='xrandr --output eDP-1-1 --auto --primary --output DP-1-3 --off && ~/.fehbg &>/dev/null'
+alias hdmi-off='xrandr --output eDP-1 --auto --primary --output DP-3 --off && ~/.fehbg &>/dev/null'
 
 # abook - copy addressbook to ~/.config/abook/addressbook
 #alias abook='abook --datafile "${XDG_CONFIG_HOME}/abook/addressbook"'
