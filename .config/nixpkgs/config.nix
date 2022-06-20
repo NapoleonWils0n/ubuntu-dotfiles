@@ -55,6 +55,7 @@
         playerctl
         prowlarr
         p7zip
+        qrencode
         ripgrep
         scrot
         socat
@@ -76,6 +77,7 @@
         yt-dlp
         weechat
         zathura
+        zbar
         zip
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/applications" "/share/icons" "/bin" "/etc" ];

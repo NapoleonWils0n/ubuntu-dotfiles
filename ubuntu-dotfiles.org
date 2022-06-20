@@ -85,6 +85,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         playerctl
         prowlarr
         p7zip
+        qrencode
         ripgrep
         scrot
         socat
@@ -106,6 +107,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
         yt-dlp
         weechat
         zathura
+        zbar
         zip
       ];
       pathsToLink = [ "/share/man" "/share/doc" "/share/info" "/share/applications" "/share/icons" "/bin" "/etc" ];
