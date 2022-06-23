@@ -73,7 +73,6 @@
         viddy
         urlscan
         urlview
-        ytfzf
         yt-dlp
         weechat
         zathura
