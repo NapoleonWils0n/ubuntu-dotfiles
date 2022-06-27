@@ -237,6 +237,7 @@ myStartupHook = do
       spawnOnce "dunst &" -- dunst
       spawnOnce "nm-applet &" -- network applet
       spawnOnce "tint2 -c /home/djwilcox/.config/tint2/tint2rc"
+      spawnOnce "xfce4-volumed &" -- xfce volume osd
       spawnOnce "mpd --no-daemon /home/djwilcox/.config/mpd/mpd.conf"
 
 ------------------------------------------------------------------------
