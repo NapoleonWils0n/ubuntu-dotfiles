@@ -16,16 +16,18 @@ ctrl + space
 # multimedia keys
 #==========================
 
+# using xfce4-volumed for volume
+
 # Increase volume
-XF86AudioRaiseVolume
+# XF86AudioRaiseVolume
     amixer set Master 10%+ 1>/dev/null
 
 # Decrease volume
-XF86AudioLowerVolume
+# XF86AudioLowerVolume
     amixer set Master 10%- 1>/dev/null
 
 # Mute Audio
-XF86AudioMute
+# XF86AudioMute
     amixer -D pulse set Master 1+ toggle 1>/dev/null
 
 # Play
