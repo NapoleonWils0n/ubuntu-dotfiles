@@ -6730,7 +6730,7 @@ meta2-D = "/cursor move left"
 
 # xfce4-volumed
 [volume]
-    summary = "*Volume*"
+    appname = "Xfce volume daemon"
     timeout = 2
 
 #[stack-volumes]
