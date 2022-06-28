@@ -6492,7 +6492,7 @@ meta2-D = "/cursor move left"
     max_icon_size = 300
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Adwaita/16x16/legacy/:/usr/share/icons/HighContrast/16x16/status/
+    icon_path = /home/djwilcox/.local/share/icons/svg/status:/usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Adwaita/16x16/legacy/:/usr/share/icons/HighContrast/scalable/status/
 
     ### History ###
 
@@ -6525,7 +6525,7 @@ meta2-D = "/cursor move left"
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 8
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
@@ -6727,10 +6727,15 @@ meta2-D = "/cursor move left"
 #    summary = *twitter.com*
 #    urgency = normal
 #
+
+# xfce4-volumed
+[volume]
+    summary = "*Volume*"
+    timeout = 2
+
 #[stack-volumes]
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
-#
 # vim: ft=cfg
 #+END_SRC
 
