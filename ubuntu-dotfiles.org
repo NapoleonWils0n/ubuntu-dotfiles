@@ -2933,9 +2933,6 @@ interpolation
 tscale=oversample
 msg-level=ffmpeg=fatal
 
-# cache=no improves playback for internet streams
-cache=no
-
 # yt-dlp best format 1080 or less
 ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
 
