@@ -2933,11 +2933,11 @@ profile=hwdec
 profile-desc="hardware acceleration, no cache, yt-dlp 1080 or less"
 vo=gpu
 hwdec=vaapi
-scale=ewa_lanczossharp
-cscale=ewa_lanczossharp
-video-sync=display-resample
-interpolation
-tscale=oversample
+#scale=ewa_lanczossharp
+#cscale=ewa_lanczossharp
+#video-sync=display-resample
+#interpolation
+#tscale=oversample
 msg-level=ffmpeg=fatal
 
 # cache no for internet streams
