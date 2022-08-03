@@ -38,6 +38,7 @@ export CLICOLOR=1
 
 # qt5
 export QT_QPA_PLATFORMTHEME=qt5ct
+#export QT_QPA_PLATFORM=wayland # needed for wayland
 
 # vi mode
 export KEYTIMEOUT=1
@@ -53,6 +54,9 @@ export LC_ALL=C
 
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+
+# mpv wayland
+export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json mpv
 
 # nixpkgs
 if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
