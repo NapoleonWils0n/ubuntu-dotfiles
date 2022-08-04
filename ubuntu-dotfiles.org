@@ -1619,7 +1619,7 @@ export CLICOLOR=1
 
 # qt5
 export QT_QPA_PLATFORMTHEME=qt5ct
-#export QT_QPA_PLATFORM=wayland # needed for wayland
+export QT_QPA_PLATFORM=wayland # needed for wayland
 
 # vi mode
 export KEYTIMEOUT=1
