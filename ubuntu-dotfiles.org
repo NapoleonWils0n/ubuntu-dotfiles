@@ -1872,7 +1872,7 @@ set -g base-index 1
 setw -g pane-base-index 1
 
 # reload ~/.tmux.conf using PREFIX r
-bind r source-file ~/.tmux.conf \; display "Reloaded!"
+bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
 
 # default statusbar colors
 set -g status-style bg=default,fg=yellow #yellow
