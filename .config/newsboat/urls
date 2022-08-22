@@ -21,20 +21,11 @@
 # magpie channel
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCzbwOixfdDkOEl4c2Gy1Xow" newcastle "~The Magpie Channel" 
 
-# newcastle fans tv
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC7GG4HsvV8hvKSjl_VWW5rg" newcastle "~Newcastle Fans TV" 
-
 # robenstein
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC2WTz3aJZ65nN3p5_LMJAzg" newcastle "~Roobenstein" 
 
-# toon review
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCTgqjuKeW7FW-fpIfi-yodg" newcastle "~The Toon Review" 
-
 # adam pearson
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCbXlSJHSuY1nNHoxSElKiIA" newcastle "~Adam Pearson" 
-
-# tyneside life
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCnfaXGG3LUFjbdnTmbWXKMw" newcastle "~Tyneside Life" 
 
 # newcastle united
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCywGl_BPp9QhD0uAcP2HsJw" newcastle "~Newcastle United" 
