@@ -423,7 +423,7 @@ main = do
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
@@ -508,27 +508,14 @@ main = do
 ;; tramp
 (require 'tramp)
 
-;; openwith
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-             "nsxiv -a"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "zathura"
-             '(file))))
-(openwith-mode 1)
+;; open files with xdg-open
+(defun dired-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (call-process "xdg-open" nil 0 nil file)))
 
+;;(define-key dired-mode-map (kbd "C-c o") 'dired-open-file)
 
 ;; setq --------------------------------------------------------------------------------------
 
@@ -1542,6 +1529,9 @@ alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
 # ls hide firefox.tmp snap folder in ~/Downloads, use ls -a to show the folder again
 alias ls='ls --hide=firefox.tmp'
 
+# mpv gnome wayland fix
+alias mpv='__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json mpv'
+
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
 # daemon start
@@ -1636,9 +1626,6 @@ export LC_ALL=C
 
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
-
-# mpv wayland
-#export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json mpv
 
 # nixpkgs
 if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

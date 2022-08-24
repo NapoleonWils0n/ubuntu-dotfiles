@@ -48,7 +48,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(package-selected-packages
-   '(hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async openwith ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s)))
 
 ;; require package
 (require 'package)
@@ -133,27 +133,14 @@
 ;; tramp
 (require 'tramp)
 
-;; openwith
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-             "nsxiv -a"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "zathura"
-             '(file))))
-(openwith-mode 1)
+;; open files with xdg-open
+(defun dired-open-file ()
+  "In dired, open the file named on this line."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (call-process "xdg-open" nil 0 nil file)))
 
+;;(define-key dired-mode-map (kbd "C-c o") 'dired-open-file)
 
 ;; setq --------------------------------------------------------------------------------------
 

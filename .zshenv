@@ -55,8 +55,5 @@ export LC_ALL=C
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
 
-# mpv wayland
-#export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json mpv
-
 # nixpkgs
 if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
