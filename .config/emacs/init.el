@@ -140,7 +140,7 @@
   (let* ((file (dired-get-filename nil t)))
     (call-process "xdg-open" nil 0 nil file)))
 
-;;(define-key dired-mode-map (kbd "C-c o") 'dired-open-file)
+(define-key dired-mode-map (kbd "C-c l") 'dired-open-file)
 
 ;; setq --------------------------------------------------------------------------------------
 
