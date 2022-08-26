@@ -1311,9 +1311,6 @@ alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
 # ls hide firefox.tmp snap folder in ~/Downloads, use ls -a to show the folder again
 alias ls='ls --hide=firefox.tmp'
 
-# mpv gnome wayland fix
-alias mpv='__EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json mpv'
-
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
 # daemon start
