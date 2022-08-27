@@ -7311,31 +7311,6 @@ load-module module-virtual-source source_name=VirtualMic master=Source.monitor
 <<pulseaudio>>
 #+END_SRC
 
-** enviroment.d
-*** enviroment.d config
-
-#+NAME: envvars
-#+BEGIN_SRC conf
-#QT_QPA_PLATFORM=wayland
-#MOZ_ENABLE_WAYLAND=1
-#+END_SRC
-
-*** enviroment.d tangle
-
-+ home dir
-
-#+NAME: envvars-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/enviroment.d/envvars.conf"
-<<envvars>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: envvars-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/enviroment.d/envvars.conf"
-<<envvars>>
-#+END_SRC
-
 ** newsboat
 *** newsboat config
 **** config
