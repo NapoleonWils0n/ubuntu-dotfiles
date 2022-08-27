@@ -1669,8 +1669,8 @@ WantedBy=default.target
 
 #+NAME: envvars
 #+BEGIN_SRC conf
-QT_QPA_PLATFORM=wayland
-MOZ_ENABLE_WAYLAND=1
+#QT_QPA_PLATFORM=wayland
+#MOZ_ENABLE_WAYLAND=1
 #+END_SRC
 
 *** enviroment.d tangle
