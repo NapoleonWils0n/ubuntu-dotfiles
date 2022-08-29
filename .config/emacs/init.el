@@ -577,12 +577,9 @@
   (interactive)
   (start-process "mpv" nil "mpv" url))
 
-;;browse url open different browsers based on url
-(setq browse-url-browser-function
-  (quote
-    (("youtu\\.?be" . mpv-play-url)
-    ;; catch all
-    ("." . browse-url-default-browser))))
+(setq browse-url-handlers
+    '(("youtu\\.?be" . mpv-play-url)
+    ("." . browse-url-default-browser)))
 
 
 ;; eww browser text width  ------------------------------------------------------------------------------
