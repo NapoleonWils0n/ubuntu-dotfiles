@@ -24,10 +24,6 @@
 (setq kept-old-versions 2)
 (setq create-lockfiles nil)
 
-;; gpg prompt
-(defvar epa-pinentry-mode)
-(setq epa-pinentry-mode 'loopback)
-
 ;; dont backup files opened by sudo or doas
 (setq backup-enable-predicate
       (lambda (name)
