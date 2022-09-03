@@ -138,7 +138,7 @@
 (setq openwith-associations
       (list
        (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4"
+              '("mpg" "mpeg" "mp3" "mp4" "m4v"
                 "avi" "wmv" "wav" "mov" "flv"
                 "ogm" "ogg" "mkv" "webm"))
              "mpv"
