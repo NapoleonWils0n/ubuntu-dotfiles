@@ -385,9 +385,9 @@
      ("\\.mkv\\'" . "mpv %s")
      ("\\.mp4\\'" . "mpv %s")
      ("\\.mov\\'" . "mpv %s")
-     ("\\.png\\'" . "sxiv %s")
-     ("\\.jpg\\'" . "sxiv %s")
-     ("\\.jpeg\\'" . "sxiv %s")
+     ("\\.png\\'" . "nsxiv %s")
+     ("\\.jpg\\'" . "nsxiv %s")
+     ("\\.jpeg\\'" . "nsxiv %s")
      ("\\.pdf\\'" . default))))
 
 ;; ox-pandoc export
