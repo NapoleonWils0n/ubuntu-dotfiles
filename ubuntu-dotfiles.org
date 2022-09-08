@@ -5324,6 +5324,395 @@ ui = true
 <<gitconfig>>
 #+END_SRC
 
+** mpv
+*** mpv config
+**** input.conf
+
+#+NAME: input.conf
+#+BEGIN_SRC conf
+# vim keybindings
+l seek  5
+h seek -5
+k seek  60
+j seek -60
+
+# subtitles
+J cycle sub 
+K cycle sub down
+
+# Audio filters:
+F1 show-text "F2: loudnorm | F3: dynaudnorm | F4: low Bass | F5: low Treble | F6: high pass" 2000
+
+# loudnorm:
+F2 af toggle lavfi=[loudnorm=I=-16:TP=-3:LRA=4]
+
+# dynaudnorm:
+F3 af toggle lavfi=[dynaudnorm=g=5:f=250:r=0.9:p=0.5]
+
+# lowered bass:
+F4  af toggle "superequalizer=6b=2:7b=2:8b=2:9b=2:10b=2:11b=2:12b=2:13b=2:14b=2:15b=2:16b=2:17b=2:18b=2"
+
+# lowered treble:
+F5  af toggle "superequalizer=1b=2:2b=2:3b=2:4b=2:5b=2:6b=2:7b=2:8b=2:9b=2:10b=2:11b=2:12b=2"
+
+# high pass
+F6 af toggle "highpass=f=200"
+#+END_SRC
+
+**** mpv.conf
+
+#+NAME: mpv.conf
+#+BEGIN_SRC conf
+# mpv.conf
+
+# list profiles with: mpv --profile=help
+
+# load hwdec profile automatically
+profile=hwdec 
+
+# hardware acceleration profile
+[hwdec]
+profile-desc="hardware acceleration, no cache, yt-dlp 1080 or less"
+vo=gpu
+hwdec=vaapi
+#scale=ewa_lanczossharp
+#cscale=ewa_lanczossharp
+#video-sync=display-resample
+#interpolation
+#tscale=oversample
+msg-level=ffmpeg=fatal
+
+# cache no for internet streams
+cache=no
+
+# yt-dlp best format 1080 or less
+ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
+
+# show milliseconds in the on screen display
+osd-fractions
+
+
+# cache profile: mpv --profile=cache
+[cache]
+profile-desc="hardware acceleration, cache, yt-dlp 1080 or less"
+# include hwdec profile 
+profile=hwdec
+# override hwdec profile cache setting
+cache=auto
+#+END_SRC
+
+*** mpv tangle
+**** input.conf tangle
+
++ home dir
+
+#+NAME: input.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/input.conf"
+<<input.conf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: input.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/input.conf"
+<<input.conf>>
+#+END_SRC
+
+**** mpv.conf tangle
+
++ home dir
+
+#+NAME: mpv.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/mpv.conf"
+<<mpv.conf>>
+#+END_SRC
+
++ current dir
+
+#+NAME: mpv.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
+<<mpv.conf>>
+#+END_SRC
+
+** yt-dlp
+*** yt-dlp config
+
+#+NAME: yt-dlp
+#+BEGIN_SRC conf
+# download 1080p video in mp4 format
+#-f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
+
+# external downloader aria2
+--downloader aria2c --downloader-args aria2c:'-c -j 3 -x 3 -s 3 -k 1M'
+
+# native downloader for dash and m3u8
+--downloader 'dash,m3u8:native'
+
+# restrict filenames
+--restrict-filenames
+
+# merge output format mkv
+--merge-output-format mkv
+#+END_SRC
+
+*** yt-dlp tangle
+
++ home dir
+
+#+NAME: yt-dlp-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/yt-dlp/config"
+<<yt-dlp>>
+#+END_SRC
+
++ current dir
+
+#+NAME: yt-dlp-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/yt-dlp/config"
+<<yt-dlp>>
+#+END_SRC
+
+** aria2c
+*** aria2c config
+
+#+NAME: aria2c
+#+begin_src conf
+#
+## aria2 config
+#
+# man page  = http://aria2.sourceforge.net/manual/en/html/aria2c.html
+# file path = $HOME/.aria2/aria2.conf
+
+# Download Directory: specify the directory all files will be downloaded to.
+# When this directive is commented out, aria2 will download the files to the
+# current directory where you execute the aria2 binary.
+#dir=/usr/home/djwilcox/downloads
+
+
+# Bit Torrent: If the speed of the incoming data (download) from other peers is
+# greater then the peer-speed-limit, then do not allow any more connections
+# than max-peers. The idea is to limit the amount of clients our system will
+# connect with to reduce our overall load when we are already saturating our
+# incoming bandwidth.  Make sure to set the the peer-speed-limit to your
+# preferred incoming (download) speed. Speeds must be whole numbers so 5.5M is
+# illegal, but 5500K is valid.  For unlimited connections set
+# request-peer-speed-limit something high like 10000M (10gig).
+ bt-max-peers=0
+ bt-request-peer-speed-limit=0
+
+
+# Bit Torrent: the max upload speed for all torrents combined. Again, only
+# whole numbers are valid. We find a global upload limit is more flexible then
+# an upload limit per torrent. Zero(0) is unrestricted upload spreeds.
+ max-overall-upload-limit=128k
+
+
+# Bit Torrent: When downloading a torrent remove ALL trackers from the listing.
+# This is a good way to only use distributed hash table (DHT) and Peer eXchange
+# (PeX) for connections. We find start up of the torrent takes a little longer
+# with all trackers disabled, but helps reduce the load on trackers.
+# bt-exclude-tracker="*"
+ bt-external-ip=127.0.0.1
+
+
+# Bit Torrent: ports and protocols used for bit torrent TCP and UDP
+# connections. Make sure DHT is enabled in order to connect to UDP trackers as
+# well as negotiating with DHT and PEX peers. 
+ dht-listen-port=6882
+ enable-dht=true
+ enable-peer-exchange=true
+ listen-port=6881
+
+
+# When running aria2 on FreeBSD with ZFS, disable disk-cache due to ZFS's use
+# of Adaptive Replacement Cache (ARC). ZFS can also take advantage of the
+# "sparse files" format which is significantly faster then pre allocation of
+# file space. For other file systems like EXT4 and XFS you can test
+# file-allocation with "prealloc" and "falloc" to see which file-allocation
+# allows arai2 to start quicker and use less disk I/O.
+# disk-cache=0
+# file-allocation=none
+
+
+# Bit Torrent: fully encrypt the negotiation as well and the payload of all bit
+# torrent traffic. With this configuration, encryption is required and all old,
+# non-encrypted clients are ignored (dropped). This may help avoid some ISPs
+# rate limiting P2P clients, but will also reduce the amount of clients aria2
+# will talk to.
+ bt-force-encryption=true
+ bt-min-crypto-level=arc4
+ bt-require-crypto=true
+
+
+# Bit Torrent: Download the torrent file into memory (RAM) if there is no need
+# to save the .torrent file itself. This option works with both magnet and
+# torrent URL links.
+ follow-torrent=mem
+
+
+# Bit Torrent: The amount of time and the upload-to-download ratio you wish to
+# seed to. If either the seed time limit ( minutes ) or the seed ratio is
+# reached, torrent seeding will stop. You can set seed-time to zero(0) to
+# disable seeding completely.
+ seed-ratio=100
+ seed-time=0
+
+
+# Bit Torrent: timeout values for servers and clients.
+#bt-tracker-connect-timeout=10
+#bt-tracker-interval=900
+#bt-tracker-timeout=10
+
+
+# Bit Torrent: scripts or commands to execute before, during or after a
+# download finishes.
+# on-bt-download-complete=/path/to/script.sh
+# on-download-complete=/path/to/script.pl
+# on-download-error=/path/to/script
+# on-download-pause=/path/to/script.sh
+# on-download-start=/path/to/script.pl
+# on-download-stop=/path/to/script
+
+
+# Network: maximum socket receive buffer in bytes. 1M can sustain 1Gbit/sec.
+# Default: 0 which is disabled.
+ socket-recv-buffer-size=1M
+
+
+# Event Multiplexing: set polling to the OS type you are using. For FreeBSD,
+# OpenBSD and NetBSD set to "kqueue". For Linux set to "epoll".
+ event-poll=epoll
+
+
+# Certificate Authority PEM : specify the full path to the OS certificate
+# authority pem file to verify the peers. On FreeBSD with OpenSSL the following
+# file path is valid. Without a valid pem file aria2 will print out the error,
+# "[ERROR] Failed to load trusted CA certificates from no. Cause:
+# error:02001002:system library:fopen:No such file or directory"
+# ca-certificate=/usr/local/openssl/cert.pem
+
+
+# Data Integrity: check the MD5 / SHA256 hash of metalink downloads as well as
+# the hash of bit torrent chunks as our client receives them. CPU time is
+# reasonably low for the high value of real time verified data. Note:
+# check-integrity set as true will show "ERROR - Checksum error detected" for
+# magnet links which can be ignored.
+#check-integrity=true
+ realtime-chunk-checksum=true
+
+
+# File Names: Resume file downloads if we have a partial copy. Do not rename
+# the file or make another copy if the same file is downloaded a second time.
+ allow-overwrite=true
+ always-resume=true
+ auto-file-renaming=false
+ continue=true
+ remote-time=true
+
+
+# User Agent: Disable the identification string of our client. If you connect
+# to a server which requires a certain id string you can always add one here.
+# Trackers should never use client id strings as security authentication or
+# access control.
+ peer-id-prefix=""
+ user-agent=""
+
+
+# Status Summery messages are disabled since the status of the download is
+# updated in real time on the CLI anyways.
+ summary-interval=0
+
+
+# FTP: use passive ftp which is firewall friendly and reuse the ftp data
+# connection when asking for multiple resources from the same server for
+# efficiency.
+ ftp-pasv=true
+ ftp-reuse-connection=true
+
+
+# Metalink: Set the country code to prefer mirrors closest to you. Prefer more
+# secure https mirrors over http and ftp servers.
+ metalink-language=en-US
+ metalink-location=us
+ metalink-preferred-protocol=https
+
+
+# Disconnect from https, http or ftp servers who do not upload data to us
+# faster then the specified value. Aria2 will then find another mirror in the
+# metalink file which might be quicker. If there are no more mirrors left then
+# the current slow mirror is still used. This value is NOT used for bit torrent
+# connections though. NOTE: we hope to convince the developer to add a
+# lower-speed value or even a minimal client U/D ratio to bit torrent some day
+# to kick off leachers too.
+ lowest-speed-limit=50K
+
+
+# Concurrent downloads: Set the number of different servers to download from
+# concurrently; i.e. in parallel. If we are downloading a single file then
+# split that file into the same amount of streams. Make sure to keep in mind
+# that if the amount of parallel downloads times the lowest-speed-limit is
+# greater then your total download bandwidth then you will drop servers
+# incorrectly. For example, we have ten(10) connections at a minimum of
+# 50KiB/sec which equals 500KiB/sec. If our total download bandwidth is not at
+# least 500KiB/sec then arai2 will think the mirrors are too slow and drop
+# connection slowing down the whole download. Do not set the
+# max-connection-per-server greater then three(3) as to avoid abusing a single
+# server.
+ max-concurrent-downloads=10
+ max-connection-per-server=3
+ min-split-size=5M
+ split=10
+
+
+# RPC Interface: To access aria2 through XML-RPC API, like using webui-aria2.
+#enable-rpc
+#rpc-listen-all
+#rpc-user=username
+#rpc-passwd=passwd
+
+
+# Daemon Mode: To run aria2 in the background as a daemon. Use daemon mode to
+# start aria2 on reboot or when using an RPC interface like webui-aria2.
+#daemon
+
+
+#
+#
+# Reference: the following options arethe developers defaults. We kept them
+# here for reference.
+
+# bt-max-open-files=100
+# bt-save-metadata=false
+# bt-stop-timeout=0
+# bt-tracker="udp://tracker.openbittorrent.com:80/announce"
+ check-certificate=true
+ conditional-get=true
+# dht-entry-point="dht.transmissionbt.com:6881"
+# dht-file-path=$HOME/.aria2/dht.dat
+# dht-message-timeout=10
+ disable-ipv6=true
+ http-accept-gzip=true
+# log=$HOME/.aria2/aria2.log
+# log-level=debug
+
+### EOF ###
+#+end_src
+
+*** aria2c tangle
+
++ home dir
+  
+#+NAME: aria2c-home-dir
+#+begin_src conf :noweb yes :tangle "~/.config/aria2/aria2.conf"
+<<aria2c>>
+#+end_src
+
++ current dir
+
+#+NAME: aria2c-current-dir
+#+begin_src conf :noweb yes :tangle ".config/aria2/aria2.conf"
+<<aria2c>>
+#+end_src
+
 ** rofi
 *** rofi config
 **** config.rasi
@@ -7208,98 +7597,6 @@ gtk-application-prefer-dark-theme=true
 <<gtk-4>>
 #+END_SRC
 
-** mpv
-*** mpv config
-**** input.conf
-
-#+NAME: input.conf
-#+BEGIN_SRC conf
-# vim keybindings
-l seek  5
-h seek -5
-k seek  60
-j seek -60
-
-# subtitles
-J cycle sub 
-K cycle sub down 
-#+END_SRC
-
-**** mpv.conf
-
-#+NAME: mpv.conf
-#+BEGIN_SRC conf
-# mpv.conf
-
-# list profiles with: mpv --profile=help
-
-# load hwdec profile automatically
-profile=hwdec 
-
-# hardware acceleration profile
-[hwdec]
-profile-desc="hardware acceleration, no cache, yt-dlp 1080 or less"
-vo=gpu
-hwdec=vaapi
-#scale=ewa_lanczossharp
-#cscale=ewa_lanczossharp
-#video-sync=display-resample
-#interpolation
-#tscale=oversample
-msg-level=ffmpeg=fatal
-
-# cache no for internet streams
-cache=no
-
-# yt-dlp best format 1080 or less
-ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
-
-# show milliseconds in the on screen display
-osd-fractions
-
-
-# cache profile: mpv --profile=cache
-[cache]
-profile-desc="hardware acceleration, cache, yt-dlp 1080 or less"
-# include hwdec profile 
-profile=hwdec
-# override hwdec profile cache setting
-cache=auto
-#+END_SRC
-
-*** mpv tangle
-**** input.conf tangle
-
-+ home dir
-
-#+NAME: input.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/input.conf"
-<<input.conf>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: input.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/input.conf"
-<<input.conf>>
-#+END_SRC
-
-**** mpv.conf tangle
-
-+ home dir
-
-#+NAME: mpv.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/mpv.conf"
-<<mpv.conf>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpv.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
-<<mpv.conf>>
-#+END_SRC
-
 ** pulseaudio
 *** pulseaudio config
 
@@ -7930,285 +8227,6 @@ https://www.dnoid.to/rss/4.xml comics demonoid "~comics"
 #+BEGIN_SRC conf :noweb yes :tangle ".config/newsboat/stylesheets/youtube-rss.xsl"
 <<newsboat-stylesheet>>
 #+END_SRC
-
-** yt-dlp
-*** yt-dlp config
-
-#+NAME: yt-dlp
-#+BEGIN_SRC conf
-# download 1080p video in mp4 format
-#-f 'bestvideo[height<=1080][vcodec!=?vp9]+bestaudio[acodec!=?opus]'
-
-# external downloader aria2
---downloader aria2c --downloader-args aria2c:'-c -j 3 -x 3 -s 3 -k 1M'
-
-# native downloader for dash and m3u8
---downloader 'dash,m3u8:native'
-
-# restrict filenames
---restrict-filenames
-
-# merge output format mkv
---merge-output-format mkv
-#+END_SRC
-
-*** yt-dlp tangle
-
-+ home dir
-
-#+NAME: yt-dlp-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/yt-dlp/config"
-<<yt-dlp>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: yt-dlp-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/yt-dlp/config"
-<<yt-dlp>>
-#+END_SRC
-
-** aria2c
-*** aria2c config
-
-#+NAME: aria2c
-#+begin_src conf
-#
-## aria2 config
-#
-# man page  = http://aria2.sourceforge.net/manual/en/html/aria2c.html
-# file path = $HOME/.aria2/aria2.conf
-
-# Download Directory: specify the directory all files will be downloaded to.
-# When this directive is commented out, aria2 will download the files to the
-# current directory where you execute the aria2 binary.
-#dir=/usr/home/djwilcox/downloads
-
-
-# Bit Torrent: If the speed of the incoming data (download) from other peers is
-# greater then the peer-speed-limit, then do not allow any more connections
-# than max-peers. The idea is to limit the amount of clients our system will
-# connect with to reduce our overall load when we are already saturating our
-# incoming bandwidth.  Make sure to set the the peer-speed-limit to your
-# preferred incoming (download) speed. Speeds must be whole numbers so 5.5M is
-# illegal, but 5500K is valid.  For unlimited connections set
-# request-peer-speed-limit something high like 10000M (10gig).
- bt-max-peers=0
- bt-request-peer-speed-limit=0
-
-
-# Bit Torrent: the max upload speed for all torrents combined. Again, only
-# whole numbers are valid. We find a global upload limit is more flexible then
-# an upload limit per torrent. Zero(0) is unrestricted upload spreeds.
- max-overall-upload-limit=128k
-
-
-# Bit Torrent: When downloading a torrent remove ALL trackers from the listing.
-# This is a good way to only use distributed hash table (DHT) and Peer eXchange
-# (PeX) for connections. We find start up of the torrent takes a little longer
-# with all trackers disabled, but helps reduce the load on trackers.
-# bt-exclude-tracker="*"
- bt-external-ip=127.0.0.1
-
-
-# Bit Torrent: ports and protocols used for bit torrent TCP and UDP
-# connections. Make sure DHT is enabled in order to connect to UDP trackers as
-# well as negotiating with DHT and PEX peers. 
- dht-listen-port=6882
- enable-dht=true
- enable-peer-exchange=true
- listen-port=6881
-
-
-# When running aria2 on FreeBSD with ZFS, disable disk-cache due to ZFS's use
-# of Adaptive Replacement Cache (ARC). ZFS can also take advantage of the
-# "sparse files" format which is significantly faster then pre allocation of
-# file space. For other file systems like EXT4 and XFS you can test
-# file-allocation with "prealloc" and "falloc" to see which file-allocation
-# allows arai2 to start quicker and use less disk I/O.
-# disk-cache=0
-# file-allocation=none
-
-
-# Bit Torrent: fully encrypt the negotiation as well and the payload of all bit
-# torrent traffic. With this configuration, encryption is required and all old,
-# non-encrypted clients are ignored (dropped). This may help avoid some ISPs
-# rate limiting P2P clients, but will also reduce the amount of clients aria2
-# will talk to.
- bt-force-encryption=true
- bt-min-crypto-level=arc4
- bt-require-crypto=true
-
-
-# Bit Torrent: Download the torrent file into memory (RAM) if there is no need
-# to save the .torrent file itself. This option works with both magnet and
-# torrent URL links.
- follow-torrent=mem
-
-
-# Bit Torrent: The amount of time and the upload-to-download ratio you wish to
-# seed to. If either the seed time limit ( minutes ) or the seed ratio is
-# reached, torrent seeding will stop. You can set seed-time to zero(0) to
-# disable seeding completely.
- seed-ratio=100
- seed-time=0
-
-
-# Bit Torrent: timeout values for servers and clients.
-#bt-tracker-connect-timeout=10
-#bt-tracker-interval=900
-#bt-tracker-timeout=10
-
-
-# Bit Torrent: scripts or commands to execute before, during or after a
-# download finishes.
-# on-bt-download-complete=/path/to/script.sh
-# on-download-complete=/path/to/script.pl
-# on-download-error=/path/to/script
-# on-download-pause=/path/to/script.sh
-# on-download-start=/path/to/script.pl
-# on-download-stop=/path/to/script
-
-
-# Network: maximum socket receive buffer in bytes. 1M can sustain 1Gbit/sec.
-# Default: 0 which is disabled.
- socket-recv-buffer-size=1M
-
-
-# Event Multiplexing: set polling to the OS type you are using. For FreeBSD,
-# OpenBSD and NetBSD set to "kqueue". For Linux set to "epoll".
- event-poll=epoll
-
-
-# Certificate Authority PEM : specify the full path to the OS certificate
-# authority pem file to verify the peers. On FreeBSD with OpenSSL the following
-# file path is valid. Without a valid pem file aria2 will print out the error,
-# "[ERROR] Failed to load trusted CA certificates from no. Cause:
-# error:02001002:system library:fopen:No such file or directory"
-# ca-certificate=/usr/local/openssl/cert.pem
-
-
-# Data Integrity: check the MD5 / SHA256 hash of metalink downloads as well as
-# the hash of bit torrent chunks as our client receives them. CPU time is
-# reasonably low for the high value of real time verified data. Note:
-# check-integrity set as true will show "ERROR - Checksum error detected" for
-# magnet links which can be ignored.
-#check-integrity=true
- realtime-chunk-checksum=true
-
-
-# File Names: Resume file downloads if we have a partial copy. Do not rename
-# the file or make another copy if the same file is downloaded a second time.
- allow-overwrite=true
- always-resume=true
- auto-file-renaming=false
- continue=true
- remote-time=true
-
-
-# User Agent: Disable the identification string of our client. If you connect
-# to a server which requires a certain id string you can always add one here.
-# Trackers should never use client id strings as security authentication or
-# access control.
- peer-id-prefix=""
- user-agent=""
-
-
-# Status Summery messages are disabled since the status of the download is
-# updated in real time on the CLI anyways.
- summary-interval=0
-
-
-# FTP: use passive ftp which is firewall friendly and reuse the ftp data
-# connection when asking for multiple resources from the same server for
-# efficiency.
- ftp-pasv=true
- ftp-reuse-connection=true
-
-
-# Metalink: Set the country code to prefer mirrors closest to you. Prefer more
-# secure https mirrors over http and ftp servers.
- metalink-language=en-US
- metalink-location=us
- metalink-preferred-protocol=https
-
-
-# Disconnect from https, http or ftp servers who do not upload data to us
-# faster then the specified value. Aria2 will then find another mirror in the
-# metalink file which might be quicker. If there are no more mirrors left then
-# the current slow mirror is still used. This value is NOT used for bit torrent
-# connections though. NOTE: we hope to convince the developer to add a
-# lower-speed value or even a minimal client U/D ratio to bit torrent some day
-# to kick off leachers too.
- lowest-speed-limit=50K
-
-
-# Concurrent downloads: Set the number of different servers to download from
-# concurrently; i.e. in parallel. If we are downloading a single file then
-# split that file into the same amount of streams. Make sure to keep in mind
-# that if the amount of parallel downloads times the lowest-speed-limit is
-# greater then your total download bandwidth then you will drop servers
-# incorrectly. For example, we have ten(10) connections at a minimum of
-# 50KiB/sec which equals 500KiB/sec. If our total download bandwidth is not at
-# least 500KiB/sec then arai2 will think the mirrors are too slow and drop
-# connection slowing down the whole download. Do not set the
-# max-connection-per-server greater then three(3) as to avoid abusing a single
-# server.
- max-concurrent-downloads=10
- max-connection-per-server=3
- min-split-size=5M
- split=10
-
-
-# RPC Interface: To access aria2 through XML-RPC API, like using webui-aria2.
-#enable-rpc
-#rpc-listen-all
-#rpc-user=username
-#rpc-passwd=passwd
-
-
-# Daemon Mode: To run aria2 in the background as a daemon. Use daemon mode to
-# start aria2 on reboot or when using an RPC interface like webui-aria2.
-#daemon
-
-
-#
-#
-# Reference: the following options arethe developers defaults. We kept them
-# here for reference.
-
-# bt-max-open-files=100
-# bt-save-metadata=false
-# bt-stop-timeout=0
-# bt-tracker="udp://tracker.openbittorrent.com:80/announce"
- check-certificate=true
- conditional-get=true
-# dht-entry-point="dht.transmissionbt.com:6881"
-# dht-file-path=$HOME/.aria2/dht.dat
-# dht-message-timeout=10
- disable-ipv6=true
- http-accept-gzip=true
-# log=$HOME/.aria2/aria2.log
-# log-level=debug
-
-### EOF ###
-#+end_src
-
-*** aria2c tangle
-
-+ home dir
-  
-#+NAME: aria2c-home-dir
-#+begin_src conf :noweb yes :tangle "~/.config/aria2/aria2.conf"
-<<aria2c>>
-#+end_src
-
-+ current dir
-
-#+NAME: aria2c-current-dir
-#+begin_src conf :noweb yes :tangle ".config/aria2/aria2.conf"
-<<aria2c>>
-#+end_src
 
 ** surfraw
 *** surfraw config
