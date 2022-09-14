@@ -5372,11 +5372,6 @@ profile=hwdec
 profile-desc="hardware acceleration, no cache, yt-dlp 1080 or less"
 vo=gpu
 hwdec=vaapi
-#scale=ewa_lanczossharp
-#cscale=ewa_lanczossharp
-#video-sync=display-resample
-#interpolation
-#tscale=oversample
 msg-level=ffmpeg=fatal
 
 # cache no for internet streams
@@ -5387,6 +5382,9 @@ ytdl-format="bestvideo[height<=?1080]+bestaudio/best"
 
 # show milliseconds in the on screen display
 osd-fractions
+
+# alsa pipewire audio device
+audio-device=alsa/pipewire
 
 
 # cache profile: mpv --profile=cache
