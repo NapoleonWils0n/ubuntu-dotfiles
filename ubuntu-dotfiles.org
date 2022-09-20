@@ -5254,6 +5254,13 @@ Prior
 # Next - ducky keyboard next, function + ;
 Next
     playerctl next
+
+
+# tsp mpv play clipboard
+#==========================
+
+ctrl + super + x
+  tsp mpv --fs --screen=1 $(xclip -o) 1>/dev/null
 #+end_src
 
 *** sxhkd tangle
