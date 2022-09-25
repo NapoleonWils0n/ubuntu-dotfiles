@@ -2965,22 +2965,37 @@ URxvt.iconFile: /home/djwilcox/.local/share/icons/Papirus-Dark/32x32/apps/utilit
 ,*pointerColorForeground: #93a1a1
 
 !! solarized colour
-,*color0: #073642  !! black
-,*color1: #dc322f  !! red
-,*color2: #449307  !! green
-,*color3: #b58900  !! yellow
-,*color4: #268bd2  !! blue
-,*color5: #d33682  !! magenta
-,*color6: #2aa198  !! cyan
-,*color7: #eee8d5  !! white
-,*color8: #002b36  !! brblack
-,*color9: #cb4b16  !! brred
-,*color10: #56B30B !! brgreen
-,*color11: #657b83 !! bryellow
-,*color12: #839496 !! brblue
-,*color13: #6c71c4 !! brmagenta
-,*color14: #93a1a1 !! brcyan
-,*color15: #fdf6e3 !! brwhite
+!! black dark/light
+,*color0: #073642
+,*color8: #002b36
+
+!! red dark/light
+,*color1: #dc322f
+,*color9: #cb4b16
+
+!! green dark/light
+,*color2: #449307
+,*color10: #56B30B
+
+!! yellow dark/light
+,*color3: #b58900
+,*color11: #657b83
+
+!! blue dark/light
+,*color4: #268bd2
+,*color12: #839496
+
+!! magenta dark/light
+,*color5: #d33682
+,*color13: #6c71c4
+
+!! cyan dark/light
+,*color6: #2aa198
+,*color14: #93a1a1
+
+!! white dark/light
+,*color7: #eee8d5
+,*color15: #fdf6e3
 #+END_SRC
 
 *** Xresources tangle
