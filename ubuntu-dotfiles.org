@@ -1837,6 +1837,31 @@ new-window -n imdb \; send-keys -t imdb 'sr -browser=/usr/bin/w3m imdb "$(tmux s
 <<tmux>>
 #+END_SRC
 
+** environment.d
+*** environment.d config
+
+#+NAME: environment.d
+#+BEGIN_SRC conf
+QT_QPA_PLATFORM=wayland
+MOZ_ENABLE_WAYLAND=1
+#+END_SRC
+
+*** environment.d tangle
+
++ home dir
+
+#+NAME: environment.d-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/environment.d/envvars.conf"
+<<environment.d>>
+#+END_SRC
+
++ current dir
+
+#+NAME: environment.d-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/environment.d/envvars.conf"
+<<environment.d>>
+#+END_SRC
+
 ** systemd
 *** systemd config
 **** ssh-agent.service
