@@ -1945,17 +1945,27 @@ Terminal=false
 MimeType=x-scheme-handler/org-protocol;
 #+END_SRC
 
-**** st-terminal config
+**** urxvt config
 
-#+NAME: st-terminal
+#+NAME: urxvt
 #+BEGIN_SRC conf
 [Desktop Entry]
-Type=Application
-Name=st
-Comment=simple-terminal emulator for X
+Name=Rxvt Color Unicode Terminal
+Comment=Use the command line
+TryExec=urxvtc
+Exec=urxvtc
 Icon=utilities-terminal
-Exec=st
-Categories=System;TerminalEmulator
+Type=Application
+Categories=Utility;TerminalEmulator;
+StartupNotify=true
+Keywords=Run;
+Actions=New
+StartupWMClass=URxvt
+
+[Desktop Action New]
+Name=New Rxvt Color Unicode Terminal
+Exec=urxvtc
+OnlyShowIn=Unity
 #+END_SRC
 
 **** org-protocol config
@@ -2811,6 +2821,19 @@ Terminal=false
 MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 #+end_src
 
+**** st-terminal config
+
+#+NAME: st-terminal
+#+BEGIN_SRC conf
+[Desktop Entry]
+Type=Application
+Name=st
+Comment=simple-terminal emulator for X
+Icon=utilities-terminal
+Exec=st
+Categories=System;TerminalEmulator
+#+END_SRC
+
 *** desktop files tangle
 **** emacs-capture tangle
 
@@ -2828,20 +2851,20 @@ MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 <<emacs-capture>>
 #+END_SRC
 
-**** st-terminal tangle
+**** urxvt tangle
 
 + home dir
 
-#+NAME: st-terminal-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
-<<st-terminal>>
+#+NAME: urxvt-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/rxvt-unicode.desktop"
+<<urxvt>>
 #+END_SRC
 
 + current dir
 
-#+NAME: st-terminal-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
-<<st-terminal>>
+#+NAME: urxvt-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/rxvt-unicode.desktop"
+<<urxvt>>
 #+END_SRC
 
 **** org-protocol tangle
@@ -2921,6 +2944,57 @@ MimeType=application/x-bittorrent;x-scheme-handler/magnet;
 #+NAME: transmission-desktop-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/transmission.desktop"
 <<transmission-desktop>>
+#+END_SRC
+
+**** st-terminal tangle
+
++ home dir
+
+#+NAME: st-terminal-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
+<<st-terminal>>
+#+END_SRC
+
++ current dir
+
+#+NAME: st-terminal-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
+<<st-terminal>>
+#+END_SRC
+
+** autostart
+*** autostart config
+**** urxvtd config
+
+#+NAME: urxvtd-autostart
+#+BEGIN_SRC conf
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/urxvtd
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=urxvtd
+Name=urxvtd
+Comment[en_GB]=urxvt daemon
+Comment=urxvt daemon
+#+END_SRC
+
+*** autostart tangle
+**** urxvtd tangle
+
++ home dir
+
+#+NAME: urxvtd-autostart-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/urxvtd.desktop"
+<<urxvtd-autostart>>
+#+END_SRC
+
++ current dir
+
+#+NAME: urxvtd-autostart-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/urxvtd.desktop"
+<<urxvtd-autostart>>
 #+END_SRC
 
 ** Xresources
