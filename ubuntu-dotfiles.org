@@ -2856,7 +2856,7 @@ Categories=System;TerminalEmulator
 + home dir
 
 #+NAME: urxvt-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/rxvt-unicode.desktop"
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/rxvt-unicode.desktop"
 <<urxvt>>
 #+END_SRC
 
