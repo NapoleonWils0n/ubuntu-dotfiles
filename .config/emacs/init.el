@@ -71,7 +71,7 @@
 
 ;; font
 (add-to-list 'default-frame-alist
-             '(font . "Inconsolata 24"))
+             '(font . "Inconsolata 18"))
 
 ;; hide toolbar
 (tool-bar-mode -1)
