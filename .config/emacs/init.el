@@ -47,8 +47,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
+ '(custom-safe-themes
+   '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "944d52450c57b7cbba08f9b3d08095eb7a5541b0ecfb3a0a9ecd4a18f3c28948" default))
  '(package-selected-packages
-   '(openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s)))
+   '(doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+ '(warning-suppress-types '((comp))))
 
 ;; require package
 (require 'package)
@@ -66,6 +69,16 @@
 
 ;; general settings --------------------------------------------------------------------------------------
 
+;; font
+(add-to-list 'default-frame-alist
+             '(font . "Inconsolata 24"))
+
+;; hide toolbar
+(tool-bar-mode -1)
+
+;; hide scrollbar
+(scroll-bar-mode -1)
+
 ;; start the initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
@@ -74,7 +87,7 @@
 
 ;; h1 line mode
 (global-hl-line-mode 1)
-(set-face-background hl-line-face "#073642")
+(set-face-background hl-line-face "#073042")
 
 ;; change prompt from yes or no, to y or n
 ;;(fset 'yes-or-no-p 'y-or-n-p)
@@ -101,6 +114,7 @@
 
 ;; emacs 28 - dictionary server
 (setq dictionary-server "dict.org")
+
 
 ;; require --------------------------------------------------------------------------------------
 

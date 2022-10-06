@@ -13,9 +13,9 @@ Xft.hintstyle:  hintfull
 URxvt.internalBorder: 4
 
 !! emacs 
-Emacs*toolBar: 0
-Emacs*verticalScrollBars: off
-emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
+!! Emacs*toolBar: 0
+!! Emacs*verticalScrollBars: off
+!! emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
 
 !! fonts
 URxvt*font: xft:Inconsolata:size=18,xft:DejaVu Sans Mono:size=11

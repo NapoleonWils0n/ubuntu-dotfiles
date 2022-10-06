@@ -32,6 +32,7 @@ export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -a emacs"
 export VISUAL="emacsclient -c -a emacs"
 
+
 # tell ls to be colourfull
 export LSCOLORS=ExFxCxDxBxegedabagacad
 export CLICOLOR=1
@@ -54,6 +55,14 @@ export LC_ALL=C
 
 # nix os xdg directories
 export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+
+# nix-path
+export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+
+# nix dont manage shell
+if [ -f "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ];
+    then . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh";
+fi
 
 # nixpkgs
 if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilcox/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
