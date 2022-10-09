@@ -9,11 +9,11 @@ confirm-mark-feed-read no
 wrap-scroll yes
 
 # externel browser
-browser "/usr/bin/w3m %u"
-macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro l set browser "/usr/bin/firefox %u"; open-in-browser ; set browser "/usr/bin/w3m %u"
-macro p set browser "/home/djwilcox/bin/punch -i %u 2> /dev/null"; one; set browser "/usr/bin/w3m %u"
+browser "w3m %u"
+macro . set browser "/home/djwilcox/bin/sauron %u"; open-in-browser ; set browser "w3m %u"
+macro / set browser "python3 -m readability.readability -u %u 2> /dev/null | w3m -T text/html"; open-in-browser ; set browser "w3m %u"
+macro l set browser "xdg-open %u"; open-in-browser ; set browser "w3m %u"
+macro p set browser "/home/djwilcox/bin/punch -i %u 2> /dev/null"; one; set browser "w3m %u"
 
 # urlscan
 external-url-viewer "urlscan"
