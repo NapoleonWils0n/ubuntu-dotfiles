@@ -2770,6 +2770,40 @@ Categories=System;TerminalEmulator
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
 <<st-terminal>>
 #+END_SRC
+** autostart
+*** autostart config
+**** urxvtd config
+
+#+NAME: urxvtd-autostart
+#+BEGIN_SRC conf
+[Desktop Entry]
+Type=Application
+Exec=/usr/bin/urxvtd
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=urxvtd
+Name=urxvtd
+Comment[en_GB]=urxvt daemon
+Comment=urxvt daemon
+#+END_SRC
+
+*** autostart tangle
+**** urxvtd tangle
+
++ home dir
+
+#+NAME: urxvtd-autostart-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/urxvtd.desktop"
+<<urxvtd-autostart>>
+#+END_SRC
+
++ current dir
+
+#+NAME: urxvtd-autostart-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/urxvtd.desktop"
+<<urxvtd-autostart>>
+#+END_SRC
 
 ** Xresources
 *** Xresources config
