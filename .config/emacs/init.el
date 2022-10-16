@@ -107,7 +107,6 @@
 (add-hook 'text-mode-hook #'hl-line-mode)
 
 ;;(set-face-background hl-line-face "#073042")
-(set-face-background hl-line-face "#073042")
 
 ;; change prompt from yes or no, to y or n
 ;;(fset 'yes-or-no-p 'y-or-n-p)
@@ -139,7 +138,6 @@
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
-(setq evil-want-keybinding nil)
 (require 'evil)
 (evil-collection-init)
 (evil-mode 1)
@@ -147,6 +145,8 @@
 ;; vterm and evil
 (with-eval-after-load 'evil
   (evil-set-initial-state 'vterm-mode 'emacs))
+
+(setq evil-want-keybinding nil)
 
 ;; which key
 (require 'which-key)
