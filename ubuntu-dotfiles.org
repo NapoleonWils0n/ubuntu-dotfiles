@@ -202,7 +202,7 @@ in {
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(vterm doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(multi-vterm vterm doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -782,7 +782,11 @@ in {
 
 (setq shr-width 80)
 
-;; Multi Vterm keybinds ------------------------------------------------------------------------------
+;; vterm keybinds ---------------------------------------------------------------------------------------
+
+(global-set-key (kbd "C-c p") 'vterm-yank-primary)
+
+;; Multi vterm keybinds ---------------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c t v") 'multi-vterm)
 (global-set-key (kbd "C-c t n") 'multi-vterm-next)
