@@ -84,9 +84,6 @@
 ;; load theme
 (add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
 
-;; vterm prompt regex
-(setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
-
 ;; font settings
 (defvar efs/default-font-size 160)
 (defvar efs/default-variable-font-size 160)

@@ -22,20 +22,19 @@ PROMPT=$'[%n@%M %~]'
 RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 
 # variables for PS3 prompt
-#newline=$'\n'
-#yesmaster=' Yes Master ? '
+newline=$'\n'
+yesmaster='Yes Master ? '
+
 
 # PS3 prompt function
-#function zle-line-init zle-keymap-select {
-#    VIM_NORMAL_PROMPT="[% -n]% "
-#    VIM_INSERT_PROMPT="[% +i]% "
-#    PS1="[%n@%M %~]${newline}${${KEYMAP/vicmd/$VIM_NORMAL_PROMPT}/(main|viins)/$VIM_INSERT_PROMPT}${yesmaster}"
-#    zle reset-prompt
-#}
+function zle-line-init zle-keymap-select {
+    PS1="[%n@%M %~]${newline}${yesmaster}"
+    zle reset-prompt
+}
 
 # run PS3 prompt function
-#zle -N zle-line-init
-#zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 # vterm
 vterm_printf(){
@@ -55,13 +54,7 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
 fi
 
-# vterm Directory tracking and Prompt tracking
-vterm_prompt_end() {
-    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)";
-}
-setopt PROMPT_SUBST
-PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
-
+# vterm directory tracking
 autoload -U add-zsh-hook
 add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 
