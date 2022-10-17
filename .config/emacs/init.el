@@ -112,8 +112,10 @@
 ;;(fset 'yes-or-no-p 'y-or-n-p)
 (setq use-short-answers t) ;; emacs 28
 
-;; dont display time in mode line
-(display-time-mode 0)
+;; display time in mode line, hide load average
+(setq display-time-format "%H:%M")
+(setq display-time-default-load-average nil)
+(display-time-mode 1)
 
 ;; mutt
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
