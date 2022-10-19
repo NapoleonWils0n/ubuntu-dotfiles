@@ -12,13 +12,9 @@ Xft.hintstyle:  hintfull
 !! internal border
 URxvt.internalBorder: 4
 
-!! emacs 
-!! Emacs*toolBar: 0
-!! Emacs*verticalScrollBars: off
-!! emacs.font: Inconsolata:size=24:weight=regular:antialias=true:hinting=true:hintstyle=hintfull
-
 !! fonts
-URxvt*font: xft:Inconsolata:size=18,xft:DejaVu Sans Mono:size=11
+!! URxvt*font: xft:Inconsolata:size=18,xft:DejaVu Sans Mono:size=11
+URxvt*font: xft:Fira Code Retina:size=14,xft:DejaVu Sans Mono:size=11
 
 ! Set scrollbar style to rxvt, plain, next or xterm. plain is the authors favourite.
 ! URxvt*scrollstyle: mode

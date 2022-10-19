@@ -50,7 +50,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(multi-vterm vterm doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -98,12 +98,8 @@
 (set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
 
 ;; h1 line mode
-;; let's enable it for all programming major modes
-(add-hook 'prog-mode-hook #'hl-line-mode)
-;; and for all modes derived from text-mode
-(add-hook 'text-mode-hook #'hl-line-mode)
-
-;;(set-face-background hl-line-face "#073042")
+(global-hl-line-mode 1)
+(set-face-background hl-line-face "#073642")
 
 ;; change prompt from yes or no, to y or n
 ;;(fset 'yes-or-no-p 'y-or-n-p)
@@ -140,10 +136,6 @@
 (require 'evil)
 (evil-collection-init)
 (evil-mode 1)
-
-;; vterm and evil
-(with-eval-after-load 'evil
-  (evil-set-initial-state 'vterm-mode 'emacs))
 
 ;; dired use h and l
 (evil-collection-define-key 'normal 'dired-mode-map
@@ -629,21 +621,6 @@
 
 (setq shr-width 80)
 
-;; vterm keybinds ---------------------------------------------------------------------------------------
-
-(global-set-key (kbd "C-c p") 'vterm-yank-primary)
-
-;; Multi vterm keybinds ---------------------------------------------------------------------------------
-
-(global-set-key (kbd "C-c t v") 'multi-vterm)
-(global-set-key (kbd "C-c t n") 'multi-vterm-next)
-(global-set-key (kbd "C-c t p") 'multi-vterm-prev)
-(global-set-key (kbd "C-c t r") 'multi-vterm-rename-buffer)
-(global-set-key (kbd "C-c t d") 'multi-vterm-dedicated-open)
-(global-set-key (kbd "C-c t j") 'multi-vterm-project)
-(global-set-key (kbd "C-c t c") 'multi-vterm-dedicated-close)
-(global-set-key (kbd "C-c t t") 'multi-vterm-dedicated-toggle)
-(global-set-key (kbd "C-c t s") 'multi-vterm-dedicated-select)
 
 ;; garbage collection -----------------------------------------------------------------------------------
 

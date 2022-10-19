@@ -25,38 +25,17 @@ RPROMPT='%F{cyan}$(__git_ps1 "%s")%f'
 newline=$'\n'
 yesmaster='Yes Master ? '
 
-
 # PS3 prompt function
 function zle-line-init zle-keymap-select {
-    PS1="[%n@%M %~]${newline}${yesmaster}"
+    VIM_NORMAL_PROMPT="[% -n]% "
+    VIM_INSERT_PROMPT="[% +i]% "
+    PS1="[%n@%M %~]${newline}${${KEYMAP/vicmd/$VIM_NORMAL_PROMPT}/(main|viins)/$VIM_INSERT_PROMPT}${yesmaster}"
     zle reset-prompt
 }
 
 # run PS3 prompt function
 zle -N zle-line-init
 zle -N zle-keymap-select
-
-# vterm
-vterm_printf(){
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
-        # Tell tmux to pass the escape sequences through
-        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
-        # GNU screen (screen, screen-256color, screen-256color-bce)
-        printf "\eP\e]%s\007\e\\" "$1"
-    else
-        printf "\e]%s\e\\" "$1"
-    fi
-}
-
-# vterm clear scroll back
-if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
-    alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
-fi
-
-# vterm directory tracking
-autoload -U add-zsh-hook
-add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 
 # set terminal window title to program name
 case $TERM in
