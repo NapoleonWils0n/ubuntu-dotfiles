@@ -202,7 +202,7 @@ in {
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -1224,7 +1224,7 @@ zle -N zle-keymap-select
 
 # set terminal window title to program name
 case $TERM in
-  (*xterm* | rxvt | rxvt-unicode-256color | st-256color)
+  (*xterm* | rxvt | rxvt-unicode-256color | st-256color | alacritty)
     function precmd {
       print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
     }
@@ -1504,6 +1504,199 @@ if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilco
 #+NAME: zshenv-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".zshenv"
 <<zshenv>>
+#+END_SRC
+
+** alacritty
+*** alacritty config
+
+#+NAME: alacritty
+#+BEGIN_SRC conf
+# alacritty
+env:
+  TERM: alacritty
+
+window:
+  padding:
+    x: 2
+    y: 2
+
+  dynamic_padding: false
+  decorations: full
+  title: Alacritty
+  dynamic_title: true
+  class:
+    instance: Alacritty
+    general: Alacritty
+
+  decorations_theme_variant: None
+
+scrolling:
+  history: 10000
+  multiplier: 1
+
+font:
+  normal:
+    family: Fira Code
+    style: Medium
+
+  size: 18.0
+  offset:
+    x: -1
+    y: -1
+
+  glyph_offset:
+    x: 0
+    y: 0
+
+# Colors (Solarized Dark)
+colors:
+  # Default colors
+  primary:
+    background: '#002b36' # base03
+    foreground: '#839496' # base0
+
+  # Cursor colors
+  cursor:
+    text:   '#002b36' # base03
+    cursor: '#839496' # base0
+
+  # Normal colors
+  normal:
+    black:   '#073642' # base02
+    red:     '#dc322f' # red
+    green:   '#859900' # green
+    yellow:  '#b58900' # yellow
+    blue:    '#268bd2' # blue
+    magenta: '#d33682' # magenta
+    cyan:    '#2aa198' # cyan
+    white:   '#eee8d5' # base2
+
+  # Bright colors
+  bright:
+    black:   '#002b36' # base03
+    red:     '#cb4b16' # orange
+    green:   '#586e75' # base01
+    yellow:  '#657b83' # base00
+    blue:    '#839496' # base0
+    magenta: '#6c71c4' # violet
+    cyan:    '#93a1a1' # base1
+    white:   '#fdf6e3' # base3
+
+bell:
+  animation: EaseOutExpo
+  duration: 0
+  color: '#ffffff'
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: false
+
+cursor:
+  style:
+    shape: Block
+  vi_mode_style: Block
+  unfocused_hollow: true
+
+# Live config reload (changes require restart)
+live_config_reload: true
+working_directory: None
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+# Hints
+# Terminal hints can be used to find text or hyperlink in the visible part of
+# the terminal and pipe it to other applications.
+hints:
+  enabled:
+   - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
+             [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+     hyperlinks: true
+     command: xdg-open
+
+# Bindings are always filled by default, but will be replaced when a new
+# binding with the same triggers is defined. To unset a default binding, it can
+# be mapped to the `ReceiveChar` action. Alternatively, you can use `None` for
+# a no-op if you do not wish to receive input characters for that binding.
+#
+# If the same trigger is assigned to multiple actions, all of them are executed
+# in the order they were defined in.
+key_bindings:
+  - { key: Paste,                                       action: Paste          }
+  - { key: Copy,                                        action: Copy           }
+  - { key: L,         mods: Control,                    action: ClearLogNotice }
+  - { key: L,         mods: Control, mode: ~Vi|~Search, chars: "\x0c"          }
+  - { key: PageUp,    mods: Shift,   mode: ~Alt,        action: ScrollPageUp   }
+  - { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
+  - { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop    }
+  - { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
+
+  # Vi Mode
+  - { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
+  - { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
+  - { key: Escape,                      mode: Vi|~Search, action: ClearSelection          }
+  - { key: I,                           mode: Vi|~Search, action: ToggleViMode            }
+  - { key: I,                           mode: Vi|~Search, action: ScrollToBottom          }
+  - { key: C,      mods: Control,       mode: Vi|~Search, action: ToggleViMode            }
+  - { key: Y,      mods: Control,       mode: Vi|~Search, action: ScrollLineUp            }
+  - { key: E,      mods: Control,       mode: Vi|~Search, action: ScrollLineDown          }
+  - { key: G,                           mode: Vi|~Search, action: ScrollToTop             }
+  - { key: G,      mods: Shift,         mode: Vi|~Search, action: ScrollToBottom          }
+  - { key: B,      mods: Control,       mode: Vi|~Search, action: ScrollPageUp            }
+  - { key: F,      mods: Control,       mode: Vi|~Search, action: ScrollPageDown          }
+  - { key: U,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageUp        }
+  - { key: D,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageDown      }
+  - { key: Y,                           mode: Vi|~Search, action: Copy                    }
+  - { key: Y,                           mode: Vi|~Search, action: ClearSelection          }
+  - { key: Copy,                        mode: Vi|~Search, action: ClearSelection          }
+  - { key: V,                           mode: Vi|~Search, action: ToggleNormalSelection   }
+  - { key: V,      mods: Shift,         mode: Vi|~Search, action: ToggleLineSelection     }
+  - { key: V,      mods: Control,       mode: Vi|~Search, action: ToggleBlockSelection    }
+  - { key: V,      mods: Alt,           mode: Vi|~Search, action: ToggleSemanticSelection }
+  - { key: Return,                      mode: Vi|~Search, action: Open                    }
+  - { key: Z,                           mode: Vi|~Search, action: CenterAroundViCursor    }
+  - { key: K,                           mode: Vi|~Search, action: Up                      }
+  - { key: J,                           mode: Vi|~Search, action: Down                    }
+  - { key: H,                           mode: Vi|~Search, action: Left                    }
+  - { key: L,                           mode: Vi|~Search, action: Right                   }
+  - { key: Up,                          mode: Vi|~Search, action: Up                      }
+  - { key: Down,                        mode: Vi|~Search, action: Down                    }
+  - { key: Left,                        mode: Vi|~Search, action: Left                    }
+  - { key: Right,                       mode: Vi|~Search, action: Right                   }
+  - { key: Key0,                        mode: Vi|~Search, action: First                   }
+  - { key: Key4,   mods: Shift,         mode: Vi|~Search, action: Last                    }
+  - { key: Key6,   mods: Shift,         mode: Vi|~Search, action: FirstOccupied           }
+  - { key: H,      mods: Shift,         mode: Vi|~Search, action: High                    }
+  - { key: M,      mods: Shift,         mode: Vi|~Search, action: Middle                  }
+  - { key: L,      mods: Shift,         mode: Vi|~Search, action: Low                     }
+  - { key: B,                           mode: Vi|~Search, action: SemanticLeft            }
+  - { key: W,                           mode: Vi|~Search, action: SemanticRight           }
+  - { key: E,                           mode: Vi|~Search, action: SemanticRightEnd        }
+  - { key: B,      mods: Shift,         mode: Vi|~Search, action: WordLeft                }
+  - { key: W,      mods: Shift,         mode: Vi|~Search, action: WordRight               }
+  - { key: E,      mods: Shift,         mode: Vi|~Search, action: WordRightEnd            }
+  - { key: Key5,   mods: Shift,         mode: Vi|~Search, action: Bracket                 }
+  - { key: Slash,                       mode: Vi|~Search, action: SearchForward           }
+  - { key: Slash,  mods: Shift,         mode: Vi|~Search, action: SearchBackward          }
+  - { key: N,                           mode: Vi|~Search, action: SearchNext              }
+  - { key: N,      mods: Shift,         mode: Vi|~Search, action: SearchPrevious          }
+#+END_SRC
+
+*** alacritty tangle
+
++ home dir
+
+#+NAME: alacritty-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/alacritty/alacritty.yml"
+<<alacritty>>
+#+END_SRC
+
++ current dir
+
+#+NAME: alacritty-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/alacritty/alacritty.yml"
+<<alacritty>>
 #+END_SRC
 
 ** tmux
@@ -2782,41 +2975,6 @@ Categories=System;TerminalEmulator
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/st.desktop"
 <<st-terminal>>
 #+END_SRC
-** autostart
-*** autostart config
-**** urxvtd config
-
-#+NAME: urxvtd-autostart
-#+BEGIN_SRC conf
-[Desktop Entry]
-Type=Application
-Exec=/usr/bin/urxvtd
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name[en_GB]=urxvtd
-Name=urxvtd
-Comment[en_GB]=urxvt daemon
-Comment=urxvt daemon
-#+END_SRC
-
-*** autostart tangle
-**** urxvtd tangle
-
-+ home dir
-
-#+NAME: urxvtd-autostart-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/urxvtd.desktop"
-<<urxvtd-autostart>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: urxvtd-autostart-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/urxvtd.desktop"
-<<urxvtd-autostart>>
-#+END_SRC
-
 ** Xresources
 *** Xresources config
 
@@ -2962,6 +3120,30 @@ if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilco
 #+NAME: xprofile-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".xprofile"
 <<xprofile>>
+#+END_SRC
+
+** profile
+*** profile config
+
+#+NAME: profile
+#+BEGIN_SRC conf
+. "$HOME/.cargo/env"
+#+END_SRC
+
+*** profile tangle
+
++ home dir
+
+#+NAME: profile-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.profile"
+<<profile>>
+#+END_SRC
+
++ current dir
+
+#+NAME: profile-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".profile"
+<<profile>>
 #+END_SRC
 
 ** xinitrc

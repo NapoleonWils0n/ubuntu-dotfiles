@@ -39,7 +39,7 @@ zle -N zle-keymap-select
 
 # set terminal window title to program name
 case $TERM in
-  (*xterm* | rxvt | rxvt-unicode-256color | st-256color)
+  (*xterm* | rxvt | rxvt-unicode-256color | st-256color | alacritty)
     function precmd {
       print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
     }
