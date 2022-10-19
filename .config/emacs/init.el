@@ -145,6 +145,12 @@
 (with-eval-after-load 'evil
   (evil-set-initial-state 'vterm-mode 'emacs))
 
+;; dired use h and l
+(evil-collection-define-key 'normal 'dired-mode-map
+    "e" 'dired-find-file
+    "h" 'dired-up-directory
+    "l" 'dired-find-file)
+
 (setq evil-want-keybinding nil)
 
 ;; which key
@@ -305,12 +311,6 @@
 
 ;; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-
-;; dired use h and l
-(evil-collection-define-key 'normal 'dired-mode-map
-    "e" 'dired-find-file
-    "h" 'dired-up-directory
-    "l" 'dired-find-file)
 
 ;; dired dwim
 (setq dired-dwim-target t)
