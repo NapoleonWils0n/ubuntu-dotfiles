@@ -1721,9 +1721,7 @@ set -g status-bg red
 set-option -sa terminal-overrides ",xterm*:Tc"
 
 # Change the default $TERM to screen
-#set -g default-terminal "tmux-256color"
-#set -g default-terminal "screen"
-set -g default-terminal "rxvt"
+set -g default-terminal "tmux-256color"
 
 # No bells at all
 set -g bell-action none
