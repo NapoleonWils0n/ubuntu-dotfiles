@@ -78,6 +78,9 @@
 ;; hide menu bar
 (menu-bar-mode -1)
 
+;; opacity
+(add-to-list 'default-frame-alist '(alpha-background . 90))
+
 ;; start the initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
