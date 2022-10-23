@@ -16,6 +16,7 @@ window:
     general: Alacritty
 
   decorations_theme_variant: None
+  opacity: 0.9
 
 scrolling:
   history: 10000

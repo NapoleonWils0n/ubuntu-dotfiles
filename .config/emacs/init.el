@@ -75,6 +75,9 @@
 ;; hide scrollbar
 (scroll-bar-mode -1)
 
+;; hide menu bar
+(menu-bar-mode -1)
+
 ;; start the initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
