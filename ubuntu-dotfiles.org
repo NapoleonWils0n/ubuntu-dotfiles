@@ -3715,6 +3715,17 @@ color alert = black,bold
 #+end_src
 
 ** gtk
+*** gtk.css config 
+
+#+NAME: gtk.css
+#+BEGIN_SRC conf
+vte-terminal,
+terminal-window {
+    padding: 4px 4px 4px 4px;
+    -vte-terminal-inner-border: 4px 4px 4px 4px;
+}
+#+END_SRC
+
 *** gtk-3.0 config 
 
 #+NAME: gtk-3
@@ -3733,6 +3744,22 @@ gtk-application-prefer-dark-theme=true
 gtk-theme-name=Yaru-blue-dark
 gtk-icon-theme-name=Yaru-blue-dark
 gtk-application-prefer-dark-theme=true
+#+END_SRC
+
+*** gtk.css tangle
+
++ home dir
+
+#+NAME: gtk.css-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/gtk-3.0/gtk.css"
+<<gtk.css>>
+#+END_SRC
+
++ current dir
+
+#+NAME: gtk.css-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/gtk-3.0/gtk.css"
+<<gtk.css>>
 #+END_SRC
 
 *** gtk-3.0 tangle
