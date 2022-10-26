@@ -1566,6 +1566,10 @@ if [ -e /home/djwilcox/.nix-profile/etc/profile.d/nix.sh ]; then . /home/djwilco
 #+BEGIN_SRC conf
 # .tmux.conf
 
+# default shell
+set -g default-command /usr/bin/zsh
+
+# vi mode
 set-window-option -g mode-keys vi
 
 # Some tweaks to the status line
@@ -1691,6 +1695,8 @@ new-window -n google \; send-keys -t google 'sr -browser=/usr/bin/w3m google "$(
 # copy mode - emulate right click "search imdb for {text}" like you do in GUI web browsers. 
 bind-key -T copy-mode-vi 'i' send-keys -X copy-selection \; \
 new-window -n imdb \; send-keys -t imdb 'sr -browser=/usr/bin/w3m imdb "$(tmux show-buffer)" && tmux kill-window' 'Enter'
+
+set-option -g default-shell ${SHELL}
 #+END_SRC
 
 *** tmux tangle
