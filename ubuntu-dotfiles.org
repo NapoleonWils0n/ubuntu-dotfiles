@@ -1867,21 +1867,6 @@ StartupWMClass=mpv
 Keywords=mpv;media;player;video;audio;tv;
 #+END_SRC
 
-**** extension-manager config
-
-#+NAME: extension-manager
-#+BEGIN_SRC conf
-[Desktop Entry]
-Name=Extension Manager
-Exec=~/bin/extension-manager
-Icon=com.mattjakeman.ExtensionManager
-Terminal=false
-Type=Application
-Categories=GTK;Utility
-StartupNotify=true
-X-Ubuntu-Gettext-Domain=extension-manager
-#+END_SRC
-
 **** org-protocol config
 
 #+NAME: org-protocol
@@ -2789,22 +2774,6 @@ OnlyShowIn=Unity
 #+NAME: mpv-desktop-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/mpv.desktop"
 <<mpv-desktop>>
-#+END_SRC
-
-**** extension-manager tangle
-
-+ home dir
-
-#+NAME: extension-manager-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/com.mattjakeman.ExtensionManager.desktop"
-<<extension-manager>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpv-desktop-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/com.mattjakeman.ExtensionManager.desktop"
-<<extension-manager>>
 #+END_SRC
 
 **** org-protocol tangle
