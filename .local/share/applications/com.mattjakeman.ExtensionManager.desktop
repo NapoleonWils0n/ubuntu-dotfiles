@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Extension Manager
+Exec=~/bin/extension-manager
+Icon=com.mattjakeman.ExtensionManager
+Terminal=false
+Type=Application
+Categories=GTK;Utility
+StartupNotify=true
+X-Ubuntu-Gettext-Domain=extension-manager
