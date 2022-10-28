@@ -134,6 +134,12 @@
 (setq dictionary-server "dict.org")
 
 
+;; tab bar --------------------------------------------------------------------------------------
+
+(setq tab-bar-close-button-show nil
+      tab-bar-new-button-show nil
+      tab-bar-new-tab-choice "*scratch*")
+
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
@@ -634,17 +640,10 @@
 
 (global-set-key (kbd "C-c p") 'vterm-yank-primary)
 
+
 ;; Multi Vterm keybinds ------------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c t v") 'multi-vterm)
-(global-set-key (kbd "C-c t n") 'multi-vterm-next)
-(global-set-key (kbd "C-c t p") 'multi-vterm-prev)
-(global-set-key (kbd "C-c t r") 'multi-vterm-rename-buffer)
-(global-set-key (kbd "C-c t d") 'multi-vterm-dedicated-open)
-(global-set-key (kbd "C-c t j") 'multi-vterm-project)
-(global-set-key (kbd "C-c t c") 'multi-vterm-dedicated-close)
-(global-set-key (kbd "C-c t t") 'multi-vterm-dedicated-toggle)
-(global-set-key (kbd "C-c t s") 'multi-vterm-dedicated-select)
 
 
 ;; garbage collection -----------------------------------------------------------------------------------
