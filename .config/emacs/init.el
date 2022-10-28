@@ -136,10 +136,9 @@
 
 ;; tab bar --------------------------------------------------------------------------------------
 
-(setq tab-bar-close-button-show nil
-      tab-bar-new-button-show nil
-      tab-bar-button-relief nil
-      tab-bar-new-tab-choice "*scratch*")
+(setq tab-bar-close-button-show nil)
+(setq tab-bar-new-button-show nil)
+(setq tab-bar-new-tab-choice "*scratch*")
 
 ;; require --------------------------------------------------------------------------------------
 
@@ -491,7 +490,7 @@
 (with-eval-after-load 'mpv
   (defun my/mpv-insert-playback-position (&optional arg)
     "Insert the current playback position at point.
-  
+
   When called with a non-nil ARG, insert a timer list item like `org-timer-item'."
     (interactive "P")
     (let ((time (mpv-get-playback-position)))
@@ -504,7 +503,7 @@
 (with-eval-after-load 'mpv
   (defun my/mpv-seek-to-position-at-point ()
     "Jump to playback position as inserted by `mpv-insert-playback-position'.
-  
+
   This can be used with the `org-open-at-point-functions' hook."
     (interactive)
     (save-excursion
@@ -531,9 +530,9 @@
             sec (string-to-number seconds)
             ms (string-to-number milliseconds))
       (setq sign (if (< sec 0) "-" "")
-  	  sec (abs sec)
-  	  m (/ sec 60) sec (- sec (* 60 m))
-  	  h (/ m 60) m (- m (* 60 h)))
+          sec (abs sec)
+          m (/ sec 60) sec (- sec (* 60 m))
+          h (/ m 60) m (- m (* 60 h)))
       (format "%s%02d:%02d:%02d.%02d" sign h m sec ms))))
 
 ;; org-timer covert hours, minutes, seconds, milliseconds to seconds, milliseconds
@@ -542,14 +541,14 @@
     "Convert h:mm:ss string to an integer time.
   If the string starts with a minus sign, the integer will be negative."
     (if (not (string-match
-  	    "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)\\([.]?[0-9]\\{0,3\\}\\)"
-  	    hms))
+            "\\([-+]?[0-9]+\\):\\([0-9]\\{2\\}\\):\\([0-9]\\{2\\}\\)\\([.]?[0-9]\\{0,3\\}\\)"
+            hms))
         0
       (let* ((h (string-to-number (match-string 1 hms)))
-  	   (m (string-to-number (match-string 2 hms)))
-  	   (s (string-to-number (match-string 3 hms)))
-  	   (ms (string-to-number (match-string 4 hms)))
-  	   (sign (equal (substring (match-string 1 hms) 0 1) "-")))
+           (m (string-to-number (match-string 2 hms)))
+           (s (string-to-number (match-string 3 hms)))
+           (ms (string-to-number (match-string 4 hms)))
+           (sign (equal (substring (match-string 1 hms) 0 1) "-")))
         (setq h (abs h))
         (* (if sign -1 1) (+ s (+ ms (* 60 (+ m (* 60 h))))))))))
 
