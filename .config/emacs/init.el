@@ -138,6 +138,7 @@
 
 (setq tab-bar-close-button-show nil
       tab-bar-new-button-show nil
+      tab-bar-button-relief nil
       tab-bar-new-tab-choice "*scratch*")
 
 ;; require --------------------------------------------------------------------------------------
