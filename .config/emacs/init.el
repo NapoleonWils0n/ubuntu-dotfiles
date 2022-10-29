@@ -136,13 +136,21 @@
 
 ;; tab bar --------------------------------------------------------------------------------------
 
-(setq tab-bar-close-button-show nil)
-(setq tab-bar-new-button-show nil)
-(setq tab-bar-new-tab-choice "*scratch*")
+(tab-bar-mode 1)  
+(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-close-button-show nil)      ;; hide close tab button
+(setq tab-bar-new-button-show nil)        ;; hide new tab button
+(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+(setq tab-bar-close-tab-select 'recent)
+(setq tab-bar-new-tab-to 'right)
+(setq tab-bar-tab-hints nil)
+
 
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
+(setq evil-want-keybinding nil)
 (require 'evil)
 (evil-collection-init)
 (evil-mode 1)
@@ -157,7 +165,6 @@
 (with-eval-after-load 'evil
   (evil-set-initial-state 'vterm-mode 'emacs))
 
-(setq evil-want-keybinding nil)
 
 ;; which key
 (require 'which-key)
