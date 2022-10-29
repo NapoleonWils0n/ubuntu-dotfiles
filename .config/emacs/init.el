@@ -50,7 +50,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -136,7 +136,8 @@
 
 ;; tab bar --------------------------------------------------------------------------------------
 
-(tab-bar-mode 1)  
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
 (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 (setq tab-bar-close-button-show nil)      ;; hide close tab button
 (setq tab-bar-new-button-show nil)        ;; hide new tab button
@@ -145,6 +146,9 @@
 (setq tab-bar-close-tab-select 'recent)
 (setq tab-bar-new-tab-to 'right)
 (setq tab-bar-tab-hints nil)
+
+;; Save the desktop session
+(desktop-save-mode 1)
 
 
 ;; require --------------------------------------------------------------------------------------
@@ -215,6 +219,12 @@
              "zathura"
              '(file))))
 (openwith-mode 1)
+
+
+;; doom-modeline
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+
 
 ;; setq --------------------------------------------------------------------------------------
 
