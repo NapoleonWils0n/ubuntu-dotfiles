@@ -136,8 +136,37 @@
 
 ;; tab bar --------------------------------------------------------------------------------------
 
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
+;; Inherit the face of `doom-modeline-panel` for better appearance
+(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
+
+;; Totally customize the format of the tab bar name
+(defun my/tab-bar-format (tab i)
+  (propertize
+   (format
+    (concat
+      (if (eq (car tab) 'current-tab)
+         "🔥" "")
+
+      "%s")
+    (alist-get 'name tab))
+   'face (list (append
+                  '(:foreground "#93a1a1")
+                  '(:background "#073642")
+                  (if (eq (car tab) 'current-tab)
+                      '(:box t)
+                      '())))))
+
+;; Replace the default tab bar function
+(setq tab-bar-tab-name-format-function #'my/tab-bar-format)
+
+(defun my/tab-bar-tab-name-function ()
+  (let ((project (project-current)))
+    (if project
+        (project-root project)
+        (tab-bar-tab-name-current))))
+
+(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-function)
+
 (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 (setq tab-bar-close-button-show nil)      ;; hide close tab button
 (setq tab-bar-new-button-show nil)        ;; hide new tab button
@@ -146,6 +175,30 @@
 (setq tab-bar-close-tab-select 'recent)
 (setq tab-bar-new-tab-to 'right)
 (setq tab-bar-tab-hints nil)
+
+;; Customize the tab bar format to add the global mode line string
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; Make sure mode line text in the tab bar can be read
+(set-face-attribute 'tab-bar nil :background "#073642" :foreground "#93a1a1")
+
+(defun my/project-create-tab ()
+  (interactive)
+  (tab-bar-new-tab)
+  (magit-status))
+
+(setq project-switch-commands #'my/project-create-tab)
+
+(defun my/switch-to-tab-buffer ()
+  (interactive)
+  (if (project-current)
+      (call-interactively #'project-switch-to-buffer)
+    (call-interactively #'switch-to-buffer)))
+
+(global-set-key (kbd "C-x b") #'my/switch-to-tab-buffer)
+
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
 
 ;; Save the desktop session
 (desktop-save-mode 1)
