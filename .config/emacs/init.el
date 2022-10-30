@@ -50,7 +50,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(all-the-icons-dired all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(0blayout all-the-icons-dired all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -159,13 +159,13 @@
 ;; Replace the default tab bar function
 (setq tab-bar-tab-name-format-function #'my/tab-bar-format)
 
-(defun my/tab-bar-tab-name-function ()
-  (let ((project (project-current)))
-    (if project
-        (project-root project)
-        (tab-bar-tab-name-current))))
-
-(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-function)
+;;(defun my/tab-bar-tab-name-function ()
+;;  (let ((project (project-current)))
+;;    (if project
+;;        (project-root project)
+;;        (tab-bar-tab-name-current))))
+;;
+;;(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-function)
 
 (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
 (setq tab-bar-close-button-show nil)      ;; hide close tab button
@@ -182,20 +182,20 @@
 ;; Make sure mode line text in the tab bar can be read
 (set-face-attribute 'tab-bar nil :background "#073642" :foreground "#93a1a1")
 
-(defun my/project-create-tab ()
-  (interactive)
-  (tab-bar-new-tab)
-  (magit-status))
-
-(setq project-switch-commands #'my/project-create-tab)
-
-(defun my/switch-to-tab-buffer ()
-  (interactive)
-  (if (project-current)
-      (call-interactively #'project-switch-to-buffer)
-    (call-interactively #'switch-to-buffer)))
-
-(global-set-key (kbd "C-x b") #'my/switch-to-tab-buffer)
+;;(defun my/project-create-tab ()
+;;  (interactive)
+;;  (tab-bar-new-tab)
+;;  (magit-status))
+;;
+;;(setq project-switch-commands #'my/project-create-tab)
+;;
+;;(defun my/switch-to-tab-buffer ()
+;;  (interactive)
+;;  (if (project-current)
+;;      (call-interactively #'project-switch-to-buffer)
+;;    (call-interactively #'switch-to-buffer)))
+;;
+;;(global-set-key (kbd "C-x b") #'my/switch-to-tab-buffer)
 
 ;; Turn on tab bar mode after startup
 (tab-bar-mode 1)
