@@ -145,7 +145,7 @@
    (format
     (concat
       (if (eq (car tab) 'current-tab)
-         "🔥" "")
+         "" "")
 
       "%s")
     (alist-get 'name tab))
