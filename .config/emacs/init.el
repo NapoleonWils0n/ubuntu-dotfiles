@@ -50,7 +50,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(0blayout all-the-icons-dired all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(centaur-tabs 0blayout all-the-icons-dired all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -134,71 +134,92 @@
 (setq dictionary-server "dict.org")
 
 
-;; tab bar --------------------------------------------------------------------------------------
+;; centaur-tabs ---------------------------------------------------------------------------------
 
-;; Inherit the face of `doom-modeline-panel` for better appearance
-(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
+;; ctrl shift tab
+(define-key function-key-map [(control shift iso-lefttab)] [(control shift tab)])
 
-;; Totally customize the format of the tab bar name
-(defun my/tab-bar-format (tab i)
-  (propertize
-   (format
-    (concat
-      (if (eq (car tab) 'current-tab)
-         "🔥" "")
+(require 'centaur-tabs)
+(setq centaur-tabs-set-icons t
+      centaur-tabs-set-bar 'over
+      centaur-tabs-gray-out-icons 'buffer
+      centaur-tabs-set-modified-marker t
+      centaur-tabs-modified-marker "*")
+(centaur-tabs-mode t)
+(global-set-key (kbd "C-<S-tab>")  'centaur-tabs-backward)
+(global-set-key (kbd "C-<tab>") 'centaur-tabs-forward)
+(centaur-tabs-headline-match)
 
-      "%s")
-    (alist-get 'name tab))
-   'face (list (append
-                  '(:foreground "#93a1a1")
-                  '(:background "#073642")
-                  (if (eq (car tab) 'current-tab)
-                      '(:box t)
-                      '())))))
+    (defun centaur-tabs-buffer-groups ()
+      "`centaur-tabs-buffer-groups' control buffers' group rules.
 
-;; Replace the default tab bar function
-(setq tab-bar-tab-name-format-function #'my/tab-bar-format)
+    Group centaur-tabs with mode if buffer is derived from `eshell-mode' `emacs-lisp-mode' `dired-mode' `org-mode' `magit-mode'.
+    All buffer name start with * will group to \"Emacs\".
+    Other buffer group by `centaur-tabs-get-group-name' with project name."
+      (list
+	(cond
+	 ((or (string-equal "*" (substring (buffer-name) 0 1))
+	      (memq major-mode '(magit-process-mode
+				 magit-status-mode
+				 magit-diff-mode
+				 magit-log-mode
+				 magit-file-mode
+				 magit-blob-mode
+				 magit-blame-mode
+				 )))
+	  "Emacs")
+	 ((derived-mode-p 'prog-mode)
+	  "Editing")
+	 ((derived-mode-p 'dired-mode)
+	  "Dired")
+	 ((memq major-mode '(helpful-mode
+			     help-mode))
+	  "Help")
+	 ((memq major-mode '(org-mode
+			     org-agenda-clockreport-mode
+			     org-src-mode
+			     org-agenda-mode
+			     org-beamer-mode
+			     org-indent-mode
+			     org-bullets-mode
+			     org-cdlatex-mode
+			     org-agenda-log-mode
+			     diary-mode))
+	  "OrgMode")
+	 (t
+	  (centaur-tabs-get-group-name (current-buffer))))))
 
-;;(defun my/tab-bar-tab-name-function ()
-;;  (let ((project (project-current)))
-;;    (if project
-;;        (project-root project)
-;;        (tab-bar-tab-name-current))))
-;;
-;;(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-function)
+(defun centaur-tabs-hide-tab (x)
+  "Do no to show buffer X in tabs."
+  (let ((name (format "%s" x)))
+    (or
+     ;; Current window is not dedicated window.
+     (window-dedicated-p (selected-window))
 
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
+     ;; Buffer name not match below blacklist.
+     (string-prefix-p "*epc" name)
+     (string-prefix-p "*helm" name)
+     (string-prefix-p "*Helm" name)
+     (string-prefix-p "*Compile-Log*" name)
+     (string-prefix-p "*lsp" name)
+     (string-prefix-p "*company" name)
+     (string-prefix-p "*Flycheck" name)
+     (string-prefix-p "*tramp" name)
+     (string-prefix-p " *Mini" name)
+     (string-prefix-p "*help" name)
+     (string-prefix-p "*straight" name)
+     (string-prefix-p " *temp" name)
+     (string-prefix-p "*Help" name)
+     (string-prefix-p "*mybuf" name)
+     (string-prefix-p "*Messages" name)
+     (string-prefix-p "*Async-native-compile-log" name)
+     (string-prefix-p "*Completions" name)
 
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+     ;; Is not magit buffer.
+     (and (string-prefix-p "magit" name)
+	  (not (file-name-extension name)))
+     )))
 
-;; Make sure mode line text in the tab bar can be read
-(set-face-attribute 'tab-bar nil :background "#073642" :foreground "#93a1a1")
-
-;;(defun my/project-create-tab ()
-;;  (interactive)
-;;  (tab-bar-new-tab)
-;;  (magit-status))
-;;
-;;(setq project-switch-commands #'my/project-create-tab)
-;;
-;;(defun my/switch-to-tab-buffer ()
-;;  (interactive)
-;;  (if (project-current)
-;;      (call-interactively #'project-switch-to-buffer)
-;;    (call-interactively #'switch-to-buffer)))
-;;
-;;(global-set-key (kbd "C-x b") #'my/switch-to-tab-buffer)
-
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
 
 ;; Save the desktop session
 (desktop-save-mode 1)
