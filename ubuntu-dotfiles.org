@@ -649,13 +649,13 @@ in {
 (setq org-src-preserve-indentation t)
 
 ;; org mode copy url from org link
-(fset 'getlink
-      (lambda (&optional arg) 
-        "Keyboard macro." 
-        (interactive "p") 
-        (kmacro-exec-ring-item (quote ("\C-c\C-l\C-a\C-k\C-g" 0 "%d")) arg)))
+;;(fset 'getlink
+;;      (lambda (&optional arg) 
+;;        "Keyboard macro." 
+;;        (interactive "p") 
+;;        (kmacro-exec-ring-item (quote ("\C-c\C-l\C-a\C-k\C-g" 0 "%d")) arg)))
 
-(define-key org-mode-map (kbd "C-c p") #'getlink)
+;;(define-key org-mode-map (kbd "C-c p") #'getlink)
 
 ;; org src to use the current window
 (setq org-src-window-setup 'current-window)
