@@ -145,7 +145,7 @@
    (format
     (concat
       (if (eq (car tab) 'current-tab)
-         "" "")
+         "" "")
 
       "%s")
     (alist-get 'name tab))
@@ -153,7 +153,7 @@
                   '(:foreground "#93a1a1")
                   '(:background "#00212B")
                   (if (eq (car tab) 'current-tab)
-                      '(:box t)
+                      '(:box nil)
                       '())))))
 
 ;; Replace the default tab bar function
