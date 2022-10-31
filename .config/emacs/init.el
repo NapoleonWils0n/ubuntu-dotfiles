@@ -172,7 +172,7 @@
 (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
 
 ;; Make sure mode line text in the tab bar can be read
-(set-face-attribute 'tab-bar nil :background "#00212C" :foreground "#93a1a1")
+(set-face-attribute 'tab-bar nil :background "#002630" :foreground "#93a1a1")
 
 ;; Turn on tab bar mode after startup
 (tab-bar-mode 1)
