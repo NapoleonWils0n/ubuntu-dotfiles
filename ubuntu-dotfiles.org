@@ -286,53 +286,6 @@ in {
 (setq dictionary-server "dict.org")
 
 
-;; tabs --------------------------------------------------------------------------------------
-
-;; Inherit the face of `doom-modeline-panel` for better appearance
-(set-face-attribute 'tab-bar-tab nil :inherit 'doom-modeline-panel :foreground nil :background nil)
-
-;; Totally customize the format of the tab bar name
-(defun my/tab-bar-format (tab i)
-  (propertize
-   (format
-    (concat
-      (if (eq (car tab) 'current-tab)
-         " " "")
-
-      "%s")
-    (alist-get 'name tab))
-   'face (list (append
-                  '(:foreground "#93a1a1")
-                  '(:background "#00212B")
-                  (if (eq (car tab) 'current-tab)
-                      '(:box nil)
-                      '())))))
-
-;; Replace the default tab bar function
-(setq tab-bar-tab-name-format-function #'my/tab-bar-format)
-
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
-
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
-
-;; Make sure mode line text in the tab bar can be read
-(set-face-attribute 'tab-bar nil :background "#002630" :foreground "#93a1a1")
-
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
-
-;; Save the desktop session
-(desktop-save-mode 1)
-
-
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
