@@ -133,6 +133,8 @@
 ;; emacs 28 - dictionary server
 (setq dictionary-server "dict.org")
 
+;; Don’t compact font caches during GC.
+(setq inhibit-compacting-font-caches t)
 
 ;; require --------------------------------------------------------------------------------------
 
