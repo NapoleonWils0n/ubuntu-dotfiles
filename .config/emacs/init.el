@@ -146,7 +146,7 @@
 ;; active tab
 (set-face-attribute 'tab-bar-tab nil
                     :inherit 'doom-modeline-panel
-                    :foreground "DeepSkyBlue")
+                    :foreground "#51AFEF")
 
 ;; inactive tab
 (set-face-attribute 'tab-bar-tab-inactive nil
