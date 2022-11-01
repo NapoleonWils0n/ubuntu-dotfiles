@@ -4180,6 +4180,12 @@ notify-program "/usr/bin/notify-send"
 # David Pakman
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCvixJtaXuNdMPUGdOPcY8Ag" general "~David Pakman" 
 
+# Maximilien Robespierre
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCSiYkMylC3F_eQfIodMHkOw" general "~Maximilien Robespierre" 
+
+# LBC
+"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCb1Ti1WKPauPpXkYKVHNpsw" general "~LBC" 
+
 
 # emacs
 
