@@ -313,11 +313,12 @@ in {
 (setq tab-bar-close-button-show nil)      ;; hide close tab button
 (setq tab-bar-new-button-show nil)        ;; hide new tab button
 (setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
 (setq tab-bar-close-tab-select 'recent)
 (setq tab-bar-new-tab-to 'right)
 (setq tab-bar-tab-hints nil)
 (setq tab-bar-separator " ")
+(setq tab-bar-menu-bar-button "👾")
 
 ;; Customize the tab bar format to add the global mode line string
 (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
