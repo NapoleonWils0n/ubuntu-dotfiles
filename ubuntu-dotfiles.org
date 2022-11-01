@@ -288,6 +288,48 @@ in {
 ;; Don’t compact font caches during GC.
 (setq inhibit-compacting-font-caches t)
 
+;; tabs --------------------------------------------------------------------------------------
+
+;; tab bar background
+(set-face-attribute 'tab-bar nil
+                    :inherit 'doom-modeline-panel
+                    :background "#2c2c2c"
+                    :foreground "#93a1a1")
+
+;; active tab
+(set-face-attribute 'tab-bar-tab nil
+                    :inherit 'doom-modeline-panel
+                    :background "#4b4b4b"
+                    :foreground "white"
+                    :box '(:line-width 1))
+
+;; inactive tab
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :inherit 'doom-modeline-panel
+                    :background "#2c2c2c"
+                    :foreground "grey50")
+
+
+(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-close-button-show nil)      ;; hide close tab button
+(setq tab-bar-new-button-show nil)        ;; hide new tab button
+(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable)
+(setq tab-bar-close-tab-select 'recent)
+(setq tab-bar-new-tab-to 'right)
+(setq tab-bar-tab-hints nil)
+(setq tab-bar-separator " ")
+
+;; Customize the tab bar format to add the global mode line string
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
+
+;; Save the desktop session
+(desktop-save-mode 1)
+
+
 ;; require --------------------------------------------------------------------------------------
 
 ;; evil
