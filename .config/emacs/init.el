@@ -146,8 +146,7 @@
 ;; active tab
 (set-face-attribute 'tab-bar-tab nil
                     :inherit 'doom-modeline-panel
-                    :foreground "white"
-                    :box '(:line-width 1))
+                    :foreground "white")
 
 ;; inactive tab
 (set-face-attribute 'tab-bar-tab-inactive nil
