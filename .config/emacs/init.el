@@ -141,20 +141,17 @@
 ;; tab bar background
 (set-face-attribute 'tab-bar nil
                     :inherit 'doom-modeline-panel
-                    :background "#2c2c2c"
                     :foreground "#93a1a1")
 
 ;; active tab
 (set-face-attribute 'tab-bar-tab nil
                     :inherit 'doom-modeline-panel
-                    :background "#4b4b4b"
                     :foreground "white"
                     :box '(:line-width 1))
 
 ;; inactive tab
 (set-face-attribute 'tab-bar-tab-inactive nil
                     :inherit 'doom-modeline-panel
-                    :background "#2c2c2c"
                     :foreground "grey50")
 
 
