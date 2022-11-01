@@ -69,6 +69,9 @@
 
 ;; general settings --------------------------------------------------------------------------------------
 
+;; hide menubar
+(menu-bar-mode -1) 
+
 ;; hide toolbar
 (tool-bar-mode -1)
 
@@ -166,6 +169,9 @@
 
 ;; Customize the tab bar format to add the global mode line string
 (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; menubar in tab bar
+(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
 
 ;; Turn on tab bar mode after startup
 (tab-bar-mode 1)
