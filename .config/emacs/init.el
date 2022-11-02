@@ -697,6 +697,7 @@
 ;; Multi Vterm keybinds ------------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c t v") 'multi-vterm)
+(global-set-key (kbd "C-c t r") 'multi-vterm-rename-buffer)
 
 
 ;; garbage collection -----------------------------------------------------------------------------------
