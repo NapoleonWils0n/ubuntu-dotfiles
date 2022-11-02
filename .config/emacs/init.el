@@ -173,11 +173,11 @@
 ;; menubar in tab bar
 (add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
 
-;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👾")
-
 ;; Turn on tab bar mode after startup
 (tab-bar-mode 1)
+
+;; tab bar menu bar button
+(setq tab-bar-menu-bar-button "👾")
 
 ;; Save the desktop session
 (desktop-save-mode 1)
