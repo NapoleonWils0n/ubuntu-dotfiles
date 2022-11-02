@@ -689,8 +689,10 @@
 (setq shr-width 80)
 
 
-;; vterm keybinds ---------------------------------------------------------------------------------------
+;; vterm ------------------------------------------------------------------------------------------------
 
+(setq vterm-always-compile-module t)
+(setq vterm-buffer-name-string "vterm %s")
 (global-set-key (kbd "C-c p") 'vterm-yank-primary)
 
 
