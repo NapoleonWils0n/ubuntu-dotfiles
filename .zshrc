@@ -67,9 +67,9 @@ add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
 
 # set terminal window title to program name
 case $TERM in
-  (*xterm* | rxvt | rxvt-unicode-256colory)
+  (*xterm* | rxvt | rxvt-unicode-256color)
     function precmd {
-      print -Pn "\e]0;zsh%L %(1j,%j job%(2j|s|); ,)%~\a"
+      print -Pn "\e]0;%(1j,%j job%(2j|s|); ,)%~\a"
     }
     function preexec {
       printf "\033]0;%s\a" "$1"
