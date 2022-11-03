@@ -60,7 +60,6 @@
 (tool-bar-mode -1)          ;; hide toolbar
 (scroll-bar-mode -1)        ;; hide scrollbar
 (save-place-mode 1)         ;; save cursor position
-(display-time-mode 1)       ;; display time
 (desktop-save-mode 1)       ;; Save the desktop session
 (savehist-mode 1)           ;; save history
 (global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
@@ -137,6 +136,7 @@
 ;; display time in mode line, hide load average
 (setq display-time-format "%H:%M")
 (setq display-time-default-load-average nil)
+(display-time-mode 1)       ;; display time
 
 ;; change prompt from yes or no, to y or n
 (setq use-short-answers t)
