@@ -1,11 +1,8 @@
-;; emacs start up --------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;; emacs start up
 
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
-
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
 
 ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
 (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
@@ -15,18 +12,6 @@
     `((".*" ,emacs-tmp-dir t)))
 (setq auto-save-list-file-prefix
     emacs-tmp-dir)
-
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq backup-by-copying t)
-(setq delete-old-versions t)
-(setq kept-new-versions 6)
-(setq kept-old-versions 2)
-(setq create-lockfiles nil)
-
-;; pinentry prompt in emacs
-(defvar epa-pinentry-mode)
-(setq epa-pinentry-mode 'loopback)
 
 ;; dont backup files opened by sudo or doas
 (setq backup-enable-predicate
@@ -38,7 +23,8 @@
                   (member method '("su" "sudo" "doas"))))))))
 
 
-;; melpa packages --------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;; melpa packages
 
 ;; package-selected-packages
 (custom-set-variables
@@ -67,16 +53,24 @@
 (package-install-selected-packages)
 
 
-;; general settings --------------------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;; general settings
 
-;; hide menubar
-(menu-bar-mode -1) 
+(menu-bar-mode -1)          ;; hide menubar
+(tool-bar-mode -1)          ;; hide toolbar
+(scroll-bar-mode -1)        ;; hide scrollbar
+(save-place-mode 1)         ;; save cursor position
+(display-time-mode 1)       ;; display time
+(desktop-save-mode 1)       ;; Save the desktop session
+(savehist-mode 1)           ;; save history
+(global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
 
-;; hide toolbar
-(tool-bar-mode -1)
 
-;; hide scrollbar
-(scroll-bar-mode -1)
+;; ------------------------------------------------------------------------------------------------
+;; add-to-list
+
+;;Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.config/emacs/lisp/")
 
 ;; start the initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -84,187 +78,77 @@
 ;; start every frame maximized
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-;; load theme
-(add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
-
-;; font settings
-(defvar efs/default-font-size 160)
-(defvar efs/default-variable-font-size 160)
-
-;; Set the default pitch face
-(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
-
-;; h1 line mode
-;; (global-hl-line-mode 1)
-;; (set-face-background hl-line-face "#073642")
-;; let's enable it for all programming major modes
-(add-hook 'prog-mode-hook #'hl-line-mode)
-;; and for all modes derived from text-mode
-(add-hook 'text-mode-hook #'hl-line-mode)
-
-;; change prompt from yes or no, to y or n
-;;(fset 'yes-or-no-p 'y-or-n-p)
-(setq use-short-answers t) ;; emacs 28
-
-;; display time in mode line, hide load average
-(setq display-time-format "%H:%M")
-(setq display-time-default-load-average nil)
-(display-time-mode 1)
-
 ;; mutt
 (add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
 
-;;Tell emacs where is your personal elisp lib dir
-(add-to-list 'load-path "~/.config/emacs/lisp/")
+;; tramp backup directory
+(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
+
+;; dired hide aync output buffer
+(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; load
+
+;; org protocol capture
 (load "org-protocol-capture-html")
 
-;; save cursor position
-(save-place-mode 1)
 
-;; turn off blinking cursor
-(setq blink-cursor-mode nil)
+;; ------------------------------------------------------------------------------------------------
+;; defvar
 
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
+;; pinentry prompt in emacs
+(defvar epa-pinentry-mode)
 
-;; emacs 28 - dictionary server
-(setq dictionary-server "dict.org")
+
+;; ------------------------------------------------------------------------------------------------
+;; setq
 
 ;; Don’t compact font caches during GC.
 (setq inhibit-compacting-font-caches t)
 
-;; tabs --------------------------------------------------------------------------------------
-
-;; tab bar background
-(set-face-attribute 'tab-bar nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "#93a1a1")
-
-;; active tab
-(set-face-attribute 'tab-bar-tab nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "#51AFEF")
-
-;; inactive tab
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "grey50")
-
-
-(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
-(setq tab-bar-close-button-show nil)      ;; hide close tab button
-(setq tab-bar-new-button-show nil)        ;; hide new tab button
-(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
-(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
-(setq tab-bar-close-tab-select 'recent)
-(setq tab-bar-new-tab-to 'right)
-(setq tab-bar-tab-hints nil)
-(setq tab-bar-separator " ")
-
-;; Customize the tab bar format to add the global mode line string
-(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
-
-;; menubar in tab bar
-(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
-
-;; Turn on tab bar mode after startup
-(tab-bar-mode 1)
-
-;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👾")
-
-;; Save the desktop session
-(desktop-save-mode 1)
-
-
-;; require --------------------------------------------------------------------------------------
-
 ;; evil
 (setq evil-want-keybinding nil)
-(require 'evil)
-(evil-collection-init)
-(evil-mode 1)
 
-;; dired use h and l
-(evil-collection-define-key 'normal 'dired-mode-map
-    "e" 'dired-find-file
-    "h" 'dired-up-directory
-    "l" 'dired-find-file)
+;; fix tab in evil for org mode
+(setq evil-want-C-i-jump nil)
 
-;; vterm and evil
-(with-eval-after-load 'evil
-  (evil-set-initial-state 'vterm-mode 'emacs))
+;; pinentry
+(setq epa-pinentry-mode 'loopback)
 
-
-;; which key
-(require 'which-key)
-(which-key-mode)
-
-;; powerline-evil
-(require 'powerline)
-(powerline-default-theme)
-
-;; ob-async
-(require 'ob-async)
-
-;; undo tree
-(require 'undo-tree)
-(global-undo-tree-mode 1)
+;; general settings
+(setq inhibit-startup-message t)
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message nil)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq backup-by-copying t)
+(setq delete-old-versions t)
+(setq kept-new-versions 6)
+(setq kept-old-versions 2)
+(setq create-lockfiles nil)
 (setq undo-tree-auto-save-history nil)
 
-;; org mode
-(require 'org)
-(require 'org-tempo)
-(require 'org-protocol)
-(require 'org-capture)
-(require 'org-protocol-capture-html)
-(setq org-agenda-files '("~/git/personal/org/"))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
+;; vterm
+(setq vterm-always-compile-module t)
+(setq vterm-buffer-name-string "vterm %s")
 
-;; tramp
-(require 'tramp)
+;; display time in mode line, hide load average
+(setq display-time-format "%H:%M")
+(setq display-time-default-load-average nil)
 
-;; openwith
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-             "nsxiv -a"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "zathura"
-             '(file))))
-(openwith-mode 1)
+;; change prompt from yes or no, to y or n
+(setq use-short-answers t)
 
-
-;; doom-modeline
-(require 'doom-modeline)
-(doom-modeline-mode 1)
-
-
-;; setq --------------------------------------------------------------------------------------
+;; turn off blinking cursor
+(setq blink-cursor-mode nil)
 
 ;; suppress large file prompt
 (setq large-file-warning-threshold nil)
 
-;; asynchronous tangle
-(setq org-export-async-debug t)
+;; always follow symlinks
+(setq vc-follow-symlinks t)
 
 ;; tramp setq
 (setq tramp-default-method "ssh")
@@ -272,7 +156,6 @@
 ;; company auto complete
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 3)
-(add-hook 'after-init-hook 'global-company-mode)
 
 ;; ido mode
 (setq ido-enable-flex-matching t)
@@ -283,17 +166,14 @@
 (setq read-file-name-completion-ignore-case t)
 (setq pcomplete-ignore-case t)
 
-;; fix tab in evil for org mode
-(setq evil-want-C-i-jump nil)
-
 ;; dont show images full size
 (setq org-image-actual-width nil)
 
 ;; prevent demoting heading also shifting text inside sections
 (setq org-adapt-indentation nil)
 
-;; always follow symlinks
-(setq vc-follow-symlinks t)
+;; asynchronous tangle
+(setq org-export-async-debug t)
 
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -301,125 +181,26 @@
 
 ;; M-n, M-p recall previous mini buffer commands
 (setq history-length 25)
-(savehist-mode 1)
 
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
-
-;; tramp ssh config --------------------------------------------------------------------------
-
-;; set tramp shell to sh to avoid zsh problems
-(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
-
-(tramp-set-completion-function "ssh"
-                               '((tramp-parse-sconfig "/etc/ssh_config")
-                                 (tramp-parse-sconfig "~/.ssh/config")))
-
-(add-to-list 'backup-directory-alist
-                  (cons tramp-file-name-regexp nil))
-
-
-;; define key ---------------------------------------------------------------------------------------
-
-;; iedit
-(define-key global-map (kbd "C-c o") 'iedit-mode)
-
-
-;; add hook -----------------------------------------------------------------------------------------
-
-;; visual line mode
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-;; flycheck syntax linting
-(add-hook 'sh-mode-hook 'flycheck-mode)
-
-;; Make shebang (#!) file executable when saved
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-
-;; dired --------------------------------------------------------------------------------------
-
-;; dired all the icons colour
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
-(setq all-the-icons-dired-monochrome nil)
-
-;; kill the current buffer when selecting a new directory to display
-(setq dired-kill-when-opening-new-dired-buffer t)
-
-;; dired directory listing options for ls
-(setq dired-listing-switches "-ahlv")
-
-;; dired hide long listing by default
-(defun my-dired-mode-setup ()
-  "show less information in dired buffers"
-  (dired-hide-details-mode 1))
-(add-hook 'dired-mode-hook 'my-dired-mode-setup)
-
-;; Toggle Hidden Files in Emacs dired with C-x M-o
-(require 'dired-x)
-;; hide dotfiles and firefox.tmp
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
-
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
-
-;; recursive delete and copy
-(setq dired-recursive-copies 'always)
-(setq dired-recursive-deletes 'always)
-
-;; dired hide aync output buffer
-(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
-
-;; dired dwim
-(setq dired-dwim-target t)
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
 ;; revert dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
 
-;; revert buffers when the underlying file has changed
-(global-auto-revert-mode 1)
+;; eww browser text width
+(setq shr-width 80)
+
+;; emacs 28 - dictionary server
+(setq dictionary-server "dict.org")
 
 
-;; magit -------------------------------------------------------------------------------------------------
-
-(global-set-key (kbd "C-x g") 'magit-status)
-
-;; delete magit buffers
-(defun kill-magit-diff-buffer-in-current-repo (&rest _)
-      "Delete the magit-diff buffer related to the current repo"
-      (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
-        (kill-buffer magit-diff-buffer-in-current-repo)))
-    ;;
-    ;; When 'C-c C-c' or 'C-c C-l' are pressed in the magit commit message buffer,
-    ;; delete the magit-diff buffer related to the current repo.
-    ;;    
-    (add-hook 'git-commit-setup-hook
-              (lambda ()
-                (add-hook 'with-editor-post-finish-hook #'kill-magit-diff-buffer-in-current-repo
-                          nil t)
-                (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
-                          nil t)))
-
-
-;; org mode --------------------------------------------------------------------------------------
-
-;; org-capture
-(global-set-key "\C-cc" 'org-capture)
-
-(defadvice org-capture
-    (after make-full-window-frame activate)
-  "Advise capture to be the only window when used as a popup"
-  (if (equal "emacs-capture" (frame-parameter nil 'name))
-      (delete-other-windows)))
-
-(defadvice org-capture-finalize
-    (after delete-capture-frame activate)
-  "Advise capture-finalize to close the frame"
-  (if (equal "emacs-capture" (frame-parameter nil 'name))
-      (delete-frame)))
-
+;; ------------------------------------------------------------------------------------------------
 ;; org capture templates
+
 (setq org-capture-templates
     '(("t" "todo" entry
       (file+headline "~/git/personal/org/todo.org" "Tasks")
@@ -461,11 +242,6 @@
       org-src-fontify-natively t
       org-src-tab-acts-natively t)
 
-; org-babel shell script
-(org-babel-do-load-languages
-'org-babel-load-languages
-'((shell . t))) 
-
 (setq org-latex-minted-options
     '(("frame" "lines") ("linenos=true")) )
 ;;(setq org-latex-listings 'minted)
@@ -498,6 +274,289 @@
 ;; dont indent src block for export
 (setq org-src-preserve-indentation t)
 
+;; org src to use the current window
+(setq org-src-window-setup 'current-window)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; tab bar mode 
+
+(setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
+(setq tab-bar-close-button-show nil)      ;; hide close tab button
+(setq tab-bar-new-button-show nil)        ;; hide new tab button
+(setq tab-bar-new-tab-choice "*scratch*") ;; default tab scratch
+(setq tab-bar-close-last-tab-choice 'tab-bar-mode-disable) 
+(setq tab-bar-close-tab-select 'recent)
+(setq tab-bar-new-tab-to 'right)
+(setq tab-bar-tab-hints nil)
+(setq tab-bar-separator " ")
+
+;; Customize the tab bar format to add the global mode line string
+(setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
+
+;; menubar in tab bar
+(add-to-list 'tab-bar-format #'tab-bar-format-menu-bar)
+
+;; Turn on tab bar mode after startup
+(tab-bar-mode 1)
+
+;; tab bar menu bar button
+(setq tab-bar-menu-bar-button "👾")
+
+
+;; ------------------------------------------------------------------------------------------------
+;; require
+
+;; evil
+(require 'evil)
+(evil-collection-init)
+(evil-mode 1)
+
+;; dired use h and l
+(evil-collection-define-key 'normal 'dired-mode-map
+    "e" 'dired-find-file
+    "h" 'dired-up-directory
+    "l" 'dired-find-file)
+
+;; powerline-evil
+(require 'powerline)
+(powerline-default-theme)
+
+;; which key
+(require 'which-key)
+(which-key-mode)
+
+;; ob-async
+(require 'ob-async)
+
+;; undo tree
+(require 'undo-tree)
+(global-undo-tree-mode 1)
+
+;; tramp
+(require 'tramp)
+
+;; Toggle Hidden Files in Emacs dired with C-x M-o
+(require 'dired-x)
+
+;; org mode
+(require 'org)
+(require 'org-tempo)
+(require 'org-protocol)
+(require 'org-capture)
+(require 'org-protocol-capture-html)
+(setq org-agenda-files '("~/git/personal/org/"))
+
+;; openwith
+(require 'openwith)
+(setq openwith-associations
+      (list
+       (list (openwith-make-extension-regexp
+              '("mpg" "mpeg" "mp3" "mp4" "m4v"
+                "avi" "wmv" "wav" "mov" "flv"
+                "ogm" "ogg" "mkv" "webm"))
+             "mpv"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("xbm" "pbm" "pgm" "ppm" "pnm"
+                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
+             "nsxiv -a"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("pdf"))
+             "zathura"
+             '(file))))
+(openwith-mode 1)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; dired 
+
+;; dired all the icons colour
+(setq all-the-icons-dired-monochrome nil)
+
+;; kill the current buffer when selecting a new directory to display
+(setq dired-kill-when-opening-new-dired-buffer t)
+
+;; dired directory listing options for ls
+(setq dired-listing-switches "-ahlv")
+
+;; hide dotfiles and firefox.tmp
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+
+;; recursive delete and copy
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+
+;; dired dwim
+(setq dired-dwim-target t)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; fonts
+
+(defvar efs/default-font-size 160)
+(defvar efs/default-variable-font-size 160)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; set-face-attribute
+
+;; Set the default pitch face
+(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+;; tab bar background
+(set-face-attribute 'tab-bar nil
+                    :inherit 'doom-modeline-panel
+                    :foreground "#93a1a1")
+
+;; active tab
+(set-face-attribute 'tab-bar-tab nil
+                    :inherit 'doom-modeline-panel
+                    :foreground "#51AFEF")
+
+;; inactive tab
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :inherit 'doom-modeline-panel
+                    :foreground "grey50")
+
+;; doom-modeline
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; eval-after-load
+
+;; vterm and evil
+(with-eval-after-load 'evil
+  (evil-set-initial-state 'vterm-mode 'emacs))
+
+;; set tramp shell to sh to avoid zsh problems
+(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; custom faces
+
+(custom-set-faces '(org-link ((t (:inherit link :underline nil)))))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; add-hook
+
+;; load theme
+(add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
+
+;; global company mode
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; visual line mode
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+;; h1 line mode
+(add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'text-mode-hook #'hl-line-mode)
+
+;; flycheck syntax linting
+(add-hook 'sh-mode-hook 'flycheck-mode)
+
+;; Make shebang (#!) file executable when saved
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; dired omit
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
+;; dired all the icons colour
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; tramp
+
+(tramp-set-completion-function "ssh"
+                               '((tramp-parse-sconfig "/etc/ssh_config")
+                                 (tramp-parse-sconfig "~/.ssh/config")))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; define key
+
+(define-key global-map (kbd "C-c o") 'iedit-mode) ;; iedit
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; global-set-key
+
+;; Multi Vterm keybinds 
+(global-set-key (kbd "C-c t v") 'multi-vterm)
+(global-set-key (kbd "C-c t r") 'multi-vterm-rename-buffer)
+(global-set-key (kbd "C-c p") 'vterm-yank-primary)
+
+;; magit
+(global-set-key (kbd "C-x g") 'magit-status)
+
+;; org-capture
+(global-set-key "\C-cc" 'org-capture)
+
+;; press M-/ and invoke hippie-expand
+(global-set-key [remap dabbrev-expand] 'hippie-expand)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; defun
+
+;; dired hide long listing by default
+(defun my-dired-mode-setup ()
+  "show less information in dired buffers"
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; magit
+
+;; delete magit buffers
+(defun kill-magit-diff-buffer-in-current-repo (&rest _)
+      "Delete the magit-diff buffer related to the current repo"
+      (let ((magit-diff-buffer-in-current-repo (magit-mode-get-buffer 'magit-diff-mode)))
+        (kill-buffer magit-diff-buffer-in-current-repo)))
+    ;;
+    ;; When 'C-c C-c' or 'C-c C-l' are pressed in the magit commit message buffer,
+    ;; delete the magit-diff buffer related to the current repo.
+    ;;    
+    (add-hook 'git-commit-setup-hook
+              (lambda ()
+                (add-hook 'with-editor-post-finish-hook #'kill-magit-diff-buffer-in-current-repo
+                          nil t)
+                (add-hook 'with-editor-post-cancel-hook #'kill-magit-diff-buffer-in-current-repo
+                          nil t)))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; org mode
+
+(defadvice org-capture
+    (after make-full-window-frame activate)
+  "Advise capture to be the only window when used as a popup"
+  (if (equal "emacs-capture" (frame-parameter nil 'name))
+      (delete-other-windows)))
+
+(defadvice org-capture-finalize
+    (after delete-capture-frame activate)
+  "Advise capture-finalize to close the frame"
+  (if (equal "emacs-capture" (frame-parameter nil 'name))
+      (delete-frame)))
+
 ;; org mode copy url from org link
 ;;(fset 'getlink
 ;;      (lambda (&optional arg) 
@@ -507,19 +566,14 @@
 
 ;;(define-key org-mode-map (kbd "C-c p") #'getlink)
 
-;; org src to use the current window
-(setq org-src-window-setup 'current-window)
-
-;; custom faces
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-link ((t (:inherit link :underline nil)))))
+; org-babel shell script
+(org-babel-do-load-languages
+'org-babel-load-languages
+'((shell . t))) 
 
 
-;; mpv.el --------------------------------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;; mpv.el
 
 (org-link-set-parameters "mpv" :follow #'mpv-play)
 (defun org-mpv-complete-link (&optional arg)
@@ -569,7 +623,9 @@
 ;; mpv seek to position at point
 (define-key global-map (kbd "C-x ,") 'my/mpv-seek-to-position-at-point)
 
-;; org-timer milliseconds for mpv ----------------------------------------------------------
+
+;; ------------------------------------------------------------------------------------------------
+;; org-timer milliseconds for mpv
 
 ;; org-timer covert seconds and milliseconds to hours, minutes, seconds, milliseconds
 (with-eval-after-load 'org-timer
@@ -605,7 +661,9 @@
         (setq h (abs h))
         (* (if sign -1 1) (+ s (+ ms (* 60 (+ m (* 60 h))))))))))
 
-;; mpv commands -----------------------------------------------------------------------------------------
+
+;; ------------------------------------------------------------------------------------------------
+;; mpv commands
 
 ;; frame step forward
 (with-eval-after-load 'mpv
@@ -646,7 +704,8 @@
   (newline-and-indent))
 
 
-;; hydra --------------------------------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;; hydra
 
 (defhydra hydra-mpv (global-map "<f2>")
   "
@@ -672,7 +731,8 @@
   ("n" end-of-line-and-indented-new-line))
 
 
-;;open youtube links with mpv ------------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;;open youtube links with mpv
 
 (defun mpv-play-url (url &rest args)
   ""
@@ -684,25 +744,8 @@
     ("." . browse-url-default-browser)))
 
 
-;; eww browser text width  ------------------------------------------------------------------------------
-
-(setq shr-width 80)
-
-
-;; vterm ------------------------------------------------------------------------------------------------
-
-(setq vterm-always-compile-module t)
-(setq vterm-buffer-name-string "vterm %s")
-(global-set-key (kbd "C-c p") 'vterm-yank-primary)
-
-
-;; Multi Vterm keybinds ------------------------------------------------------------------------------
-
-(global-set-key (kbd "C-c t v") 'multi-vterm)
-(global-set-key (kbd "C-c t r") 'multi-vterm-rename-buffer)
-
-
-;; garbage collection -----------------------------------------------------------------------------------
+;; ------------------------------------------------------------------------------------------------
+;; garbage collection
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
