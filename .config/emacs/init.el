@@ -432,12 +432,12 @@
 
 ;; active tab
 (set-face-attribute 'tab-bar-tab nil
-                    ;;:inherit 'doom-modeline-panel
+                    :inherit 'doom-modeline-panel
                     :foreground "#51AFEF")
 
 ;; inactive tab
 (set-face-attribute 'tab-bar-tab-inactive nil
-                    ;;:inherit 'doom-modeline-panel
+                    :inherit 'doom-modeline-panel
                     :foreground "grey50")
 
 ;; doom-modeline
