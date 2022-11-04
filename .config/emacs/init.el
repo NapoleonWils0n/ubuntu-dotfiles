@@ -453,6 +453,9 @@
 ;; hide the time icon
 (setq doom-modeline-time-icon nil)
 
+;; dont display the buffer encoding.
+(setq doom-modeline-buffer-encoding nil)
+
 
 ;; ------------------------------------------------------------------------------------------------
 ;; eval-after-load
