@@ -447,7 +447,7 @@
 ;; doom modeline truncate text
 (setq doom-modeline-buffer-file-name-style 'truncate-except-project)
 
-;; Whether display the minor modes in the mode-line.
+;; dont display the minor modes in the mode-line.
 (setq doom-modeline-minor-modes nil)
 
 ;; hide the time icon
