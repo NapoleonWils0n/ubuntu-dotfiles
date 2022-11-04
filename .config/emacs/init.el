@@ -506,12 +506,13 @@
 (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 ;; vterm mode hide line numbers and position
-(defun nolinum ()
-  (setq line-number-mode nil)
-  (setq mode-line-percent-position nil)
-)
+;;(defun nolinum ()
+;;  (setq line-number-mode nil)
+;;  (setq mode-line-percent-position nil)
+;;)
+;;
+;;(add-hook 'vterm-mode-hook 'nolinum)
 
-(add-hook 'vterm-mode-hook 'nolinum)
 
 
 ;; ------------------------------------------------------------------------------------------------
