@@ -38,7 +38,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(0blayout all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc powerline magit rg undo-tree which-key s))
+   '(0blayout all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc magit rg undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -328,10 +328,6 @@
     "h" 'dired-up-directory
     "l" 'dired-find-file)
 
-;; powerline-evil
-(require 'powerline)
-(powerline-default-theme)
-
 ;; which key
 (require 'which-key)
 (which-key-mode)
@@ -600,6 +596,7 @@
       (delete-frame)))
 
 ;; org mode copy url from org link
+;
 ;;(fset 'getlink
 ;;      (lambda (&optional arg) 
 ;;        "Keyboard macro." 
