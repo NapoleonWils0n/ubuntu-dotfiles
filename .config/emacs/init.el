@@ -500,11 +500,10 @@
 ;; dired omit
 (add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
 
-;; vterm mode hide line numbers
-(setq mode-line-percent-position nil)
-
+;; vterm mode hide line numbers and position
 (defun nolinum ()
   (setq-local line-number-mode nil)
+  (setq-local doom-modeline-percent-position nil)
 )
 
 (add-hook 'vterm-mode-hook 'nolinum)
