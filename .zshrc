@@ -26,14 +26,6 @@ newline=$'\n'
 yesmaster='Yes Master ? '
 
 # PS3 prompt function
-#function zle-line-init zle-keymap-select {
-#    VIM_NORMAL_PROMPT="[% -n]% "
-#    VIM_INSERT_PROMPT="[% +i]% "
-#    PS1="[%n@%M %~]${newline}${${KEYMAP/vicmd/$VIM_NORMAL_PROMPT}/(main|viins)/$VIM_INSERT_PROMPT}${yesmaster}"
-#    zle reset-prompt
-#}
-
-# PS3 prompt function
 function zle-line-init zle-keymap-select {
     PS1="[%n@%M %~]${newline}${yesmaster}"
     zle reset-prompt
@@ -192,15 +184,6 @@ compdef _gnu_generic exa
 compdef _gnu_generic nix-env
 
 # aliases
-
-# hdmi display on
-alias hdmi-on='xrandr --output eDP-1 --auto --primary --output DP-3 --mode 1920x1080 --right-of eDP-1 && ~/.fehbg &>/dev/null'
-
-# hdmi display off
-alias hdmi-off='xrandr --output eDP-1 --auto --primary --output DP-3 --off && ~/.fehbg &>/dev/null'
-
-# abook - copy addressbook to ~/.config/abook/addressbook
-#alias abook='abook --datafile "${XDG_CONFIG_HOME}/abook/addressbook"'
 
 # mpc host and socket
 alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
