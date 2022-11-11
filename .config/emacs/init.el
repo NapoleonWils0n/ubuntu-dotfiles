@@ -338,6 +338,8 @@
 ;; undo tree
 (require 'undo-tree)
 (global-undo-tree-mode 1)
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-diff t)
 
 ;; tramp
 (require 'tramp)
