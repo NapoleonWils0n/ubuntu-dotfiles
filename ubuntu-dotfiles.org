@@ -4279,17 +4279,8 @@ notify-program "/usr/bin/notify-send"
 
 # tech
 
-# Brodie Robertson
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCld68syR8Wi-GY_n4CaoJGA" linux "~Brodie Robertson" 
-
-# OldTechBloke
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCCIHOP7e271SIumQgyl6XBQ" linux "~OldTechBloke" 
-
 # gotbletu
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCkf4VIqu3Acnfzuk3kRIFwA" linux "~gotbletu" 
-
-# The Linux Experiment
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC5UAwBUum7CPN5buc-_N1Fw" linux "~The Linux Experiment" 
 
 
 # general
@@ -4311,24 +4302,6 @@ notify-program "/usr/bin/notify-send"
 
 # System Crafters
 "filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCAiiOTio8Yu69c3XnR7nQBQ" emacs "~System Crafters" 
-
-# Protesilaos Stavrou
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UC0uTPqBCFIpZxlz_Lv1tk_g" emacs "~Protesilaos Stavrou" 
-
-# Mike Zamansky
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCxkMDXQ5qzYOgXPRnOBrp1w" emacs "~Mike Zamansky" 
-
-
-# obs
-
-# Gaming Careers
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UClx4eJ_EP9MJdz19JUjKD1w" obs "~Gaming Careers" 
-
-# Streamgeeks
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCjyDzADaZy1WFUWqFmfcHJg" obs "~Streamgeeks" 
-
-# Eposvox
-"filter:~/bin/youtube-rss:https://www.youtube.com/feeds/videos.xml?channel_id=UCRBHiacaQb5S70pljtJYB2g" obs "~Eposvox" 
 #+END_SRC
 
 **** urls-reddit
