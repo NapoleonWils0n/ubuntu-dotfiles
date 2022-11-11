@@ -777,14 +777,14 @@
 ;;open youtube links with mpv
 ;; ------------------------------------------------------------------------------------------------
 
-(defun mpv-play-url (url &rest args)
-  ""
-  (interactive)
-  (start-process "mpv" nil "mpv" url))
+;;(defun mpv-play-url (url &rest args)
+;;  ""
+;;  (interactive)
+;;  (start-process "mpv" nil "mpv" url))
 
-(setq browse-url-handlers
-    '(("youtu\\.?be" . mpv-play-url)
-    ("." . browse-url-default-browser)))
+;;(setq browse-url-handlers
+;;    '(("youtu\\.?be" . mpv-play-url)
+;;    ("." . browse-url-default-browser)))
 
 
 ;; ------------------------------------------------------------------------------------------------
