@@ -238,9 +238,6 @@
 (setq vterm-always-compile-module t)
 (setq vterm-buffer-name-string "vterm %s")
 
-;; tramp setq
-(setq tramp-default-method "ssh")
-
 ;; display time in mode line, hide load average
 (setq display-time-format "%H:%M")
 (setq display-time-default-load-average nil)
@@ -404,13 +401,16 @@
 ;; tramp
 (require 'tramp)
 
+;; tramp setq
+(setq tramp-default-method "ssh")
+
 ;; tramp ssh
 (tramp-set-completion-function "ssh"
                                '((tramp-parse-sconfig "/etc/ssh_config")
                                  (tramp-parse-sconfig "~/.ssh/config")))
 
 ;; set tramp shell to sh to avoid zsh problems
-(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+(with-eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
 
 ;; tramp backup directory
 (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
