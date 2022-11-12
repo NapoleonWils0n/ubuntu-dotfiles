@@ -234,10 +234,6 @@
 (defvar epa-pinentry-mode)
 (setq epa-pinentry-mode 'loopback)
 
-;; vterm
-(setq vterm-always-compile-module t)
-(setq vterm-buffer-name-string "vterm %s")
-
 ;; display time in mode line, hide load average
 (setq display-time-format "%H:%M")
 (setq display-time-default-load-average nil)
@@ -322,6 +318,9 @@
 ;; ------------------------------------------------------------------------------------------------
 ;; vterm
 ;; ------------------------------------------------------------------------------------------------
+
+(setq vterm-always-compile-module t)
+(setq vterm-buffer-name-string "vterm %s")
 
 ;; vterm and evil
 (with-eval-after-load 'evil
