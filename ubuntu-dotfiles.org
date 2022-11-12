@@ -147,33 +147,22 @@ in {
 
 ** emacs
 *** emacs config
+**** init.el
 
-#+NAME: emacs
+#+NAME: init.el
 #+BEGIN_SRC emacs-lisp
 ;; ------------------------------------------------------------------------------------------------
-;; emacs start up
+;; emacs init.el - also using early-init.el
 ;; ------------------------------------------------------------------------------------------------
 
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
-(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
-(setq backup-directory-alist
-    `((".*" . ,emacs-tmp-dir)))
-(setq auto-save-file-name-transforms
-    `((".*" ,emacs-tmp-dir t)))
-(setq auto-save-list-file-prefix
-    emacs-tmp-dir)
-
-;; dont backup files opened by sudo or doas
-(setq backup-enable-predicate
-      (lambda (name)
-        (and (normal-backup-enable-predicate name)
-             (not
-              (let ((method (file-remote-p name 'method)))
-                (when (stringp method)
-                  (member method '("su" "sudo" "doas"))))))))
+;; Use a hook so the message doesn't get clobbered by other messages.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -211,9 +200,27 @@ in {
 ;; general settings
 ;; ------------------------------------------------------------------------------------------------
 
-(menu-bar-mode -1)          ;; hide menubar
-(tool-bar-mode -1)          ;; hide toolbar
-(scroll-bar-mode -1)        ;; hide scrollbar
+;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
+(setq backup-directory-alist
+    `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+    `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+    emacs-tmp-dir)
+
+
+;; dont backup files opened by sudo or doas
+(setq backup-enable-predicate
+      (lambda (name)
+        (and (normal-backup-enable-predicate name)
+             (not
+              (let ((method (file-remote-p name 'method)))
+                (when (stringp method)
+                  (member method '("su" "sudo" "doas"))))))))
+
+
+;; save
 (save-place-mode 1)         ;; save cursor position
 (desktop-save-mode 1)       ;; Save the desktop session
 (savehist-mode 1)           ;; save history
@@ -221,50 +228,62 @@ in {
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; add-to-list
+;; fonts
 ;; ------------------------------------------------------------------------------------------------
 
-;;Tell emacs where is your personal elisp lib dir
-(add-to-list 'load-path "~/.config/emacs/lisp/")
-
-;; start the initial frame maximized
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
-;; start every frame maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; mutt
-(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
-
-;; tramp backup directory
-(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
-
-;; dired hide aync output buffer
-(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+(defvar efs/default-font-size 160)
+(defvar efs/default-variable-font-size 160)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; load
+;; set-face-attribute
 ;; ------------------------------------------------------------------------------------------------
 
-;; org protocol capture
-(load "org-protocol-capture-html")
+;; Set the default pitch face
+(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+;; tab bar background
+(set-face-attribute 'tab-bar nil
+                    :foreground "#93a1a1")
+
+;; active tab
+(set-face-attribute 'tab-bar-tab nil
+                    :foreground "#51AFEF")
+
+;; inactive tab
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :foreground "grey50")
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; defvar
+;; doom-modeline 
 ;; ------------------------------------------------------------------------------------------------
 
-;; pinentry prompt in emacs
-(defvar epa-pinentry-mode)
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+
+;; doom modeline truncate text
+(setq doom-modeline-buffer-file-name-style 'truncate-except-project)
+
+;; dont display the minor modes in the mode-line.
+;;(setq doom-modeline-minor-modes nil)
+
+;; hide the time icon
+(setq doom-modeline-time-icon nil)
+
+;; dont display the buffer encoding.
+(setq doom-modeline-buffer-encoding nil)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; setq
+;; evil
 ;; ------------------------------------------------------------------------------------------------
-
-;; Don’t compact font caches during GC.
-(setq inhibit-compacting-font-caches t)
 
 ;; evil
 (setq evil-want-keybinding nil)
@@ -272,170 +291,55 @@ in {
 ;; fix tab in evil for org mode
 (setq evil-want-C-i-jump nil)
 
-;; pinentry
-(setq epa-pinentry-mode 'loopback)
+;; evil
+(require 'evil)
+(evil-collection-init)
+(evil-mode 1)
 
-;; general settings
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq backup-by-copying t)
-(setq delete-old-versions t)
-(setq kept-new-versions 6)
-(setq kept-old-versions 2)
-(setq create-lockfiles nil)
-(setq undo-tree-auto-save-history nil)
-
-;; vterm
-(setq vterm-always-compile-module t)
-(setq vterm-buffer-name-string "vterm %s")
-
-;; display time in mode line, hide load average
-(setq display-time-format "%H:%M")
-(setq display-time-default-load-average nil)
-(display-time-mode 1)       ;; display time
-
-;; change prompt from yes or no, to y or n
-(setq use-short-answers t)
-
-;; turn off blinking cursor
-(setq blink-cursor-mode nil)
-
-;; suppress large file prompt
-(setq large-file-warning-threshold nil)
-
-;; always follow symlinks
-(setq vc-follow-symlinks t)
-
-;; tramp setq
-(setq tramp-default-method "ssh")
-
-;; company auto complete
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
-
-;; ido mode
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
-;; case insensitive search
-(setq read-file-name-completion-ignore-case t)
-(setq pcomplete-ignore-case t)
-
-;; dont show images full size
-(setq org-image-actual-width nil)
-
-;; prevent demoting heading also shifting text inside sections
-(setq org-adapt-indentation nil)
-
-;; asynchronous tangle
-(setq org-export-async-debug t)
-
-;; ediff
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
-
-;; M-n, M-p recall previous mini buffer commands
-(setq history-length 25)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; revert dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-
-;; eww browser text width
-(setq shr-width 80)
-
-;; emacs 28 - dictionary server
-(setq dictionary-server "dict.org")
+;; dired use h and l
+(evil-collection-define-key 'normal 'dired-mode-map
+    "e" 'dired-find-file
+    "h" 'dired-up-directory
+    "l" 'dired-find-file)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; org capture templates
+;; require
 ;; ------------------------------------------------------------------------------------------------
 
-(setq org-capture-templates
-    '(("t" "todo" entry
-      (file+headline "~/git/personal/org/todo.org" "Tasks")
-      (file "~/git/personal/org/templates/tpl-todo.txt")
-      :empty-lines-before 1)
-      ("w" "web site" entry
-      (file+olp "~/git/personal/org/web.org" "sites")
-      (file "~/git/personal/org/templates/tpl-web.txt")
-       :empty-lines-before 1)))
+;; ob-async
+(require 'ob-async)
 
-;; refile
-(setq org-refile-targets '((nil :maxlevel . 2)
-                                (org-agenda-files :maxlevel . 2)))
-(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
-(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+;; which key
+(require 'which-key)
+(which-key-mode)
 
-;; Prepare stuff for org-export-backends
-(setq org-export-backends '(org md html latex icalendar odt ascii))
+;; undo tree
+(require 'undo-tree)
+(global-undo-tree-mode 1)
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-diff t)
 
-;; org hide markup
-(setq org-hide-emphasis-markers t)
-
-;; org column spacing for tags
-(setq org-tags-column 0)
-
-;; todo keywords
-(setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
-(setq org-log-done t)
-
-;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
-(setq org-use-fast-todo-selection t)
-
-;; org todo logbook
-(setq org-log-into-drawer t)
-
-;; org babel supress do you want to execute code message
-(setq org-confirm-babel-evaluate nil
-      org-src-fontify-natively t
-      org-src-tab-acts-natively t)
-
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-;;(setq org-latex-listings 'minted)
-(setq org-latex-listings 'minted
-    org-latex-packages-alist '(("" "minted"))
-    org-latex-pdf-process
-    '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-
-;; org open files
-(setq org-file-apps
-     (quote
-     ((auto-mode . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
-     ("\\.mkv\\'" . "mpv %s")
-     ("\\.mp4\\'" . "mpv %s")
-     ("\\.mov\\'" . "mpv %s")
-     ("\\.png\\'" . "nsxiv %s")
-     ("\\.jpg\\'" . "nsxiv %s")
-     ("\\.jpeg\\'" . "nsxiv %s")
-     ("\\.pdf\\'" . default))))
-
-;; ox-pandoc export
-(setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
-
-;; dont indent src block for export
-(setq org-src-preserve-indentation t)
-
-;; org src to use the current window
-(setq org-src-window-setup 'current-window)
+;; openwith
+(require 'openwith)
+(setq openwith-associations
+      (list
+       (list (openwith-make-extension-regexp
+              '("mpg" "mpeg" "mp3" "mp4" "m4v"
+                "avi" "wmv" "wav" "mov" "flv"
+                "ogm" "ogg" "mkv" "webm"))
+             "mpv"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("xbm" "pbm" "pgm" "ppm" "pnm"
+                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
+             "nsxiv -a"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("pdf"))
+             "zathura"
+             '(file))))
+(openwith-mode 1)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -466,219 +370,81 @@ in {
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; require
+;; setq
 ;; ------------------------------------------------------------------------------------------------
 
-;; evil
-(require 'evil)
-(evil-collection-init)
-(evil-mode 1)
+;; general
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq backup-by-copying t)
+(setq delete-old-versions t)
+(setq kept-new-versions 6)
+(setq kept-old-versions 2)
+(setq create-lockfiles nil)
+(setq undo-tree-auto-save-history nil)
 
-;; dired use h and l
-(evil-collection-define-key 'normal 'dired-mode-map
-    "e" 'dired-find-file
-    "h" 'dired-up-directory
-    "l" 'dired-find-file)
+;; pinentry
+(defvar epa-pinentry-mode)
+(setq epa-pinentry-mode 'loopback)
 
-;; which key
-(require 'which-key)
-(which-key-mode)
+;; vterm
+(setq vterm-always-compile-module t)
+(setq vterm-buffer-name-string "vterm %s")
 
-;; ob-async
-(require 'ob-async)
+;; tramp setq
+(setq tramp-default-method "ssh")
 
-;; undo tree
-(require 'undo-tree)
-(global-undo-tree-mode 1)
-(setq undo-tree-visualizer-timestamps t)
-(setq undo-tree-visualizer-diff t)
+;; display time in mode line, hide load average
+(setq display-time-format "%H:%M")
+(setq display-time-default-load-average nil)
+(display-time-mode 1)       ;; display time
 
-;; tramp
-(require 'tramp)
+;; change prompt from yes or no, to y or n
+(setq use-short-answers t)
 
-;; Toggle Hidden Files in Emacs dired with C-x M-o
-(require 'dired-x)
+;; turn off blinking cursor
+(setq blink-cursor-mode nil)
 
-;; org mode
-(require 'org)
-(require 'org-tempo)
-(require 'org-protocol)
-(require 'org-capture)
-(require 'org-protocol-capture-html)
-(setq org-agenda-files '("~/git/personal/org/"))
+;; suppress large file prompt
+(setq large-file-warning-threshold nil)
 
-;; openwith
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-             "nsxiv -a"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "zathura"
-             '(file))))
-(openwith-mode 1)
+;; always follow symlinks
+(setq vc-follow-symlinks t)
 
+;; case insensitive search
+(setq read-file-name-completion-ignore-case t)
+(setq completion-ignore-case t)
 
-;; ------------------------------------------------------------------------------------------------
-;; dired 
-;; ------------------------------------------------------------------------------------------------
+;; M-n, M-p recall previous mini buffer commands
+(setq history-length 25)
 
-;; kill the current buffer when selecting a new directory to display
-(setq dired-kill-when-opening-new-dired-buffer t)
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
-;; dired directory listing options for ls
-(setq dired-listing-switches "-ahlv")
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
-;; hide dotfiles and firefox.tmp
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+;; revert dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
 
-;; recursive delete and copy
-(setq dired-recursive-copies 'always)
-(setq dired-recursive-deletes 'always)
+;; eww browser text width
+(setq shr-width 80)
 
-;; dired dwim
-(setq dired-dwim-target t)
+;; emacs 28 - dictionary server
+(setq dictionary-server "dict.org")
 
+;; company auto complete
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
 
-;; ------------------------------------------------------------------------------------------------
-;; fonts
-;; ------------------------------------------------------------------------------------------------
+;; ido mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
-(defvar efs/default-font-size 160)
-(defvar efs/default-variable-font-size 160)
-
-
-;; ------------------------------------------------------------------------------------------------
-;; set-face-attribute
-;; ------------------------------------------------------------------------------------------------
-
-;; Set the default pitch face
-(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
-
-;; tab bar background
-(set-face-attribute 'tab-bar nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "#93a1a1")
-
-;; active tab
-(set-face-attribute 'tab-bar-tab nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "#51AFEF")
-
-;; inactive tab
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "grey50")
-
-;; doom-modeline
-(require 'doom-modeline)
-(doom-modeline-mode 1)
-
-;; doom modeline truncate text
-(setq doom-modeline-buffer-file-name-style 'truncate-except-project)
-
-;; dont display the minor modes in the mode-line.
-(setq doom-modeline-minor-modes nil)
-
-;; hide the time icon
-(setq doom-modeline-time-icon nil)
-
-;; dont display the buffer encoding.
-(setq doom-modeline-buffer-encoding nil)
-
-
-;; ------------------------------------------------------------------------------------------------
-;; eval-after-load
-;; ------------------------------------------------------------------------------------------------
-
-;; vterm and evil
-(with-eval-after-load 'evil
-  (evil-set-initial-state 'vterm-mode 'emacs))
-
-;; set tramp shell to sh to avoid zsh problems
-(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
-
-
-;; ------------------------------------------------------------------------------------------------
-;; custom faces
-;; ------------------------------------------------------------------------------------------------
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-link ((t (:inherit link :underline nil)))))
-
-
-;; ------------------------------------------------------------------------------------------------
-;; add-hook
-;; ------------------------------------------------------------------------------------------------
-
-;; load theme
-(add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
-
-;; global company mode
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; visual line mode
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-;; h1 line mode
-(add-hook 'prog-mode-hook #'hl-line-mode)
-(add-hook 'text-mode-hook #'hl-line-mode)
-
-;; flycheck syntax linting
-(add-hook 'sh-mode-hook 'flycheck-mode)
-
-;; Make shebang (#!) file executable when saved
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-;; dired omit
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
-
-;; vterm mode hide line numbers and position
-(defun nolinum ()
-  (setq-local line-number-mode nil)
-  (setq-local doom-modeline-percent-position nil)
-)
-
-(add-hook 'vterm-mode-hook 'nolinum)
-
-
-;; ------------------------------------------------------------------------------------------------
-;; tramp
-;; ------------------------------------------------------------------------------------------------
-
-(tramp-set-completion-function "ssh"
-                               '((tramp-parse-sconfig "/etc/ssh_config")
-                                 (tramp-parse-sconfig "~/.ssh/config")))
-
-
-;; ------------------------------------------------------------------------------------------------
-;; define key
-;; ------------------------------------------------------------------------------------------------
-
-(define-key global-map (kbd "C-c o") 'iedit-mode) ;; iedit
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -701,14 +467,29 @@ in {
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; defun
+;; define key
 ;; ------------------------------------------------------------------------------------------------
 
-;; dired hide long listing by default
-(defun my-dired-mode-setup ()
-  "show less information in dired buffers"
-  (dired-hide-details-mode 1))
-(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+(define-key global-map (kbd "C-c o") 'iedit-mode) ;; iedit
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; vterm
+;; ------------------------------------------------------------------------------------------------
+
+;; vterm and evil
+(with-eval-after-load 'evil
+  (evil-set-initial-state 'vterm-mode 'emacs))
+
+;; vterm mode hide line numbers and position
+(defun nolinum ()
+  (setq-local line-number-mode nil)
+  (setq-local doom-modeline-percent-position nil)
+)
+
+(add-hook 'vterm-mode-hook 'nolinum)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -733,8 +514,160 @@ in {
 
 
 ;; ------------------------------------------------------------------------------------------------
+;; dired 
+;; ------------------------------------------------------------------------------------------------
+
+;; Toggle Hidden Files in Emacs dired with C-x M-o
+(require 'dired-x)
+
+;; kill the current buffer when selecting a new directory to display
+(setq dired-kill-when-opening-new-dired-buffer t)
+
+;; dired directory listing options for ls
+(setq dired-listing-switches "-ahlv")
+
+;; hide dotfiles and firefox.tmp
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+
+;; recursive delete and copy
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+
+;; dired dwim
+(setq dired-dwim-target t)
+
+;; dired hide long listing by default
+(defun my-dired-mode-setup ()
+  "show less information in dired buffers"
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+
+;; dired omit
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
+;; dired hide aync output buffer
+(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; tramp
+;; ------------------------------------------------------------------------------------------------
+
+;; tramp
+(require 'tramp)
+
+;; tramp ssh
+(tramp-set-completion-function "ssh"
+                               '((tramp-parse-sconfig "/etc/ssh_config")
+                                 (tramp-parse-sconfig "~/.ssh/config")))
+
+;; set tramp shell to sh to avoid zsh problems
+(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+
+;; tramp backup directory
+(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
+
+
+;; ------------------------------------------------------------------------------------------------
 ;; org mode
 ;; ------------------------------------------------------------------------------------------------
+
+;; org mode
+(require 'org)
+(require 'org-tempo)
+(require 'org-protocol)
+(require 'org-capture)
+(setq org-agenda-files '("~/git/personal/org/"))
+
+;; org babel supress do you want to execute code message
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
+
+;; org hide markup
+(setq org-hide-emphasis-markers t)
+
+;; org column spacing for tags
+(setq org-tags-column 0)
+
+;; dont indent src block for export
+(setq org-src-preserve-indentation t)
+
+;; org src to use the current window
+(setq org-src-window-setup 'current-window)
+
+;; dont show images full size
+(setq org-image-actual-width nil)
+
+;; prevent demoting heading also shifting text inside sections
+(setq org-adapt-indentation nil)
+
+;; asynchronous tangle
+(setq org-export-async-debug t)
+
+(setq org-capture-templates
+    '(("t" "todo" entry
+      (file+headline "~/git/personal/org/todo.org" "Tasks")
+      (file "~/git/personal/org/templates/tpl-todo.txt")
+      :empty-lines-before 1)
+      ("w" "web site" entry
+      (file+olp "~/git/personal/org/web.org" "sites")
+      (file "~/git/personal/org/templates/tpl-web.txt")
+       :empty-lines-before 1)))
+
+;; refile
+(setq org-refile-targets '((nil :maxlevel . 2)
+                                (org-agenda-files :maxlevel . 2)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+
+;; ox-pandoc export
+(setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
+
+;; Prepare stuff for org-export-backends
+(setq org-export-backends '(org md html latex icalendar odt ascii))
+
+;; todo keywords
+(setq org-todo-keywords
+      '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
+(setq org-log-done t)
+
+;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
+(setq org-use-fast-todo-selection t)
+
+;; org todo logbook
+(setq org-log-into-drawer t)
+
+;; minted
+(setq org-latex-minted-options
+    '(("frame" "lines") ("linenos=true")) )
+;;(setq org-latex-listings 'minted)
+(setq org-latex-listings 'minted
+    org-latex-packages-alist '(("" "minted"))
+    org-latex-pdf-process
+    '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+(setq org-latex-minted-options
+    '(("frame" "lines") ("linenos=true")) )
+
+;; org open files
+(setq org-file-apps
+     (quote
+     ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.mkv\\'" . "mpv %s")
+     ("\\.mp4\\'" . "mpv %s")
+     ("\\.mov\\'" . "mpv %s")
+     ("\\.png\\'" . "nsxiv %s")
+     ("\\.jpg\\'" . "nsxiv %s")
+     ("\\.jpeg\\'" . "nsxiv %s")
+     ("\\.pdf\\'" . default))))
+
+(custom-set-faces
+ '(org-link ((t (:inherit link :underline nil)))))
 
 (defadvice org-capture
     (after make-full-window-frame activate)
@@ -748,20 +681,38 @@ in {
   (if (equal "emacs-capture" (frame-parameter nil 'name))
       (delete-frame)))
 
-;; org mode copy url from org link
-;
-;;(fset 'getlink
-;;      (lambda (&optional arg) 
-;;        "Keyboard macro." 
-;;        (interactive "p") 
-;;        (kmacro-exec-ring-item (quote ("\C-c\C-l\C-a\C-k\C-g" 0 "%d")) arg)))
-
-;;(define-key org-mode-map (kbd "C-c p") #'getlink)
-
 ; org-babel shell script
 (org-babel-do-load-languages
 'org-babel-load-languages
 '((shell . t))) 
+
+
+;; ------------------------------------------------------------------------------------------------
+;; mutt
+;; ------------------------------------------------------------------------------------------------
+
+(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; add-hook
+;; ------------------------------------------------------------------------------------------------
+
+;; Make shebang (#!) file executable when saved
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; global company mode
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; visual line mode
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+;; h1 line mode
+(add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'text-mode-hook #'hl-line-mode)
+
+;; flycheck syntax linting
+(add-hook 'sh-mode-hook 'flycheck-mode)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -928,20 +879,6 @@ in {
 
 
 ;; ------------------------------------------------------------------------------------------------
-;;open youtube links with mpv
-;; ------------------------------------------------------------------------------------------------
-
-;;(defun mpv-play-url (url &rest args)
-;;  ""
-;;  (interactive)
-;;  (start-process "mpv" nil "mpv" url))
-
-;;(setq browse-url-handlers
-;;    '(("youtu\\.?be" . mpv-play-url)
-;;    ("." . browse-url-default-browser)))
-
-
-;; ------------------------------------------------------------------------------------------------
 ;; garbage collection
 ;; ------------------------------------------------------------------------------------------------
 
@@ -949,20 +886,77 @@ in {
 (setq gc-cons-threshold (* 2 1000 1000))
 #+END_SRC
 
+**** early-init.el
+
+#+NAME: early-init.el
+#+begin_src emacs-lisp
+;;; early-init.el -*- lexical-binding: t; -*-
+
+;;; Garbage collection
+;; Increase the GC threshold for faster startup
+;; The default is 800 kilobytes.  Measured in bytes.
+(setq gc-cons-threshold (* 50 1000 1000))
+
+;;; UI configuration
+;; Remove some unneeded UI elements (the user can turn back on anything they wish)
+(setq inhibit-startup-message t)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+
+;; general settings
+(setq initial-scratch-message nil)
+
+;; Don’t compact font caches during GC.
+(setq inhibit-compacting-font-caches t)
+
+;; load theme
+(add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
+
+;; start the initial frame maximized
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
+;; start every frame maximized
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+;;Tell emacs where is your personal elisp lib dir
+(add-to-list 'load-path "~/.config/emacs/lisp/")
+
+;; Make the initial buffer load faster by setting its mode to fundamental-mode
+(customize-set-variable 'initial-major-mode 'fundamental-mode)
+#+end_src
+
 *** emacs tangle
+**** init.el
 
 + home dir
 
-#+NAME: emacs-home-dir
+#+NAME: emacs-init.el-home-dir
 #+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/init.el"
-<<emacs>>
+<<init.el>>
 #+END_SRC
 
 + current dir
 
-#+NAME: emacs-current-dir
+#+NAME: emacs-init.el-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/init.el"
-<<emacs>>
+<<init.el>>
+#+END_SRC
+
+**** early-init.el
+
++ home dir
+
+#+NAME: emacs-early-init.el-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/early-init.el"
+<<early-init.el>>
+#+END_SRC
+
++ current dir
+
+#+NAME: emacs-early-init.el-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/early-init.el"
+<<early-init.el>>
 #+END_SRC
 
 ** emacs.d
@@ -1034,284 +1028,6 @@ in {
 )
 #+END_SRC
 
-**** lisp config 
-***** org-protocol-capture-html config
-
-#+NAME: org-protocol-capture-html
-#+begin_src emacs-lisp
-;;; org-protocol-capture-html.el --- Capture HTML with org-protocol
-
-;;; Commentary:
-
-;; This package captures Web pages into Org-mode using Pandoc to
-;; process HTML.  It can also use eww's eww-readable functionality to
-;; get the main content of a page.
-
-;; These are the helper functions that run in Emacs.  To capture pages
-;; into Emacs, you can use either a browser bookmarklet or the
-;; org-protocol-capture-html.sh shell script.  See the README.org file
-;; for instructions.
-
-;;; License:
-
-;; This program is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation, either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;;; Code:
-
-;;;; Require
-
-(require 'org-protocol)
-(require 'cl)
-(require 'subr-x)
-(require 's)
-
-;;;; Vars
-
-(defcustom org-protocol-capture-html-demote-times 1
-  "How many times to demote headings in captured pages.
-You may want to increase this if you use a sub-heading in your capture template."
-  :group 'org-protocol-capture-html :type 'integer)
-
-;;;; Test Pandoc
-
-(defconst org-protocol-capture-html-pandoc-no-wrap-option nil
-  ;; Set this so it won't be unbound
-  "Option to pass to Pandoc to disable wrapping.  Pandoc >= 1.16
-deprecates `--no-wrap' in favor of `--wrap=none'.")
-
-(defun org-protocol-capture-html--define-pandoc-wrap-const ()
-  "Set `org-protocol-capture-html-pandoc-no-wrap-option'."
-  (setq org-protocol-capture-html-pandoc-no-wrap-option
-        ;; Pandoc >= 1.16 deprecates the --no-wrap option, replacing it with
-        ;; --wrap=none.  Sending the wrong option causes output to STDERR,
-        ;; which `call-process-region' doesn't like.  So we test Pandoc to see
-        ;; which option to use.
-        (with-temp-buffer
-          (let* ((process (start-process "test-pandoc" (current-buffer) "pandoc" "--dump-args" "--no-wrap"))
-                 (limit 3)
-                 (checked 0))
-            (while (process-live-p process)
-              (if (= checked limit)
-                  (progn
-                    ;; Pandoc didn't exit in time.  Kill it and raise
-                    ;; an error.  This function will return `nil' and
-                    ;; `org-protocol-capture-html-pandoc-no-wrap-option'
-                    ;; will remain `nil', which will cause this
-                    ;; function to run again and set the const when a
-                    ;; capture is run.
-                    (set-process-query-on-exit-flag process nil)
-                    (error "Unable to test Pandoc!  Please report this bug! (include the output of \"pandoc --dump-args --no-wrap\")"))
-                (sleep-for 0.2)
-                (cl-incf checked)))
-            (if (and (zerop (process-exit-status process))
-                     (not (string-match "--no-wrap is deprecated" (buffer-string))))
-                "--no-wrap"
-              "--wrap=none")))))
-
-;;;; Direct-to-Pandoc
-
-(defun org-protocol-capture-html--with-pandoc (data)
-  "Process an org-protocol://capture-html:// URL.
-
-This function is basically a copy of `org-protocol-do-capture', but
-it passes the captured content (not the URL or title) through
-Pandoc, converting HTML to Org-mode."
-
-  ;; It would be nice to not basically duplicate
-  ;; `org-protocol-do-capture', but passing the data back to that
-  ;; function would require re-encoding the data into a URL string
-  ;; with Emacs after Pandoc converts it.  Since we've already split
-  ;; it up, we might as well go ahead and run the capture directly.
-
-  (unless org-protocol-capture-html-pandoc-no-wrap-option
-    (org-protocol-capture-html--define-pandoc-wrap-const))
-
-  (let* ((template (or (plist-get data :template)
-                       org-protocol-default-template-key))
-         (url (org-protocol-sanitize-uri (plist-get data :url)))
-         (type (if (string-match "^\\([a-z]+\\):" url)
-                   (match-string 1 url)))
-         (title (or (org-protocol-capture-html--nbsp-to-space (string-trim (plist-get data :title))) ""))
-         (content (or (org-protocol-capture-html--nbsp-to-space (string-trim (plist-get data :body))) ""))
-         (orglink (org-make-link-string
-                   url (if (string-match "[^[:space:]]" title) title url)))
-         (org-capture-link-is-already-stored t)) ; avoid call to org-store-link
-
-    (setq org-stored-links
-          (cons (list url title) org-stored-links))
-    (kill-new orglink)
-
-    (with-temp-buffer
-      (insert content)
-      (if (not (zerop (call-process-region
-                       (point-min) (point-max)
-                       "pandoc" t t nil "-f" "html" "-t" "org" org-protocol-capture-html-pandoc-no-wrap-option)))
-          (message "Pandoc failed: %s" (buffer-string))
-        (progn
-          ;; Pandoc succeeded
-          (org-store-link-props :type type
-                                :annotation orglink
-                                :link url
-                                :description title
-                                :orglink orglink
-                                :initial (buffer-string)))))
-    (org-protocol-capture-html--do-capture)
-    nil))
-
-(add-to-list 'org-protocol-protocol-alist
-             '("capture-html"
-               :protocol "capture-html"
-               :function org-protocol-capture-html--with-pandoc
-               :kill-client t))
-
-;;;; eww-readable
-
-(eval-when-compile
-  ;; eww-readable only works on Emacs >=25.1, but I think it's better
-  ;; to check for the actual symbols.  I think using
-  ;; `eval-when-compile' is the right way to do this, but I'm not
-  ;; sure.
-  (when (and (require 'eww nil t)
-             (require 'dom nil t)
-             (fboundp 'eww-score-readability))
-
-    (defun org-protocol-capture-html--capture-eww-readable (data)
-      "Capture content of URL with eww-readable.."
-
-      (unless org-protocol-capture-html-pandoc-no-wrap-option
-        (org-protocol-capture-html--define-pandoc-wrap-const))
-
-      (let* ((template (or (plist-get data :template)
-                           org-protocol-default-template-key))
-             (url (org-protocol-sanitize-uri (plist-get data :url)))
-             (type (if (string-match "^\\([a-z]+\\):" url)
-                       (match-string 1 url)))
-             (html (org-protocol-capture-html--url-html url))
-             (result (org-protocol-capture-html--eww-readable html))
-             (title (cdr result))
-             (content (with-temp-buffer
-                        (insert (org-protocol-capture-html--nbsp-to-space (car result)))
-                        ;; Convert to Org with Pandoc
-                        (unless (= 0 (call-process-region (point-min) (point-max)
-                                                          "pandoc" t t nil "-f" "html" "-t" "org"
-                                                          org-protocol-capture-html-pandoc-no-wrap-option))
-                          (error "Pandoc failed."))
-                        (save-excursion
-                          ;; Remove DOS CR/LF line endings
-                          (goto-char (point-min))
-                          (while (search-forward (string ?\C-m) nil t)
-                            (replace-match "")))
-                        ;; Demote page headings in capture buffer to below the
-                        ;; top-level Org heading and "Article" 2nd-level heading
-                        (save-excursion
-                          (goto-char (point-min))
-                          (while (re-search-forward (rx bol (1+ "*") (1+ space)) nil t)
-                            (beginning-of-line)
-                            (insert "**")
-                            (end-of-line)))
-                        (buffer-string)))
-             (orglink (org-make-link-string
-                       url (if (s-present? title) title url)))
-             ;; Avoid call to org-store-link
-             (org-capture-link-is-already-stored t))
-
-        (setq org-stored-links
-              (cons (list url title) org-stored-links))
-        (kill-new orglink)
-
-        (org-store-link-props :type type
-                              :annotation orglink
-                              :link url
-                              :description title
-                              :orglink orglink
-                              :initial content)
-        (org-protocol-capture-html--do-capture)
-        nil))
-
-    (add-to-list 'org-protocol-protocol-alist
-                 '("capture-eww-readable"
-                   :protocol "capture-eww-readable"
-                   :function org-protocol-capture-html--capture-eww-readable
-                   :kill-client t))
-
-    (defun org-protocol-capture-html--url-html (url)
-      "Return HTML from URL as string."
-      (let* ((response-buffer (url-retrieve-synchronously url nil t))
-             (encoded-html (with-current-buffer response-buffer
-                             (pop-to-buffer response-buffer)
-                             ;; Skip HTTP headers, using marker provided by url-http
-                             (delete-region (point-min) (1+ url-http-end-of-headers))
-                             (buffer-string))))
-        (kill-buffer response-buffer)     ; Not sure if necessary to avoid leaking buffer
-        (with-temp-buffer
-          ;; For some reason, running `decode-coding-region' in the
-          ;; response buffer has no effect, so we have to do it in a
-          ;; temp buffer.
-          (insert encoded-html)
-          (condition-case nil
-              ;; Fix undecoded text
-              (decode-coding-region (point-min) (point-max) 'utf-8)
-            (coding-system-error nil))
-          (buffer-string))))
-
-    (defun org-protocol-capture-html--eww-readable (html)
-      "Return `eww-readable' part of HTML with title.
-Returns list (HTML . TITLE)."
-      ;; Based on `eww-readable'
-      (let* ((html
-              ;; Convert "&nbsp;" in HTML to plain spaces.
-              ;; `libxml-parse-html-region' turns them into
-              ;; underlines.  The closest I can find to an explanation
-              ;; is at <http://www.perlmonks.org/?node_id=825188>.
-              (org-protocol-capture-html--nbsp-to-space html))
-             (dom (with-temp-buffer
-                    (insert html)
-                    (libxml-parse-html-region (point-min) (point-max))))
-             (title (caddr (car (dom-by-tag dom 'title)))))
-        (eww-score-readability dom)
-        (cons (with-temp-buffer
-                (shr-dom-print (eww-highest-readability dom))
-                (buffer-string))
-              title)))))
-
-;;;; Helper functions
-
-(defun org-protocol-capture-html--nbsp-to-space (s)
-  "Convert HTML non-breaking spaces to plain spaces in S."
-  ;; Not sure why sometimes these are in the HTML and Pandoc converts
-  ;; them to underlines instead of spaces, but this fixes it.
-  (replace-regexp-in-string (rx "&nbsp;") " " s t t))
-
-(defun org-protocol-capture-html--do-capture ()
-  "Call `org-capture' and demote page headings in capture buffer."
-  (raise-frame)
-  (funcall 'org-capture nil template)
-
-  ;; Demote page headings in capture buffer to below the
-  ;; top-level Org heading
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward (rx bol "*" (1+ space)) nil t) ; Skip 1st heading
-    (while (re-search-forward (rx bol "*" (1+ space)) nil t)
-      (dotimes (n org-protocol-capture-html-demote-times)
-        (org-demote-subtree)))))
-
-(provide 'org-protocol-capture-html)
-
-;;; org-protocol-capture-html ends here
-#+end_src
-
 *** emacs.d tangle
 **** bookmark tangle
 
@@ -1327,23 +1043,6 @@ Returns list (HTML . TITLE)."
 #+NAME: emacs-bookmarks-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/bookmarks"
 <<emacs-bookmarks>>
-#+END_SRC
-
-**** lisp tangle
-***** org-protocol-capture-html tangle
-
-+ home dir
-
-#+NAME: org-protocol-capture-html-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/emacs/lisp/org-protocol-capture-html.el"
-<<org-protocol-capture-html>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: org-protocol-capture-html-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/lisp/org-protocol-capture-html.el"
-<<org-protocol-capture-html>>
 #+END_SRC
 
 ** zsh

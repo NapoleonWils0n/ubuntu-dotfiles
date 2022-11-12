@@ -1,27 +1,15 @@
 ;; ------------------------------------------------------------------------------------------------
-;; emacs start up
+;; emacs init.el - also using early-init.el
 ;; ------------------------------------------------------------------------------------------------
 
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
-(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
-(setq backup-directory-alist
-    `((".*" . ,emacs-tmp-dir)))
-(setq auto-save-file-name-transforms
-    `((".*" ,emacs-tmp-dir t)))
-(setq auto-save-list-file-prefix
-    emacs-tmp-dir)
-
-;; dont backup files opened by sudo or doas
-(setq backup-enable-predicate
-      (lambda (name)
-        (and (normal-backup-enable-predicate name)
-             (not
-              (let ((method (file-remote-p name 'method)))
-                (when (stringp method)
-                  (member method '("su" "sudo" "doas"))))))))
+;; Use a hook so the message doesn't get clobbered by other messages.
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs ready in %s with %d garbage collections."
+                     (format "%.2f seconds"
+                             (float-time
+                              (time-subtract after-init-time before-init-time)))
+                     gcs-done)))
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -59,9 +47,27 @@
 ;; general settings
 ;; ------------------------------------------------------------------------------------------------
 
-(menu-bar-mode -1)          ;; hide menubar
-(tool-bar-mode -1)          ;; hide toolbar
-(scroll-bar-mode -1)        ;; hide scrollbar
+;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
+(setq backup-directory-alist
+    `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+    `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+    emacs-tmp-dir)
+
+
+;; dont backup files opened by sudo or doas
+(setq backup-enable-predicate
+      (lambda (name)
+        (and (normal-backup-enable-predicate name)
+             (not
+              (let ((method (file-remote-p name 'method)))
+                (when (stringp method)
+                  (member method '("su" "sudo" "doas"))))))))
+
+
+;; save
 (save-place-mode 1)         ;; save cursor position
 (desktop-save-mode 1)       ;; Save the desktop session
 (savehist-mode 1)           ;; save history
@@ -69,50 +75,62 @@
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; add-to-list
+;; fonts
 ;; ------------------------------------------------------------------------------------------------
 
-;;Tell emacs where is your personal elisp lib dir
-(add-to-list 'load-path "~/.config/emacs/lisp/")
-
-;; start the initial frame maximized
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
-;; start every frame maximized
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;; mutt
-(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
-
-;; tramp backup directory
-(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
-
-;; dired hide aync output buffer
-(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+(defvar efs/default-font-size 160)
+(defvar efs/default-variable-font-size 160)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; load
+;; set-face-attribute
 ;; ------------------------------------------------------------------------------------------------
 
-;; org protocol capture
-(load "org-protocol-capture-html")
+;; Set the default pitch face
+(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the fixed pitch face
+(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
+
+;; Set the variable pitch face
+(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+
+;; tab bar background
+(set-face-attribute 'tab-bar nil
+                    :foreground "#93a1a1")
+
+;; active tab
+(set-face-attribute 'tab-bar-tab nil
+                    :foreground "#51AFEF")
+
+;; inactive tab
+(set-face-attribute 'tab-bar-tab-inactive nil
+                    :foreground "grey50")
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; defvar
+;; doom-modeline 
 ;; ------------------------------------------------------------------------------------------------
 
-;; pinentry prompt in emacs
-(defvar epa-pinentry-mode)
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+
+;; doom modeline truncate text
+(setq doom-modeline-buffer-file-name-style 'truncate-except-project)
+
+;; dont display the minor modes in the mode-line.
+;;(setq doom-modeline-minor-modes nil)
+
+;; hide the time icon
+(setq doom-modeline-time-icon nil)
+
+;; dont display the buffer encoding.
+(setq doom-modeline-buffer-encoding nil)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; setq
+;; evil
 ;; ------------------------------------------------------------------------------------------------
-
-;; Don’t compact font caches during GC.
-(setq inhibit-compacting-font-caches t)
 
 ;; evil
 (setq evil-want-keybinding nil)
@@ -120,170 +138,55 @@
 ;; fix tab in evil for org mode
 (setq evil-want-C-i-jump nil)
 
-;; pinentry
-(setq epa-pinentry-mode 'loopback)
+;; evil
+(require 'evil)
+(evil-collection-init)
+(evil-mode 1)
 
-;; general settings
-(setq inhibit-startup-message t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message nil)
-(setq version-control t)
-(setq vc-make-backup-files t)
-(setq backup-by-copying t)
-(setq delete-old-versions t)
-(setq kept-new-versions 6)
-(setq kept-old-versions 2)
-(setq create-lockfiles nil)
-(setq undo-tree-auto-save-history nil)
-
-;; vterm
-(setq vterm-always-compile-module t)
-(setq vterm-buffer-name-string "vterm %s")
-
-;; display time in mode line, hide load average
-(setq display-time-format "%H:%M")
-(setq display-time-default-load-average nil)
-(display-time-mode 1)       ;; display time
-
-;; change prompt from yes or no, to y or n
-(setq use-short-answers t)
-
-;; turn off blinking cursor
-(setq blink-cursor-mode nil)
-
-;; suppress large file prompt
-(setq large-file-warning-threshold nil)
-
-;; always follow symlinks
-(setq vc-follow-symlinks t)
-
-;; tramp setq
-(setq tramp-default-method "ssh")
-
-;; company auto complete
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
-
-;; ido mode
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
-;; case insensitive search
-(setq read-file-name-completion-ignore-case t)
-(setq pcomplete-ignore-case t)
-
-;; dont show images full size
-(setq org-image-actual-width nil)
-
-;; prevent demoting heading also shifting text inside sections
-(setq org-adapt-indentation nil)
-
-;; asynchronous tangle
-(setq org-export-async-debug t)
-
-;; ediff
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
-(setq ediff-split-window-function 'split-window-horizontally)
-
-;; M-n, M-p recall previous mini buffer commands
-(setq history-length 25)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-
-;; revert dired and other buffers
-(setq global-auto-revert-non-file-buffers t)
-
-;; eww browser text width
-(setq shr-width 80)
-
-;; emacs 28 - dictionary server
-(setq dictionary-server "dict.org")
+;; dired use h and l
+(evil-collection-define-key 'normal 'dired-mode-map
+    "e" 'dired-find-file
+    "h" 'dired-up-directory
+    "l" 'dired-find-file)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; org capture templates
+;; require
 ;; ------------------------------------------------------------------------------------------------
 
-(setq org-capture-templates
-    '(("t" "todo" entry
-      (file+headline "~/git/personal/org/todo.org" "Tasks")
-      (file "~/git/personal/org/templates/tpl-todo.txt")
-      :empty-lines-before 1)
-      ("w" "web site" entry
-      (file+olp "~/git/personal/org/web.org" "sites")
-      (file "~/git/personal/org/templates/tpl-web.txt")
-       :empty-lines-before 1)))
+;; ob-async
+(require 'ob-async)
 
-;; refile
-(setq org-refile-targets '((nil :maxlevel . 2)
-                                (org-agenda-files :maxlevel . 2)))
-(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
-(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+;; which key
+(require 'which-key)
+(which-key-mode)
 
-;; Prepare stuff for org-export-backends
-(setq org-export-backends '(org md html latex icalendar odt ascii))
+;; undo tree
+(require 'undo-tree)
+(global-undo-tree-mode 1)
+(setq undo-tree-visualizer-timestamps t)
+(setq undo-tree-visualizer-diff t)
 
-;; org hide markup
-(setq org-hide-emphasis-markers t)
-
-;; org column spacing for tags
-(setq org-tags-column 0)
-
-;; todo keywords
-(setq org-todo-keywords
-      '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
-(setq org-log-done t)
-
-;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
-(setq org-use-fast-todo-selection t)
-
-;; org todo logbook
-(setq org-log-into-drawer t)
-
-;; org babel supress do you want to execute code message
-(setq org-confirm-babel-evaluate nil
-      org-src-fontify-natively t
-      org-src-tab-acts-natively t)
-
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-;;(setq org-latex-listings 'minted)
-(setq org-latex-listings 'minted
-    org-latex-packages-alist '(("" "minted"))
-    org-latex-pdf-process
-    '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
-(setq org-latex-minted-options
-    '(("frame" "lines") ("linenos=true")) )
-
-;; org open files
-(setq org-file-apps
-     (quote
-     ((auto-mode . emacs)
-     ("\\.mm\\'" . default)
-     ("\\.x?html?\\'" . default)
-     ("\\.mkv\\'" . "mpv %s")
-     ("\\.mp4\\'" . "mpv %s")
-     ("\\.mov\\'" . "mpv %s")
-     ("\\.png\\'" . "nsxiv %s")
-     ("\\.jpg\\'" . "nsxiv %s")
-     ("\\.jpeg\\'" . "nsxiv %s")
-     ("\\.pdf\\'" . default))))
-
-;; ox-pandoc export
-(setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
-
-;; dont indent src block for export
-(setq org-src-preserve-indentation t)
-
-;; org src to use the current window
-(setq org-src-window-setup 'current-window)
+;; openwith
+(require 'openwith)
+(setq openwith-associations
+      (list
+       (list (openwith-make-extension-regexp
+              '("mpg" "mpeg" "mp3" "mp4" "m4v"
+                "avi" "wmv" "wav" "mov" "flv"
+                "ogm" "ogg" "mkv" "webm"))
+             "mpv"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("xbm" "pbm" "pgm" "ppm" "pnm"
+                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
+             "nsxiv -a"
+             '(file))
+       (list (openwith-make-extension-regexp
+              '("pdf"))
+             "zathura"
+             '(file))))
+(openwith-mode 1)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -314,219 +217,81 @@
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; require
+;; setq
 ;; ------------------------------------------------------------------------------------------------
 
-;; evil
-(require 'evil)
-(evil-collection-init)
-(evil-mode 1)
+;; general
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq backup-by-copying t)
+(setq delete-old-versions t)
+(setq kept-new-versions 6)
+(setq kept-old-versions 2)
+(setq create-lockfiles nil)
+(setq undo-tree-auto-save-history nil)
 
-;; dired use h and l
-(evil-collection-define-key 'normal 'dired-mode-map
-    "e" 'dired-find-file
-    "h" 'dired-up-directory
-    "l" 'dired-find-file)
+;; pinentry
+(defvar epa-pinentry-mode)
+(setq epa-pinentry-mode 'loopback)
 
-;; which key
-(require 'which-key)
-(which-key-mode)
+;; vterm
+(setq vterm-always-compile-module t)
+(setq vterm-buffer-name-string "vterm %s")
 
-;; ob-async
-(require 'ob-async)
+;; tramp setq
+(setq tramp-default-method "ssh")
 
-;; undo tree
-(require 'undo-tree)
-(global-undo-tree-mode 1)
-(setq undo-tree-visualizer-timestamps t)
-(setq undo-tree-visualizer-diff t)
+;; display time in mode line, hide load average
+(setq display-time-format "%H:%M")
+(setq display-time-default-load-average nil)
+(display-time-mode 1)       ;; display time
 
-;; tramp
-(require 'tramp)
+;; change prompt from yes or no, to y or n
+(setq use-short-answers t)
 
-;; Toggle Hidden Files in Emacs dired with C-x M-o
-(require 'dired-x)
+;; turn off blinking cursor
+(setq blink-cursor-mode nil)
 
-;; org mode
-(require 'org)
-(require 'org-tempo)
-(require 'org-protocol)
-(require 'org-capture)
-(require 'org-protocol-capture-html)
-(setq org-agenda-files '("~/git/personal/org/"))
+;; suppress large file prompt
+(setq large-file-warning-threshold nil)
 
-;; openwith
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-             "nsxiv -a"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "zathura"
-             '(file))))
-(openwith-mode 1)
+;; always follow symlinks
+(setq vc-follow-symlinks t)
 
+;; case insensitive search
+(setq read-file-name-completion-ignore-case t)
+(setq completion-ignore-case t)
 
-;; ------------------------------------------------------------------------------------------------
-;; dired 
-;; ------------------------------------------------------------------------------------------------
+;; M-n, M-p recall previous mini buffer commands
+(setq history-length 25)
 
-;; kill the current buffer when selecting a new directory to display
-(setq dired-kill-when-opening-new-dired-buffer t)
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
-;; dired directory listing options for ls
-(setq dired-listing-switches "-ahlv")
+;; Use spaces instead of tabs
+(setq-default indent-tabs-mode nil)
 
-;; hide dotfiles and firefox.tmp
-(setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+;; revert dired and other buffers
+(setq global-auto-revert-non-file-buffers t)
 
-;; recursive delete and copy
-(setq dired-recursive-copies 'always)
-(setq dired-recursive-deletes 'always)
+;; eww browser text width
+(setq shr-width 80)
 
-;; dired dwim
-(setq dired-dwim-target t)
+;; emacs 28 - dictionary server
+(setq dictionary-server "dict.org")
 
+;; company auto complete
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 3)
 
-;; ------------------------------------------------------------------------------------------------
-;; fonts
-;; ------------------------------------------------------------------------------------------------
+;; ido mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
-(defvar efs/default-font-size 160)
-(defvar efs/default-variable-font-size 160)
-
-
-;; ------------------------------------------------------------------------------------------------
-;; set-face-attribute
-;; ------------------------------------------------------------------------------------------------
-
-;; Set the default pitch face
-(set-face-attribute 'default nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the fixed pitch face
-(set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height efs/default-font-size)
-
-;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
-
-;; tab bar background
-(set-face-attribute 'tab-bar nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "#93a1a1")
-
-;; active tab
-(set-face-attribute 'tab-bar-tab nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "#51AFEF")
-
-;; inactive tab
-(set-face-attribute 'tab-bar-tab-inactive nil
-                    :inherit 'doom-modeline-panel
-                    :foreground "grey50")
-
-;; doom-modeline
-(require 'doom-modeline)
-(doom-modeline-mode 1)
-
-;; doom modeline truncate text
-(setq doom-modeline-buffer-file-name-style 'truncate-except-project)
-
-;; dont display the minor modes in the mode-line.
-(setq doom-modeline-minor-modes nil)
-
-;; hide the time icon
-(setq doom-modeline-time-icon nil)
-
-;; dont display the buffer encoding.
-(setq doom-modeline-buffer-encoding nil)
-
-
-;; ------------------------------------------------------------------------------------------------
-;; eval-after-load
-;; ------------------------------------------------------------------------------------------------
-
-;; vterm and evil
-(with-eval-after-load 'evil
-  (evil-set-initial-state 'vterm-mode 'emacs))
-
-;; set tramp shell to sh to avoid zsh problems
-(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
-
-
-;; ------------------------------------------------------------------------------------------------
-;; custom faces
-;; ------------------------------------------------------------------------------------------------
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-link ((t (:inherit link :underline nil)))))
-
-
-;; ------------------------------------------------------------------------------------------------
-;; add-hook
-;; ------------------------------------------------------------------------------------------------
-
-;; load theme
-(add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
-
-;; global company mode
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; visual line mode
-(add-hook 'text-mode-hook 'visual-line-mode)
-
-;; h1 line mode
-(add-hook 'prog-mode-hook #'hl-line-mode)
-(add-hook 'text-mode-hook #'hl-line-mode)
-
-;; flycheck syntax linting
-(add-hook 'sh-mode-hook 'flycheck-mode)
-
-;; Make shebang (#!) file executable when saved
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-;; dired omit
-(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
-
-;; vterm mode hide line numbers and position
-(defun nolinum ()
-  (setq-local line-number-mode nil)
-  (setq-local doom-modeline-percent-position nil)
-)
-
-(add-hook 'vterm-mode-hook 'nolinum)
-
-
-;; ------------------------------------------------------------------------------------------------
-;; tramp
-;; ------------------------------------------------------------------------------------------------
-
-(tramp-set-completion-function "ssh"
-                               '((tramp-parse-sconfig "/etc/ssh_config")
-                                 (tramp-parse-sconfig "~/.ssh/config")))
-
-
-;; ------------------------------------------------------------------------------------------------
-;; define key
-;; ------------------------------------------------------------------------------------------------
-
-(define-key global-map (kbd "C-c o") 'iedit-mode) ;; iedit
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
+;; ediff
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -549,14 +314,29 @@
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; defun
+;; define key
 ;; ------------------------------------------------------------------------------------------------
 
-;; dired hide long listing by default
-(defun my-dired-mode-setup ()
-  "show less information in dired buffers"
-  (dired-hide-details-mode 1))
-(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+(define-key global-map (kbd "C-c o") 'iedit-mode) ;; iedit
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; vterm
+;; ------------------------------------------------------------------------------------------------
+
+;; vterm and evil
+(with-eval-after-load 'evil
+  (evil-set-initial-state 'vterm-mode 'emacs))
+
+;; vterm mode hide line numbers and position
+(defun nolinum ()
+  (setq-local line-number-mode nil)
+  (setq-local doom-modeline-percent-position nil)
+)
+
+(add-hook 'vterm-mode-hook 'nolinum)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -581,8 +361,160 @@
 
 
 ;; ------------------------------------------------------------------------------------------------
+;; dired 
+;; ------------------------------------------------------------------------------------------------
+
+;; Toggle Hidden Files in Emacs dired with C-x M-o
+(require 'dired-x)
+
+;; kill the current buffer when selecting a new directory to display
+(setq dired-kill-when-opening-new-dired-buffer t)
+
+;; dired directory listing options for ls
+(setq dired-listing-switches "-ahlv")
+
+;; hide dotfiles and firefox.tmp
+(setq dired-omit-files
+      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+
+;; recursive delete and copy
+(setq dired-recursive-copies 'always)
+(setq dired-recursive-deletes 'always)
+
+;; dired dwim
+(setq dired-dwim-target t)
+
+;; dired hide long listing by default
+(defun my-dired-mode-setup ()
+  "show less information in dired buffers"
+  (dired-hide-details-mode 1))
+(add-hook 'dired-mode-hook 'my-dired-mode-setup)
+
+;; dired omit
+(add-hook 'dired-mode-hook (lambda () (dired-omit-mode 1)))
+
+;; dired hide aync output buffer
+(add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; tramp
+;; ------------------------------------------------------------------------------------------------
+
+;; tramp
+(require 'tramp)
+
+;; tramp ssh
+(tramp-set-completion-function "ssh"
+                               '((tramp-parse-sconfig "/etc/ssh_config")
+                                 (tramp-parse-sconfig "~/.ssh/config")))
+
+;; set tramp shell to sh to avoid zsh problems
+(eval-after-load 'tramp '(setenv "SHELL" "/usr/bin/sh"))
+
+;; tramp backup directory
+(add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
+
+
+;; ------------------------------------------------------------------------------------------------
 ;; org mode
 ;; ------------------------------------------------------------------------------------------------
+
+;; org mode
+(require 'org)
+(require 'org-tempo)
+(require 'org-protocol)
+(require 'org-capture)
+(setq org-agenda-files '("~/git/personal/org/"))
+
+;; org babel supress do you want to execute code message
+(setq org-confirm-babel-evaluate nil
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t)
+
+;; org hide markup
+(setq org-hide-emphasis-markers t)
+
+;; org column spacing for tags
+(setq org-tags-column 0)
+
+;; dont indent src block for export
+(setq org-src-preserve-indentation t)
+
+;; org src to use the current window
+(setq org-src-window-setup 'current-window)
+
+;; dont show images full size
+(setq org-image-actual-width nil)
+
+;; prevent demoting heading also shifting text inside sections
+(setq org-adapt-indentation nil)
+
+;; asynchronous tangle
+(setq org-export-async-debug t)
+
+(setq org-capture-templates
+    '(("t" "todo" entry
+      (file+headline "~/git/personal/org/todo.org" "Tasks")
+      (file "~/git/personal/org/templates/tpl-todo.txt")
+      :empty-lines-before 1)
+      ("w" "web site" entry
+      (file+olp "~/git/personal/org/web.org" "sites")
+      (file "~/git/personal/org/templates/tpl-web.txt")
+       :empty-lines-before 1)))
+
+;; refile
+(setq org-refile-targets '((nil :maxlevel . 2)
+                                (org-agenda-files :maxlevel . 2)))
+(setq org-outline-path-complete-in-steps nil)         ; Refile in a single go
+(setq org-refile-use-outline-path t)                  ; Show full paths for refiling
+
+;; ox-pandoc export
+(setq org-pandoc-options-for-latex-pdf '((latex-engine . "xelatex")))
+
+;; Prepare stuff for org-export-backends
+(setq org-export-backends '(org md html latex icalendar odt ascii))
+
+;; todo keywords
+(setq org-todo-keywords
+      '((sequence "TODO(t@/!)" "IN-PROGRESS(p/!)" "WAITING(w@/!)" "|" "DONE(d@)")))
+(setq org-log-done t)
+
+;; Fast Todo Selection - Changing a task state is done with C-c C-t KEY
+(setq org-use-fast-todo-selection t)
+
+;; org todo logbook
+(setq org-log-into-drawer t)
+
+;; minted
+(setq org-latex-minted-options
+    '(("frame" "lines") ("linenos=true")) )
+;;(setq org-latex-listings 'minted)
+(setq org-latex-listings 'minted
+    org-latex-packages-alist '(("" "minted"))
+    org-latex-pdf-process
+    '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+    "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+(setq org-latex-minted-options
+    '(("frame" "lines") ("linenos=true")) )
+
+;; org open files
+(setq org-file-apps
+     (quote
+     ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.mkv\\'" . "mpv %s")
+     ("\\.mp4\\'" . "mpv %s")
+     ("\\.mov\\'" . "mpv %s")
+     ("\\.png\\'" . "nsxiv %s")
+     ("\\.jpg\\'" . "nsxiv %s")
+     ("\\.jpeg\\'" . "nsxiv %s")
+     ("\\.pdf\\'" . default))))
+
+(custom-set-faces
+ '(org-link ((t (:inherit link :underline nil)))))
 
 (defadvice org-capture
     (after make-full-window-frame activate)
@@ -596,20 +528,38 @@
   (if (equal "emacs-capture" (frame-parameter nil 'name))
       (delete-frame)))
 
-;; org mode copy url from org link
-;
-;;(fset 'getlink
-;;      (lambda (&optional arg) 
-;;        "Keyboard macro." 
-;;        (interactive "p") 
-;;        (kmacro-exec-ring-item (quote ("\C-c\C-l\C-a\C-k\C-g" 0 "%d")) arg)))
-
-;;(define-key org-mode-map (kbd "C-c p") #'getlink)
-
 ; org-babel shell script
 (org-babel-do-load-languages
 'org-babel-load-languages
 '((shell . t))) 
+
+
+;; ------------------------------------------------------------------------------------------------
+;; mutt
+;; ------------------------------------------------------------------------------------------------
+
+(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; add-hook
+;; ------------------------------------------------------------------------------------------------
+
+;; Make shebang (#!) file executable when saved
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; global company mode
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; visual line mode
+(add-hook 'text-mode-hook 'visual-line-mode)
+
+;; h1 line mode
+(add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'text-mode-hook #'hl-line-mode)
+
+;; flycheck syntax linting
+(add-hook 'sh-mode-hook 'flycheck-mode)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -773,20 +723,6 @@
   ("i" my/mpv-insert-playback-position)
   ("o" mpv-osd)
   ("n" end-of-line-and-indented-new-line))
-
-
-;; ------------------------------------------------------------------------------------------------
-;;open youtube links with mpv
-;; ------------------------------------------------------------------------------------------------
-
-;;(defun mpv-play-url (url &rest args)
-;;  ""
-;;  (interactive)
-;;  (start-process "mpv" nil "mpv" url))
-
-;;(setq browse-url-handlers
-;;    '(("youtu\\.?be" . mpv-play-url)
-;;    ("." . browse-url-default-browser)))
 
 
 ;; ------------------------------------------------------------------------------------------------
