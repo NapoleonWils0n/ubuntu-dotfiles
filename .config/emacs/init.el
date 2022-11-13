@@ -377,6 +377,9 @@
 (setq dired-recursive-copies 'always)
 (setq dired-recursive-deletes 'always)
 
+;; dired hide free space
+(setq dired-free-space nil)
+
 ;; dired dwim
 (setq dired-dwim-target t)
 
