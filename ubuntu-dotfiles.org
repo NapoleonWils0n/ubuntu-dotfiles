@@ -1,4 +1,4 @@
-#+TITLE: ubuntu dotfiles
+#TITLE: ubuntu dotfiles
 #+STARTUP: overview hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
