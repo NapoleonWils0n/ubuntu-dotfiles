@@ -458,6 +458,9 @@ in {
 ;; press M-/ and invoke hippie-expand
 (global-set-key [remap dabbrev-expand] 'hippie-expand)
 
+;; open dired side window
+(global-set-key (kbd "C-x w w") 'my/window-dired-vc-root-left)
+
 
 ;; ------------------------------------------------------------------------------------------------
 ;; define key
@@ -878,6 +881,33 @@ in {
   ("i" my/mpv-insert-playback-position)
   ("o" mpv-osd)
   ("n" end-of-line-and-indented-new-line))
+
+
+
+;; ------------------------------------------------------------------------------------------------
+;; side-windows
+;; ------------------------------------------------------------------------------------------------
+
+;; https://protesilaos.com/emacs/dotemacs
+
+;; M-x window-toggle-side-windows
+;; C-x w s
+
+;; dired-find-file-other-window 
+;; bound to <S-return>, g O, <normal-state> <S-return>, <normal-state> g O
+
+;; dired side window
+(defun my/window-dired-vc-root-left ()
+  (interactive)
+  (let ((dir (if (eq (vc-root-dir) nil)
+                 (dired-noselect default-directory)
+               (dired-noselect (vc-root-dir)))))
+    (display-buffer-in-side-window
+     dir `((side . left)
+           (slot . 0)
+           (window-width . 0.20)
+           (window-parameters . ((no-delete-other-windows . t)
+                                 (mode-line-format . (""))))))))
 
 
 ;; ------------------------------------------------------------------------------------------------
