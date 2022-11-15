@@ -29,8 +29,8 @@ export AWS_CONFIG_FILE="${XDG_CONFIG_HOME}/aws/config"
 
 # set emacsclient as editor
 export ALTERNATE_EDITOR=""
-export EDITOR="emacsclient -a emacs"
-export VISUAL="emacsclient -c -a emacs"
+export EDITOR="emacsclient -r -a emacs"
+export VISUAL="emacsclient -r -c -a emacs"
 
 
 # tell ls to be colourfull
