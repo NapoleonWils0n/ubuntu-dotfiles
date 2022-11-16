@@ -441,34 +441,35 @@ in {
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; global-set-key
+;; keymap-global-set
 ;; ------------------------------------------------------------------------------------------------
 
 ;; Multi Vterm keybinds 
-(global-set-key (kbd "C-c t v") 'multi-vterm)
-(global-set-key (kbd "C-c t r") 'multi-vterm-rename-buffer)
-(global-set-key (kbd "C-c p") 'vterm-yank-primary)
+(keymap-global-set "C-c t v" 'multi-vterm)
+(keymap-global-set "C-c t r" 'multi-vterm-rename-buffer)
+(keymap-global-set "C-c p" 'vterm-yank-primary)
 
 ;; magit
-(global-set-key (kbd "C-x g") 'magit-status)
+(keymap-global-set "C-x g" 'magit-status)
 
 ;; org-capture
-(global-set-key "\C-cc" 'org-capture)
+(keymap-global-set "C-c c" 'org-capture)
 
 ;; press M-/ and invoke hippie-expand
-(global-set-key [remap dabbrev-expand] 'hippie-expand)
+(keymap-global-set "M-/" 'hippie-expand)
 
 ;; open dired side window
-(global-set-key (kbd "C-x w w") 'my/window-dired-vc-root-left)
+(keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
+(keymap-global-set "C-x w w" 'my/window-dired-vc-root-left)
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; define key
+;; keymap-set
 ;; ------------------------------------------------------------------------------------------------
 
-(define-key global-map (kbd "C-c o") 'iedit-mode) ;; iedit
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
+(keymap-set global-map "C-c o" 'iedit-mode)
+(keymap-set global-map "C-c l" 'org-store-link)
+(keymap-set global-map "C-c a" 'org-agenda)
 
 
 ;; ------------------------------------------------------------------------------------------------
@@ -770,7 +771,7 @@ in {
             (mpv-seek secs))))))
 
 ;; mpv seek to position at point
-(define-key global-map (kbd "C-x ,") 'my/mpv-seek-to-position-at-point)
+(keymap-set global-map "C-x ," 'my/mpv-seek-to-position-at-point)
 
 
 ;; ------------------------------------------------------------------------------------------------
