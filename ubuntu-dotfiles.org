@@ -2566,6 +2566,20 @@ Name[zh_TW]=開啟新隱私瀏覽視窗
 Exec=doas namespace /usr/local/bin/firefox-netns -private-window
 #+end_src
 
+**** notify-send config
+
+#+NAME: notify-send-desktop
+#+begin_src conf
+[Desktop Entry]
+Name=notify-send
+Comment=send notifications
+Exec=notify-send
+Icon=utilities-terminal
+Type=Application
+StartupNotify=true
+NoDisplay=true
+#+end_src
+
 **** transmission config
 
 #+NAME: transmission-desktop
@@ -2698,6 +2712,22 @@ OnlyShowIn=Unity
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/org.mozilla.firefox_vpn.desktop"
 <<firefox-netns-desktop>>
 #+END_SRC
+**** notify-send tangle
+
++ home dir
+  
+#+NAME: notify-send-desktop-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/notify-send.desktop"
+<<notify-send-desktop>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: notify-send-desktop-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/notify-send.desktop"
+<<notify-send-desktop>>
+#+END_SRC
+
 **** transmission tangle
 
 + home dir
