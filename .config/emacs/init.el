@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(0blayout all-the-icons doom-modeline multi-vterm vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc magit rg undo-tree which-key s))
+   '(vterm 0blayout all-the-icons doom-modeline multi-vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -177,11 +177,11 @@
                 "ogm" "ogg" "mkv" "webm"))
              "mpv"
              '(file))
-       (list (openwith-make-extension-regexp
-              '("xbm" "pbm" "pgm" "ppm" "pnm"
-                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-             "nsxiv -a"
-             '(file))
+;;       (list (openwith-make-extension-regexp
+;;              '("xbm" "pbm" "pgm" "ppm" "pnm"
+;;                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
+;;             "nsxiv -a"
+;;             '(file))
        (list (openwith-make-extension-regexp
               '("pdf"))
              "zathura"
@@ -520,6 +520,10 @@
      ("\\.pdf\\'" . default))))
 
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-link ((t (:inherit link :underline nil)))))
 
 (defadvice org-capture
@@ -756,6 +760,29 @@
            (window-width . 0.20)
            (window-parameters . ((no-delete-other-windows . t)
                                  (mode-line-format . (""))))))))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; emacs desktop notification center
+;; ------------------------------------------------------------------------------------------------
+
+;; start ednc-mode
+(ednc-mode 1)
+
+;; open notications
+(defun show-notification-in-buffer (old new)
+  (let ((name (format "Notification %d" (ednc-notification-id (or old new)))))
+    (with-current-buffer (get-buffer-create name)
+      (if new (let ((inhibit-read-only t))
+                (if old (erase-buffer) (ednc-view-mode))
+                (insert (ednc-format-notification new t))
+                (pop-to-buffer (current-buffer)))
+        (kill-buffer)))))
+
+
+;; notifications hook
+(add-hook 'ednc-notification-presentation-functions
+          #'show-notification-in-buffer)
 
 
 ;; ------------------------------------------------------------------------------------------------
