@@ -2759,6 +2759,38 @@ OnlyShowIn=Unity
 #+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/rxvt-unicode.desktop"
 <<urxvt>>
 #+END_SRC
+** autostart
+*** autostart config
+**** nognome_notications config
+
+#+NAME: nognome_notications
+#+BEGIN_SRC conf
+[Desktop Entry]
+Type=Application
+Exec=/usr/local/bin/nognome_notifications
+Hidden=True
+NoDisplay=True
+X-GNOME-Autostart-enabled=true
+Name=nognome_notifications
+Comment=nognome_notifications
+#+END_SRC
+
+*** autostart tangle
+**** nognome_notications tangle
+
++ home dir
+
+#+NAME: nognome_notications-autostart-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/nognome_notications.desktop"
+<<nognome_notications>>
+#+END_SRC
+
++ current dir
+
+#+NAME: nognome_notications-autostart-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
+<<nognome_notications>>
+#+END_SRC
 
 ** Xresources
 *** Xresources config
