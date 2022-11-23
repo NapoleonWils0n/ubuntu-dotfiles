@@ -61,7 +61,7 @@ highlight article "https?://[^ ]+" color4 color8 protect
 #feedlist-format "%?T?║%4i %n %8u %t (%T) &╠#%-8t════════════════════════════════════════?"
 
 # notify
-notify-program "/usr/bin/notify-send"
+#notify-program "/usr/bin/notify-send"
 
 # kill files ignore articles marked #shorts to filter out youtube shorts
 ignore-article "*" "title =~ \"#shorts$\""
