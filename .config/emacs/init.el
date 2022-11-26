@@ -786,7 +786,7 @@
           #'show-notification-in-buffer)
 
 
-;; ednc evil - enter normal mode with escape to use the keybindings
+;; ednc evil - normal mode
 (defun noevil ()
   (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
 )
