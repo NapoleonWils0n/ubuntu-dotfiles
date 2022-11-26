@@ -422,6 +422,7 @@
 (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
 
 
+
 ;; ------------------------------------------------------------------------------------------------
 ;; org mode
 ;; ------------------------------------------------------------------------------------------------
@@ -783,6 +784,14 @@
 ;; notifications hook
 (add-hook 'ednc-notification-presentation-functions
           #'show-notification-in-buffer)
+
+
+;; ednc evil - enter normal mode with escpae to use the keybindings
+(defun noevil ()
+  (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
+)
+
+(add-hook 'ednc-view-mode-hook 'noevil)
 
 
 ;; ------------------------------------------------------------------------------------------------
