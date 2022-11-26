@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(vterm 0blayout all-the-icons doom-modeline multi-vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
+   '(vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -190,7 +190,7 @@
 
 
 ;; ------------------------------------------------------------------------------------------------
-;; tab bar mode 
+;; TAB bar mode 
 ;; ------------------------------------------------------------------------------------------------
 
 (setq tab-bar-show 1)                     ;; hide bar if <= 1 tabs open
@@ -789,6 +789,7 @@
 ;; ednc evil - normal mode
 (defun noevil ()
   (evil-define-key 'normal ednc-view-mode-map "d" 'ednc-dismiss-notification)
+  (evil-define-key 'normal ednc-view-mode-map (kbd "RET") 'ednc-invoke-action)
 )
 
 (add-hook 'ednc-view-mode-hook 'noevil)
