@@ -167,7 +167,10 @@
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-visualizer-diff t)
 
-;; openwith
+;; openwth
+(require 'mm-util)
+(add-to-list 'mm-inhibit-file-name-handlers 'openwith-file-handler)
+
 (require 'openwith)
 (setq openwith-associations
       (list
@@ -177,15 +180,16 @@
                 "ogm" "ogg" "mkv" "webm"))
              "mpv"
              '(file))
-;;       (list (openwith-make-extension-regexp
-;;              '("xbm" "pbm" "pgm" "ppm" "pnm"
-;;                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
-;;             "nsxiv -a"
-;;             '(file))
+       (list (openwith-make-extension-regexp
+              '("xbm" "pbm" "pgm" "ppm" "pnm"
+                "png" "gif" "bmp" "tif" "jpeg" "jpg" "webp"))
+             "nsxiv -a"
+             '(file))
        (list (openwith-make-extension-regexp
               '("pdf"))
              "zathura"
              '(file))))
+
 (openwith-mode 1)
 
 
@@ -796,6 +800,7 @@
 
 
 ;; notification - reposition image
+;; empty space when no icon need to fix
 (defun ednc-format-notification (notification &optional expand-flag)
   "Return propertized description of NOTIFICATION.
 
@@ -803,7 +808,7 @@ If EXPAND-FLAG is nil, make details invisible by default."
   (let* ((hints (ednc-notification-hints notification))
          (urgency (or (ednc--get-hint hints "urgency") 1))
          (inherit (if (<= urgency 0) 'shadow (when (>= urgency 2) 'bold))))
-    (format (propertize "* %s: %s \n%s %s" 'face (list :inherit inherit)
+    (format (propertize "* %s: %s %s %s" 'face (list :inherit inherit)
                         'ednc-notification notification)
             (ednc-notification-app-name notification)
             (ednc--format-summary notification)
