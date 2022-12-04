@@ -377,9 +377,9 @@
 ;; dired directory listing options for ls
 (setq dired-listing-switches "-ahlv")
 
-;; hide dotfiles and firefox.tmp
+;; hide dotfiles
 (setq dired-omit-files
-      (concat dired-omit-files "\\|^\\..+$\\|firefox.tmp$"))
+      (concat dired-omit-files "\\|^\\..+$"))
 
 ;; recursive delete and copy
 (setq dired-recursive-copies 'always)

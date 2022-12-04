@@ -140,7 +140,7 @@ zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
 # Filename suffixes to ignore during completion (except after rm command)
 zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' \
-    '*?.old' '*?.pro' 'firefox.tmp' '.hidden'
+    '*?.old' '*?.pro' '.hidden'
 
 # ignore completion functions (until the _ignored completer)
 zstyle ':completion:*:functions' ignored-patterns '_*'
@@ -189,7 +189,7 @@ compdef _gnu_generic nix-env
 alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
 
 # ls hide firefox.tmp snap folder in ~/Downloads, use ls -a to show the folder again
-alias ls='ls --hide=firefox.tmp'
+#alias ls='ls --hide=firefox.tmp'
 
 # transmission functions - if the /etc/netns/vpn directory exists the vpn is active otherwise use transmission over regular network
 
