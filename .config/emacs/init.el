@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(orderless embark-consult embark consult vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
+   '(marginalia orderless embark-consult embark consult vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -304,6 +304,13 @@
 
 ;; Start Vertico
 (vertico-mode 1)
+
+;;; Marginalia
+
+;; Configure Marginalia
+(require 'marginalia)
+(customize-set-variable 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+(marginalia-mode 1)
 
 ;; Set some consult bindings
 (global-set-key (kbd "C-s") 'consult-line)
