@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv company csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
+   '(orderless embark-consult embark consult vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -281,14 +281,55 @@
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 3)
 
-;; ido mode
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
+
+
+;; ------------------------------------------------------------------------------------------------
+;; completion
+;; ------------------------------------------------------------------------------------------------
+
+;; Vertico
+(require 'vertico)
+(require 'vertico-directory)
+
+(with-eval-after-load 'evil
+  (define-key vertico-map (kbd "C-j") 'vertico-next)
+  (define-key vertico-map (kbd "C-k") 'vertico-previous)
+  (define-key vertico-map (kbd "M-h") 'vertico-directory-up))
+
+;; Cycle back to top/bottom result when the edge is reached
+(customize-set-variable 'vertico-cycle t)
+
+;; Start Vertico
+(vertico-mode 1)
+
+;; Set some consult bindings
+(global-set-key (kbd "C-s") 'consult-line)
+(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+
+(setq completion-in-region-function #'consult-completion-in-region)
+
+;;; Orderless
+
+;; Set up Orderless for better fuzzy matching
+(require 'orderless)
+(customize-set-variable 'completion-styles '(orderless basic))
+(customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
+
+;;; Embark
+(require 'embark)
+(require 'embark-consult)
+
+(global-set-key [remap describe-bindings] #'embark-bindings)
+(global-set-key (kbd "C-,") 'embark-act)
+
+;; Use Embark to show bindings in a key prefix with `C-h`
+(setq prefix-help-command #'embark-prefix-help-command)
+
+(with-eval-after-load 'embark-consult
+  (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
 
 
 ;; ------------------------------------------------------------------------------------------------
