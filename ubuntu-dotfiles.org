@@ -459,13 +459,12 @@ in {
 (vertico-mode 1)
 
 ;;; Marginalia
-
-;; Configure Marginalia
 (require 'marginalia)
 (customize-set-variable 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
 (marginalia-mode 1)
 
-;; Set some consult bindings
+
+;; consult
 (global-set-key (kbd "C-s") 'consult-line)
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
@@ -474,12 +473,14 @@ in {
 
 (setq completion-in-region-function #'consult-completion-in-region)
 
+
 ;;; Orderless
 
 ;; Set up Orderless for better fuzzy matching
 (require 'orderless)
 (customize-set-variable 'completion-styles '(orderless basic))
 (customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
+
 
 ;;; Embark
 (require 'embark)
@@ -493,7 +494,6 @@ in {
 
 (with-eval-after-load 'embark-consult
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
-
 
 
 ;; ------------------------------------------------------------------------------------------------
