@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(marginalia orderless embark-consult embark consult vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
+   '(marginalia orderless embark-consult embark vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -316,6 +316,9 @@
 (global-set-key (kbd "C-s") 'consult-line)
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
+;; remap switch-to-buffer "C-x b" to consult-buffer
+(global-set-key [remap switch-to-buffer] 'consult-buffer)
+
 (setq completion-in-region-function #'consult-completion-in-region)
 
 ;;; Orderless
@@ -337,6 +340,7 @@
 
 (with-eval-after-load 'embark-consult
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+
 
 
 ;; ------------------------------------------------------------------------------------------------
