@@ -1004,44 +1004,6 @@ in {
 (add-hook 'ednc-view-mode-hook 'noevil)
 
 
-;; notification - reposition image
-;; empty space when no icon need to fix
-(defun ednc-format-notification (notification &optional expand-flag)
-  "Return propertized description of NOTIFICATION.
-
-If EXPAND-FLAG is nil, make details invisible by default."
-  (let* ((hints (ednc-notification-hints notification))
-         (urgency (or (ednc--get-hint hints "urgency") 1))
-         (inherit (if (<= urgency 0) 'shadow (when (>= urgency 2) 'bold))))
-    (format (propertize "* %s: %s %s %s" 'face (list :inherit inherit)
-                        'ednc-notification notification)
-            (ednc-notification-app-name notification)
-            (ednc--format-summary notification)
-            (propertize (concat "\n" (alist-get 'icon (ednc-notification-amendments notification) "\n"))
-                        'invisible (not expand-flag))
-            (propertize (concat "\n" (ednc-notification-body notification) "\n")
-                        'invisible (not expand-flag)))))
-
-
-;; image size = * 4 line pixel height 
-(defun ednc--amend-icon (new)
-  "Set icon string created from NEW notification.
-
-This function modifies the notification's hints."
-  (catch 'invalid
-    (let* ((hints (ednc-notification-hints new))
-           (image
-            (or (ednc--data-to-image (ednc--get-hint hints "image-data" t))
-                (ednc--path-to-image (ednc--get-hint hints "image-path"))
-                (ednc--path-to-image (ednc-notification-app-icon new))
-                (ednc--data-to-image (ednc--get-hint hints "icon_data" t)))))
-      (when image
-        (setf (image-property image :max-height) (* 4 (line-pixel-height))
-              (image-property image :ascent) 90)
-        (push (cons 'icon (propertize " " 'display image))
-              (ednc-notification-amendments new))))))
-
-
 ;; ------------------------------------------------------------------------------------------------
 ;; garbage collection
 ;; ------------------------------------------------------------------------------------------------
