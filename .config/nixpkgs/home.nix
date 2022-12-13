@@ -31,6 +31,7 @@ in {
     dunst
     exiftool
     exa
+    fd
     feh
     git
     gnuplot
