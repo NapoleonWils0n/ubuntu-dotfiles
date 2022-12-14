@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(marginalia orderless embark-consult embark vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader flycheck git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
+   '(fd-dired marginalia orderless embark vertico vterm 0blayout all-the-icons multi-vterm yaml-mode doom-themes openwith hydra mpv csv-mode emmet-mode evil-collection evil-surround evil-leader git-auto-commit-mode haskell-mode iedit ob-async ox-pandoc undo-tree which-key s))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -454,6 +454,19 @@
 
 ;; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
+
+
+;; ------------------------------------------------------------------------------------------------
+;; dired-fd
+;; ------------------------------------------------------------------------------------------------
+
+;; switch to buffer results automatically
+
+(defcustom fd-dired-display-in-current-window nil
+  "Whether display result"
+  :type 'boolean
+  :safe #'booleanp
+  :group 'fd-dired)
 
 
 ;; ------------------------------------------------------------------------------------------------
