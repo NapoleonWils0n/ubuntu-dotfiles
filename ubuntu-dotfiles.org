@@ -1407,7 +1407,7 @@ When ARG is non-nil, ignore NoDisplay property in *.desktop files."
 + current dir
 
 #+NAME: app-launcher-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/lisp/app-launcher"
+#+BEGIN_SRC conf :noweb yes :tangle ".config/emacs/lisp/app-launcher.el"
 <<app-launcher>>
 #+END_SRC
 
