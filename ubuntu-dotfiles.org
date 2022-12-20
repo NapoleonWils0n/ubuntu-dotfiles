@@ -534,6 +534,9 @@ in {
 (keymap-set global-map "C-c l" 'org-store-link)
 (keymap-set global-map "C-c a" 'org-agenda)
 
+;; app-launcher
+(keymap-set global-map "C-c d" 'app-launcher-run-app)
+
 
 ;; ------------------------------------------------------------------------------------------------
 ;; vterm
