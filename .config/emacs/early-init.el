@@ -28,7 +28,7 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;;Tell emacs where is your personal elisp lib dir
-;;(add-to-list 'load-path "~/.config/emacs/lisp/")
+(add-to-list 'load-path "~/.config/emacs/lisp/")
 
 ;; Make the initial buffer load faster by setting its mode to fundamental-mode
 (customize-set-variable 'initial-major-mode 'fundamental-mode)
