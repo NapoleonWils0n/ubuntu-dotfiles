@@ -72,7 +72,6 @@ in {
     urlscan
     urlview
     yt-dlp
-    ytfzf
     weechat
     zathura
     zip
