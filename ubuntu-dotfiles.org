@@ -4071,6 +4071,7 @@ terminal-window {
 [Settings]
 gtk-theme-name=Yaru-blue-dark
 gtk-icon-theme-name=Yaru-blue-dark
+gtk-application-prefer-dark-theme=true
 #+END_SRC
 
 *** gtk-4.0 config 
@@ -4080,6 +4081,7 @@ gtk-icon-theme-name=Yaru-blue-dark
 [Settings]
 gtk-theme-name=Yaru-blue-dark
 gtk-icon-theme-name=Yaru-blue-dark
+gtk-application-prefer-dark-theme=true
 #+END_SRC
 
 *** gtk.css tangle
