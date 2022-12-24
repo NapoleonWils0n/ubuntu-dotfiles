@@ -81,8 +81,8 @@
 ;; fonts
 ;; ------------------------------------------------------------------------------------------------
 
-(defvar efs/default-font-size 160)
-(defvar efs/default-variable-font-size 160)
+(defvar efs/default-font-size 180)
+(defvar efs/default-variable-font-size 180)
 
 
 ;; ------------------------------------------------------------------------------------------------
