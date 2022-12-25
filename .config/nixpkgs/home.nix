@@ -15,7 +15,7 @@ in {
 
     programs.emacs = {
       enable = true;
-      package = unstable.emacsPgtkNativeComp;
+      package = unstable.emacsPgtk;
     };
 
   home.packages = with pkgs;[
