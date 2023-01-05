@@ -88,9 +88,9 @@ bind pager j  next-line
 bind pager gg top
 bind pager G  bottom
 
-# View URLs inside Mutt with urlview
-macro index \cb "|urlview\n"
-macro pager \cb "|urlview\n"
+# View URLs inside Mutt with urlscan, ctrl b
+macro index \cb "|urlscan\n"
+macro pager \cb "|urlscan\n"
 
 
 # Note that we explicitly set the comment armor header since GnuPG, when used
