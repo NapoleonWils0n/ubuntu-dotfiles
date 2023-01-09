@@ -180,7 +180,7 @@ in {
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" default))
  '(package-selected-packages
-   '(0blayout all-the-icons annalist consult company compat csv-mode doom-themes doom-modeline ednc embark embark-consult emmet-mode epl evil-collection evil-leader evil-surround f fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit magit-section marginalia mpv multi-vterm ob-async openwith orderless ox-pandoc pkg-info rg s shrink-path transient undo-tree vertico vterm wgrep with-editor which-key yaml-mode))
+   '(nix-mode 0blayout all-the-icons annalist consult company compat csv-mode doom-themes doom-modeline ednc embark embark-consult emmet-mode epl evil-collection evil-leader evil-surround f fd-dired flycheck git-commit git-auto-commit-mode haskell-mode hydra iedit magit magit-section marginalia mpv multi-vterm ob-async openwith orderless ox-pandoc pkg-info rg s shrink-path transient undo-tree vertico vterm wgrep with-editor which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
