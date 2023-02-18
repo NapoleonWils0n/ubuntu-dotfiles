@@ -24,7 +24,7 @@ secondary='content-item__info__secondary'
 outfile='/tmp/bbc-episodes.html'
 
 # hxselect and sed
-hxnormalize -x "${url}" \
+curl "${url}" | hxnormalize -x \
 | hxselect -s '\n' -c "${css}" \
 | hxprune -c "${secondary}" \
 | sed -e 's#/iplayer/#https://www.bbc.co.uk/iplayer/#g' \
