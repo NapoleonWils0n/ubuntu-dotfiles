@@ -1,0 +1,6 @@
+#EXTM3U
+#EXTINF:0,Talk Sport
+https://radio.talksport.com/stream
+
+#EXTINF:0,LBC London
+http://icecast.thisisdax.com/LBCLondon
