@@ -1,0 +1,4 @@
+! option = symbols
+  custom:alt_win_ctrl = +custom(alt_win_ctrl)
+
+! include %S/evdev
