@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=notify-send
-Comment=send notifications
-Exec=notify-send
-Icon=utilities-terminal
-Type=Application
-StartupNotify=true
-NoDisplay=true

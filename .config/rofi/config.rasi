@@ -1,8 +1,0 @@
-configuration {
- modi: "window,drun,combi";
- font: "Inconsolata 14";
- terminal: "urxvtc";
- show-icons: true;
- combi-modi: "window,drun";
- }
-@import "/home/djwilcox/.config/rofi/themes/Arc-Dark.rasi"
