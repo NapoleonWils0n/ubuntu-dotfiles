@@ -26,7 +26,12 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "" default))
  '(package-selected-packages
-   '(all-the-icons consult doom-themes doom-modeline ednc embark embark-consult emmet-mode evil-collection evil-leader evil-surround fd-dired flycheck git-commit git-auto-commit-mode hydra iedit magit magit-section marginalia mpv ob-async openwith orderless rg s shrink-path undo-tree vertico wgrep which-key yaml-mode youtube-sub-extractor))
+   '(ednc async evil-collection google-translate elfeed-org elfeed-tub
+          elfeed-tube-mpv embark-consult emmet-mode evil-leader
+          fd-dired git-auto-commit-mode hydra iedit mpv ob-async rg s
+          shrink-path undo-tree marginalia orderless embark vertico
+          wgrep which-key yaml-mode doom-themes doom-modeline
+          nerd-icons))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -42,6 +47,9 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
+;; emacs aysnc - asynchronous compilation of your (M)elpa packages
+(async-bytecomp-package-mode 1)
+(setq async-bytecomp-allowed-packages '(all))
 
 ;; ----------------------------------------------------------------------------------
 ;; general settings
@@ -69,12 +77,12 @@
 
 ;; save
 (save-place-mode 1)         ;; save cursor position
-(desktop-save-mode 1)       ;; Save the desktop session
+(desktop-save-mode 0)       ;; dont save the desktop session
 (savehist-mode 1)           ;; save history
 (global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
 
 ;; scrolling
-;;(pixel-scroll-precision-mode 1)
+(pixel-scroll-precision-mode 1)
 
 
 ;; ----------------------------------------------------------------------------------
@@ -117,6 +125,9 @@
 
 (require 'doom-modeline)
 (doom-modeline-mode 1)
+
+;; M-x nerd-icons-install-fonts
+(setq doom-modeline-icon t)
 
 ;; doom modeline truncate text
 (setq doom-modeline-buffer-file-name-style 'truncate-except-project)
@@ -174,12 +185,15 @@
 (evil-collection-define-key 'normal 'dired-mode-map
     "e" 'dired-find-file
     "h" 'dired-up-directory
-    "l" 'dired-find-file)
+    "l" 'dired-find-file-mpv)
 
 
 ;; ----------------------------------------------------------------------------------
 ;; require
 ;; ----------------------------------------------------------------------------------
+
+;; tree-sitter
+(require 'treesit)
 
 ;; ob-async
 (require 'ob-async)
@@ -194,21 +208,26 @@
 (setq undo-tree-visualizer-timestamps t)
 (setq undo-tree-visualizer-diff t)
 
-(require 'openwith)
-(setq openwith-associations
-      (list
-       (list (openwith-make-extension-regexp
-              '("mpg" "mpeg" "mp3" "mp4" "m4v"
-                "avi" "wmv" "wav" "mov" "flv"
-                "ogm" "ogg" "mkv" "webm"))
-             "mpv --fs --fs-screen=1"
-             '(file))
-       (list (openwith-make-extension-regexp
-              '("pdf"))
-             "evince"
-             '(file))))
 
-(openwith-mode 1)
+;; ----------------------------------------------------------------------------------
+;; tree-sitter
+;; ----------------------------------------------------------------------------------
+
+;; M-x treesit-install-language-grammar bash
+(add-to-list
+ 'treesit-language-source-alist
+ '(bash "https://github.com/tree-sitter/tree-sitter-bash.git"))
+
+;; sh-mode use bash-ts-mode
+(add-to-list 'major-mode-remap-alist
+             '(sh-mode . bash-ts-mode))
+
+
+;; treesitter explore open in side window
+(add-to-list 'display-buffer-alist
+   '("^*tree-sitter explorer *" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.40)))
 
 
 ;; ----------------------------------------------------------------------------------
@@ -279,6 +298,52 @@
 ;; disable ring bell
 (setq ring-bell-function 'ignore)
 
+;; side windows
+(setq switch-to-buffer-obey-display-actions t)
+
+;; hippie expand
+(setq hippie-expand-try-functions-list
+      '(try-expand-all-abbrevs
+        try-complete-file-name-partially
+        try-complete-file-name
+        try-expand-dabbrev
+        try-expand-dabbrev-from-kill
+        try-expand-dabbrev-all-buffers
+        try-expand-list
+        try-expand-line
+        try-complete-lisp-symbol-partially
+        try-complete-lisp-symbol))
+
+;; ----------------------------------------------------------------------------------
+;; emacs 28 - dictionary server
+;; ----------------------------------------------------------------------------------
+
+(setq dictionary-server "dict.org")
+
+;; mandatory, as the dictionary misbehaves!
+(add-to-list 'display-buffer-alist
+   '("^\\*Dictionary\\*" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
+
+
+;; ----------------------------------------------------------------------------------
+;; functions
+;; ----------------------------------------------------------------------------------
+
+;; clear the kill ring
+(defun clear-kill-ring ()
+  "Clear the results on the kill ring."
+  (interactive)
+  (setq kill-ring nil))
+
+;; reload init.el
+(defun my-reload-init ()
+  "reload init.el"
+  (interactive)
+  (load-file "~/.config/emacs/init.el"))
+
+
 ;; ----------------------------------------------------------------------------------
 ;; completion
 ;; ----------------------------------------------------------------------------------
@@ -313,6 +378,11 @@
 
 (setq completion-in-region-function #'consult-completion-in-region)
 
+;; consult-yank-pop
+(global-set-key (kbd "M-y") 'consult-yank-pop)
+
+;; It lets you use a new minibuffer when you're in the minibuffer
+(setq enable-recursive-minibuffers t)
 
 ;;; Orderless
 
@@ -349,6 +419,8 @@
 ;; press M-/ and invoke hippie-expand
 (keymap-global-set "M-/" 'hippie-expand)
 
+;; window-toggle-side-windows
+(keymap-global-set "C-x x w" 'window-toggle-side-windows)
 
 ;; ----------------------------------------------------------------------------------
 ;; keymap-set
@@ -365,6 +437,10 @@
 
 ;; Toggle Hidden Files in Emacs dired with C-x M-o
 (require 'dired-x)
+
+;; dired-async
+(autoload 'dired-async-mode "dired-async.el" nil t)
+(dired-async-mode 1)
 
 ;; kill the current buffer when selecting a new directory to display
 (setq dired-kill-when-opening-new-dired-buffer t)
@@ -402,6 +478,14 @@
 ;; dired hide aync output buffer
 (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
+;; ob-async sentinel fix
+(defun no-hide-overlays (orig-fun &rest args)
+(setq org-babel-hide-result-overlays nil))
+(advice-add 'ob-async-org-babel-execute-src-block :before #'no-hide-overlays)
+
+;; & open pdf's with zatuhra
+(setq dired-guess-shell-alist-user
+      '(("\\.pdf$" "zathura")))
 
 ;; ----------------------------------------------------------------------------------
 ;; dired-fd
@@ -488,14 +572,10 @@
 (setq org-export-async-debug t)
 
 (setq org-capture-templates
-    '(("t" "todo" entry
-      (file+headline "~/git/personal/org/todo.org" "Tasks")
-      (file "~/git/personal/org/templates/tpl-todo.txt")
-      :empty-lines-before 1)
-      ("w" "web site" entry
-      (file+olp "~/git/personal/org/web.org" "sites")
-      (file "~/git/personal/org/templates/tpl-web.txt")
-       :empty-lines-before 1)))
+    '(("w" "web site" entry
+      (file+olp "~/git/personal/bookmarks/bookmarks.org" "sites")
+      "** [[%c][%^{link-description}]]"
+       :empty-lines-after 1)))
 
 ;; refile
 (setq org-refile-targets '((nil :maxlevel . 2)
@@ -555,6 +635,27 @@
 'org-babel-load-languages
 '((shell . t))) 
 
+;; yank-media--registered-handlers org mode
+(with-eval-after-load 'org
+  (setq yank-media--registered-handlers '(("image/.*" . #'org-mode--image-yank-handler))))
+
+;; org mode image yank handler
+(yank-media-handler "image/.*" #'org-mode--image-yank-handler)
+
+;; org-mode insert image as file link from the clipboard
+(defun org-mode--image-yank-handler (type image)
+  (let ((file (read-file-name (format "Save %s image to: " type))))
+    (when (file-directory-p file)
+      (user-error "%s is a directory"))
+    (when (and (file-exists-p file)
+               (not (yes-or-no-p (format "%s exists; overwrite?" file))))
+      (user-error "%s exists"))
+    (with-temp-buffer
+      (set-buffer-multibyte nil)
+      (insert image)
+      (write-region (point-min) (point-max) file))
+    (insert (format "[[file:%s]]\n" (file-relative-name file)))))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; mutt
@@ -588,12 +689,24 @@
 ;; mpv.el
 ;; ----------------------------------------------------------------------------------
 
-(org-link-set-parameters "mpv" :follow #'mpv-play)
+;; mpv-default-options play fullscreen on second display
+;;(setq mpv-default-options '("--fs"))
+
+;; org-link-set-parameters
+;;(org-link-set-parameters "mpv" :follow #'mpv-play)
+;;(defun org-mpv-complete-link (&optional arg)
+;;  (replace-regexp-in-string
+;;   "file:" "mpv:"
+;;   (org-link-complete-file arg)
+;;   t t))
+
 (defun org-mpv-complete-link (&optional arg)
   (replace-regexp-in-string
    "file:" "mpv:"
    (org-link-complete-file arg)
    t t))
+(org-link-set-parameters "mpv"
+  :follow #'mpv-play :complete #'org-mpv-complete-link)
 
 ;; M-RET will insert a new item with the timestamp of the current playback position
 (defun my:mpv/org-metareturn-insert-playback-position ()
@@ -720,17 +833,146 @@
 
 
 ;; ----------------------------------------------------------------------------------
+;; mpv dired
+;; ----------------------------------------------------------------------------------
+
+;; video and audio mime types
+(defvar supported-mime-types
+  '("video/quicktime"
+    "video/x-matroska"
+    "video/mp4"
+    "video/webm"
+    "video/x-m4v"
+    "video/x-msvideo"
+    "audio/x-wav"
+    "audio/mpeg"
+    "audio/x-hx-aac-adts"
+    "audio/mp4"
+    "audio/flac"
+    "audio/ogg"))
+
+;; subr-x
+(load "subr-x")
+
+;; get files mime type
+(defun get-mimetype (filepath)
+  (string-trim
+   (shell-command-to-string (concat "file -b --mime-type "
+                                    (shell-quote-argument filepath)))))
+
+;; dired-find-file-mpv
+(defun dired-find-file-mpv ()
+  "Start an mpv process playing the file at PATH append subsequent files to the playlist"
+  (interactive)
+  (let ((file (dired-get-file-for-visit)))
+    (if (member (get-mimetype file) supported-mime-types)
+        (mpv-play-dired file)
+      (dired-find-file))))
+
+
+;; mpv-play-dired
+(with-eval-after-load 'mpv
+  (defun mpv-play-dired (path)
+  "Start an mpv process playing the file at PATH append subsequent files to the playlist"
+    (if (not mpv--process)
+        ;; mpv isnt running play file
+        (mpv-start (expand-file-name path))
+        ;; mpv running append file to playlist
+      (mpv--playlist-append (expand-file-name path)))))
+
+
+;; mpv play dired marked files
+(defun mpv-play-marked-files ()
+  "Play marked files with mpv"
+  (interactive)
+  (mapc 'mpv-play-dired (dired-get-marked-files nil nil nil t)))
+
+;; mpv dired embark
+(with-eval-after-load 'embark
+  (define-key embark-file-map "l" #'mpv-play-marked-files))
+
+
+;; ----------------------------------------------------------------------------------
+;; mpv eww
+;; ----------------------------------------------------------------------------------
+
+(defun mpv-play-eww ()
+  "Start an mpv process playing the video stream at URL."
+  (interactive)
+  (let ((url (shr-url-at-point current-prefix-arg)))
+  (unless (mpv--url-p url)
+    (user-error "Invalid argument: `%s' (must be a valid URL)" url))
+  (if (not mpv--process)
+      ;; mpv isnt running play file
+      (mpv-start url)
+      ;; mpv running append file to playlist
+    (mpv--playlist-append url))))
+
+
+(evil-collection-define-key 'normal 'eww-mode-map
+    "l" 'mpv-play-eww)
+
+
+;; ----------------------------------------------------------------------------------
+;; eww pinch
+;; ----------------------------------------------------------------------------------
+
+(defun eww-pinch ()
+  "Send the url under the point to mpd with pinch"
+  (interactive)
+  (let ((url (shr-url-at-point current-prefix-arg)))
+    (async-shell-command (concat
+                    "pinch -i " (shell-quote-argument url)))))
+
+
+(evil-collection-define-key 'normal 'eww-mode-map
+    "n" 'eww-pinch)
+
+
+;; ----------------------------------------------------------------------------------
+;; eww taskspooler yt-dlp
+;; ----------------------------------------------------------------------------------
+
+(defun eww-yt-dlp ()
+  "Send the url under the point to taskspooler and yt-dlp"
+  (interactive)
+  (let ((url (shr-url-at-point current-prefix-arg)))
+    (async-shell-command (concat
+                    "tsp yt-dlp -P ${HOME}/Downloads " (shell-quote-argument url)))))
+
+
+(evil-collection-define-key 'normal 'eww-mode-map
+    "x" 'eww-yt-dlp)
+
+
+;; ----------------------------------------------------------------------------------
+;; eww taskspooler aria2c
+;; ----------------------------------------------------------------------------------
+
+(defun eww-aria2c ()
+  "Send the url under the point to taskspooler and aria2c"
+  (interactive)
+  (let ((url (shr-url-at-point current-prefix-arg)))
+    (async-shell-command (concat
+                    "tsp aria2c -d ${HOME}/Downloads " (shell-quote-argument url)))))
+
+
+(evil-collection-define-key 'normal 'eww-mode-map
+    "b" 'eww-aria2c)
+
+
+;; ----------------------------------------------------------------------------------
 ;; hydra
 ;; ----------------------------------------------------------------------------------
 
 (defhydra hydra-mpv (global-map "<f2>")
   "
-  ^Seek^                    ^Actions^                ^General^
-  ^^^^^^^^---------------------------------------------------------------------------
-  _h_: seek back -5         _,_: back frame          _i_: insert playback position
-  _j_: seek back -60        _._: forward frame       _n_: insert a newline
-  _k_: seek forward 60      _SPC_: pause             _s_: take a screenshot
-  _l_: seek forward 5       _q_: quit mpv            _o_: show the osd
+  ^Seek^                    ^Actions^                ^General^                       ^Playlists^
+  ^^^^^^^^-----------------------------------------------------------------------------------------------------------
+  _h_: seek back -5         _,_: back frame          _i_: insert playback position   _n_: next item in playlist
+  _j_: seek back -60        _._: forward frame       _m_: insert a newline           _p_: previous item in playlist
+  _k_: seek forward 60      _SPC_: pause             _s_: take a screenshot          _e_: jump to playlist entry
+  _l_: seek forward 5       _q_: quit mpv            _o_: show the osd               _r_: remove playlist entry
   ^
   "
   ("h" mpv-seek-backward "-5")
@@ -741,71 +983,15 @@
   ("." mpv-frame-step)
   ("SPC" mpv-pause)
   ("q" mpv-kill)
-  ("s" mpv-screenshot)
   ("i" my/mpv-insert-playback-position)
+  ("m" end-of-line-and-indented-new-line)
+  ("s" mpv-screenshot)
   ("o" mpv-osd)
-  ("n" end-of-line-and-indented-new-line))
+  ("n" mpv-playlist-next)
+  ("p" mpv-playlist-prev)
+  ("e" mpv-jump-to-playlist-entry)
+  ("r" mpv-remove-playlist-entry))
 
-
-;; ----------------------------------------------------------------------------------
-;; youtube-sub-extractor.el
-;; ----------------------------------------------------------------------------------
-
-(require 'youtube-sub-extractor)
-
-;; display timestamps on the left so we can use them with mpv.el
-(setq youtube-sub-extractor-timestamps 'left-side-text)
-
-;; show the full timestamp for mpv
-(defun youtube-sub-extractor--create-subs-buffer (subs-file vid-url)
-  "Read SUBS-FILE and insert the content in a buffer.
-VID-URL gets used later for browsing video at specific timestamp."
-  (let* ((raw (with-temp-buffer
-                (insert-file-contents subs-file)
-                (buffer-string)))
-         (subs-lst (youtube-sub-extractor--process-subs raw))
-         (buf (generate-new-buffer (file-name-base subs-file)))
-         ;; if the vid shorter than hour, no need to show hours - timestamps would be s:ms
-         (mins-only? (zerop (nth 2 (parse-time-string (cl-first (cl-first (last subs-lst))))))))
-    (with-current-buffer buf
-      (insert (format "%s\n\n" (file-name-base subs-file)))
-      (dolist (el subs-lst)
-        (let* ((full-ts (nth 0 el))
-               ;;(ts (substring full-ts (if mins-only? 3 0) 8))
-               ;; show full timestamp for mpv
-               (ts (substring full-ts (if mins-only? 0 0) 8))
-               (sub-text (nth 1 el))
-               (pos (point))
-               (_ (progn
-                    (when (eq youtube-sub-extractor-timestamps 'left-side-text)
-                      (insert (format "%s\t" ts)))
-                    (insert (format "%s" (string-join sub-text " ")))
-                    (save-excursion
-                      (add-text-properties
-                       (line-beginning-position)
-                       (line-end-position)
-                       `(help-echo ,ts timestamp ,full-ts)))
-                    (insert "\n")))
-               (ovrl (make-overlay (1+ pos) (point) nil t))
-               (ovrl-txt (or ts ""))
-               (margin (if (eq youtube-sub-extractor-timestamps 'right-margin)
-                           'right-margin 'left-margin)))
-          (overlay-put
-           ovrl 'before-string
-           (propertize ovrl-txt 'display `((margin ,margin) ,ovrl-txt)))))
-      (goto-char (point-min))
-      (setq-local video-url vid-url)
-      (youtube-sub-extractor-subtitles-mode +1)
-      (read-only-mode +1))
-      ;; (switch-to-buffer-other-window buf)
-      ;; open buffer fullsize in the same buffer
-      (pop-to-buffer-same-window buf)
-    (unless (or (eq youtube-sub-extractor-timestamps 'left-side-text)
-                (null youtube-sub-extractor-timestamps))
-      (set-window-margins
-       nil
-       (when (eq youtube-sub-extractor-timestamps 'left-margin) 9)
-       (when (eq youtube-sub-extractor-timestamps 'right-margin) 9)))))
 
 ;; ----------------------------------------------------------------------------------
 ;; emacs desktop notification center
@@ -814,7 +1000,6 @@ VID-URL gets used later for browsing video at specific timestamp."
 ;; start ednc-mode
 (ednc-mode 1)
 
-;; open notications
 (defun show-notification-in-buffer (old new)
   (let ((name (format "Notification %d" (ednc-notification-id (or old new)))))
     (with-current-buffer (get-buffer-create name)
@@ -829,6 +1014,11 @@ VID-URL gets used later for browsing video at specific timestamp."
 (add-hook 'ednc-notification-presentation-functions
           #'show-notification-in-buffer)
 
+;; open notifications in side window
+(add-to-list 'display-buffer-alist
+   '("^Notification *" display-buffer-in-side-window
+     (side . right)
+     (window-width . 0.50)))
 
 ;; ednc evil - normal mode
 (defun noevil ()
@@ -837,6 +1027,162 @@ VID-URL gets used later for browsing video at specific timestamp."
 )
 
 (add-hook 'ednc-view-mode-hook 'noevil)
+
+; ----------------------------------------------------------------------------------
+;; elfeed
+;; ----------------------------------------------------------------------------------
+
+; elfeed
+(require 'elfeed)
+(require 'elfeed-org)
+(elfeed-org)
+(setq elfeed-db-directory "~/.config/emacs/elfeed") ;; elfeed db location
+(setq rmh-elfeed-org-files (list "~/git/personal/feeds/feeds.org"))
+(global-set-key (kbd "C-x w") 'elfeed)
+
+(require 'elfeed-tube)
+(elfeed-tube-setup)
+(define-key elfeed-show-mode-map (kbd "F") 'elfeed-tube-fetch)
+(define-key elfeed-show-mode-map [remap save-buffer] 'elfeed-tube-save)
+(define-key elfeed-search-mode-map (kbd "F") 'elfeed-tube-fetch)
+(define-key elfeed-search-mode-map [remap save-buffer] 'elfeed-tube-save)
+
+(require 'elfeed-tube-mpv)
+(define-key elfeed-show-mode-map (kbd "C-c C-f") 'elfeed-tube-mpv-follow-mode)
+(define-key elfeed-show-mode-map (kbd "C-c C-w") 'elfeed-tube-mpv-where)
+
+;; play video with mpv
+(define-key elfeed-show-mode-map (kbd "C-c C-d") 'elfeed-tube-mpv)
+
+;; mpv play fullscreen on second display
+(setq elfeed-tube-mpv-options
+  '("--force-window=yes" "--fs" "--fs-screen-name=DP-3"))
+
+; elfeed evil
+(add-to-list 'evil-motion-state-modes 'elfeed-search-mode)
+(add-to-list 'evil-motion-state-modes 'elfeed-show-mode)
+
+;; evil elfeed-search-mode-map
+(evil-collection-define-key 'normal 'elfeed-search-mode-map
+     "l" 'elfeed-search-show-entry        ;; l opens entry
+     "s" #'prot-elfeed-search-tag-filter  ;; s prot search tags
+     "R" 'elfeed-mark-all-as-read         ;; R mark all as read
+     "u" 'elfeed-update                   ;; u elfeed update
+     "b" #'elfeed-search-browse-url       ;; b open in browser
+     "r" 'elfeed-search-untag-all-unread) ;; r mark as read
+
+
+;; evil elfeed-show-mode-map
+(evil-collection-define-key 'normal 'elfeed-show-mode-map
+     "b" #'shr-browse-url)                ;; b open in browser
+
+; elfeed search filter 
+(setq-default elfeed-search-filter "@1-week-ago +unread")
+
+; mark all as read
+(defun elfeed-mark-all-as-read ()
+      (interactive)
+      (mark-whole-buffer)
+      (elfeed-search-untag-all-unread))
+
+
+;; ----------------------------------------------------------------------------------
+;; prot elfeed - requires ~/.config/emacs/lisp/prot-common.el
+;; ----------------------------------------------------------------------------------
+
+(eval-when-compile (require 'subr-x))
+;;(require 'elfeed nil t)
+(require 'url-util)
+(require 'prot-common)
+
+(defgroup prot-elfeed ()
+  "Personal extensions for Elfeed."
+  :group 'elfeed)
+
+;;;; Utilities
+(defvar prot-elfeed--tag-hist '()
+  "History of inputs for `prot-elfeed-toggle-tag'.")
+
+(defun prot-elfeed--character-prompt (tags)
+  "Helper of `prot-elfeed-toggle-tag' to read TAGS."
+  (let ((def (car prot-elfeed--tag-hist)))
+    (completing-read
+     (format "Toggle tag [%s]: " def)
+     tags nil t nil 'prot-elfeed--tag-hist def)))
+
+(defvar elfeed-show-entry)
+(declare-function elfeed-tagged-p "elfeed")
+(declare-function elfeed-search-toggle-all "elfeed")
+(declare-function elfeed-show-tag "elfeed")
+(declare-function elfeed-show-untag "elfeed")
+
+;;;###autoload
+(defun prot-elfeed-toggle-tag (tag)
+  "Toggle TAG for the current item.
+
+When the region is active in the `elfeed-search-mode' buffer, all
+entries encompassed by it are affected.  Otherwise the item at
+point is the target.  For `elfeed-show-mode', the current entry
+is always the target.
+
+The list of tags is provided by `prot-elfeed-search-tags'."
+  (interactive
+   (list
+    (intern
+     (prot-elfeed--character-prompt prot-elfeed-search-tags))))
+  (if (derived-mode-p 'elfeed-show-mode)
+      (if (elfeed-tagged-p tag elfeed-show-entry)
+          (elfeed-show-untag tag)
+        (elfeed-show-tag tag))
+    (elfeed-search-toggle-all tag)))
+
+(defvar elfeed-show-truncate-long-urls)
+(declare-function elfeed-entry-title "elfeed")
+(declare-function elfeed-show-refresh "elfeed")
+
+;;;; General commands
+(defvar elfeed-search-filter-active)
+(defvar elfeed-search-filter)
+(declare-function elfeed-db-get-all-tags "elfeed")
+(declare-function elfeed-search-update "elfeed")
+(declare-function elfeed-search-clear-filter "elfeed")
+
+(defun prot-elfeed--format-tags (tags sign)
+  "Prefix SIGN to each tag in TAGS."
+  (mapcar (lambda (tag)
+            (format "%s%s" sign tag))
+          tags))
+
+;;;###autoload
+(defun prot-elfeed-search-tag-filter ()
+  "Filter Elfeed search buffer by tags using completion.
+
+Completion accepts multiple inputs, delimited by `crm-separator'.
+Arbitrary input is also possible, but you may have to exit the
+minibuffer with something like `exit-minibuffer'."
+  (interactive)
+  (unwind-protect
+      (elfeed-search-clear-filter)
+    (let* ((elfeed-search-filter-active :live)
+           (db-tags (elfeed-db-get-all-tags))
+           (plus-tags (prot-elfeed--format-tags db-tags "+"))
+           (minus-tags (prot-elfeed--format-tags db-tags "-"))
+           (all-tags (delete-dups (append plus-tags minus-tags)))
+           (tags (completing-read-multiple
+                  "Apply one or more tags: "
+                  all-tags #'prot-common-crm-exclude-selected-p t))
+           (input (string-join `(,elfeed-search-filter ,@tags) " ")))
+      (setq elfeed-search-filter input))
+    (elfeed-search-update :force)))
+
+(provide 'prot-elfeed)
+
+;; ----------------------------------------------------------------------------------
+;; mpc
+;; ----------------------------------------------------------------------------------
+
+;; mpd host
+(setq mpc-host "/home/djwilcox/.config/mpd/socket")
 
 
 ;; ----------------------------------------------------------------------------------
