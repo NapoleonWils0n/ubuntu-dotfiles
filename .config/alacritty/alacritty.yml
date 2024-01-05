@@ -8,7 +8,7 @@ window:
     y: 4
 
   decoration: none
-  startup_mode: Fullscreen
+  startup_mode: Windowed
 
 # Font configuration
 font:

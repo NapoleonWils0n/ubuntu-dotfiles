@@ -265,6 +265,10 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; setq
 ;; ----------------------------------------------------------------------------------
 
+;; xkb fix for alt and super
+(setq x-alt-keysym 'meta)
+(setq x-super-keysym 'meta)
+
 ;; general
 (setq version-control t)
 (setq vc-make-backup-files t)
@@ -1395,7 +1399,7 @@ window:
     y: 4
 
   decoration: none
-  startup_mode: Fullscreen
+  startup_mode: Windowed
 
 # Font configuration
 font:
@@ -2509,31 +2513,6 @@ Comment=nognome_notifications
 #+NAME: nognome_notications-autostart-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
 <<nognome_notications>>
-#+END_SRC
-
-** mimeinfo 
-*** mimeinfo config
-
-#+NAME: mimeinfo
-#+BEGIN_SRC conf
-[MIME Cache]
-x-scheme-handler/org-protocol=emacs-capture.desktop;
-#+END_SRC
-
-*** mimeinfo tangle
-
-+ home dir
-
-#+NAME: mimeinfo-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.local/share/applications/mimeinfo.cache"
-<<mimeinfo>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mimeinfo-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".local/share/applications/mimeinfo.cache"
-<<mimeinfo>>
 #+END_SRC
 
 ** gitconfig
@@ -4624,42 +4603,8 @@ magnet: file:/cgi-bin/magnet.cgi?%s
 
 ** xkb
 *** xkb config
-**** custom
-
-#+NAME: xkb-custom
-#+BEGIN_SRC conf
-// Ctrl is mapped to Alt, Alt to Win, and Win to the Ctrl key.
-partial modifier_keys
-xkb_symbols "alt_win_ctrl" {
-    key <LALT> { [ Super_L ] };
-    key <LWIN> { [ Control_L, Control_L ] };
-    key <LCTL> { [ Alt_L, Meta_L ] };
-    modifier_map Control { <LCTL>, <RCTL> };
-    modifier_map Mod1 { <LALT>, <RALT>, Meta_L };
-    modifier_map Mod4 { <LWIN>, <RWIN> };
-};
-#+END_SRC
-
-**** gb
-
-#+NAME: xkb-gb
-#+BEGIN_SRC conf
-default partial alphanumeric_keys 
-xkb_symbols "alt_win_ctrl" {
-
-    // mac swap alt_win_ctrl
-
-    include "macintosh_vndr/gb"
-
-    name[Group1]= "alt_win_ctrl - Mac";
-
-    key <LALT> { [ Super_L ] };
-    key <LWIN> { [ Control_L, Control_L ] };
-    key <LCTL> { [ Alt_L, Meta_L ] };
-};
-#+END_SRC
-
-**** evdev
+**** rules
+***** evdev
 
 #+NAME: evdev
 #+begin_src conf
@@ -4669,7 +4614,7 @@ xkb_symbols "alt_win_ctrl" {
 ! include %S/evdev
 #+end_src
 
-**** evdev.xml
+***** evdev.xml
 
 #+NAME: evdev.xml
 #+begin_src xml
@@ -4709,40 +4654,45 @@ xkb_symbols "alt_win_ctrl" {
 </xkbConfigRegistry>
 #+end_src
 
+**** symbols
+***** custom
+
+#+NAME: xkb-custom
+#+BEGIN_SRC conf
+// Ctrl is mapped to Alt, Alt to Win, and Win to the Ctrl key.
+partial modifier_keys
+xkb_symbols "alt_win_ctrl" {
+    key <LALT> { [ Super_L ] };
+    key <LWIN> { [ Control_L, Control_L ] };
+    key <LCTL> { [ Alt_L, Meta_L ] };
+    modifier_map Control { <LCTL>, <RCTL> };
+    modifier_map Mod1 { <LALT>, <RALT>, Meta_L };
+    modifier_map Mod4 { <LWIN>, <RWIN> };
+};
+#+END_SRC
+
+***** gb
+
+#+NAME: xkb-gb
+#+BEGIN_SRC conf
+default partial alphanumeric_keys 
+xkb_symbols "alt_win_ctrl" {
+
+    // mac swap alt_win_ctrl
+
+    include "macintosh_vndr/gb"
+
+    name[Group1]= "alt_win_ctrl - Mac";
+
+    key <LALT> { [ Super_L ] };
+    key <LWIN> { [ Control_L, Control_L ] };
+    key <LCTL> { [ Alt_L, Meta_L ] };
+};
+#+END_SRC
+
 *** xkb tangle
-**** custom
-
-+ home dir
-
-#+NAME: xkb-custom-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.xkb/symbols/custom"
-<<xkb-custom>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: xkb-custom-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".xkb/symbols/custom"
-<<xkb-custom>>
-#+END_SRC
-
-**** gb
-
-+ home dir
-
-#+NAME: xkb-gb-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.xkb/symbols/gb"
-<<xkb-gb>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: xkb-gb-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".xkb/symbols/gb"
-<<xkb-gb>>
-#+END_SRC
-
-**** evdev
+**** rules
+***** evdev
 
 + home dir
 
@@ -4758,7 +4708,7 @@ xkb_symbols "alt_win_ctrl" {
 <<evdev>>
 #+END_SRC
 
-**** evdev.xml
+***** evdev.xml
 
 + home dir
 
@@ -4773,3 +4723,36 @@ xkb_symbols "alt_win_ctrl" {
 #+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev.xml"
 <<evdev.xml>>
 #+END_SRC
+**** symbols
+***** custom
+
++ home dir
+
+#+NAME: xkb-custom-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/custom"
+<<xkb-custom>>
+#+END_SRC
+
++ current dir
+
+#+NAME: xkb-custom-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/custom"
+<<xkb-custom>>
+#+END_SRC
+
+***** gb
+
++ home dir
+
+#+NAME: xkb-gb-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/gb"
+<<xkb-gb>>
+#+END_SRC
+
++ current dir
+
+#+NAME: xkb-gb-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/gb"
+<<xkb-gb>>
+#+END_SRC
+

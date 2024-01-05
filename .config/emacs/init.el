@@ -234,6 +234,10 @@
 ;; setq
 ;; ----------------------------------------------------------------------------------
 
+;; xkb fix for alt and super
+(setq x-alt-keysym 'meta)
+(setq x-super-keysym 'meta)
+
 ;; general
 (setq version-control t)
 (setq vc-make-backup-files t)
