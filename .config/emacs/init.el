@@ -26,7 +26,7 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "" default))
  '(package-selected-packages
-   '(ednc async evil-collection google-translate elfeed-org elfeed-tub
+   '(ednc async evil-collection google-translate elfeed-org elfeed-tube
           elfeed-tube-mpv embark-consult emmet-mode evil-leader
           fd-dired git-auto-commit-mode hydra iedit mpv ob-async rg s
           shrink-path undo-tree marginalia orderless embark vertico
