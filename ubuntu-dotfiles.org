@@ -1276,17 +1276,18 @@ minibuffer with something like `exit-minibuffer'."
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("dotfiles"
+(("bookmarks"
+ (filename . "~/git/personal/bookmarks/bookmarks.org")
+ (front-context-string . "#+STARTUP: overv")
+ (rear-context-string)
+ (position . 1)
+ (last-modified 26009 28166 448030 975000))
+("dotfiles"
  (filename . "~/git/ubuntu/ubuntu-dotfiles/ubuntu-dotfiles.org")
  (front-context-string . "#TITLE: ubuntu d")
  (rear-context-string)
  (position . 1)
  (last-modified 26008 26321 674294 706000))
-("bin"
- (filename . "~/git/ubuntu/ubuntu-bin/")
- (front-context-string . "audio-silence\n  ")
- (rear-context-string . "6K Feb  3  2020 ")
- (position . 246))
 ("root"
  (filename . "/")
  (front-context-string . "bin -> usr/bin\n ")
