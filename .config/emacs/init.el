@@ -694,7 +694,7 @@
 ;; ----------------------------------------------------------------------------------
 
 ;; mpv-default-options play fullscreen on second display
-;;(setq mpv-default-options '("--fs"))
+(setq mpv-default-options '("--fs" "--fs-screen=1"))
 
 ;; org-link-set-parameters
 ;;(org-link-set-parameters "mpv" :follow #'mpv-play)
@@ -1060,7 +1060,7 @@
 
 ;; mpv play fullscreen on second display
 (setq elfeed-tube-mpv-options
-  '("--force-window=yes" "--fs" "--fs-screen-name=DP-3"))
+  '("--force-window=yes" "--fs" "--fs-screen=1"))
 
 ; elfeed evil
 (add-to-list 'evil-motion-state-modes 'elfeed-search-mode)

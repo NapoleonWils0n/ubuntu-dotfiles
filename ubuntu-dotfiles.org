@@ -725,7 +725,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; ----------------------------------------------------------------------------------
 
 ;; mpv-default-options play fullscreen on second display
-;;(setq mpv-default-options '("--fs"))
+(setq mpv-default-options '("--fs" "--fs-screen=1"))
 
 ;; org-link-set-parameters
 ;;(org-link-set-parameters "mpv" :follow #'mpv-play)
@@ -1091,7 +1091,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 ;; mpv play fullscreen on second display
 (setq elfeed-tube-mpv-options
-  '("--force-window=yes" "--fs" "--fs-screen-name=DP-3"))
+  '("--force-window=yes" "--fs" "--fs-screen=1"))
 
 ; elfeed evil
 (add-to-list 'evil-motion-state-modes 'elfeed-search-mode)
@@ -1931,7 +1931,7 @@ profile=hwdec
 cache=auto
 # fullscreen 2nd display
 fs
-fs-name=1
+fs-screen=1
 
 
 # bbc iplayer conditional auto profile match any bbc iplayer url
@@ -1944,7 +1944,7 @@ profile=hwdec
 cache=auto
 # fullscreen 2nd display
 fs
-fs-name=1
+fs-screen=1
 #+END_SRC
 
 *** mpv tangle
