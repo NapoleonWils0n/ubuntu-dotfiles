@@ -2445,6 +2445,58 @@ WantedBy=default.target
 <<emacs.service>>
 #+END_SRC
 
+** user-dirs.dirs
+*** user-dirs.dirs config
+
+#+NAME: user-dirs.dirs
+#+BEGIN_SRC conf
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+XDG_MUSIC_DIR="$HOME/Music"
+XDG_PICTURES_DIR="$HOME/Pictures"
+XDG_VIDEOS_DIR="$HOME/Video"
+#+END_SRC
+
+*** user-dirs.conf config
+
+#+NAME: user-dirs.conf
+#+BEGIN_SRC conf
+enabled=False
+#+END_SRC
+
+*** user-dirs.dirs tangle
+
++ home dir
+  
+#+NAME: user-dirs.dirs-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/user-dirs.dirs"
+<<user-dirs.dirs>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: user-dirs.dirs-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/user-dirs.dirs"
+<<user-dirs.dirs>>
+#+END_SRC
+
+*** user-dirs.conf tangle
+
++ home dir
+  
+#+NAME: user-dirs.conf-home-dir
+#+BEGIN_SRC conf :noweb yes :tangle "~/.config/user-dirs.conf"
+<<user-dirs.conf>>
+#+END_SRC
+  
++ current dir
+
+#+NAME: user-dirs.conf-current-dir
+#+BEGIN_SRC conf :noweb yes :tangle ".config/user-dirs.conf"
+<<user-dirs.conf>>
+#+END_SRC
+
 ** autostart
 *** autostart config
 **** nognome_notications config
