@@ -696,14 +696,12 @@
 ;; mpv-default-options play fullscreen on second display
 (setq mpv-default-options '("--fs" "--fs-screen=1"))
 
-;; org-link-set-parameters
-;;(org-link-set-parameters "mpv" :follow #'mpv-play)
-;;(defun org-mpv-complete-link (&optional arg)
-;;  (replace-regexp-in-string
-;;   "file:" "mpv:"
-;;   (org-link-complete-file arg)
-;;   t t))
+;; create a video: link type that opens a url using mpv-play-url
+(defun org-mpv-complete-url (&optional arg))
+(org-link-set-parameters "video"
+  :follow #'mpv-play-url :complete #'org-mpv-complete-link)
 
+;; create a mpv: link type that opens a file using mpv-play
 (defun org-mpv-complete-link (&optional arg)
   (replace-regexp-in-string
    "file:" "mpv:"
