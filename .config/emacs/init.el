@@ -700,7 +700,6 @@
 ;; create a video: link type that opens a url using mpv-play-url
 (org-link-set-parameters "video"
                          :follow #'mpv-play-remote-video
-                         :complete #'org-mpv-complete-url
                          :store #'org-video-store-link)
 
 
