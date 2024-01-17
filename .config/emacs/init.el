@@ -579,7 +579,11 @@
     '(("w" "web site" entry
       (file+olp "~/git/personal/bookmarks/bookmarks.org" "sites")
       "** [[%c][%^{link-description}]]"
-       :empty-lines-after 1)))
+       :empty-lines-after 1)
+      ("v" "video url" entry
+       (file+olp "~/git/personal/bookmarks/video.org" "links")
+       "** [[video:%c][%^{link-description}]]"
+        :empty-lines-after 1)))
 
 ;; refile
 (setq org-refile-targets '((nil :maxlevel . 2)
