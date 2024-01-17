@@ -727,10 +727,22 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; mpv-default-options play fullscreen on second display
 (setq mpv-default-options '("--fs" "--fs-screen=1"))
 
+
 ;; create a video: link type that opens a url using mpv-play-url
-(defun org-mpv-complete-url (&optional arg))
 (org-link-set-parameters "video"
-  :follow #'mpv-play-url :complete #'org-mpv-complete-link)
+                         :follow #'mpv-play-url
+                         :complete #'org-mpv-complete-url
+                         :store #'org-video-store-link)
+
+
+;; org video store link
+(defun org-video-store-link ()
+  "Store a link to a video url."
+      (org-link-store-props
+       :type "video"
+       :link link
+       :description description))
+
 
 ;; create a mpv: link type that opens a file using mpv-play
 (defun org-mpv-complete-link (&optional arg)
