@@ -700,21 +700,6 @@
 ;; mpv-default-options play fullscreen on second display
 (setq mpv-default-options '("--fs" "--fs-screen=1"))
 
-
-;; create a video: link type that opens a url using mpv-play-remote-video
-(org-link-set-parameters "video"
-                         :follow #'mpv-play-remote-video
-                         :store #'org-video-store-link)
-
-
-;; org video store link
-(defun org-video-store-link ()
-  "Store a link to a video url."
-      (org-link-store-props
-       :type "video"
-       :link link
-       :description description))
-
 ; get the youtube title from url on the clipboard
 (defun yt-get-title ()
   "get the youtube title from a url on the clipboard"
@@ -730,6 +715,21 @@
   (interactive)
     (yank (kill-new (with-current-buffer "*Async Shell Command*"
     (buffer-substring-no-properties (point-min) (point-max))))))
+
+
+;; create a video: link type that opens a url using mpv-play-remote-video
+(org-link-set-parameters "video"
+                         :follow #'mpv-play-remote-video
+                         :store #'org-video-store-link)
+
+
+;; org video store link
+(defun org-video-store-link ()
+  "Store a link to a video url."
+      (org-link-store-props
+       :type "video"
+       :link link
+       :description description))
 
 ;; mpv-play-remote-video
 (defun mpv-play-remote-video (url &rest args)
