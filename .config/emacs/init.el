@@ -744,6 +744,19 @@
     (mpv--playlist-append url)))
 
 
+;; mpv-play-clipboard - play url from clipboard
+(defun mpv-play-clipboard ()
+  "Start an mpv process playing the video stream at URL."
+  (interactive)
+  (let ((url (current-kill 0 t)))
+  (unless (mpv--url-p url)
+    (user-error "Invalid argument: `%s' (must be a valid URL)" url))
+  (if (not mpv--process)
+      ;; mpv isnt running play file
+      (mpv-start url)
+      ;; mpv running append file to playlist
+    (mpv--playlist-append url))))
+
 ;; create a mpv: link type that opens a file using mpv-play
 (defun org-mpv-complete-link (&optional arg)
   (replace-regexp-in-string
