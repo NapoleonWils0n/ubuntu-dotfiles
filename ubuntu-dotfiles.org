@@ -57,12 +57,12 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "" default))
  '(package-selected-packages
-   '(ednc async evil-collection google-translate elfeed-org elfeed-tube
-          elfeed-tube-mpv embark-consult emmet-mode evil-leader
-          fd-dired git-auto-commit-mode hydra iedit mpv ob-async rg s
-          shrink-path undo-tree marginalia orderless embark vertico
-          wgrep which-key yaml-mode doom-themes doom-modeline
-          nerd-icons))
+   '(async doom-modeline doom-themes consult ednc elfeed elfeed-org elfeed-tube
+           elfeed-tube-mpv embark embark-consult emmet-mode
+           evil evil-collection evil-leader fd-dired git-auto-commit-mode
+           google-translate hydra iedit marginalia mpv nerd-icons
+           nix-mode ob-async orderless rg s shrink-path undo-tree
+           vertico wgrep which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -1441,71 +1441,65 @@ minibuffer with something like `exit-minibuffer'."
 *** alacritty config
 
 #+NAME: alacritty
-#+BEGIN_SRC yaml
-# alacritty
-env:
-  TERM: xterm-256color
+#+BEGIN_SRC toml
+[colors.bright]
+black = "0x002b36"
+blue = "0x839496"
+cyan = "0x93a1a1"
+green = "0x586e75"
+magenta = "0x6c71c4"
+red = "0xcb4b16"
+white = "0xfdf6e3"
+yellow = "0x657b83"
 
-window:
-  padding:
-    x: 4
-    y: 4
+[colors.normal]
+black = "0x073642"
+blue = "0x268bd2"
+cyan = "0x2aa198"
+green = "0x859900"
+magenta = "0xd33682"
+red = "0xdc322f"
+white = "0xeee8d5"
+yellow = "0xb58900"
 
-  decoration: none
-  startup_mode: Windowed
+[colors.primary]
+background = "0x002b36"
+foreground = "0x839496"
 
-# Font configuration
-font:
-  normal:
-    family: Fira Code
-    style: Regular
+[env]
+TERM = "xterm-256color"
 
-  # Bold font face
-  bold:
-    family: Fira Code
-    style: Bold
+[font]
+size = 16.0
 
-  # Italic font face
-  italic:
-    family: Fira Code
-    style: Italic
+[font.bold]
+family = "Fira Code"
+style = "Bold"
 
-  # Bold italic font face
-  bold_italic:
-    family: Fira Code
-    style: Bold Italic
+[font.bold_italic]
+family = "Fira Code"
+style = "Bold Italic"
 
-  # Point size
-  size: 16.0
+[font.italic]
+family = "Fira Code"
+style = "Italic"
 
-# Colors (Solarized Dark)
-colors:
-  # Default colors
-  primary:
-    background: '0x002b36'
-    foreground: '0x839496'
+[font.normal]
+family = "Fira Code"
+style = "Regular"
 
-  # Normal colors
-  normal:
-    black:   '0x073642'
-    red:     '0xdc322f'
-    green:   '0x859900'
-    yellow:  '0xb58900'
-    blue:    '0x268bd2'
-    magenta: '0xd33682'
-    cyan:    '0x2aa198'
-    white:   '0xeee8d5'
+[window]
+decorations = "full"
+decorations_theme_variant = "Dark"
+startup_mode = "Windowed"
 
-  # Bright colors
-  bright:
-    black:   '0x002b36'
-    red:     '0xcb4b16'
-    green:   '0x586e75'
-    yellow:  '0x657b83'
-    blue:    '0x839496'
-    magenta: '0x6c71c4'
-    cyan:    '0x93a1a1'
-    white:   '0xfdf6e3'
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 4
+y = 4
 #+END_SRC
 
 *** alacritty tangle
@@ -1513,14 +1507,14 @@ colors:
 + home dir
 
 #+NAME: alacritty-home-dir
-#+BEGIN_SRC yaml :noweb yes :tangle "~/.config/alacritty/alacritty.yml"
+#+BEGIN_SRC toml :noweb yes :tangle "~/.config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
 + current dir
 
 #+NAME: alacritty-current-dir
-#+BEGIN_SRC yaml :noweb yes :tangle ".config/alacritty/alacritty.yml"
+#+BEGIN_SRC toml :noweb yes :tangle ".config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 

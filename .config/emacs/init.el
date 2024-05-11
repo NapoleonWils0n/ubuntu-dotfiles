@@ -26,12 +26,12 @@
  '(custom-safe-themes
    '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "" default))
  '(package-selected-packages
-   '(ednc async evil-collection google-translate elfeed-org elfeed-tube
-          elfeed-tube-mpv embark-consult emmet-mode evil-leader
-          fd-dired git-auto-commit-mode hydra iedit mpv ob-async rg s
-          shrink-path undo-tree marginalia orderless embark vertico
-          wgrep which-key yaml-mode doom-themes doom-modeline
-          nerd-icons))
+   '(async doom-modeline doom-themes consult ednc elfeed elfeed-org elfeed-tube
+           elfeed-tube-mpv embark embark-consult emmet-mode
+           evil evil-collection evil-leader fd-dired git-auto-commit-mode
+           google-translate hydra iedit marginalia mpv nerd-icons
+           nix-mode ob-async orderless rg s shrink-path undo-tree
+           vertico wgrep which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
