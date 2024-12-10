@@ -32,15 +32,6 @@ case $TERM in
   ;;
 esac
 
-# XDG_RUNTIME_DIR for mpv hardware accleration
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-    export XDG_RUNTIME_DIR=/tmp
-    if [ ! -d  "$XDG_RUNTIME_DIR" ]; then
-        mkdir "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-    fi
-fi
-
 # Fix bugs when switching modes
 bindkey -v # vi mode
 bindkey "^?" backward-delete-char

@@ -3,11 +3,12 @@ xkb_symbols "alt_win_ctrl" {
 
     // mac swap alt_win_ctrl
 
-    include "macintosh_vndr/gb"
+    // include "macintosh_vndr/gb"
 
     name[Group1]= "alt_win_ctrl - Mac";
 
     key <LALT> { [ Super_L ] };
     key <LWIN> { [ Control_L, Control_L ] };
     key <LCTL> { [ Alt_L, Meta_L ] };
+    key <AE03> { [ 3, numbersign, sterling ] };
 };

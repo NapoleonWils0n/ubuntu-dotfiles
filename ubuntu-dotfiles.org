@@ -55,14 +55,17 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
  '(custom-safe-themes
-   '("636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "" default))
+   '("ffafb0e9f63935183713b204c11d22225008559fa62133a69848835f4f4a758c"
+     "636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561"
+     "" default))
  '(package-selected-packages
-   '(async doom-modeline doom-themes consult ednc elfeed elfeed-org elfeed-tube
-           elfeed-tube-mpv embark embark-consult emmet-mode
-           evil evil-collection evil-leader fd-dired git-auto-commit-mode
-           google-translate hydra iedit marginalia mpv nerd-icons
-           nix-mode ob-async orderless rg s shrink-path undo-tree
-           vertico wgrep which-key yaml-mode))
+   '(async consult doom-modeline doom-modeline-now-playing doom-themes
+           ednc elfeed elfeed-org elfeed-tube elfeed-tube-mpv embark
+           embark-consult emmet-mode evil evil-collection evil-leader
+           fd-dired git-auto-commit-mode google-translate hydra iedit
+           marginalia mpv nerd-icons nix-mode ob-async orderless
+           org-tree-slide rg s shrink-path undo-tree vertico wgrep
+           which-key yaml-mode))
  '(warning-suppress-types '((comp))))
 
 ;; require package
@@ -81,6 +84,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; emacs aysnc - asynchronous compilation of your (M)elpa packages
 (async-bytecomp-package-mode 1)
 (setq async-bytecomp-allowed-packages '(all))
+
 
 ;; ----------------------------------------------------------------------------------
 ;; general settings
@@ -116,6 +120,11 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 (pixel-scroll-precision-mode 1)
 
 
+;; xkb fix for alt and super
+(setq x-alt-keysym 'meta)
+(setq x-super-keysym 'meta)
+;;(setq x-ctrl-keysym 'ctrl)
+
 ;; ----------------------------------------------------------------------------------
 ;; fonts
 ;; ----------------------------------------------------------------------------------
@@ -135,7 +144,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 (set-face-attribute 'fixed-pitch nil :font "Fira Code" :height efs/default-font-size)
 
 ;; Set the variable pitch face
-(set-face-attribute 'variable-pitch nil :font "Cantarell" :height efs/default-variable-font-size :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Iosevka Aile" :height efs/default-variable-font-size :weight 'regular)
 
 ;; tab bar background
 (set-face-attribute 'tab-bar nil
@@ -171,6 +180,61 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 
 ;; ----------------------------------------------------------------------------------
+;; doom modeline now playing
+;; ----------------------------------------------------------------------------------
+
+;; now playing
+(require 'doom-modeline-now-playing)
+
+;; max length
+(setq doom-modeline-now-playing-max-length 35)
+
+;; update interval 1 second
+(setq doom-modeline-now-playing-interval 1)
+
+;; ignored players
+(setq doom-modeline-now-playing-ignored-players '("firefox"))
+
+;; playerctl format
+(setq doom-modeline-now-playing-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}")
+
+(doom-modeline-def-modeline 'main
+'(bar matches buffer-info remote-host buffer-position parrot selection-info now-playing)
+'(misc-info minor-modes input-method buffer-encoding major-mode process vcs check time))
+
+;; modeline
+(with-eval-after-load 'doom-modeline-now-playing
+(doom-modeline-def-segment now-playing
+  "Current status of playerctl. Configurable via
+variables for update interval, output format, etc."
+  (when (and doom-modeline-now-playing
+             (doom-modeline--active)
+             doom-modeline-now-playing-status
+             (not (string= (now-playing-status-player doom-modeline-now-playing-status) "No players found")))
+    (let ((player (now-playing-status-player doom-modeline-now-playing-status))
+          (status (now-playing-status-status doom-modeline-now-playing-status))
+          (text   (now-playing-status-text   doom-modeline-now-playing-status)))
+      (concat
+       (propertize (if (equal status "playing")
+                       (doom-modeline-icon 'faicon "nf-fa-circle_play" "" ">"
+                                           :v-adjust -0)
+                     (doom-modeline-icon 'faicon "nf-fa-circle_pause" "" "||"
+                                         :v-adjust -0))
+                   'mouse-face 'mode-line-highlight
+                   'help-echo "mouse-1: Toggle player status"
+                   'local-map (let ((map (make-sparse-keymap)))
+                                (define-key map [mode-line mouse-1] 'doom-modeline-now-playing-toggle-status)
+                                map))
+       (doom-modeline-spc)
+       (propertize
+        (truncate-string-to-width text doom-modeline-now-playing-max-length nil nil "...")
+        'face 'doom-modeline-now-playing-text))))))
+
+;; doom-modeline-now-playing-timer - keep at bottom
+(doom-modeline-now-playing-timer)
+
+
+;; ----------------------------------------------------------------------------------
 ;; TAB bar mode 
 ;; ----------------------------------------------------------------------------------
 
@@ -183,6 +247,8 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 (setq tab-bar-new-tab-to 'right)
 (setq tab-bar-tab-hints nil)
 (setq tab-bar-separator " ")
+(setq tab-bar-auto-width-max '((100) 20))
+(setq tab-bar-auto-width t)
 
 ;; Customize the tab bar format to add the global mode line string
 (setq tab-bar-format '(tab-bar-format-tabs tab-bar-separator tab-bar-format-align-right tab-bar-format-global))
@@ -194,8 +260,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 (tab-bar-mode 1)
 
 ;; tab bar menu bar button
-(setq tab-bar-menu-bar-button "👾")
-
+(setq tab-bar-menu-bar-button "👿")
 
 ;; ----------------------------------------------------------------------------------
 ;; evil
@@ -262,12 +327,17 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 
 ;; ----------------------------------------------------------------------------------
-;; setq
+;; buffer list
 ;; ----------------------------------------------------------------------------------
 
-;; xkb fix for alt and super
-(setq x-alt-keysym 'meta)
-(setq x-super-keysym 'meta)
+;; display Buffer List in same window
+(add-to-list 'display-buffer-alist
+   '("^*Buffer List*" display-buffer-same-window))
+
+
+;; ----------------------------------------------------------------------------------
+;; setq
+;; ----------------------------------------------------------------------------------
 
 ;; general
 (setq version-control t)
@@ -318,9 +388,6 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 ;; eww browser text width
 (setq shr-width 80)
-
-;; emacs 28 - dictionary server
-;;(setq dictionary-server "dict.org")
 
 ;; company auto complete
 (setq company-idle-delay 0)
@@ -446,7 +513,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; ----------------------------------------------------------------------------------
 
 ;; magit
-(keymap-global-set "C-x g" 'magit-status)
+;;(keymap-global-set "C-x g" 'magit-status)
 
 ;; org-capture
 (keymap-global-set "C-c c" 'org-capture)
@@ -481,6 +548,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 (setq dired-kill-when-opening-new-dired-buffer t)
 
 ;; dired directory listing options for ls
+(setq dired-use-ls-dired t)
 (setq dired-listing-switches "-ahlv")
 
 ;; hide dotfiles
@@ -562,8 +630,9 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
                                '((tramp-parse-sconfig "/etc/ssh_config")
                                  (tramp-parse-sconfig "~/.ssh/config")))
 
-;; set tramp shell to sh to avoid zsh problems
-(with-eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
+;; set tramp shell to bash to avoid zsh problems
+(setenv "SHELL" "/bin/sh")
+(setq tramp-allow-unsafe-temporary-files t)
 
 ;; tramp backup directory
 (add-to-list 'backup-directory-alist (cons tramp-file-name-regexp nil))
@@ -579,6 +648,18 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 (require 'org-protocol)
 (require 'org-capture)
 (setq org-agenda-files '("~/git/personal/org/"))
+
+;; resize org headings
+(require 'org-faces)
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1)))
+  (set-face-attribute (car face) nil :font "Iosevka Aile" :weight 'medium :height (cdr face)))
 
 ;; org babel supress do you want to execute code message
 (setq org-confirm-babel-evaluate nil
@@ -605,6 +686,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 ;; asynchronous tangle
 (setq org-export-async-debug t)
+
 
 (setq org-capture-templates
     '(("w" "web site" entry
@@ -650,6 +732,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
      ("\\.mov\\'" . "mpv %s")
      ("\\.pdf\\'" . default))))
 
+  
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -694,6 +777,72 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
       (insert image)
       (write-region (point-min) (point-max) file))
     (insert (format "[[file:%s]]\n" (file-relative-name file)))))
+
+;; ----------------------------------------------------------------------------------
+;; org tree slide
+;; ----------------------------------------------------------------------------------
+
+;; presentation start
+(defun my/presentation-setup ()
+(setq-local mode-line-format nil) 
+(setq-local face-remapping-alist '((default (:height 1.5) variable-pitch)
+                                   (header-line (:height 4.0) variable-pitch)
+                                   (org-document-title (:height 1.75) org-document-title)
+                                   (org-code (:height 1.55) org-code)
+                                   (org-verbatim (:height 1.55) org-verbatim)
+                                   (org-block (:height 1.25) org-block)
+                                   (org-block-begin-line (:height 0.7) org-block))))
+
+;; presentation end
+(defun my/presentation-end ()
+(doom-modeline-set-modeline 'main)
+  (setq-local face-remapping-alist '((default fixed-pitch default)))
+  (setq-local face-remapping-alist '((default variable-pitch default))))
+
+;; Make sure certain org faces use the fixed-pitch face when variable-pitch-mode is on
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-table nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-formula nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+;; presentation hooks
+(add-hook 'org-tree-slide-play-hook 'my/presentation-setup)
+(add-hook 'org-tree-slide-stop-hook 'my/presentation-end)
+
+;; org tree slide settings
+(setq org-tree-slide-header nil)
+(setq org-tree-slide-activate-message "Presentation started")
+(setq org-tree-slide-deactivate-message "Presentation finished")
+(setq org-tree-slide-slide-in-effect t)
+(setq org-tree-slide-breakcrumbs " // ")
+(setq org-tree-slide-heading-emphasis nil)
+(setq org-tree-slide-slide-in-blank-lines 2)
+(setq org-tree-slide-indicator nil)
+
+;; make #+ lines invisible during presentation
+(with-eval-after-load "org-tree-slide"
+  (defvar my-hide-org-meta-line-p nil)
+  (defun my-hide-org-meta-line ()
+    (interactive)
+    (setq my-hide-org-meta-line-p t)
+    (set-face-attribute 'org-meta-line nil
+			                  :foreground (face-attribute 'default :background)))
+  (defun my-show-org-meta-line ()
+    (interactive)
+    (setq my-hide-org-meta-line-p nil)
+    (set-face-attribute 'org-meta-line nil :foreground nil))
+
+  (defun my-toggle-org-meta-line ()
+    (interactive)
+    (if my-hide-org-meta-line-p
+	      (my-show-org-meta-line) (my-hide-org-meta-line)))
+
+  (add-hook 'org-tree-slide-play-hook #'my-hide-org-meta-line)
+  (add-hook 'org-tree-slide-stop-hook #'my-show-org-meta-line))
 
 
 ;; ----------------------------------------------------------------------------------
@@ -751,15 +900,15 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; ----------------------------------------------------------------------------------
 
 ;; mpv-default-options play fullscreen on second display
-(setq mpv-default-options '("--fs" "--fs-screen=1"))
+(setq mpv-default-options '("--fs" "--fs-screen-name=DP-3"))
 
-; get the youtube title from url on the clipboard
+;; get the youtube title from url on the clipboard
 (defun yt-get-title ()
   "get the youtube title from a url on the clipboard"
   (interactive)
   (let ((yt-url (current-kill 0 t)))
     (async-shell-command (concat
-                   "yt-dlp --skip-download --print \"%(title)s\" " (shell-quote-argument yt-url)))))
+                   "yt-dlp --skip-download --no-playlist --print \"%(title)s\" " (shell-quote-argument yt-url)))))
 
 
 ;; yank the async buffer
@@ -783,6 +932,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
        :type "video"
        :link link
        :description description))
+
 
 ;; mpv-play-remote-video
 (defun mpv-play-remote-video (url &rest args)
@@ -809,6 +959,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
       (mpv-start url)
       ;; mpv running append file to playlist
     (mpv--playlist-append url))))
+
 
 ;; create a mpv: link type that opens a file using mpv-play
 (defun org-mpv-complete-link (&optional arg)
@@ -1049,7 +1200,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
   (interactive)
   (let ((url (shr-url-at-point current-prefix-arg)))
     (async-shell-command (concat
-                    "tsp yt-dlp -P ${HOME}/Downloads " (shell-quote-argument url)))))
+                    "ts yt-dlp -o '%(title)s.%(ext)s' -P ~/downloads " (shell-quote-argument url)))))
 
 
 (evil-collection-define-key 'normal 'eww-mode-map
@@ -1065,7 +1216,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
   (interactive)
   (let ((url (shr-url-at-point current-prefix-arg)))
     (async-shell-command (concat
-                    "tsp aria2c -d ${HOME}/Downloads " (shell-quote-argument url)))))
+                    "ts aria2c -d ${HOME}/downloads " (shell-quote-argument url)))))
 
 
 (evil-collection-define-key 'normal 'eww-mode-map
@@ -1167,7 +1318,7 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 
 ;; mpv play fullscreen on second display
 (setq elfeed-tube-mpv-options
-  '("--force-window=yes" "--fs" "--fs-screen=1"))
+  '("--force-window=yes" "--fs" "--fs-screen-name=DP-3"))
 
 ; elfeed evil
 (add-to-list 'evil-motion-state-modes 'elfeed-search-mode)
@@ -1890,15 +2041,6 @@ case $TERM in
   ;;
 esac
 
-# XDG_RUNTIME_DIR for mpv hardware accleration
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-    export XDG_RUNTIME_DIR=/tmp
-    if [ ! -d  "$XDG_RUNTIME_DIR" ]; then
-        mkdir "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-    fi
-fi
-
 # Fix bugs when switching modes
 bindkey -v # vi mode
 bindkey "^?" backward-delete-char
@@ -2041,9 +2183,6 @@ export KEYTIMEOUT=1
 
 # mpd host variable for mpc
 export MPD_HOST="/home/djwilcox/.config/mpd/socket"
-
-# git pager bat with colour
-export GIT_PAGER="bat --color=always -p -l rs"
 #+end_src
 
 *** zsh tangle
@@ -2767,31 +2906,6 @@ color alert = black,bold
 <<ncmpc>>
 #+END_SRC
 
-** environment.d
-*** environment.d config
-
-#+NAME: environment.d
-#+BEGIN_SRC conf
-QT_QPA_PLATFORM=wayland
-MOZ_ENABLE_WAYLAND=1
-#+END_SRC
-
-*** environment.d tangle
-
-+ home dir
-
-#+NAME: environment.d-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/environment.d/envvars.conf"
-<<environment.d>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: environment.d-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/environment.d/envvars.conf"
-<<environment.d>>
-#+END_SRC
-
 ** systemd
 *** systemd config
 **** ssh-agent.service
@@ -3237,33 +3351,6 @@ hsts-file=/home/djwilcox/.cache/wget-hsts
 #+NAME: wget-current-dir
 #+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
 <<wget>>
-#+END_SRC
-
-** bat
-*** bat config
-
-#+NAME: bat
-#+BEGIN_SRC conf
-# This is `bat`s configuration file
-
-# bat theme
---theme="Solarized (dark)"
-#+END_SRC
-
-*** bat tangle
-
-+ home dir
-
-#+NAME: bat-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/bat/config"
-<<bat>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: bat-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/bat/config"
-<<bat>>
 #+END_SRC
 
 ** muttrc
@@ -5095,9 +5182,7 @@ xkb_symbols "alt_win_ctrl" {
     key <LALT> { [ Super_L ] };
     key <LWIN> { [ Control_L, Control_L ] };
     key <LCTL> { [ Alt_L, Meta_L ] };
-    modifier_map Control { <LCTL>, <RCTL> };
-    modifier_map Mod1 { <LALT>, <RALT>, Meta_L };
-    modifier_map Mod4 { <LWIN>, <RWIN> };
+    key <AE03> { [ 3, numbersign, sterling ] };
 };
 #+END_SRC
 
@@ -5110,13 +5195,14 @@ xkb_symbols "alt_win_ctrl" {
 
     // mac swap alt_win_ctrl
 
-    include "macintosh_vndr/gb"
+    // include "macintosh_vndr/gb"
 
     name[Group1]= "alt_win_ctrl - Mac";
 
     key <LALT> { [ Super_L ] };
     key <LWIN> { [ Control_L, Control_L ] };
     key <LCTL> { [ Alt_L, Meta_L ] };
+    key <AE03> { [ 3, numbersign, sterling ] };
 };
 #+END_SRC
 

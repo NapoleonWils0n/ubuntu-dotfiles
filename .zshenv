@@ -40,6 +40,3 @@ export KEYTIMEOUT=1
 
 # mpd host variable for mpc
 export MPD_HOST="/home/djwilcox/.config/mpd/socket"
-
-# git pager bat with colour
-export GIT_PAGER="bat --color=always -p -l rs"
