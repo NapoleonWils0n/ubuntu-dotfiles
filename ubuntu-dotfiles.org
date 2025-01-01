@@ -1347,6 +1347,18 @@ variables for update interval, output format, etc."
       (mark-whole-buffer)
       (elfeed-search-untag-all-unread))
 
+;; elfeed-send-to-kodi
+(defun elfeed-send-to-kodi (&optional link)
+  "Send the current entry link URL to Kodi."
+  (interactive "P")
+  (let ((link (elfeed-entry-link elfeed-show-entry)))
+    (when link
+      (async-shell-command (concat
+                      "kyt-send -i " (shell-quote-argument link))))))
+
+;; elfeed-send-to-kodi keymap
+(define-key elfeed-show-mode-map (kbd "C-c C-s") 'elfeed-send-to-kodi)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; prot elfeed - requires ~/.config/emacs/lisp/prot-common.el
