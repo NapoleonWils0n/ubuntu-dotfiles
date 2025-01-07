@@ -1224,6 +1224,59 @@ variables for update interval, output format, etc."
 
 
 ;; ----------------------------------------------------------------------------------
+;; kocontrol - kodi
+;; ----------------------------------------------------------------------------------
+
+;; toggle play/pause
+(defun kodi-play ()
+  "Kodi toggle play/pause"
+  (interactive)
+  (async-shell-command "kocontrol -p play"))
+
+;; stop playback
+(defun kodi-stop ()
+  "Kodi stop playback"
+  (interactive)
+  (async-shell-command "kocontrol -x stop"))
+
+;; seek forward 5 seconds
+(defun kodi-seek-forward-5 ()
+  "Kodi seek forward 5 seconds"
+  (interactive)
+  (async-shell-command "kocontrol -s 5"))
+
+;; seek forward 60 seconds
+(defun kodi-seek-forward-60 ()
+  "Kodi seek forward 60 seconds"
+  (interactive)
+  (async-shell-command "kocontrol -s 60"))
+
+;; seek backward 5 seconds
+(defun kodi-seek-backward-5 ()
+  "Kodi seek backward 5 seconds"
+  (interactive)
+  (async-shell-command "kocontrol -s -5"))
+
+;; seek backward 60 seconds
+(defun kodi-seek-backward-60 ()
+  "Kodi seek backward 60 seconds"
+  (interactive)
+  (async-shell-command "kocontrol -s -60"))
+
+;; kodi-forward kodi forward 2x speed
+(defun kodi-forward ()
+  "Kodi forward 2x speed"
+  (interactive)
+  (async-shell-command "kocontrol -f 2"))
+
+;; kodi-rewind kodi rewind 2x speed
+(defun kodi-rewind ()
+  "Kodi rewind 2x speed"
+  (interactive)
+  (async-shell-command "kocontrol -r 2"))
+
+
+;; ----------------------------------------------------------------------------------
 ;; hydra
 ;; ----------------------------------------------------------------------------------
 
@@ -1253,6 +1306,30 @@ variables for update interval, output format, etc."
   ("p" mpv-playlist-prev)
   ("e" mpv-jump-to-playlist-entry)
   ("r" mpv-remove-playlist-entry))
+
+
+;; ----------------------------------------------------------------------------------
+;; hydra-kodi
+;; ----------------------------------------------------------------------------------
+
+(defhydra hydra-kodi (global-map "<f9>")
+  "
+  ^Seek^                    ^Actions^          
+  ^^^^^^^^----------------------------------------------
+  _h_: seek back -5         _SPC_: toggle play pause
+  _j_: seek back -60        _x_: stop playback
+  _k_: seek forward 60      _f_: forward       
+  _l_: seek forward 5       _r_: rewind
+  ^
+  "
+  ("h" kodi-seek-backward-5)
+  ("j" kodi-seek-backward-60)
+  ("k" kodi-seek-forward-60)
+  ("l" kodi-seek-forward-5)
+  ("SPC" kodi-play)
+  ("x" kodi-stop)
+  ("f" kodi-forward)
+  ("r" kodi-rewind))
 
 
 ;; ----------------------------------------------------------------------------------
