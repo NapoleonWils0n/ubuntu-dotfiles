@@ -18,9 +18,6 @@
 ;; Don’t compact font caches during GC.
 (setq inhibit-compacting-font-caches t)
 
-;; load theme
-(add-hook 'after-init-hook (lambda () (load-theme 'doom-solarized-dark)))
-
 ;; start the initial frame maximized
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
