@@ -63,14 +63,30 @@
 ;; general settings
 ;; ----------------------------------------------------------------------------------
 
-;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
-(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
-(setq backup-directory-alist
-    `((".*" . ,emacs-tmp-dir)))
-(setq auto-save-file-name-transforms
-    `((".*" ,emacs-tmp-dir t)))
-(setq auto-save-list-file-prefix
-    emacs-tmp-dir)
+;; Save all tempfiles in ~/.config/emacs/backups
+(setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
+(with-eval-after-load 'tramp
+  (add-to-list 'tramp-backup-directory-alist
+               (cons tramp-file-name-regexp nil)))
+
+
+;; auto save list
+(setq delete-old-versions -1)
+(setq version-control t)
+(setq vc-make-backup-files t)
+(setq auto-save-file-name-transforms '((".*" "~/.config/emacs/auto-save-list/" t)))
+
+
+;; history
+(setq savehist-file "~/.config/emacs/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+        search-ring
+        regexp-search-ring))
 
 
 ;; dont backup files opened by sudo or doas
