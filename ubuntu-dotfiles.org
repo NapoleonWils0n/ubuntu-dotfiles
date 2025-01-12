@@ -467,10 +467,9 @@ variables for update interval, output format, etc."
 
 
 ;; ----------------------------------------------------------------------------------
-;; completion
+;; Vertico
 ;; ----------------------------------------------------------------------------------
 
-;; Vertico
 (require 'vertico)
 (require 'vertico-directory)
 
@@ -485,13 +484,20 @@ variables for update interval, output format, etc."
 ;; Start Vertico
 (vertico-mode 1)
 
-;;; Marginalia
+
+;; ----------------------------------------------------------------------------------
+;; Marginalia
+;; ----------------------------------------------------------------------------------
+
 (require 'marginalia)
 (customize-set-variable 'marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
 (marginalia-mode 1)
 
 
-;; consult
+;; ----------------------------------------------------------------------------------
+;; Consult
+;; ----------------------------------------------------------------------------------
+
 (global-set-key (kbd "C-s") 'consult-line)
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
@@ -506,7 +512,10 @@ variables for update interval, output format, etc."
 ;; It lets you use a new minibuffer when you're in the minibuffer
 (setq enable-recursive-minibuffers t)
 
-;;; Orderless
+
+;; ----------------------------------------------------------------------------------
+;; Orderless
+;; ----------------------------------------------------------------------------------
 
 ;; Set up Orderless for better fuzzy matching
 (require 'orderless)
@@ -514,7 +523,10 @@ variables for update interval, output format, etc."
 (customize-set-variable 'completion-category-overrides '((file (styles . (partial-completion)))))
 
 
-;;; Embark
+;; ----------------------------------------------------------------------------------
+;; Embark
+;; ----------------------------------------------------------------------------------
+
 (require 'embark)
 (require 'embark-consult)
 
@@ -526,6 +538,45 @@ variables for update interval, output format, etc."
 
 (with-eval-after-load 'embark-consult
   (add-hook 'embark-collect-mode-hook #'consult-preview-at-point-mode))
+
+;; embark and which-key
+(defun embark-which-key-indicator ()
+  "An embark indicator that displays keymaps using which-key.
+The which-key help message will show the type and value of the
+current target followed by an ellipsis if there are further
+targets."
+  (lambda (&optional keymap targets prefix)
+    (if (null keymap)
+        (which-key--hide-popup-ignore-command)
+      (which-key--show-keymap
+       (if (eq (plist-get (car targets) :type) 'embark-become)
+           "Become"
+         (format "Act on %s '%s'%s"
+                 (plist-get (car targets) :type)
+                 (embark--truncate-target (plist-get (car targets) :target))
+                 (if (cdr targets) "…" "")))
+       (if prefix
+           (pcase (lookup-key keymap prefix 'accept-default)
+             ((and (pred keymapp) km) km)
+             (_ (key-binding prefix 'accept-default)))
+         keymap)
+       nil nil t (lambda (binding)
+                   (not (string-suffix-p "-argument" (cdr binding))))))))
+
+(setq embark-indicators
+  '(embark-which-key-indicator
+    embark-highlight-indicator
+    embark-isearch-highlight-indicator))
+
+(defun embark-hide-which-key-indicator (fn &rest args)
+  "Hide the which-key indicator immediately when using the completing-read prompter."
+  (which-key--hide-popup-ignore-command)
+  (let ((embark-indicators
+         (remq #'embark-which-key-indicator embark-indicators)))
+      (apply fn args)))
+
+(advice-add #'embark-completing-read-prompter
+            :around #'embark-hide-which-key-indicator)
 
 
 ;; ----------------------------------------------------------------------------------
