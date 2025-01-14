@@ -1380,7 +1380,8 @@ targets."
 
 (defhydra hydra-nested (:exit t)
   ("m" hydra-mpv/body "mpv" :column "hydra")
-  ("k" hydra-kodi/body "kodi" :column "hydra"))
+  ("k" hydra-kodi/body "kodi" :column "hydra")
+  ("q" nil "quit"))
 
 (global-set-key (kbd "C-a") 'hydra-nested/body)
 
