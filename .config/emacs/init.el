@@ -1320,7 +1320,7 @@ targets."
 ;; hydra
 ;; ----------------------------------------------------------------------------------
 
-(defhydra hydra-mpv (global-map "<f2>")
+(defhydra hydra-mpv (:hint nil)
   "
   ^Seek^                    ^Actions^                ^General^                       ^Playlists^
   ^^^^^^^^-----------------------------------------------------------------------------------------------------------
@@ -1347,12 +1347,14 @@ targets."
   ("e" mpv-jump-to-playlist-entry)
   ("r" mpv-remove-playlist-entry))
 
+(global-set-key (kbd "<f2>") 'hydra-mpv/body)
+
 
 ;; ----------------------------------------------------------------------------------
 ;; hydra-kodi
 ;; ----------------------------------------------------------------------------------
 
-(defhydra hydra-kodi (global-map "<f9>")
+(defhydra hydra-kodi (:hint nil)
   "
   ^Seek^                    ^Actions^          
   ^^^^^^^^----------------------------------------------
@@ -1370,6 +1372,8 @@ targets."
   ("x" kodi-stop)
   ("f" kodi-forward)
   ("r" kodi-rewind))
+
+(global-set-key (kbd "<f9>") 'hydra-kodi/body)
 
 
 ;; ----------------------------------------------------------------------------------
