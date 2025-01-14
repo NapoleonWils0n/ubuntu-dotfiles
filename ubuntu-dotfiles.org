@@ -1413,7 +1413,7 @@ targets."
   ("m" hydra-mpv/body "mpv" :column "hydra")
   ("k" hydra-kodi/body "kodi" :column "hydra"))
 
-(global-set-key (kbd "<f2>") 'hydra-nested/body)
+(global-set-key (kbd "C-a") 'hydra-nested/body)
 
 
 ;; ----------------------------------------------------------------------------------
