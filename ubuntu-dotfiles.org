@@ -1378,7 +1378,7 @@ targets."
   ("e" mpv-jump-to-playlist-entry)
   ("r" mpv-remove-playlist-entry))
 
-(global-set-key (kbd "<f2>") 'hydra-mpv/body)
+(global-set-key (kbd "C-c m") 'hydra-mpv/body)
 
 
 ;; ----------------------------------------------------------------------------------
@@ -1404,7 +1404,7 @@ targets."
   ("f" kodi-forward)
   ("r" kodi-rewind))
 
-(global-set-key (kbd "<f9>") 'hydra-kodi/body)
+(global-set-key (kbd "C-c k") 'hydra-kodi/body)
 
 
 ;; ----------------------------------------------------------------------------------
