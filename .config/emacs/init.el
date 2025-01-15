@@ -393,6 +393,7 @@ variables for update interval, output format, etc."
 (setq switch-to-buffer-obey-display-actions t)
 
 ;; hippie expand
+(setq save-abbrevs 'silently)
 (setq hippie-expand-try-functions-list
       '(try-expand-all-abbrevs
         try-complete-file-name-partially
