@@ -23,17 +23,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auth-source-save-behavior nil)
- '(custom-safe-themes
-   '("" default))
+ '(custom-safe-themes '("" default))
  '(package-selected-packages
    '(async consult doom-modeline doom-modeline-now-playing doom-themes
            ednc elfeed elfeed-org elfeed-tube elfeed-tube-mpv embark
            embark-consult emmet-mode evil evil-collection evil-leader
-           fd-dired git-auto-commit-mode google-translate hydra iedit
-           marginalia mpv nerd-icons nix-mode ob-async orderless
+           fd-dired git-auto-commit-mode google-translate gptel hydra
+           iedit marginalia mpv nerd-icons ob-async orderless
            org-tree-slide rg s shrink-path undo-tree vertico wgrep
            which-key yaml-mode))
  '(warning-suppress-types '((comp))))
+
 
 ;; require package
 (require 'package)
@@ -1589,6 +1589,42 @@ minibuffer with something like `exit-minibuffer'."
 
 ;; mpd host
 (setq mpc-host "/home/djwilcox/.config/mpd/socket")
+
+
+;; ----------------------------------------------------------------------------------
+;; auth-source
+;; ----------------------------------------------------------------------------------
+
+(require 'auth-source)
+(add-to-list 'auth-sources (expand-file-name ".authinfo" user-emacs-directory))
+
+
+;; ----------------------------------------------------------------------------------
+;; gptel
+;; ----------------------------------------------------------------------------------
+
+(require 'gptel)
+(require 'gptel-curl)
+(require 'gptel-transient)
+
+;; gptel config
+(setq gptel-default-mode 'org-mode
+              gptel-post-response-functions #'gptel-end-of-response
+              gptel-expert-commands t)
+
+
+;; ----------------------------------------------------------------------------------
+;; gemini
+;; ----------------------------------------------------------------------------------
+
+(setq gptel-model 'gemini-1.5-flash
+      gptel-backend (gptel-make-gemini "Gemini"
+                              :key (gptel-api-key-from-auth-source "generativelanguage.googleapis.com")
+                              :stream t))
+
+;; display the Gemini buffer in same window
+(add-to-list 'display-buffer-alist
+   '("^*Gemini*" display-buffer-same-window))
 
 
 ;; ----------------------------------------------------------------------------------
