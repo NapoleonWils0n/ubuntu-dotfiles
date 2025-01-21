@@ -29,7 +29,7 @@
            ednc elfeed elfeed-org elfeed-tube elfeed-tube-mpv embark
            embark-consult emmet-mode evil evil-collection evil-leader
            fd-dired git-auto-commit-mode google-translate gptel hydra
-           iedit marginalia mpv nerd-icons ob-async orderless
+           iedit magit marginalia mpv nerd-icons ob-async orderless
            org-tree-slide rg s shrink-path undo-tree vertico wgrep
            which-key yaml-mode))
  '(warning-suppress-types '((comp))))
@@ -1625,6 +1625,25 @@ minibuffer with something like `exit-minibuffer'."
 ;; display the Gemini buffer in same window
 (add-to-list 'display-buffer-alist
    '("^*Gemini*" display-buffer-same-window))
+
+
+;; ----------------------------------------------------------------------------------
+;; magit
+;; ----------------------------------------------------------------------------------
+
+;; ssh auth sock
+(defun my-ssh-refresh ()
+  "Reset the environment variable SSH_AUTH_SOCK"
+  (interactive)
+  (let (ssh-auth-sock-old (getenv "SSH_AUTH_SOCK"))
+    (setenv "SSH_AUTH_SOCK"
+            (car (split-string
+                  (shell-command-to-string
+                   "ls -t $(find /tmp/ssh-* -user $USER -name 'agent.*' 2> /dev/null)"))))
+    (message
+     (format "SSH_AUTH_SOCK %s --> %s"
+             ssh-auth-sock-old (getenv "SSH_AUTH_SOCK")))))
+(my-ssh-refresh)
 
 
 ;; ----------------------------------------------------------------------------------
