@@ -565,6 +565,10 @@ targets."
 ;; window-toggle-side-windows
 (keymap-global-set "C-x x w" 'window-toggle-side-windows)
 
+;; complete-symbol
+(keymap-global-set "C-." 'complete-symbol)
+
+
 ;; ----------------------------------------------------------------------------------
 ;; keymap-set
 ;; ----------------------------------------------------------------------------------
