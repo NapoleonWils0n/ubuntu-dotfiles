@@ -378,10 +378,6 @@ variables for update interval, output format, etc."
 ;; eww browser text width
 (setq shr-width 80)
 
-;; company auto complete
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 3)
-
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq ediff-split-window-function 'split-window-horizontally)
@@ -903,9 +899,6 @@ targets."
 
 ;; Make shebang (#!) file executable when saved
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
-;; global company mode
-;;(add-hook 'after-init-hook 'global-company-mode)
 
 ;; visual line mode
 (add-hook 'text-mode-hook 'visual-line-mode)
