@@ -79,9 +79,6 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
   (package-refresh-contents))
 (package-install-selected-packages)
 
-;; emacs aysnc - asynchronous compilation of your (M)elpa packages
-(async-bytecomp-package-mode 1)
-(setq async-bytecomp-allowed-packages '(all))
 
 ;; ----------------------------------------------------------------------------------
 ;; load-theme
@@ -133,7 +130,6 @@ emacs --batch -l org --eval '(org-babel-tangle-file "~/git/ubuntu-dotfiles/ubunt
 ;; save
 (save-place-mode 1)         ;; save cursor position
 (desktop-save-mode 0)       ;; dont save the desktop session
-(savehist-mode 1)           ;; save history
 (global-auto-revert-mode 1) ;; revert buffers when the underlying file has changed
 
 ;; scrolling
@@ -580,9 +576,6 @@ targets."
 ;; keymap-global-set
 ;; ----------------------------------------------------------------------------------
 
-;; magit
-;;(keymap-global-set "C-x g" 'magit-status)
-
 ;; org-capture
 (keymap-global-set "C-c c" 'org-capture)
 
@@ -600,7 +593,7 @@ targets."
 ;; keymap-set
 ;; ----------------------------------------------------------------------------------
 
-(keymap-set global-map "C-c o" 'iedit-mode)
+(keymap-set global-map "C-c h" 'iedit-mode)
 (keymap-set global-map "C-c l" 'org-store-link)
 (keymap-set global-map "C-c a" 'org-agenda)
 
@@ -971,14 +964,6 @@ targets."
 ;; mpv-default-options play fullscreen on second display
 (setq mpv-default-options '("--fs" "--fs-screen-name=DP-3"))
 
-;; get the youtube title from url on the clipboard
-(defun yt-get-title ()
-  "get the youtube title from a url on the clipboard"
-  (interactive)
-  (let ((yt-url (current-kill 0 t)))
-    (async-shell-command (concat
-                   "yt-dlp --skip-download --no-playlist --print \"%(title)s\" " (shell-quote-argument yt-url)))))
-
 
 ;; yank the async buffer
 (defun yank-async ()
@@ -1245,19 +1230,25 @@ targets."
 
 
 ;; ----------------------------------------------------------------------------------
-;; eww pinch
+;; pinch - play urls with mpd
 ;; ----------------------------------------------------------------------------------
 
+;; eww-pinch
 (defun eww-pinch ()
   "Send the url under the point to mpd with pinch"
   (interactive)
   (let ((url (shr-url-at-point current-prefix-arg)))
-    (async-shell-command (concat
-                    "pinch -i " (shell-quote-argument url)))))
-
+  (start-process "pinch" nil "pinch" "-i" url)))
 
 (evil-collection-define-key 'normal 'eww-mode-map
     "n" 'eww-pinch)
+
+;; pinch-clipboard - play url from clipboard
+(defun pinch-clipboard ()
+  "Send a url from the clipboard to mpd with pinch"
+  (interactive)
+  (let ((url (current-kill 0 t)))
+  (start-process "pinch" nil "pinch" "-i" url)))
 
 
 ;; ----------------------------------------------------------------------------------
@@ -1268,9 +1259,7 @@ targets."
   "Send the url under the point to taskspooler and yt-dlp"
   (interactive)
   (let ((url (shr-url-at-point current-prefix-arg)))
-    (async-shell-command (concat
-                    "ts yt-dlp -o '%(title)s.%(ext)s' -P ~/downloads " (shell-quote-argument url)))))
-
+    (start-process "eww-yt-dlp" nil "ts" "yt-dlp" "-o" "'%(title)s.%(ext)s'" "-P" (expand-file-name "~/downloads") url)))
 
 (evil-collection-define-key 'normal 'eww-mode-map
     "x" 'eww-yt-dlp)
@@ -1284,69 +1273,14 @@ targets."
   "Send the url under the point to taskspooler and aria2c"
   (interactive)
   (let ((url (shr-url-at-point current-prefix-arg)))
-    (async-shell-command (concat
-                    "ts aria2c -d ${HOME}/downloads " (shell-quote-argument url)))))
-
+    (start-process "eww-aria2c" nil "ts" "aria2c" "-d" (expand-file-name "~/downloads") url)))
 
 (evil-collection-define-key 'normal 'eww-mode-map
     "b" 'eww-aria2c)
 
 
 ;; ----------------------------------------------------------------------------------
-;; kocontrol - kodi
-;; ----------------------------------------------------------------------------------
-
-;; toggle play/pause
-(defun kodi-play ()
-  "Kodi toggle play/pause"
-  (interactive)
-  (async-shell-command "kocontrol -p play"))
-
-;; stop playback
-(defun kodi-stop ()
-  "Kodi stop playback"
-  (interactive)
-  (async-shell-command "kocontrol -x stop"))
-
-;; seek forward 5 seconds
-(defun kodi-seek-forward-5 ()
-  "Kodi seek forward 5 seconds"
-  (interactive)
-  (async-shell-command "kocontrol -s 5"))
-
-;; seek forward 60 seconds
-(defun kodi-seek-forward-60 ()
-  "Kodi seek forward 60 seconds"
-  (interactive)
-  (async-shell-command "kocontrol -s 60"))
-
-;; seek backward 5 seconds
-(defun kodi-seek-backward-5 ()
-  "Kodi seek backward 5 seconds"
-  (interactive)
-  (async-shell-command "kocontrol -s -5"))
-
-;; seek backward 60 seconds
-(defun kodi-seek-backward-60 ()
-  "Kodi seek backward 60 seconds"
-  (interactive)
-  (async-shell-command "kocontrol -s -60"))
-
-;; kodi-forward kodi forward 2x speed
-(defun kodi-forward ()
-  "Kodi forward 2x speed"
-  (interactive)
-  (async-shell-command "kocontrol -f 2"))
-
-;; kodi-rewind kodi rewind 2x speed
-(defun kodi-rewind ()
-  "Kodi rewind 2x speed"
-  (interactive)
-  (async-shell-command "kocontrol -r 2"))
-
-
-;; ----------------------------------------------------------------------------------
-;; hydra
+;; hydra-mpv
 ;; ----------------------------------------------------------------------------------
 
 (defhydra hydra-mpv (:hint nil)
@@ -1378,6 +1312,59 @@ targets."
 
 
 ;; ----------------------------------------------------------------------------------
+;; kocontrol - kodi
+;; ----------------------------------------------------------------------------------
+
+;; toggle play/pause
+(defun kodi-play ()
+  "Kodi toggle play/pause"
+  (interactive)
+  (start-process "kodi-play" nil "kocontrol" "-p play"))
+
+;; stop playback
+(defun kodi-stop ()
+  "Kodi stop playback"
+  (interactive)
+  (start-process "kodi-stop" nil "kocontrol" "-x stop"))
+
+;; seek forward 5 seconds
+(defun kodi-seek-forward-5 ()
+  "Kodi seek forward 5 seconds"
+  (interactive)
+  (start-process "kodi-seek-forward-5" nil "kocontrol" "-s 5"))
+
+;; seek forward 60 seconds
+(defun kodi-seek-forward-60 ()
+  "Kodi seek forward 60 seconds"
+  (interactive)
+  (start-process "kodi-seek-forward-60" nil "kocontrol" "-s 60"))
+
+;; seek backward 5 seconds
+(defun kodi-seek-backward-5 ()
+  "Kodi seek backward 5 seconds"
+  (interactive)
+  (start-process "kodi-seek-backward-5" nil "kocontrol" "-s -5"))
+
+;; seek backward 60 seconds
+(defun kodi-seek-backward-60 ()
+  "Kodi seek backward 60 seconds"
+  (interactive)
+  (start-process "kodi-seek-backward-60" nil "kocontrol" "-s -60"))
+
+;; kodi-forward kodi forward 2x speed
+(defun kodi-forward ()
+  "Kodi forward 2x speed"
+  (interactive)
+  (start-process "kodi-forward" nil "kocontrol" "-f 2"))
+
+;; kodi-rewind kodi rewind 2x speed
+(defun kodi-rewind ()
+  "Kodi rewind 2x speed"
+  (interactive)
+  (start-process "kodi-rewind" nil "kocontrol" "-r 2"))
+
+
+;; ----------------------------------------------------------------------------------
 ;; hydra-kodi
 ;; ----------------------------------------------------------------------------------
 
@@ -1402,12 +1389,30 @@ targets."
 
 
 ;; ----------------------------------------------------------------------------------
+;; hydra-emacs
+;; ----------------------------------------------------------------------------------
+
+;; auto exit
+(defhydra hydra-emacs (:hint nil :exit t)
+  "
+  ^Actions^             
+  ^^^^^^^^--------------
+  _m_: mpv clipboard
+  _p_: pinch url
+  ^
+  "
+  ("m" mpv-play-clipboard)
+  ("p" pinch-clipboard))
+
+
+;; ----------------------------------------------------------------------------------
 ;; hydra-nested
 ;; ----------------------------------------------------------------------------------
 
 (defvar hydra-stack nil)
 
 (defhydra hydra-nested (:exit t)
+  ("e" hydra-emacs/body "emacs" :column "hydra")
   ("m" hydra-mpv/body "mpv" :column "hydra")
   ("k" hydra-kodi/body "kodi" :column "hydra")
   ("q" nil "quit"))
@@ -1513,8 +1518,7 @@ targets."
   (interactive "P")
   (let ((link (elfeed-entry-link elfeed-show-entry)))
     (when link
-      (async-shell-command (concat
-                      "kyt-send -i " (shell-quote-argument link))))))
+      (start-process "kyt-send" nil "kyt-send" "-i" link))))
 
 ;; elfeed-send-to-kodi keymap
 (define-key elfeed-show-mode-map (kbd "C-c C-s") 'elfeed-send-to-kodi)
