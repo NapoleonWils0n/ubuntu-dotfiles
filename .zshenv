@@ -2,7 +2,7 @@
 
 # Path
 typeset -U PATH path
-path=("$HOME/bin" "/usr/bin" "$path[@]")
+path=("$HOME/bin" "$HOME/.cargo/bin" "$HOME/.local/bin" "/usr/bin" "$path[@]")
 export PATH
 
 # xdg directories
@@ -40,3 +40,6 @@ export KEYTIMEOUT=1
 
 # mpd host variable for mpc
 export MPD_HOST="/home/djwilcox/.config/mpd/socket"
+
+# rust
+. "$HOME/.cargo/env"
