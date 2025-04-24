@@ -45,9 +45,10 @@ family = "Fira Code"
 style = "Regular"
 
 [window]
-decorations = "full"
+decorations = "none"
 decorations_theme_variant = "Dark"
-startup_mode = "Windowed"
+startup_mode = "Maximized"
+opacity = 0.90
 
 [window.class]
 general = "Alacritty"
