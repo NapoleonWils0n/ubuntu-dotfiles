@@ -126,26 +126,3 @@ compdef _gnu_generic transmission-pwgen
 # aliases
 # mpc host and socket
 alias mpc='mpc --host="${HOME}/.config/mpd/socket"'
-
-# pipewire commands completions
-compdef _gnu_generic pw-cat
-compdef _gnu_generic pw-cli
-compdef _gnu_generic pw-config
-compdef _gnu_generic pw-container
-compdef _gnu_generic pw-dot
-compdef _gnu_generic pw-dsdplay
-compdef _gnu_generic pw-dump
-compdef _gnu_generic pw-encplay
-compdef _gnu_generic pw-link
-compdef _gnu_generic pw-loopback
-compdef _gnu_generic pw-metadata
-compdef _gnu_generic pw-mididump
-compdef _gnu_generic pw-midiplay
-compdef _gnu_generic pw-midirecord
-compdef _gnu_generic pw-mon
-compdef _gnu_generic pw-play
-compdef _gnu_generic pw-profiler
-compdef _gnu_generic pw-record
-compdef _gnu_generic pw-reverse
-compdef _gnu_generic pw-top
-compdef _gnu_generic pw-v4l2
