@@ -663,11 +663,6 @@ targets."
 ;; side-windows
 ;; ------------------------------------------------------------------------------------------------
 
-;; https://protesilaos.com/emacs/dotemacs
-
-;; M-x window-toggle-side-windows
-;; C-x w s
-
 ;; dired-find-file-other-window 
 ;; bound to <S-return>, g O, <normal-state> <S-return>, <normal-state> g O
 
