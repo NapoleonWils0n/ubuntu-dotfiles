@@ -25,7 +25,7 @@
  '(auth-source-save-behavior nil)
  '(custom-safe-themes '("" default))
  '(package-selected-packages
-   '(async consult doom-modeline doom-modeline-now-playing doom-themes
+   '(async consult doom-modeline doom-themes
            ednc elfeed elfeed-org elfeed-tube elfeed-tube-mpv embark
            embark-consult emmet-mode evil evil-collection evil-leader
            fd-dired git-auto-commit-mode google-translate hydra
@@ -162,61 +162,6 @@
 
 ;; dont display the buffer encoding.
 (setq doom-modeline-buffer-encoding nil)
-
-
-;; ----------------------------------------------------------------------------------
-;; doom modeline now playing
-;; ----------------------------------------------------------------------------------
-
-;; now playing
-(require 'doom-modeline-now-playing)
-
-;; max length
-(setq doom-modeline-now-playing-max-length 35)
-
-;; update interval 1 second
-(setq doom-modeline-now-playing-interval 1)
-
-;; ignored players
-(setq doom-modeline-now-playing-ignored-players '("firefox"))
-
-;; playerctl format
-(setq doom-modeline-now-playing-format "[{{duration(position)}}/{{duration(mpris:length)}}] {{title}}")
-
-(doom-modeline-def-modeline 'main
-'(bar matches buffer-info remote-host buffer-position parrot selection-info now-playing)
-'(misc-info minor-modes input-method buffer-encoding major-mode process vcs check time))
-
-;; modeline
-(with-eval-after-load 'doom-modeline-now-playing
-(doom-modeline-def-segment now-playing
-  "Current status of playerctl. Configurable via
-variables for update interval, output format, etc."
-  (when (and doom-modeline-now-playing
-             (doom-modeline--active)
-             doom-modeline-now-playing-status
-             (not (string= (now-playing-status-player doom-modeline-now-playing-status) "No players found")))
-    (let ((player (now-playing-status-player doom-modeline-now-playing-status))
-          (status (now-playing-status-status doom-modeline-now-playing-status))
-          (text   (now-playing-status-text   doom-modeline-now-playing-status)))
-      (concat
-       (propertize (if (equal status "playing")
-                       (doom-modeline-icon 'faicon "nf-fa-circle_play" "" ">"
-                                           :v-adjust -0)
-                     (doom-modeline-icon 'faicon "nf-fa-circle_pause" "" "||"
-                                         :v-adjust -0))
-                   'mouse-face 'mode-line-highlight
-                   'help-echo "mouse-1: Toggle player status"
-                   'local-map (let ((map (make-sparse-keymap)))
-                                (define-key map [mode-line mouse-1] 'doom-modeline-now-playing-toggle-status)
-                                map))
-       (doom-modeline-spc)
-       (propertize
-        (truncate-string-to-width text doom-modeline-now-playing-max-length nil nil "...")
-        'face 'doom-modeline-now-playing-text))))))
-
-;; doom-modeline-now-playing-timer - keep at bottom
-(doom-modeline-now-playing-timer)
 
 
 ;; ----------------------------------------------------------------------------------
