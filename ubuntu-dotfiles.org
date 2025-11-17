@@ -1,7 +1,7 @@
 #TITLE: ubuntu dotfiles
 #+STARTUP: show2levels hideblocks
 #+OPTIONS: num:nil author:nil
-#+PROPERTY: header-args :mkdirp yes
+#+PROPERTY: header-args :mkdirp yes :noweb yes 
 * ubuntu dotfiles
 ** update
 *** tangle dotfiles
@@ -3204,14 +3204,14 @@ y = 4
 + home dir
 
 #+NAME: alacritty-home-dir
-#+BEGIN_SRC toml :noweb yes :tangle "~/.config/alacritty/alacritty.toml"
+#+BEGIN_SRC toml :tangle "~/.config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
 + current dir
 
 #+NAME: alacritty-current-dir
-#+BEGIN_SRC toml :noweb yes :tangle ".config/alacritty/alacritty.toml"
+#+BEGIN_SRC toml :tangle ".config/alacritty/alacritty.toml"
 <<alacritty>>
 #+END_SRC
 
@@ -3871,14 +3871,14 @@ fs-screen=1
 + home dir
 
 #+NAME: input.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/input.conf"
+#+BEGIN_SRC conf :tangle "~/.config/mpv/input.conf"
 <<input.conf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: input.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/input.conf"
+#+BEGIN_SRC conf :tangle ".config/mpv/input.conf"
 <<input.conf>>
 #+END_SRC
 
@@ -3887,14 +3887,14 @@ fs-screen=1
 + home dir
 
 #+NAME: mpv.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpv/mpv.conf"
+#+BEGIN_SRC conf :tangle "~/.config/mpv/mpv.conf"
 <<mpv.conf>>
 #+END_SRC
 
 + current dir
 
 #+NAME: mpv.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpv/mpv.conf"
+#+BEGIN_SRC conf :tangle ".config/mpv/mpv.conf"
 <<mpv.conf>>
 #+END_SRC
 
@@ -3927,14 +3927,14 @@ fs-screen=1
 + home dir
 
 #+NAME: yt-dlp-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/yt-dlp/config"
+#+BEGIN_SRC conf :tangle "~/.config/yt-dlp/config"
 <<yt-dlp>>
 #+END_SRC
 
 + current dir
 
 #+NAME: yt-dlp-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/yt-dlp/config"
+#+BEGIN_SRC conf :tangle ".config/yt-dlp/config"
 <<yt-dlp>>
 #+END_SRC
 
@@ -4043,14 +4043,14 @@ fs-screen=1
 + home dir
 
 #+NAME: playercorefactory.xml-home-dir
-#+BEGIN_SRC xml :noweb yes :tangle "~/.kodi/userdata/playercorefactory.xml"
+#+BEGIN_SRC xml :tangle "~/.kodi/userdata/playercorefactory.xml"
 <<playercorefactory.xml>>
 #+END_SRC
 
 + current dir
 
 #+NAME: playercorefactory.xml-current-dir
-#+BEGIN_SRC xml :noweb yes :tangle ".kodi/userdata/playercorefactory.xml"
+#+BEGIN_SRC xml :tangle ".kodi/userdata/playercorefactory.xml"
 <<playercorefactory.xml>>
 #+END_SRC
 
@@ -4106,14 +4106,14 @@ fs-screen=1
 + home dir
   
 #+NAME: aria2c-home-dir
-#+begin_src conf :noweb yes :tangle "~/.config/aria2/aria2.conf"
+#+begin_src conf :tangle "~/.config/aria2/aria2.conf"
 <<aria2c>>
 #+end_src
 
 + current dir
 
 #+NAME: aria2c-current-dir
-#+begin_src conf :noweb yes :tangle ".config/aria2/aria2.conf"
+#+begin_src conf :tangle ".config/aria2/aria2.conf"
 <<aria2c>>
 #+end_src
 
@@ -4156,49 +4156,21 @@ audio_output {
 filesystem_charset		"UTF-8"
 #+END_SRC
 
-**** playlists config
-
-#+NAME: mpd-playlists
-#+begin_src conf
-#EXTM3U
-#EXTINF:0,Talk Sport
-https://radio.talksport.com/stream
-
-#EXTINF:0,LBC London
-http://icecast.thisisdax.com/LBCLondon
-#+end_src
-
 *** mpd tangle
 **** mpd.conf tangle
 
 + home dir
 
 #+NAME: mpd-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/mpd.conf"
+#+BEGIN_SRC conf :tangle "~/.config/mpd/mpd.conf"
 <<mpd>>
 #+END_SRC
 
 + current dir
 
 #+NAME: mpd-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/mpd.conf"
+#+BEGIN_SRC conf :tangle ".config/mpd/mpd.conf"
 <<mpd>>
-#+END_SRC
-
-**** playlists tangle
-
-+ home dir
-
-#+NAME: mpd-playlists-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/mpd/playlists/radio.m3u"
-<<mpd-playlists>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: mpd-playlists-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/mpd/playlists/radio.m3u"
-<<mpd-playlists>>
 #+END_SRC
 
 ** ncmpc
@@ -4378,14 +4350,14 @@ color alert = black,bold
 + home dir
 
 #+NAME: ncmpc-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/ncmpc/config"
+#+BEGIN_SRC conf :tangle "~/.config/ncmpc/config"
 <<ncmpc>>
 #+END_SRC
 
 + current dir
 
 #+NAME: ncmpc-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/ncmpc/config"
+#+BEGIN_SRC conf :tangle ".config/ncmpc/config"
 <<ncmpc>>
 #+END_SRC
 
@@ -4445,14 +4417,14 @@ WantedBy=default.target
 + home dir
 
 #+NAME: ssh-agent.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/ssh-agent.service"
+#+BEGIN_SRC conf :tangle "~/.config/systemd/user/ssh-agent.service"
 <<ssh-agent.service>>
 #+END_SRC
 
 + current dir
 
 #+NAME: ssh-agent.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/ssh-agent.service"
+#+BEGIN_SRC conf :tangle ".config/systemd/user/ssh-agent.service"
 <<ssh-agent.service>>
 #+END_SRC
 
@@ -4461,14 +4433,14 @@ WantedBy=default.target
 + home dir
 
 #+NAME: emacs.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/emacs.service"
+#+BEGIN_SRC conf :tangle "~/.config/systemd/user/emacs.service"
 <<emacs.service>>
 #+END_SRC
 
 + current dir
 
 #+NAME: emacs.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/emacs.service"
+#+BEGIN_SRC conf :tangle ".config/systemd/user/emacs.service"
 <<emacs.service>>
 #+END_SRC
 
@@ -4477,14 +4449,14 @@ WantedBy=default.target
 + home dir
 
 #+NAME: mpd.service-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/systemd/user/mpd.service"
+#+BEGIN_SRC conf :tangle "~/.config/systemd/user/mpd.service"
 <<mpd.service>>
 #+END_SRC
 
 + current dir
 
 #+NAME: mpd.service-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/systemd/user/mpd.service"
+#+BEGIN_SRC conf :tangle ".config/systemd/user/mpd.service"
 <<mpd.service>>
 #+END_SRC
 
@@ -4513,14 +4485,14 @@ enabled=False
 + home dir
   
 #+NAME: user-dirs.dirs-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/user-dirs.dirs"
+#+BEGIN_SRC conf :tangle "~/.config/user-dirs.dirs"
 <<user-dirs.dirs>>
 #+END_SRC
   
 + current dir
 
 #+NAME: user-dirs.dirs-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/user-dirs.dirs"
+#+BEGIN_SRC conf :tangle ".config/user-dirs.dirs"
 <<user-dirs.dirs>>
 #+END_SRC
 
@@ -4529,14 +4501,14 @@ enabled=False
 + home dir
   
 #+NAME: user-dirs.conf-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/user-dirs.conf"
+#+BEGIN_SRC conf :tangle "~/.config/user-dirs.conf"
 <<user-dirs.conf>>
 #+END_SRC
   
 + current dir
 
 #+NAME: user-dirs.conf-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/user-dirs.conf"
+#+BEGIN_SRC conf :tangle ".config/user-dirs.conf"
 <<user-dirs.conf>>
 #+END_SRC
 
@@ -4562,14 +4534,14 @@ Comment=nognome_notifications
 + home dir
 
 #+NAME: nognome_notications-autostart-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/autostart/nognome_notications.desktop"
+#+BEGIN_SRC conf :tangle "~/.config/autostart/nognome_notications.desktop"
 <<nognome_notications>>
 #+END_SRC
 
 + current dir
 
 #+NAME: nognome_notications-autostart-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/autostart/nognome_notications.desktop"
+#+BEGIN_SRC conf :tangle ".config/autostart/nognome_notications.desktop"
 <<nognome_notications>>
 #+END_SRC
 
@@ -4590,14 +4562,14 @@ ui = true
 + home dir
 
 #+NAME: gitconfig-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/git/config"
+#+BEGIN_SRC conf :tangle "~/.config/git/config"
 <<gitconfig>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gitconfig-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/git/gitconfig"
+#+BEGIN_SRC conf :tangle ".config/git/gitconfig"
 <<gitconfig>>
 #+END_SRC
 
@@ -4638,14 +4610,14 @@ gtk-application-prefer-dark-theme=true
 + home dir
 
 #+NAME: gtk.css-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/gtk-3.0/gtk.css"
+#+BEGIN_SRC conf :tangle "~/.config/gtk-3.0/gtk.css"
 <<gtk.css>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gtk.css-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/gtk-3.0/gtk.css"
+#+BEGIN_SRC conf :tangle ".config/gtk-3.0/gtk.css"
 <<gtk.css>>
 #+END_SRC
 
@@ -4654,14 +4626,14 @@ gtk-application-prefer-dark-theme=true
 + home dir
 
 #+NAME: gtk-3-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/gtk-3.0/settings.ini"
+#+BEGIN_SRC conf :tangle "~/.config/gtk-3.0/settings.ini"
 <<gtk-3>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gtk-3-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/gtk-3.0/settings.ini"
+#+BEGIN_SRC conf :tangle ".config/gtk-3.0/settings.ini"
 <<gtk-3>>
 #+END_SRC
 
@@ -4670,177 +4642,15 @@ gtk-application-prefer-dark-theme=true
 + home dir
 
 #+NAME: gtk-4-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/gtk-4.0/settings.ini"
+#+BEGIN_SRC conf :tangle "~/.config/gtk-4.0/settings.ini"
 <<gtk-4>>
 #+END_SRC
 
 + current dir
 
 #+NAME: gtk-4-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/gtk-4.0/settings.ini"
+#+BEGIN_SRC conf :tangle ".config/gtk-4.0/settings.ini"
 <<gtk-4>>
-#+END_SRC
-
-** urlscan
-*** urlscan config
-
-#+NAME: urlscan
-#+BEGIN_SRC conf
-{
-    "palettes": {
-        "default": [
-            [
-                "header",
-                "black",
-                "dark blue",
-                "standout"
-            ],
-            [
-                "footer",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "search",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "msgtext",
-                "",
-                ""
-            ],
-            [
-                "msgtext:ellipses",
-                "light gray",
-                "default"
-            ],
-            [
-                "urlref:number:braces",
-                "light gray",
-                "default"
-            ],
-            [
-                "urlref:number",
-                "default",
-                "default",
-                "standout"
-            ],
-            [
-                "urlref:url",
-                "white",
-                "default",
-                "standout"
-            ],
-            [
-                "url:sel",
-                "default",
-                "dark blue",
-                "bold"
-            ]
-        ],
-        "bw": [
-            [
-                "header",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "footer",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "search",
-                "black",
-                "light gray",
-                "standout"
-            ],
-            [
-                "msgtext",
-                "",
-                ""
-            ],
-            [
-                "msgtext:ellipses",
-                "white",
-                "black"
-            ],
-            [
-                "urlref:number:braces",
-                "white",
-                "black"
-            ],
-            [
-                "urlref:number",
-                "white",
-                "black",
-                "standout"
-            ],
-            [
-                "urlref:url",
-                "white",
-                "black",
-                "standout"
-            ],
-            [
-                "url:sel",
-                "black",
-                "light gray",
-                "bold"
-            ]
-        ]
-    },
-    "keys": {
-        "/": "search_key",
-        "0": "digits",
-        "1": "digits",
-        "2": "digits",
-        "3": "digits",
-        "4": "digits",
-        "5": "digits",
-        "6": "digits",
-        "7": "digits",
-        "8": "digits",
-        "9": "digits",
-        "C": "clipboard",
-        "c": "context",
-        "ctrl l": "clear_screen",
-        "f1": "help_menu",
-        "G": "bottom",
-        "g": "top",
-        "j": "down",
-        "k": "up",
-        "P": "clipboard_pri",
-        "l": "link_handler",
-        "p": "palette",
-        "Q": "quit",
-        "q": "quit",
-        "S": "all_shorten",
-        "s": "shorten",
-        "u": "all_escape"
-    }
-}
-#+END_SRC
-
-*** urlscan tangle
-
-+ home dir
-
-#+NAME: urlscan-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/urlscan/config.json"
-<<urlscan>>
-#+END_SRC
-
-+ current dir
-
-#+NAME: urlscan-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/urlscan/config.json"
-<<urlscan>>
 #+END_SRC
 
 ** wget
@@ -4856,14 +4666,14 @@ hsts-file=/home/djwilcox/.cache/wget-hsts
 + home dir
 
 #+NAME: wget-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/wget/wgetrc"
+#+BEGIN_SRC conf :tangle "~/.config/wget/wgetrc"
 <<wget>>
 #+END_SRC
 
 + current dir
 
 #+NAME: wget-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/wget/wgetrc"
+#+BEGIN_SRC conf :tangle ".config/wget/wgetrc"
 <<wget>>
 #+END_SRC
 
@@ -4962,14 +4772,14 @@ xkb_symbols "alt_win_ctrl" {
 + home dir
 
 #+NAME: evdev-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/rules/evdev"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/rules/evdev"
 <<evdev>>
 #+END_SRC
 
 + current dir
 
 #+NAME: evdev-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev"
+#+BEGIN_SRC conf :tangle ".config/xkb/rules/evdev"
 <<evdev>>
 #+END_SRC
 
@@ -4978,30 +4788,31 @@ xkb_symbols "alt_win_ctrl" {
 + home dir
 
 #+NAME: evdev-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/rules/evdev.xml"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/rules/evdev.xml"
 <<evdev.xml>>
 #+END_SRC
 
 + current dir
 
 #+NAME: evdev-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/rules/evdev.xml"
+#+BEGIN_SRC conf :tangle ".config/xkb/rules/evdev.xml"
 <<evdev.xml>>
 #+END_SRC
+
 **** symbols
 ***** custom
 
 + home dir
 
 #+NAME: xkb-custom-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/custom"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/symbols/custom"
 <<xkb-custom>>
 #+END_SRC
 
 + current dir
 
 #+NAME: xkb-custom-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/custom"
+#+BEGIN_SRC conf :tangle ".config/xkb/symbols/custom"
 <<xkb-custom>>
 #+END_SRC
 
@@ -5010,14 +4821,14 @@ xkb_symbols "alt_win_ctrl" {
 + home dir
 
 #+NAME: xkb-gb-home-dir
-#+BEGIN_SRC conf :noweb yes :tangle "~/.config/xkb/symbols/gb"
+#+BEGIN_SRC conf :tangle "~/.config/xkb/symbols/gb"
 <<xkb-gb>>
 #+END_SRC
 
 + current dir
 
 #+NAME: xkb-gb-current-dir
-#+BEGIN_SRC conf :noweb yes :tangle ".config/xkb/symbols/gb"
+#+BEGIN_SRC conf :tangle ".config/xkb/symbols/gb"
 <<xkb-gb>>
 #+END_SRC
 
