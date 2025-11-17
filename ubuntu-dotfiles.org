@@ -1,5 +1,5 @@
 #TITLE: ubuntu dotfiles
-#+STARTUP: overview hideblocks
+#+STARTUP: show2levels hideblocks
 #+OPTIONS: num:nil author:nil
 #+PROPERTY: header-args :mkdirp yes
 * ubuntu dotfiles
