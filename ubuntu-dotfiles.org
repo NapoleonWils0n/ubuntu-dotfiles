@@ -3111,7 +3111,7 @@ a old-string and a new-string, new-string will replace the old-string at the spe
 #+BEGIN_SRC emacs-lisp :tangle "~/.config/emacs/lisp/gptel-custom-tools.el"
 <<gptel-custom-tools.el>>
 #+END_SRC
-******  current dir
+****** current dir
 
 #+NAME: gptel-custom-tools.el-current-dir
 #+BEGIN_SRC emacs-lisp :tangle ".config/emacs/lisp/gptel-custom-tools.el"
