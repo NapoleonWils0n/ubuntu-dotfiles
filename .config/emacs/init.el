@@ -58,9 +58,6 @@
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups")))
 
 ;; auto save list
-(setq delete-old-versions -1)
-(setq version-control t)
-(setq vc-make-backup-files t)
 (setq auto-save-file-name-transforms '((".*" "~/.config/emacs/auto-save-list/" t)))
 
 ;; history
