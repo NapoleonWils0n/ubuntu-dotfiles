@@ -629,13 +629,6 @@
   :init
   (setq fd-dired-display-in-current-window nil))
 
-;; switch to buffer results automatically
-(defcustom fd-dired-display-in-current-window nil
-  "Whether display result"
-  :type 'boolean
-  :safe #'booleanp
-  :group 'fd-dired)
-
 
 ;; ----------------------------------------------------------------------------------
 ;; async and dired-async (dired-async is part of the async package)
